@@ -1,0 +1,66 @@
+﻿/* Empiria® Extended Framework 2013 **************************************************************************
+*                                                                                                            *
+*  Solution  : Empiria® Extended Framework                    System   : Geographic Information Services     *
+*  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
+*  Type      : GeographicPathItem                             Pattern  : Empiria Object Type                 *
+*  Date      : 25/Jun/2013                                    Version  : 5.1     License: CC BY-NC-SA 3.0    *
+*                                                                                                            *
+*  Summary   : Represents a geographic path that serves as a base type for streets, roads, avenues, ...      *
+*                                                                                                            *
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+using System.Data;
+
+namespace Empiria.Geography {
+
+  /// <summary>Represents a geographic path that serves as a base type for streets, roads, 
+  /// avenues, ...</summary>
+  public class GeographicPathItem : GeographicItem {
+
+    #region Fields
+
+    private const string thisTypeName = "ObjectType.GeographicItem.GeographicPathItem";
+
+    #endregion Fields
+
+    #region Constructors and parsers
+
+    private GeographicPathItem()
+      : base(thisTypeName) {
+      // For create instances use GeographicItemType.CreateInstance method instead
+    }
+
+    protected GeographicPathItem(string typeName)
+      : base(typeName) {
+      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    }
+
+    static public new GeographicPathItem Parse(int id) {
+      return BaseObject.Parse<GeographicPathItem>(thisTypeName, id);
+    }
+
+    static public GeographicPathItem Empty {
+      get { return BaseObject.ParseEmpty<GeographicPathItem>(thisTypeName); }
+    }
+
+    static public GeographicPathItem Unknown {
+      get { return BaseObject.ParseUnknown<GeographicPathItem>(thisTypeName); }
+    }
+
+    #endregion Constructors and parsers
+
+    #region Public methods
+
+    protected override void ImplementsLoadObjectData(DataRow row) {
+      base.ImplementsLoadObjectData(row);
+    }
+
+    protected override void ImplementsSave() {
+      base.Keywords = EmpiriaString.BuildKeywords(this.Name, this.ObjectTypeInfo.DisplayName);
+      GeographicData.WriteGeographicPathItem(this);
+    }
+
+    #endregion Public methods
+
+  } // class GeographicPathItem
+
+} // namespace Empiria.Geography
