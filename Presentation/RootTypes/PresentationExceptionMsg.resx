@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,42 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ViewIdNotFound" xml:space="preserve">
-    <value>La vista con identificador &lt;{0}&gt; no estĂ¡ registrada en la base de datos del sistema Empiria.</value>
+    <value>La vista con identificador &lt;{0}&gt; no está registrada en la base de datos del sistema Empiria.</value>
   </data>
   <data name="WorkplaceNotFound" xml:space="preserve">
-    <value>No ha sido cargado ningĂºn espacio de trabajo (Workplace) con el Guid proporcionado.</value>
+    <value>No ha sido cargado ningún espacio de trabajo (Workplace) con el Guid proporcionado.</value>
   </data>
   <data name="WorkplaceGuidNotSet" xml:space="preserve">
     <value>Esta vista no contiene el Guid que indica el espacio de trabajo (Workplace) al que pertenece.</value>
   </data>
   <data name="NullWorkplace" xml:space="preserve">
-    <value>Error de programaciĂ³n: El espacio de trabajo (Workplace) debe ser distinto de nulo.</value>
+    <value>Error de programación: El espacio de trabajo (Workplace) debe ser distinto de nulo.</value>
   </data>
   <data name="NullViewManager" xml:space="preserve">
-    <value>Error de programaciĂ³n: El administrador de vistas (ViewManager) debe ser distinto de nulo.</value>
+    <value>Error de programación: El administrador de vistas (ViewManager) debe ser distinto de nulo.</value>
   </data>
   <data name="UnknownWorkplaceCommand" xml:space="preserve">
-    <value>Error de programaciĂ³n: La instrucciĂ³n '{0}' enviada al espacio de trabajo para su ejecuciĂ³n no tiene definido un controlador.</value>
+    <value>Error de programación: La instrucción '{0}' enviada al espacio de trabajo para su ejecución no tiene definido un controlador.</value>
   </data>
   <data name="NullCommandHandler" xml:space="preserve">
-    <value>Error de programaciĂ³n: El manejador de instrucciones (ICommandHandler) debe ser distinto de nulo.</value>
+    <value>Error de programación: El manejador de instrucciones (ICommandHandler) debe ser distinto de nulo.</value>
   </data>
   <data name="CurrentWorkplaceIsNull" xml:space="preserve">
-    <value>TodavĂ­a no ha sido asignado como predeterminado ningĂºn espacio de trabajo (Workplace)</value>
+    <value>Todavía no ha sido asignado como predeterminado ningún espacio de trabajo (Workplace)</value>
   </data>
   <data name="UnknownDataItemDirection" xml:space="preserve">
-    <value>El parĂ¡metro '{0}' que indica la direcciĂ³n del elemento de datos ligado al control grĂ¡fico, no tiene un valor reconocido por el sistema.</value>
+    <value>El parámetro '{0}' que indica la dirección del elemento de datos ligado al control gráfico, no tiene un valor reconocido por el sistema.</value>
   </data>
   <data name="UnknownDataItemType" xml:space="preserve">
-    <value>El parĂ¡metro '{0}' que indica el tipo del elemento de datos ligado al control grĂ¡fico, no tiene un valor reconocido por el sistema.</value>
+    <value>El parámetro '{0}' que indica el tipo del elemento de datos ligado al control gráfico, no tiene un valor reconocido por el sistema.</value>
   </data>
   <data name="CantLoadUIItemData" xml:space="preserve">
-    <value>No pude cargar los datos desde el elemento de interfaz grĂ¡fica de tipo '{0}' con id = {1}. </value>
+    <value>No pude cargar los datos desde el elemento de interfaz gráfica de tipo '{0}' con id = {1}. </value>
   </data>
   <data name="CantParseUIItem" xml:space="preserve">
-    <value>No pude cargar el elemento de interfaz grĂ¡fica de tipo '{0}' con id = {1}.</value>
+    <value>No pude cargar el elemento de interfaz gráfica de tipo '{0}' con id = {1}.</value>
   </data>
   <data name="UnexpectedUIComponentItem" xml:space="preserve">
-    <value>El componente {0} no estĂ¡ preparado para contener elementos de interfaz grĂ¡fica de tipo {1}. Es posible que exista un error en la parametrizaciĂ³n del componente.</value>
+    <value>El componente {0} no está preparado para contener elementos de interfaz gráfica de tipo {1}. Es posible que exista un error en la parametrización del componente.</value>
   </data>
 </root>

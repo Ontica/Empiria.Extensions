@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AjaxInvocationError" xml:space="preserve">
-    <value>OcurriĂ³ un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria a travĂ©s de servicios web.</value>
+    <value>Ocurrió un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria a través de servicios web.</value>
   </data>
   <data name="CommandProcessingError" xml:space="preserve">
-    <value>OcurriĂ³ un problema al intentar ejecutar el comando '{0}' en el servidor de servicios web XML.</value>
+    <value>Ocurrió un problema al intentar ejecutar el comando '{0}' en el servidor de servicios web XML.</value>
   </data>
   <data name="InvalidSessionTimeout" xml:space="preserve">
-    <value>Por razones de seguridad, el valor del parĂ¡metro de configuraciĂ³n que indica el tiempo en que caducan las sesiones de trabajo para los servicios web Empiria debe estar entre 5 y 600 minutos.</value>
+    <value>Por razones de seguridad, el valor del parámetro de configuración que indica el tiempo en que caducan las sesiones de trabajo para los servicios web Empiria debe estar entre 5 y 600 minutos.</value>
   </data>
   <data name="InvalidTargetServerId" xml:space="preserve">
     <value>No se ha definido en el sistema un servidor de destino con Id ={0} </value>
   </data>
   <data name="InvalidWebServicePassword" xml:space="preserve">
-    <value>No reconozco la contraseĂ±a proporcionada para la invocaciĂ³n del servicio web</value>
+    <value>No reconozco la contraseña proporcionada para la invocación del servicio web</value>
   </data>
   <data name="NullCommandName" xml:space="preserve">
-    <value>No se proporcionĂ³ el nombre del comando enviado al servidor de servicios web para su procesamiento.</value>
+    <value>No se proporcionó el nombre del comando enviado al servidor de servicios web para su procesamiento.</value>
   </data>
   <data name="NullCommandParameter" xml:space="preserve">
-    <value>El comando '{0}' requiere el parĂ¡metro '{1}' para poder ser procesado por el servidor de servicios web. Sin embargo, dicho parĂ¡metro no fue proporcionado.</value>
+    <value>El comando '{0}' requiere el parámetro '{1}' para poder ser procesado por el servidor de servicios web. Sin embargo, dicho parámetro no fue proporcionado.</value>
   </data>
   <data name="SessionTimeout" xml:space="preserve">
-    <value>La sesiĂ³n de trabajo del servicio web ha caducado.\nPor favor, intente ejecutar nuevamente el servicio invocado desde la aplicaciĂ³n origen.</value>
+    <value>La sesión de trabajo del servicio web ha caducado.\nPor favor, intente ejecutar nuevamente el servicio invocado desde la aplicación origen.</value>
   </data>
   <data name="UnrecognizedCommandName" xml:space="preserve">
-    <value>No reconozco el comando con nombre '{0}'. Sin embargo, este comando se enviĂ³ al servidor de servicios web Empiria para su procesamiento.</value>
+    <value>No reconozco el comando con nombre '{0}'. Sin embargo, este comando se envió al servidor de servicios web Empiria para su procesamiento.</value>
   </data>
   <data name="WebServicesServerInitializationFails" xml:space="preserve">
-    <value>OcurriĂ³ un problema al intentar iniciar los servicios web XML Empiria.</value>
+    <value>Ocurrió un problema al intentar iniciar los servicios web XML Empiria.</value>
   </data>
 </root>

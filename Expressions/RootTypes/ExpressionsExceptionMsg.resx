@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -121,54 +121,54 @@
     <value>No puedo comparar los operandos '{1}' y '{3}' ya que pertenecen a los tipos de datos {2} y {4} respectivamente y no se ha definido una regla para el operador '{0}' que pueda manipularlos.</value>
   </data>
   <data name="CompileError" xml:space="preserve">
-    <value>OcurriĂ³ un problema al intentar compilar la expresiĂ³n [{0}]. Es probable que exista una inconsistencia en la sintaxis o incompatibilidades entre los tipos de datos involucrados en la misma.</value>
+    <value>Ocurrió un problema al intentar compilar la expresión [{0}]. Es probable que exista una inconsistencia en la sintaxis o incompatibilidades entre los tipos de datos involucrados en la misma.</value>
   </data>
   <data name="EndOfLiteralCharNotFound" xml:space="preserve">
-    <value>La expresiĂ³n [{1}] contiene una cadena de caracteres constante que comienza pero no termina con el delimitador ({0}).</value>
+    <value>La expresión [{1}] contiene una cadena de caracteres constante que comienza pero no termina con el delimitador ({0}).</value>
   </data>
   <data name="InvalidFunctionArguments" xml:space="preserve">
-    <value>Se intentĂ³ ejecutar la funciĂ³n [{0}] con {2} parĂ¡metro(s), pero la misma tiene definido(s) {1} argumento(s).</value>
+    <value>Se intentó ejecutar la función [{0}] con {2} parámetro(s), pero la misma tiene definido(s) {1} argumento(s).</value>
   </data>
   <data name="InvalidOperandDataType" xml:space="preserve">
-    <value>No puedo aplicar el operador '{0}' sobre la constante o variable '{1}', ya que Ă©sta pertenece al tipo de datos {2}  que no es aplicable a dicho operador.</value>
+    <value>No puedo aplicar el operador '{0}' sobre la constante o variable '{1}', ya que ésta pertenece al tipo de datos {2}  que no es aplicable a dicho operador.</value>
   </data>
   <data name="InvalidOperator" xml:space="preserve">
-    <value>No reconozco el operador '{0}' como un operador vĂ¡lido para la operaciĂ³n.</value>
+    <value>No reconozco el operador '{0}' como un operador válido para la operación.</value>
   </data>
   <data name="InvalidOperatorArgumentsNumber" xml:space="preserve">
-    <value>Error de programaciĂ³n. Se intentĂ³ ejecutar el operador '{0}' con {2} operandos, pero el mismo tiene definida una aridad de {1}.</value>
+    <value>Error de programación. Se intentó ejecutar el operador '{0}' con {2} operandos, pero el mismo tiene definida una aridad de {1}.</value>
   </data>
   <data name="NotWellFormedAssignment" xml:space="preserve">
-    <value>No me es posible evaluar la asignaciĂ³n [{0}] debido a que contiene inconsistencias sintĂ¡cticas.</value>
+    <value>No me es posible evaluar la asignación [{0}] debido a que contiene inconsistencias sintácticas.</value>
   </data>
   <data name="NotWellFormedExpression" xml:space="preserve">
-    <value>No me es posible evaluar la expresiĂ³n [{0}] debido a que contiene inconsistencias sintĂ¡cticas.</value>
+    <value>No me es posible evaluar la expresión [{0}] debido a que contiene inconsistencias sintácticas.</value>
   </data>
   <data name="UncompiledExpression" xml:space="preserve">
-    <value>Error de programaciĂ³n. Se invocĂ³ un mĂ©todo o propiedad que requiere que la expresiĂ³n o la lista de expresiones sea compilada previamente mediante el mĂ©todo Compile() del objeto Expression o EvaluationContext en cuestiĂ³n.</value>
+    <value>Error de programación. Se invocó un método o propiedad que requiere que la expresión o la lista de expresiones sea compilada previamente mediante el método Compile() del objeto Expression o EvaluationContext en cuestión.</value>
   </data>
   <data name="UndefinedGlobalFunction" xml:space="preserve">
-    <value>El mĂ©todo que ejecuta la funciĂ³n [{0}] no ha sido definido en el catĂ¡logo de funciones globales del evaluador de expresiones.</value>
+    <value>El método que ejecuta la función [{0}] no ha sido definido en el catálogo de funciones globales del evaluador de expresiones.</value>
   </data>
   <data name="UndefinedOperatorArity" xml:space="preserve">
-    <value>Error de programaciĂ³n. El programa no puede ejecutar el operador '{0}' ya que tiene una aridad de {1} y el programa no tiene definida la regla para procesar operadores con dicha aridad o nĂºmero de operandos.</value>
+    <value>Error de programación. El programa no puede ejecutar el operador '{0}' ya que tiene una aridad de {1} y el programa no tiene definida la regla para procesar operadores con dicha aridad o número de operandos.</value>
   </data>
   <data name="UndefinedOperatorMethod" xml:space="preserve">
-    <value>No se ha definido el mĂ©todo que realiza la operaciĂ³n '{0}'.</value>
+    <value>No se ha definido el método que realiza la operación '{0}'.</value>
   </data>
   <data name="UndefinedOperatorPrecedence" xml:space="preserve">
-    <value>Error de programaciĂ³n. No se ha definido la precedencia del operador '{0}'.</value>
+    <value>Error de programación. No se ha definido la precedencia del operador '{0}'.</value>
   </data>
   <data name="UnloadedFunction" xml:space="preserve">
-    <value>No encontrĂ© la funciĂ³n [{0}] en la biblioteca de funciones del contexto de evaluaciĂ³n utilizado.</value>
+    <value>No encontré la función [{0}] en la biblioteca de funciones del contexto de evaluación utilizado.</value>
   </data>
   <data name="UnrecognizedOperand" xml:space="preserve">
-    <value>No reconozco el sĂ­mbolo '{0}' como un operando vĂ¡lido.</value>
+    <value>No reconozco el símbolo '{0}' como un operando válido.</value>
   </data>
   <data name="UseOfUnassignedVariable" xml:space="preserve">
-    <value>Se intentĂ³ ejecutar la expresiĂ³n [{1}], pero la variable '{0}' no tiene asignado ningĂºn valor.</value>
+    <value>Se intentó ejecutar la expresión [{1}], pero la variable '{0}' no tiene asignado ningún valor.</value>
   </data>
   <data name="ZeroDivision" xml:space="preserve">
-    <value>Se intentĂ³ ejecutar la divisiĂ³n pero el denominador es cero. Para evitar que esto ocurra, se puede utilizar la funciĂ³n DIVISIĂ“N_PROTEGIDA(X,Y,valor si Y es cero) de la lista de funciones matemĂ¡ticas del sistema Empiria.</value>
+    <value>Se intentó ejecutar la división pero el denominador es cero. Para evitar que esto ocurra, se puede utilizar la función DIVISIÓN_PROTEGIDA(X,Y,valor si Y es cero) de la lista de funciones matemáticas del sistema Empiria.</value>
   </data>
 </root>

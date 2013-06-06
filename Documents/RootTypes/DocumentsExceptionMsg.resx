@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantDeleteInUseFolder" xml:space="preserve">
-    <value>No puedo eliminar el directorio '{0}' debido a que estĂ¡ en uso o ya fue cerrado.</value>
+    <value>No puedo eliminar el directorio '{0}' debido a que está en uso o ya fue cerrado.</value>
   </data>
   <data name="CantDeleteReferencedFilesFolder" xml:space="preserve">
     <value>No puedo eliminar el directorio '{0}' debido a que tiene una referencia en otra entidad del sistema.</value>
@@ -127,7 +127,7 @@
     <value>Tuve problemas al leer el directorio con id {0}.</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
-    <value>El directorio '{0}' no existe, por lo que no pude ejecutar la operaciĂ³n. Es posible que se trate de un problema de configuraciĂ³n en el sistema.</value>
+    <value>El directorio '{0}' no existe, por lo que no pude ejecutar la operación. Es posible que se trate de un problema de configuración en el sistema.</value>
   </data>
   <data name="FileInfoInstanceExpected" xml:space="preserve">
     <value>Esperaba que el objeto fuera del tipo System.IO.FileInfo. Sin embargo el tipo del objeto es '{0}'.</value>

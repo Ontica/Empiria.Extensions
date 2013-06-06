@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AjaxInvocationError" xml:space="preserve">
-    <value>OcurriĂ³ un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria.</value>
+    <value>Ocurrió un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria.</value>
   </data>
   <data name="CantRetriveContent" xml:space="preserve">
-    <value>No pude recuperar el contenido del elemento '{0}'\nEs muy posible que no estĂ© definido en el archivo de cadenas XHTML.</value>
+    <value>No pude recuperar el contenido del elemento '{0}'\nEs muy posible que no esté definido en el archivo de cadenas XHTML.</value>
   </data>
   <data name="CommandProcessingError" xml:space="preserve">
-    <value>OcurriĂ³ un problema al intentar ejecutar el comando '{0}' en el servidor de pĂ¡ginas web.</value>
+    <value>Ocurrió un problema al intentar ejecutar el comando '{0}' en el servidor de páginas web.</value>
   </data>
   <data name="InvalidMaxLogAttempts" xml:space="preserve">
-    <value>Por razones de seguridad, el valor del parĂ¡metro de configuraciĂ³n que indica el nĂºmero de intentos posibles para la autentificaciĂ³n (Session.MaxLogAttempts) debe estar entre 1 y 10 intentos.</value>
+    <value>Por razones de seguridad, el valor del parámetro de configuración que indica el número de intentos posibles para la autentificación (Session.MaxLogAttempts) debe estar entre 1 y 10 intentos.</value>
   </data>
   <data name="InvalidSessionTimeout" xml:space="preserve">
-    <value>Por razones de seguridad, el valor del parĂ¡metro de configuraciĂ³n que indica el tiempo en que caducan las sesiones de trabajo debe estar entre 5 y 120 minutos.</value>
+    <value>Por razones de seguridad, el valor del parámetro de configuración que indica el tiempo en que caducan las sesiones de trabajo debe estar entre 5 y 120 minutos.</value>
   </data>
   <data name="NullCommandName" xml:space="preserve">
-    <value>No se proporcionĂ³ el nombre del comando enviado al servidor de pĂ¡ginas web para su procesamiento.</value>
+    <value>No se proporcionó el nombre del comando enviado al servidor de páginas web para su procesamiento.</value>
   </data>
   <data name="NullCommandParameter" xml:space="preserve">
-    <value>El comando '{0}' requiere el parĂ¡metro '{1}' para poder ser procesado por el servidor de pĂ¡ginas web. Sin embargo, dicho parĂ¡metro no fue proporcionado.</value>
+    <value>El comando '{0}' requiere el parámetro '{1}' para poder ser procesado por el servidor de páginas web. Sin embargo, dicho parámetro no fue proporcionado.</value>
   </data>
   <data name="SessionTimeout" xml:space="preserve">
-    <value>La sesiĂ³n de trabajo ha caducado.\nPor favor, intente ingresar nuevamente a la aplicaciĂ³n desde la pĂ¡gina de inicio.</value>
+    <value>La sesión de trabajo ha caducado.\nPor favor, intente ingresar nuevamente a la aplicación desde la página de inicio.</value>
   </data>
   <data name="UnrecognizedCommandName" xml:space="preserve">
-    <value>No se ha definido el programa que procesa la instrucciĂ³n con nombre '{0}' para la pĂ¡gina web solicitada. Este es un problema de programaciĂ³n que debe ser resuelto por el Ă¡rea de sistemas.</value>
+    <value>No se ha definido el programa que procesa la instrucción con nombre '{0}' para la página web solicitada. Este es un problema de programación que debe ser resuelto por el área de sistemas.</value>
   </data>
   <data name="WebApplicationInitializationFails" xml:space="preserve">
-    <value>OcurriĂ³ un problema al intentar iniciar la aplicaciĂ³n web.</value>
+    <value>Ocurrió un problema al intentar iniciar la aplicación web.</value>
   </data>
 </root>
