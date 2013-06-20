@@ -46,6 +46,26 @@ namespace Empiria.Presentation.Web {
 
     #region Protected methods
 
+    protected T GetCommandParameter<T>(string parameterName) {
+      string value = String.IsNullOrEmpty(Request.QueryString[parameterName]) ? 
+                                          String.Empty : Request.QueryString[parameterName];
+      if (!String.IsNullOrEmpty(value)) {
+        return (T) Convert.ChangeType(value, typeof(T));
+      } else {
+        throw new WebPresentationException(WebPresentationException.Msg.NullCommandParameter,
+                                           commandName, parameterName);
+      }
+    }
+
+    protected T GetCommandParameter<T>(string parameterName, T defaultValue) {
+      string value = String.IsNullOrEmpty(Request.QueryString[parameterName]) ? String.Empty : Request.QueryString[parameterName];
+      if (!String.IsNullOrEmpty(value)) {
+        return (T) Convert.ChangeType(value, typeof(T));
+      } else {
+        return defaultValue;
+      }
+    }
+
     protected string GetCommandParameter(string parameterName, bool required) {
       string value = String.IsNullOrEmpty(Request.QueryString[parameterName]) ? String.Empty : Request.QueryString[parameterName];
       value = value.Trim();
