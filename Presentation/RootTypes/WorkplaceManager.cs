@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Coordinates and manages user session workplaces and user interface interaction.               *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System;
 
 namespace Empiria.Presentation {

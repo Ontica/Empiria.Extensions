@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : static internal class with data read methods for user interface objects.                      *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System.Data;
 
 using Empiria.Data;

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Represents a geographic area or region: city, country, world zone, zip code region, ...       *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System;
 using System.Data;
 
@@ -61,9 +61,7 @@ namespace Empiria.Geography {
     }
 
     static public ObjectList<GeographicRegionItem> GetList(string filter) {
-      DataTable table = GeographicData.GetRegions(filter);
-
-      return new ObjectList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);
+      return GeographicData.GetRegions(filter);
     }
 
     #endregion Constructors and parsers
@@ -104,7 +102,7 @@ namespace Empiria.Geography {
     #region Public methods
 
     public void AddMember(string roleName, GeographicItem member) {
-      TypeAssociationInfo role = base.ObjectTypeInfo.GetAssociation(roleName);
+      TypeAssociationInfo role = base.ObjectTypeInfo.GetAssociationInfo(roleName);
       base.Link(role, member);
     }
 

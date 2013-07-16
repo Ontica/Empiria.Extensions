@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for the main navigation buttons in a web application.                 *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System;
 
 namespace Empiria.Presentation.Web.Content {

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides data read and write methods for the Empiria Geographic Information Services.         *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System;
 using System.Data;
 
@@ -20,8 +20,12 @@ namespace Empiria.Geography {
 
     #region Internal methods
 
-    static internal DataTable GetRegions(string filterExpression) {
-      return GeneralDataOperations.GetEntities("EOSGeoItems", filterExpression, "GeoItemNotes, GeoItemName");
+    static internal ObjectList<GeographicRegionItem> GetRegions(string filterExpression, 
+                                                                string sortExpression = 
+                                                                                "GeoItemNotes, GeoItemName") {
+      DataTable table = GeneralDataOperations.GetEntities("EOSGeoItems", filterExpression, sortExpression);
+
+      return new ObjectList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);
     }
 
     static internal int WriteGeographicRegionItem(GeographicRegionItem o) {

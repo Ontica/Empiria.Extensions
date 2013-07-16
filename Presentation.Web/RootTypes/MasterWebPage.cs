@@ -9,7 +9,7 @@
 *              pages. Every Empiria web page must be sited over a MasterWebPage, and all master web pages    *
 *              types must be descendants of this class.                                                      *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System;
 
 namespace Empiria.Presentation.Web {

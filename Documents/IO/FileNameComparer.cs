@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Defines a file name comparision method for sort FileInfo objects array.                       *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System.Collections;
 using System.IO;
 

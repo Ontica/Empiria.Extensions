@@ -5,16 +5,17 @@
 *  Type      : GeographicItemType                             Pattern  : Power type                          *
 *  Date      : 25/Jun/2013                                    Version  : 5.1     License: CC BY-NC-SA 3.0    *
 *                                                                                                            *
-*  Summary   : PowerType that defines a geographic item type.                                                *
+*  Summary   : PowerType that defines a geographic item type like CountryType, BorroughType or StreetType.   *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
-using System.Data;
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+using System;
 
 using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
-  /// <summary>PowerType that defines a geographic item type.</summary>
+  /// <summary>PowerType that defines a geographic item type like CountryType, BorroughType 
+  /// or StreetType.</summary>
   public sealed class GeographicItemType : PowerType<GeographicItem> {
 
     #region Fields
@@ -25,8 +26,7 @@ namespace Empiria.Geography {
 
     #region Constructors and parsers
 
-    private GeographicItemType(int typeId)
-      : base(thisTypeName, typeId) {
+    private GeographicItemType(int typeId) : base(thisTypeName, typeId) {
       // Empiria Power type pattern classes always has this constructor. Don't delete
     }
 
@@ -39,9 +39,7 @@ namespace Empiria.Geography {
     }
 
     public ObjectList<GeographicRegionItem> GetList() {
-      DataTable table = GeographicData.GetRegions("GeoItemTypeId = " + this.Id.ToString());
-
-      return new ObjectList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);
+      return GeographicData.GetRegions("GeoItemTypeId = " + this.Id.ToString());
     }
 
     #endregion Constructors and parsers

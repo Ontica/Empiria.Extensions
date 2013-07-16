@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Internal class that holds a collection of Workplace objects using a hash list.                *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1994-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using Empiria.Collections;
 
 namespace Empiria.Presentation {
