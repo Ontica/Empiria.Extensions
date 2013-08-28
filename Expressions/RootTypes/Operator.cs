@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Extended Framework                      System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : Operator                                         Pattern  : Standard Class                    *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Defines an arithmetic, logical, string, char or datetime operator.                            *
 *                                                                                                            *
@@ -24,10 +24,10 @@ namespace Empiria.Expressions {
 
     #region Fields
 
-    static private readonly string arithmeticalOperators = @" + - * / ÷ \ ^ Ω ";
-    static private readonly string logicalOperators = @" ¬ ∧ ∨ ≡ ≢ ⇒ ";   // ∀∃ 
-    static private readonly string relationalOperators = @" > < ≥ ≤ = ≠ ∈ ";    //∩∪⊂ ⊄ ⊆ ⊊ ∈ ∉ ∅
-    static private readonly string groupingOperators = @" ( [ { ) ] } , ; ";
+    private const string arithmeticalOperators = @" + - * / ÷ \ ^ Ω ";
+    private const string logicalOperators = @" ¬ ∧ ∨ ≡ ≢ ⇒ ";   // ∀∃ 
+    private const string relationalOperators = @" > < ≥ ≤ = ≠ ∈ ";    //∩∪⊂ ⊄ ⊆ ⊊ ∈ ∉ ∅
+    private const string groupingOperators = @" ( [ { ) ] } , ; ";
 
     private OperatorType operatorType = OperatorType.Arithmetical;
     private char operatorChar = Char.MinValue;

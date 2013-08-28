@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Content                 Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : GridControlContent                               Pattern  : Standard Class                    *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for grid navigation buttons in a web application.                     *
 *                                                                                                            *

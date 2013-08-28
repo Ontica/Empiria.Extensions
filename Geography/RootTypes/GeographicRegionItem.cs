@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Extended Framework                    System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicRegionItem                           Pattern  : Empiria Object Type                 *
-*  Date      : 25/Jun/2013                                    Version  : 5.1     License: CC BY-NC-SA 3.0    *
+*  Date      : 23/Oct/2013                                    Version  : 5.2     License: CC BY-NC-SA 3.0    *
 *                                                                                                            *
 *  Summary   : Represents a geographic area or region: city, country, world zone, zip code region, ...       *
 *                                                                                                            *
@@ -102,7 +102,7 @@ namespace Empiria.Geography {
     #region Public methods
 
     public void AddMember(string roleName, GeographicItem member) {
-      TypeAssociationInfo role = base.ObjectTypeInfo.GetAssociationInfo(roleName);
+      TypeAssociationInfo role = base.ObjectTypeInfo.Associations[roleName];
       base.Link(role, member);
     }
 
@@ -111,16 +111,16 @@ namespace Empiria.Geography {
     }
 
     public ObjectList<GeographicPathItem> GetPaths(string pathRoleName) {
-      ObjectList<GeographicPathItem> list = base.GetLinks<GeographicPathItem>(pathRoleName);
+      var list = base.GetLinks<GeographicPathItem>(pathRoleName);
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
 
       return list;
     }
 
-    public ObjectList<GeographicPathItem> GetPaths(string pathRoleName, GeographicItemType pathItemType) {
-      Predicate<GeographicPathItem> predicate = (x) => (pathItemType.IsTypeOf(x));
-      ObjectList<GeographicPathItem> list = base.GetLinks<GeographicPathItem>(pathRoleName, predicate);
+    public ObjectList<GeographicPathItem> GetPaths(string pathRoleName,
+                                                   GeographicItemType pathItemType) {
+      var list = base.GetLinks<GeographicPathItem>(pathRoleName, (x) => (pathItemType.IsTypeOf(x)));
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
 
@@ -128,7 +128,7 @@ namespace Empiria.Geography {
     }
 
     public ObjectList<Person> GetPeople(string roleName) {
-      ObjectList<Person> list = base.GetLinks<Person>(roleName);
+      var list = base.GetLinks<Person>(roleName);
 
       list.Sort((x, y) => x.FamilyFullName.CompareTo(y.FamilyFullName));
 
@@ -136,17 +136,16 @@ namespace Empiria.Geography {
     }
 
     public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName) {
-      ObjectList<GeographicRegionItem> list = base.GetLinks<GeographicRegionItem>(regionRoleName);
+      var list = base.GetLinks<GeographicRegionItem>(regionRoleName);
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
 
       return list;
     }
 
-    public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName, GeographicItemType geoItemType) {
-      Predicate<GeographicRegionItem> predicate = (x) => (geoItemType.IsTypeOf(x));
-
-      ObjectList<GeographicRegionItem> list = base.GetLinks<GeographicRegionItem>(regionRoleName, predicate);
+    public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName,
+                                                       GeographicItemType geoItemType) {
+      var list = base.GetLinks<GeographicRegionItem>(regionRoleName, (x) => (geoItemType.IsTypeOf(x)));
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
 
@@ -155,7 +154,7 @@ namespace Empiria.Geography {
 
     public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName,
                                                        Predicate<GeographicRegionItem> predicate) {
-      ObjectList<GeographicRegionItem> list = base.GetLinks<GeographicRegionItem>(regionRoleName, predicate);
+      var list = base.GetLinks<GeographicRegionItem>(regionRoleName, predicate);
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
 

@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Controllers                 Assembly : Empiria.Presentation.dll          *
 *  Type      : Controller                                       Pattern  : State Machine                     *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : General class that controls the behavior of a finite state machine.                           *
 *                                                                                                            *

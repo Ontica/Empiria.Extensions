@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Extended Framework                    System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicPathItem                             Pattern  : Empiria Object Type                 *
-*  Date      : 25/Jun/2013                                    Version  : 5.1     License: CC BY-NC-SA 3.0    *
+*  Date      : 23/Oct/2013                                    Version  : 5.2     License: CC BY-NC-SA 3.0    *
 *                                                                                                            *
 *  Summary   : Represents a geographic path that serves as a base type for streets, roads, avenues, ...      *
 *                                                                                                            *

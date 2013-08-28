@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Content                 Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : XhtmlTemplate                                    Pattern  : Storage Item                      *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Represents a XHTML template that serves as a user interface item pattern.                     *
 *                                                                                                            *

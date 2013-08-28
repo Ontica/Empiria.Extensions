@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Components                  Assembly : Empiria.Presentation.dll          *
 *  Type      : TabStripMasterMenu                               Pattern  : User Interface Component Class    *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : User interface component that holds the structure for a tabstrip master menu.                 *
 *                                                                                                            *

@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Extended Framework                      System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : ExpressionList                                   Pattern  : Collection Class                  *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Defines an ordered list of expression type objects.                                           *
 *                                                                                                            *

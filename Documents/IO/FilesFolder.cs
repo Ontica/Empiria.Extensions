@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Extended Framework 2013                 System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : FilesFolder                                      Pattern  : Empiria Object Type               *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Asbtract class that provides read and write operations on operating system directories.       *
 *                                                                                                            *
@@ -107,6 +107,24 @@ namespace Empiria.Documents.IO {
       return filesFolderList;
     }
 
+    static public DirectoryInfo GetDirectoryInfo(string directoryKey) {
+      string path = Empiria.ConfigurationData.GetString("FilesFolder." + directoryKey);
+      if (Directory.Exists(path)) {
+        return new DirectoryInfo(path);
+      } else {
+        return null;
+      }
+    }
+
+    static public bool IsEmpty(string path) {
+      DirectoryInfo dir = new DirectoryInfo(path);
+
+      int length = dir.GetFiles().Length;
+      length += dir.GetDirectories().Length;
+
+      return (length == 0);
+    }
+
     static private FilesFolder LoadFromPath(ObjectTypeInfo filesFolderTypeInfo, FilesFolder parentFilesFolder, string path) {
       FilesFolder filesFolder = BaseObject.Create<FilesFolder>(filesFolderTypeInfo);
 
@@ -196,7 +214,10 @@ namespace Empiria.Documents.IO {
 
     public int ParentFilesFolderId {
       get { return parentFilesFolderId; }
-      set { parentFilesFolderId = value; }
+      set {
+        parentFilesFolderId = value;
+        parentFilesFolder = null;
+      }
     }
 
     public string PhysicalPath {
@@ -255,9 +276,43 @@ namespace Empiria.Documents.IO {
       protected set { referenceId = value; }
     }
 
+    protected void ResetStatistics() {
+      this.creationDate = ExecutionServer.DateMinValue;
+      this.lastUpdateDate = ExecutionServer.DateMinValue;
+      this.filesCache = null;
+      this.subFoldersCount = 0;
+      this.filesCount = 0;
+      this.filesTotalSize = 0;
+      this.filesIntegrityHashCode = String.Empty;
+      this.recordIntegrityHashCode = String.Empty;
+    }
+
     #endregion Internal and protected fields
 
     #region Protected methods
+
+    public void CloneInto(FilesFolder clone) {
+      System.Data.DataRow dataRow = this.GetDataRow();
+      clone.ImplementsLoadObjectData(dataRow);
+    }
+
+    protected void CopyFrom(DirectoryInfo sourceFolder) {
+      this.physicalPath = this.PhysicalPath.TrimEnd('\\') + @"\" + sourceFolder.Name;
+      this.displayName = sourceFolder.Name;
+
+      using (ImpersonationContext context = ImpersonationContext.Open(this.impersonationToken)) {
+        DirectoryInfo targetDirectory = null;
+        if (!Directory.Exists(this.physicalPath)) {
+          targetDirectory = Directory.CreateDirectory(this.physicalPath);
+        } else if (!IsEmpty(this.physicalPath)) {
+          throw new DocumentsException(DocumentsException.Msg.CantCopyToNoneEmptyDirectory, this.physicalPath);
+        }
+        foreach (FileInfo file in sourceFolder.GetFiles()) {
+          file.CopyTo(targetDirectory.FullName.TrimEnd('\\') + @"\" + file.Name);
+        }
+      }
+      UpdateStatistics();
+    }
 
     protected void DeleteFileAtIndex(int fileIndex) {
       FileInfo[] files = this.GetFiles();

@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : MasterWebPage                                    Pattern  : Model View Controller             *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Abstract type that represents a master page that serves as template and container for web     *
 *              pages. Every Empiria web page must be sited over a MasterWebPage, and all master web pages    *

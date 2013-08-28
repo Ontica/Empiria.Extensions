@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Controllers             Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : FormsLogonController                             Pattern  : Logon Controller Class            *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Logon controller class that uses .NET Forms Authentication.                                   *
 *                                                                                                            *

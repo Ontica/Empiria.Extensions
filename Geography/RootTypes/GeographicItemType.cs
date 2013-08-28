@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Extended Framework                    System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItemType                             Pattern  : Power type                          *
-*  Date      : 25/Jun/2013                                    Version  : 5.1     License: CC BY-NC-SA 3.0    *
+*  Date      : 23/Oct/2013                                    Version  : 5.2     License: CC BY-NC-SA 3.0    *
 *                                                                                                            *
 *  Summary   : PowerType that defines a geographic item type like CountryType, BorroughType or StreetType.   *
 *                                                                                                            *

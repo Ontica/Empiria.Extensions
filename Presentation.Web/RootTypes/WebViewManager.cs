@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : WebViewManager                                   Pattern  : View Manager Class                *
-*  Date      : 25/Jun/2013                                      Version  : 5.1     License: CC BY-NC-SA 3.0  *
+*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
 *                                                                                                            *
 *  Summary   : Provides methods to manipulate WebView objects.                                               *
 *                                                                                                            *

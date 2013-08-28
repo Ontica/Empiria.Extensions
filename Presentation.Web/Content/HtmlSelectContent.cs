@@ -3,7 +3,7 @@
 *  Solution  : Empiria® Land                                   System   : Land Registration System            *
 *  Namespace : Empiria.Government.LandRegistration.UI          Assembly : Empiria.Government.LandRegistration *
 *  Type      : LRSHtmlSelectControls                           Pattern  : Presentation Services Static Class  *
-*  Date      : 25/Jun/2013                                     Version  : 5.1     License: CC BY-NC-SA 3.0    *
+*  Date      : 23/Oct/2013                                     Version  : 5.2     License: CC BY-NC-SA 3.0    *
 *                                                                                                             *
 *  Summary   : Static class that generates predefined HtmlSelect controls content for Empiria Government      *
 *              Land Registration System.                                                                      *
