@@ -64,7 +64,7 @@ namespace Empiria.WebServices {
     public object GetScalar(string dataOperationMessage) {
       DataOperation dataOperation = DataOperation.ParseFromMessage(dataOperationMessage);
 
-      return DataReader.GetScalar(dataOperation);
+      return DataReader.GetScalar<object>(dataOperation);
     }
 
     [WebMethod(EnableSession = true)]
