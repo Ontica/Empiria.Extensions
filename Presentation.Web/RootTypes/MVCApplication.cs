@@ -12,7 +12,6 @@ using System;
 using System.Web;
 using System.Web.Security;
 
-
 namespace Empiria.Presentation.Web {
 
   /// <summary>Provides the methods from the current MVC web application.</summary>
@@ -98,7 +97,6 @@ namespace Empiria.Presentation.Web {
       }
     }
 
-
     public void OnEnd(object sender, EventArgs e) {
       //no-op
     }
@@ -157,9 +155,9 @@ namespace Empiria.Presentation.Web {
     }
 
     public void OnStart(object sender, EventArgs e) {
-      Initialize();
-
       Empiria.ExecutionServer.Start(ExecutionServerType.WebApplicationServer);
+      
+      Initialize();
     }
 
     #endregion Public methods

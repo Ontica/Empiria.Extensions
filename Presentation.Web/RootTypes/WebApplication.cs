@@ -12,7 +12,6 @@ using System;
 using System.Web;
 using System.Web.Security;
 
-
 namespace Empiria.Presentation.Web {
 
   /// <summary>Provides the methods from the current web application.</summary>

@@ -20,14 +20,6 @@ namespace Empiria.WebServices {
   /// Empiria® ASP.NET Web Api Services platform.</summary>
   public class WebApiGlobal : System.Web.HttpApplication {
 
-    #region Fields
-
-    static private readonly string lastExceptionTag = "empiriaLastException";
-    //static private int sessionTimeout = 0;
-    //static private string rootPath = String.Empty;
-
-    #endregion Fields
-
     #region Constructors and parsers
 
     protected WebApiGlobal() {
@@ -35,22 +27,6 @@ namespace Empiria.WebServices {
     }
 
     #endregion Constructors and parsers
-
-    #region Public properties
-
-    public Exception LastException {
-      get {
-        if (Server.GetLastError() != null) {
-          return Server.GetLastError();
-        } else if ((Session != null) && (Session[lastExceptionTag] != null)) {
-          return (Exception) Session[lastExceptionTag];
-        } else {
-          return null;
-        }
-      }
-    }
-
-    #endregion Public properties
 
     #region Public methods
 
@@ -90,11 +66,6 @@ namespace Empiria.WebServices {
       return HttpContext.Current.Server;
     }
 
-    /// <summary>Gets the HttpSessionState instance for the current HTTP request.</summary>
-    static public HttpSessionState GetSession() {
-      return HttpContext.Current.Session;
-    }
-
     #endregion Public methods
 
     #region Protected methods
@@ -104,7 +75,7 @@ namespace Empiria.WebServices {
     }
 
     protected virtual void Application_Start(Object sender, EventArgs e) {
-      //Initialize();
+      Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebApiServer);
     }
 
     protected virtual void Application_AuthenticateRequest(Object sender, EventArgs e) {
@@ -119,40 +90,7 @@ namespace Empiria.WebServices {
 
     }
 
-    protected virtual void Session_End(Object sender, EventArgs e) {
-
-    }
-
-    protected virtual void Session_Start(Object sender, EventArgs e) {
-      try {
-        Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebServicesServer);
-
-        //if (ExecutionServer.ServerType == ExecutionServerType.WebServicesServer) {
-        //  Empiria.Data.Integration.DataIntegrationEngine.Instance.Start();
-        //}
-      } catch (Exception innerException) {
-        throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
-      }
-    }
-
     #endregion Protected methods
-
-    #region Private methods
-
-    //static private void Initialize() {
-    //  try {
-    //    sessionTimeout = ConfigurationData.GetInteger("Session.Timeout");
-    //    if (!(5 <= sessionTimeout && sessionTimeout <= 600)) {
-    //      throw new WebServicesException(WebServicesException.Msg.InvalidSessionTimeout);
-    //    }
-    //    rootPath = ConfigurationData.GetString("Server.RootPath");
-    //    throw new Exception(ConfigurationData.GetStack());
-    //  } catch (Exception innerException) {
-    //    throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
-    //  }
-    //}
-
-    #endregion Private methods
 
   } // class WebApiGlobal
 

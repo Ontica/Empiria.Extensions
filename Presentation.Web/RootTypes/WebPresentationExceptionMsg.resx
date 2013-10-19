@@ -112,16 +112,19 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AjaxInvocationError" xml:space="preserve">
     <value>Ocurrió un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria.</value>
   </data>
   <data name="CantRetriveContent" xml:space="preserve">
     <value>No pude recuperar el contenido del elemento '{0}'\nEs muy posible que no esté definido en el archivo de cadenas XHTML.</value>
+  </data>
+  <data name="CommandParameterError" xml:space="preserve">
+    <value>Ocurrió un problema al leer el parámetro {1} con valor {2} al ejecutar el comando {0}.</value>
   </data>
   <data name="CommandProcessingError" xml:space="preserve">
     <value>Ocurrió un problema al intentar ejecutar el comando '{0}' en el servidor de páginas web.</value>

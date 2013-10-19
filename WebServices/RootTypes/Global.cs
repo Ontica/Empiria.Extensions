@@ -134,10 +134,6 @@ namespace Empiria.WebServices {
     protected void Session_Start(Object sender, EventArgs e) {
       try {
         Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebServicesServer);
-
-        //if (ExecutionServer.ServerType == ExecutionServerType.WebServicesServer) {
-        //  Empiria.Data.Integration.DataIntegrationEngine.Instance.Start();
-        //}
       } catch (Exception innerException) {
         throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
       }

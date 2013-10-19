@@ -35,10 +35,10 @@ namespace Empiria.Presentation.Web {
       get { return (ExecutionServer.CurrentPrincipal != null || ExecutionServer.CurrentUserId == -5); }
     }
 
-    protected new Empiria.Security.User User {
+    protected new Empiria.Security.EmpiriaUser User {
       get {
         VerifySession();
-        return (Empiria.Security.User) ExecutionServer.CurrentUser;
+        return (Empiria.Security.EmpiriaUser) ExecutionServer.CurrentUser;
       }
     }
 

@@ -59,8 +59,8 @@ namespace Empiria.Presentation.Web {
       get { return Master.ThemePath; }
     }
 
-    public new Empiria.Security.User User {
-      get { return (Empiria.Security.User) ExecutionServer.CurrentUser; }
+    public new Empiria.Security.EmpiriaUser User {
+      get { return (Empiria.Security.EmpiriaUser) ExecutionServer.CurrentUser; }
     }
 
     public WebViewModel ViewModel {
@@ -164,7 +164,8 @@ namespace Empiria.Presentation.Web {
     protected string GetCommandParameter(string parameterName, bool required, object defaultValue) {
       Assertion.RequireObject(parameterName, "parameterName");
 
-      string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ? String.Empty : this.CommandParameters[parameterName];
+      string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ? 
+                                          String.Empty : this.CommandParameters[parameterName];
       value = value.Trim();
       if (!String.IsNullOrEmpty(value)) {
         return value;
@@ -173,6 +174,37 @@ namespace Empiria.Presentation.Web {
       } else {
         throw new WebPresentationException(WebPresentationException.Msg.NullCommandParameter,
                                            this.commandName, parameterName);
+      }
+    }
+
+    protected T GetCommandParameter<T>(string parameterName) {
+      string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ?
+                                        String.Empty : this.CommandParameters[parameterName];
+      try {
+        if (!String.IsNullOrEmpty(value)) {
+          return (T) Convert.ChangeType(value, typeof(T));
+        } else {
+          throw new WebPresentationException(WebPresentationException.Msg.NullCommandParameter,
+                                             this.commandName, parameterName);
+        }
+      } catch (Exception e) {
+        throw new WebPresentationException(WebPresentationException.Msg.CommandParameterError, e,
+                                           this.commandName, parameterName, value);
+      }
+    }
+
+    protected T GetCommandParameter<T>(string parameterName, T defaultValue) {
+      string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ?
+                                              String.Empty : this.CommandParameters[parameterName];
+      try {    
+        if (!String.IsNullOrEmpty(value)) {
+          return (T) Convert.ChangeType(value, typeof(T));
+        } else {
+          return defaultValue;
+        }
+      } catch (Exception e) {
+        throw new WebPresentationException(WebPresentationException.Msg.CommandParameterError, e,
+                                           this.commandName, parameterName, value);
       }
     }
 

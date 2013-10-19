@@ -149,7 +149,7 @@ namespace Empiria.Presentation.Web.Controllers {
     private void SetLastUserNameCookie(string userName) {
       System.Web.HttpCookie cookie = new System.Web.HttpCookie("empiriaLastUserName_" + ExecutionServer.LicenseName);
 
-      cookie.Value = userName; //WebContext.Server.HtmlEncode(userName);
+      cookie.Value = userName;
       cookie.Expires = DateTime.Now.AddDays(3d);
 
       WebContext.Response.Cookies.Add(cookie);

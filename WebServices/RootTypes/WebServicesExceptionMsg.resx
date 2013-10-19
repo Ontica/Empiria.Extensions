@@ -112,19 +112,28 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AjaxInvocationError" xml:space="preserve">
     <value>Ocurrió un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria a través de servicios web.</value>
+  </data>
+  <data name="AuthenticationHeaderMissed" xml:space="preserve">
+    <value>Authentication header missed in request.</value>
+  </data>
+  <data name="BadAuthenticationHeaderFormat" xml:space="preserve">
+    <value>Request with bad authentication header format.</value>
   </data>
   <data name="CommandProcessingError" xml:space="preserve">
     <value>Ocurrió un problema al intentar ejecutar el comando '{0}' en el servidor de servicios web XML.</value>
   </data>
   <data name="InvalidSessionTimeout" xml:space="preserve">
     <value>Por razones de seguridad, el valor del parámetro de configuración que indica el tiempo en que caducan las sesiones de trabajo para los servicios web Empiria debe estar entre 5 y 600 minutos.</value>
+  </data>
+  <data name="InvalidSessionToken" xml:space="preserve">
+    <value>El token de sesión proporcionado no es válido. Hay un problema de programación o el servidor perdió la sesión, o se intentó tener acceso no permitido a la aplicación desde la IP {0}.</value>
   </data>
   <data name="InvalidTargetServerId" xml:space="preserve">
     <value>No se ha definido en el sistema un servidor de destino con Id ={0} </value>
@@ -137,6 +146,9 @@
   </data>
   <data name="NullCommandParameter" xml:space="preserve">
     <value>El comando '{0}' requiere el parámetro '{1}' para poder ser procesado por el servidor de servicios web. Sin embargo, dicho parámetro no fue proporcionado.</value>
+  </data>
+  <data name="RequestHeaderMissed" xml:space="preserve">
+    <value>Server request do not has the expected header '{0}'.</value>
   </data>
   <data name="SessionTimeout" xml:space="preserve">
     <value>La sesión de trabajo del servicio web ha caducado.\nPor favor, intente ejecutar nuevamente el servicio invocado desde la aplicación origen.</value>

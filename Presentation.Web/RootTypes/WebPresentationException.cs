@@ -20,6 +20,7 @@ namespace Empiria.Presentation.Web {
     public enum Msg {
       AjaxInvocationError,
       CantRetriveContent,
+      CommandParameterError,
       CommandProcessingError,
       NullCommandName,
       NullCommandParameter,

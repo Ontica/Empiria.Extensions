@@ -13,7 +13,6 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.SessionState;
 
-
 namespace Empiria.Presentation.Web {
 
   /// <summary>Provides the objects from the current HTTP request.</summary>

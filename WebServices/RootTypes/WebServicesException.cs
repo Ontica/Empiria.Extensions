@@ -22,6 +22,7 @@ namespace Empiria.WebServices {
       CommandProcessingError,
       InvalidMaxLogAttempts,
       InvalidSessionTimeout,
+      InvalidSessionToken,
       InvalidTargetServerId,
       InvalidWebServicePassword,
       NullCommandName,
@@ -29,6 +30,9 @@ namespace Empiria.WebServices {
       SessionTimeout,
       UnrecognizedCommandName,
       WebServicesServerInitializationFails,
+      BadAuthenticationHeaderFormat,
+      AuthenticationHeaderMissed,
+      RequestHeaderMissed,
     }
 
     static private string resourceBaseName = "Empiria.WebServices.RootTypes.WebServicesExceptionMsg";

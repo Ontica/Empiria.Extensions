@@ -71,8 +71,8 @@ namespace Empiria.Presentation {
       get { return ((User != null) ? User.UITheme : "default"); }
     }
 
-    public Empiria.Security.User User {
-      get { return (Empiria.Security.User) ExecutionServer.CurrentUser; }
+    public Empiria.Security.EmpiriaUser User {
+      get { return (Empiria.Security.EmpiriaUser) ExecutionServer.CurrentUser; }
     }
 
     #endregion Public properties
