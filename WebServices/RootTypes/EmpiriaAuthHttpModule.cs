@@ -11,11 +11,13 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Web;
+using System.Web.Http;
 
 using Empiria.Security;
 
@@ -24,62 +26,74 @@ namespace Empiria.WebServices {
   /// <summary>The exception that is thrown when a problem occurs in the Supply Network Management System.</summary>
   [Serializable]
   public sealed class EmpiriaAuthHttpModule : IHttpModule {
-    
+
     private const string Realm = "Empiria Trade Web Api";
     static private Dictionary<string, EmpiriaPrincipal> sessionDictionary =
                                             new Dictionary<string, EmpiriaPrincipal>(64);
 
-    public void Init(HttpApplication context) {
-      context.AuthenticateRequest += OnApplicationAuthenticateRequest;
-      context.EndRequest += OnApplicationEndRequest;
+
+    public static EmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password) {
+      var entropy = Guid.NewGuid().ToString();
+      userName = Cryptographer.Encrypt(EncryptionMode.EntropyKey, userName, entropy);
+      password = Cryptographer.Encrypt(EncryptionMode.EntropyKey, password, entropy);
+      EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, userName,
+                                                                password, entropy, 1);
+      if (principal != null) {
+        while (true) {
+          if (!String.IsNullOrWhiteSpace(EmpiriaAuthHttpModule.StorePrincipal(principal))) {
+            break;
+          } else {
+            principal.RegenerateToken();
+          }
+        }
+      }
+      return principal;
+    }
+
+    public void Init(HttpApplication httpApplication) {
+      httpApplication.AuthenticateRequest += OnApplicationAuthenticateRequest;
+      httpApplication.EndRequest += OnApplicationEndRequest;
     }
 
     public void Dispose() {
 
     }
 
-    public static string StorePrincipal(EmpiriaPrincipal principal) {
-      EmpiriaIdentity identity = (EmpiriaIdentity) principal.Identity;
-      if (!sessionDictionary.ContainsKey(identity.Session.Token)) {
-        lock (sessionDictionary) {          
-          EmpiriaAuthHttpModule.SetPrincipal(principal);
-          sessionDictionary.Add(identity.Session.Token, principal);
-        }
-        return identity.Session.Token;
-      }
-      return null;
-    }
-
     #region Private methods
 
-    private static void AuthenticateUser(string sessionToken) {
+    private static void AuthenticateWithToken(string sessionToken) {
       var principal = EmpiriaAuthHttpModule.GetPrincipal(sessionToken);
       if (principal != null) {
         EmpiriaAuthHttpModule.SetPrincipal(principal);
       } else {
-        var e = new WebServicesException(WebServicesException.Msg.InvalidSessionToken, GetUserHostAddress());
+        var e = new WebServicesException(WebServicesException.Msg.InvalidSessionToken, GetRequestData());
         e.Publish();
       }
     }
 
-    private static string GetAuthenticationHeaderValue() {
+    private static string GetAuthenticationHeader() {
       var request = HttpContext.Current.Request;
-      var authenticationHeader = request.Headers["Authorization"];
 
-      if (authenticationHeader == null) {
-        var e = new WebServicesException(WebServicesException.Msg.AuthenticationHeaderMissed,
-                                         GetUserHostAddress());
-        e.Publish();
+      return request.Headers["Authorization"];
+    }
+
+    private static string GetAuthenticationHeaderValue() {
+      string authenticationHeader = GetAuthenticationHeader();
+
+      if (String.IsNullOrWhiteSpace(authenticationHeader)) {
+        //throw new WebServicesException(WebServicesException.Msg.AuthenticationHeaderMissed,
+        //                               GetUserHostAddress());
+        //e.Publish();
         return null;
       }
-      var authHeaderVal = AuthenticationHeaderValue.Parse(authenticationHeader);
-      // RFC 2617 sec 1.2, "scheme" name is case-insensitive
-      if (authHeaderVal.Scheme.Equals("bearer", StringComparison.OrdinalIgnoreCase) &&
-          authHeaderVal.Parameter != null) {
-        return authHeaderVal.Parameter;
+      var headerValue = AuthenticationHeaderValue.Parse(authenticationHeader);
+      // RFC 2617 sec 1.2
+      if (headerValue.Scheme.ToLowerInvariant() == "bearer" &&
+          headerValue.Parameter != null) {
+        return headerValue.Parameter;
       } else {
         var e = new WebServicesException(WebServicesException.Msg.BadAuthenticationHeaderFormat,
-                                         GetUserHostAddress());
+                                         GetRequestData());
         e.Publish();
         return null;
       }
@@ -88,9 +102,22 @@ namespace Empiria.WebServices {
     private static EmpiriaPrincipal GetPrincipal(string sessionToken) {
       if (sessionDictionary.ContainsKey(sessionToken)) {
         return sessionDictionary[sessionToken];
-      } else {
-        return null;
       }
+      EmpiriaPrincipal principal = null;
+      if (EmpiriaIdentity.TryAuthenticate(sessionToken, out principal)) {
+        StorePrincipal(principal);
+        return principal;
+      }
+      return null;
+    }
+
+    private static string GetRequestData() {
+      var request = HttpContext.Current.Request;
+
+      string data = "UserAddress: " + GetUserHostAddress() + "\n";
+      data += "Path: " + request.Path;
+
+      return data;
     }
 
     private static string GetUserHostAddress() {
@@ -108,18 +135,32 @@ namespace Empiria.WebServices {
       }
     }
 
+    private static string StorePrincipal(EmpiriaPrincipal principal) {
+      EmpiriaIdentity identity = (EmpiriaIdentity) principal.Identity;
+      if (!sessionDictionary.ContainsKey(identity.Session.Token)) {
+        lock (sessionDictionary) {
+          if (!sessionDictionary.ContainsKey(identity.Session.Token)) {
+            EmpiriaAuthHttpModule.SetPrincipal(principal);
+            sessionDictionary.Add(identity.Session.Token, principal);
+          }
+        }
+        return identity.Session.Token;
+      }
+      return null;
+    }
+
     private static void OnApplicationAuthenticateRequest(object sender, EventArgs e) {
       string token = GetAuthenticationHeaderValue();
       if (!String.IsNullOrWhiteSpace(token)) {
-        EmpiriaAuthHttpModule.AuthenticateUser(token);
+        EmpiriaAuthHttpModule.AuthenticateWithToken(token);
       }
     }
 
     // If the request was unauthorized, add the WWW-Authenticate header to the response.
     private static void OnApplicationEndRequest(object sender, EventArgs e) {
       var response = HttpContext.Current.Response;
-      if (response.StatusCode == 401) {
-        response.Headers.Add("WWW-Authenticate", 
+      if (response.StatusCode == (int) HttpErrorCode.Unauthorized) {
+        response.Headers.Add("WWW-Authenticate",
                              String.Format("Basic realm=\"{0}\"", EmpiriaAuthHttpModule.Realm));
       }
     }

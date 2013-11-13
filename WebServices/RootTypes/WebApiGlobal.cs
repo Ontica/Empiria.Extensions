@@ -10,8 +10,11 @@
 *                                                                                                            *
 **************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
 using System;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Caching;
+using System.Web.Http;
 using System.Web.SessionState;
 
 namespace Empiria.WebServices {

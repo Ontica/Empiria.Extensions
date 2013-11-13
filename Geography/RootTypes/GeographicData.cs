@@ -21,8 +21,7 @@ namespace Empiria.Geography {
     #region Internal methods
 
     static internal ObjectList<GeographicRegionItem> GetRegions(string filterExpression, 
-                                                                string sortExpression = 
-                                                                                "GeoItemNotes, GeoItemName") {
+                                                                string sortExpression = "GeoItemNotes, GeoItemName") {
       DataTable table = GeneralDataOperations.GetEntities("EOSGeoItems", filterExpression, sortExpression);
 
       return new ObjectList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);

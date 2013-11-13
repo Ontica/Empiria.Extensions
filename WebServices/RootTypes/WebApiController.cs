@@ -26,9 +26,8 @@ namespace Empiria.WebServices {
   public enum HttpErrorCode {
     BadRequest = HttpStatusCode.BadRequest,
     Unauthorized = HttpStatusCode.Unauthorized,
-    Forbidden = HttpStatusCode.Forbidden,
+    MovedPermanently = HttpStatusCode.MovedPermanently,
     NotFound = HttpStatusCode.NotFound,
-    NotImplemented = HttpStatusCode.NotImplemented,
     InternalServerError = HttpStatusCode.InternalServerError,
   }
 
@@ -60,6 +59,14 @@ namespace Empiria.WebServices {
 
     #region Methods
 
+    [HttpOptions, AllowAnonymous]
+    public HttpResponseMessage Options() {
+      var response = new HttpResponseMessage();
+      response.StatusCode = HttpStatusCode.OK;
+
+      return response;
+    }
+
     protected void Assert(bool value, string exceptionText) {
       if (!value) {
         var e = new AssertionFailsException(AssertionFailsException.Msg.AssertFails, GetSourceMethodName(), exceptionText);
@@ -71,8 +78,8 @@ namespace Empiria.WebServices {
     protected void Assert(object value, string name) {
       if (value == null) {
         var e = new AssertionFailsException(name.Contains(' ') ?
-                                                AssertionFailsException.Msg.AssertFails : 
-                                                AssertionFailsException.Msg.AssertNotNullObjectFails,                                             
+                                                AssertionFailsException.Msg.AssertFails :
+                                                AssertionFailsException.Msg.AssertNotNullObjectFails,
                                             WebApiController.GetSourceMethodName(), name);
         var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
         throw new HttpResponseException(response);
@@ -82,7 +89,7 @@ namespace Empiria.WebServices {
     protected void AssertHeader(string headerName) {
       if (base.Request.Headers.Contains(headerName)) {
         return;
-      }     
+      }
       var e = new WebServicesException(WebServicesException.Msg.RequestHeaderMissed, headerName);
       throw CreateHttpResponseException(e, HttpErrorCode.BadRequest);
     }
@@ -95,7 +102,7 @@ namespace Empiria.WebServices {
         //        Name = e.Key,
         //        Message = e.Value.Errors.First().ErrorMessage,
         //      }).ToArray();
-        
+
         //var response = new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
         //response.Content = new ObjectContent<ValidationError[]>(errors, new JsonMediaTypeFormatter());
         //throw new HttpResponseException(response);

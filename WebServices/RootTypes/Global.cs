@@ -112,7 +112,11 @@ namespace Empiria.WebServices {
     }
 
     protected void Application_Start(Object sender, EventArgs e) {
-      //Initialize();
+      try {
+        Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebServicesServer);
+      } catch (Exception innerException) {
+        throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
+      }
     }
 
     protected void Application_AuthenticateRequest(Object sender, EventArgs e) {
@@ -132,11 +136,7 @@ namespace Empiria.WebServices {
     }
 
     protected void Session_Start(Object sender, EventArgs e) {
-      try {
-        Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebServicesServer);
-      } catch (Exception innerException) {
-        throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
-      }
+
     }
 
     #endregion Protected methods

@@ -106,7 +106,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RootTypes\Global.cs" />
-    <Compile Include="RootTypes\WebServicesAuthenticator.cs" />
+    <Compile Include="RootTypes\ZZWebServicesAuthenticator.cs" />
     <Compile Include="RootTypes\WebServicesException.cs" />
   </ItemGroup>
   <ItemGroup>

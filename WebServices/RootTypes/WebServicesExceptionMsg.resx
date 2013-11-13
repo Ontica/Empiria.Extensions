@@ -121,10 +121,10 @@
     <value>Ocurrió un problema al ejecutar el comando {0} utilizando los servicios Ajax del sistema Empiria a través de servicios web.</value>
   </data>
   <data name="AuthenticationHeaderMissed" xml:space="preserve">
-    <value>Authentication header missed in request.</value>
+    <value>The web server received a request without the Authentication header.\nRequest information:\n{0}</value>
   </data>
   <data name="BadAuthenticationHeaderFormat" xml:space="preserve">
-    <value>Request with bad authentication header format.</value>
+    <value>The web server received a request with a bad-formed authentication header.\nRequest information:\n{0}</value>
   </data>
   <data name="CommandProcessingError" xml:space="preserve">
     <value>Ocurrió un problema al intentar ejecutar el comando '{0}' en el servidor de servicios web XML.</value>
@@ -133,7 +133,7 @@
     <value>Por razones de seguridad, el valor del parámetro de configuración que indica el tiempo en que caducan las sesiones de trabajo para los servicios web Empiria debe estar entre 5 y 600 minutos.</value>
   </data>
   <data name="InvalidSessionToken" xml:space="preserve">
-    <value>El token de sesión proporcionado no es válido. Hay un problema de programación o el servidor perdió la sesión, o se intentó tener acceso no permitido a la aplicación desde la IP {0}.</value>
+    <value>The web server received a request using an invalid session token. Probably the session token was expired and needs a refresh.\nRequest information:\n{0}</value>
   </data>
   <data name="InvalidTargetServerId" xml:space="preserve">
     <value>No se ha definido en el sistema un servidor de destino con Id ={0} </value>
