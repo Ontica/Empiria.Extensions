@@ -18,6 +18,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Web.Http;
+//using System.Web.Http.Cors;
 
 using Empiria.Security;
 
@@ -39,6 +40,7 @@ namespace Empiria.WebServices {
 
   /// <summary>Defines the methods, properties, and events common to all application objects used by
   /// Empiria® ASP.NET Web Api Services platform.</summary>
+  //[EnableCors("*", "*", "*")]
   public class WebApiController : ApiController {
 
     public WebApiController() {
@@ -59,13 +61,13 @@ namespace Empiria.WebServices {
 
     #region Methods
 
-    [HttpOptions, AllowAnonymous]
-    public HttpResponseMessage Options() {
-      var response = new HttpResponseMessage();
-      response.StatusCode = HttpStatusCode.OK;
+    //[HttpOptions, AllowAnonymous]
+    //public HttpResponseMessage Options() {
+    //  var response = new HttpResponseMessage();
+    //  response.StatusCode = HttpStatusCode.OK;
 
-      return response;
-    }
+    //  return response;
+    //}
 
     protected void Assert(bool value, string exceptionText) {
       if (!value) {
