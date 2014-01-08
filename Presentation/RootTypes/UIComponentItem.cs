@@ -1,14 +1,14 @@
-﻿/* Empiria® Presentation Framework 2013 **********************************************************************
+﻿/* Empiria® Presentation Framework 2014 **********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria® Presentation Framework                  System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : UIComponentItem                                  Pattern  : Composite (GoF Component part)    *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
 *  Summary   : Abstract type that represents a prime (UIControl) or compound (UIContainer) user interface    *
 *              container of other controls or containers.                                                    *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 using System;
 using System.Data;
 

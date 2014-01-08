@@ -1,13 +1,13 @@
-﻿/* Empiria® Business Framework 2013 **************************************************************************
+﻿/* Empiria® Business Framework 2014 **************************************************************************
 *                                                                                                            *
 *  Solution  : Empiria® Business Framework                      System   : Supply Network Management         *
 *  Namespace : Empiria.Industries.Automotive                    Assembly : Empiria.Industries.Automotive.dll *
 *  Type      : OrderingSystemException                          Pattern  : Empiria Exception Class           *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
-*  Summary   : The exception that is thrown when a problem occurs in the Supply Network Management System.   *
+*  Summary   : HTTP module for Empiria® web authentication services.                                         *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -23,7 +23,7 @@ using Empiria.Security;
 
 namespace Empiria.WebServices {
 
-  /// <summary>The exception that is thrown when a problem occurs in the Supply Network Management System.</summary>
+  /// <summary>HTTP module for Empiria® web authentication services.</summary>
   [Serializable]
   public sealed class EmpiriaAuthHttpModule : IHttpModule {
 

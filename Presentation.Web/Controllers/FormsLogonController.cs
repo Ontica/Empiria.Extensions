@@ -1,13 +1,13 @@
-﻿/* Empiria® Presentation Framework 2013 **********************************************************************
+﻿/* Empiria® Presentation Framework 2014 **********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Controllers             Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : FormsLogonController                             Pattern  : Logon Controller Class            *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
 *  Summary   : Logon controller class that uses .NET Forms Authentication.                                   *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 using System;
 using System.Web;
 using System.Web.Security;

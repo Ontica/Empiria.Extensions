@@ -1,14 +1,14 @@
-﻿/* Empiria® Presentation Framework 2013 **********************************************************************
+﻿/* Empiria® Presentation Framework 2014 **********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : WebPage                                          Pattern  : Model View Controller             *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
 *  Summary   : Abstract type that represents a web page. All Empiria web pages types must be descendants of  *
 *              this class.                                                                                   *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 using System;
 using System.Collections.Specialized;
 

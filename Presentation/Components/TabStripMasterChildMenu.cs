@@ -1,13 +1,13 @@
-﻿/* Empiria® Presentation Framework 2013 **********************************************************************
+﻿/* Empiria® Presentation Framework 2014 **********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria® Presentation Framework                  System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Components                  Assembly : Empiria.Presentation.dll          *
 *  Type      : TabStripMasterChildMenu                          Pattern  : User Interface Component Class    *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
 *  Summary   : User interface component that holds the structure for a tabstrip master child menu.           *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 
 namespace Empiria.Presentation.Components {
 

@@ -1,13 +1,13 @@
-﻿/* Empiria® Extended Framework 2013 **************************************************************************
+﻿/* Empiria® Extended Framework 2014 **************************************************************************
 *                                                                                                            *
 *  Solution  : Empiria® Extended Framework                      System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : EvaluationContext                                Pattern  : Unit of Work                      *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
 *  Summary   : Evaluation context for a list of arithmetical and logical expressions.                        *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 using System;
 using System.Collections.Generic;
 

@@ -1,13 +1,13 @@
-﻿/* Empiria® Extended Framework 2013 **************************************************************************
+﻿/* Empiria® Extended Framework 2014 **************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Extended Framework 2013                 System   : Document Management Services      *
+*  Solution  : Empiria® Extended Framework 2014                 System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : RootFilesFolder                                  Pattern  : Storage Item                      *
-*  Date      : 23/Oct/2013                                      Version  : 5.2     License: CC BY-NC-SA 3.0  *
+*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
 *                                                                                                            *
 *  Summary   : Describes a root folder or directory that serves as a start point of documents storage.       *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2013. **/
+**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
 
 using Empiria.Ontology;
 
