@@ -1,13 +1,13 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
+*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Content                 Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : BreadcrumbBarContent                             Pattern  : Standard Class with Items Cache   *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for a breadcrumb bar navigator list for a web page.                   *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 

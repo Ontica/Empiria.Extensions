@@ -1,13 +1,15 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
+*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Content                 Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : NavigationClock                                  Pattern  : Standard Class                    *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for a navigation clock and user name item.                            *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
+using Empiria.Security;
 
 namespace Empiria.Presentation.Web.Content {
 
@@ -63,7 +65,7 @@ namespace Empiria.Presentation.Web.Content {
     }
 
     private string BuildUserNameContent() {
-      return GetContent("UserNameLink").Replace("{USER_NAME}", ExecutionServer.CurrentUser.UserName);
+      return GetContent("UserNameLink").Replace("{USER_NAME}", EmpiriaUser.Current.UserName);
     }
 
     #endregion Private methods

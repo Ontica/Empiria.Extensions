@@ -1,13 +1,13 @@
-﻿/* Empiria® Extended Framework 2014 **************************************************************************
+﻿/* Empiria Extended Framework 2014 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Extended Framework                    System   : Geographic Information Services     *
+*  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItemType                             Pattern  : Power type                          *
-*  Date      : 28/Mar/2014                                    Version  : 5.5     License: CC BY-NC-SA 4.0    *
+*  Version   : 5.5        Date: 28/Mar/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : PowerType that defines a geographic item type like CountryType, BorroughType or StreetType.   *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 using Empiria.Ontology;

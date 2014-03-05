@@ -1,15 +1,15 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
+*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : MasterWebPage                                    Pattern  : Model View Controller             *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Abstract type that represents a master page that serves as template and container for web     *
 *              pages. Every Empiria web page must be sited over a MasterWebPage, and all master web pages    *
 *              types must be descendants of this class.                                                      *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation.Web {
@@ -74,7 +74,9 @@ namespace Empiria.Presentation.Web {
     }
 
     protected Empiria.Security.IEmpiriaUser User {
-      get { return ExecutionServer.CurrentUser; }
+      get {
+        return Empiria.Security.EmpiriaUser.Current;
+      }
     }
 
     #endregion Internal and protected properties

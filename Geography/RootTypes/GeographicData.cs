@@ -1,13 +1,13 @@
-﻿/* Empiria® Extended Framework 2014 **************************************************************************
+﻿/* Empiria Extended Framework 2014 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Extended Framework                      System   : Geographic Information Services   *
+*  Solution  : Empiria Extended Framework                       System   : Geographic Information Services   *
 *  Namespace : Empiria.Geography                                Assembly : Empiria.Geography.dll             *
 *  Type      : GeographicData                                   Pattern  : Data Services Static Class        *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Provides data read and write methods for the Empiria Geographic Information Services.         *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Data;
 
@@ -28,20 +28,20 @@ namespace Empiria.Geography {
     }
 
     static internal int WriteGeographicRegionItem(GeographicRegionItem o) {
-      DataOperation dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, o.Name,
-                                                        o.Code, o.FullName, o.Keywords, o.WebPage, o.PhonePrefix,
-                                                        o.Population, o.AreaSqKm, o.GDPPerCapita.Amount, o.GDPPerCapita.Currency.Id,
-                                                        o.PostedBy.Id, o.ReplacedById, o.PostingDate,
-                                                        (char) o.Status, o.StartDate, o.EndDate);
+      var dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, o.Name,
+                                               o.Code, o.FullName, o.Keywords, o.WebPage, o.PhonePrefix,
+                                               o.Population, o.AreaSqKm, o.GDPPerCapita.Amount, o.GDPPerCapita.Currency.Id,
+                                               o.PostedBy.Id, o.ReplacedById, o.PostingDate,
+                                               (char) o.Status, o.StartDate, o.EndDate);
       return DataWriter.Execute(dataOperation);
     }
 
     static internal int WriteGeographicPathItem(GeographicPathItem o) {
-      DataOperation dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, o.Name,
-                                                        o.Code, o.FullName, o.Keywords, String.Empty, String.Empty,
-                                                        0m, 0m, 0m, Currency.Default.Id,
-                                                        o.PostedBy.Id, o.ReplacedById, o.PostingDate,
-                                                        (char) o.Status, o.StartDate, o.EndDate);
+      var dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, o.Name,
+                                               o.Code, o.FullName, o.Keywords, String.Empty, String.Empty,
+                                               0m, 0m, 0m, Currency.Default.Id,
+                                               o.PostedBy.Id, o.ReplacedById, o.PostingDate,
+                                               (char) o.Status, o.StartDate, o.EndDate);
       return DataWriter.Execute(dataOperation);
     }
 

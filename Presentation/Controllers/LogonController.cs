@@ -1,13 +1,13 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Presentation Framework                  System   : Presentation Framework Library    *
+*  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Controllers                 Assembly : Empiria.Presentation.dll          *
 *  Type      : LogonController                                  Pattern  : Controller Class                  *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Abstract controller class that performs user authentication and system entrance.              *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using Empiria.Security;
 
 namespace Empiria.Presentation.Controllers {

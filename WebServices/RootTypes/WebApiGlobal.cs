@@ -1,14 +1,14 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Service-Oriented Framework              System   : Empiria Web Services              *
+*  Solution  : Empiria Service-Oriented Framework               System   : Empiria Web Services              *
 *  Namespace : Empiria.WebServices                              Assembly : Empiria.WebServices.dll           *
 *  Type      : WebApiGlobal                                     Pattern  : Global ASP .NET Class             *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Defines the methods, properties, and events common to all application objects used by         *
-*              Empiria® ASP.NET Web Services platform.                                                       *
+*              Empiria ASP.NET Web Services platform.                                                        *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net;
 using System.Net.Http;
@@ -20,7 +20,7 @@ using System.Web.SessionState;
 namespace Empiria.WebServices {
 
   /// <summary>Defines the methods, properties, and events common to all application objects used by
-  /// Empiria® ASP.NET Web Api Services platform.</summary>
+  /// Empiria ASP.NET Web Api Services platform.</summary>
   public class WebApiGlobal : System.Web.HttpApplication {
 
     #region Constructors and parsers

@@ -1,14 +1,14 @@
-﻿/* Empiria® Land 2014 *****************************************************************************************
+﻿/* Empiria Land 2014 ******************************************************************************************
 *                                                                                                             *
-*  Solution  : Empiria® Land                                   System   : Land Registration System            *
+*  Solution  : Empiria Land                                    System   : Land Registration System            *
 *  Namespace : Empiria.Land.UI                                 Assembly : Empiria.Land                        *
 *  Type      : LRSHtmlSelectControls                           Pattern  : Presentation Services Static Class  *
-*  Date      : 28/Mar/2014                                     Version  : 5.5     License: CC BY-NC-SA 4.0    *
+*  Version   : 5.5        Date: 28/Mar/2014                    License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                             *
 *  Summary   : Static class that generates predefined HtmlSelect controls content for Empiria Government      *
 *              Land Registration System.                                                                      *
 *                                                                                                             *
-****************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************** Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Collections.Generic;

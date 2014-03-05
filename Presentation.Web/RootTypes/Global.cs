@@ -1,20 +1,20 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
+*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : Global                                           Pattern  : Global ASP .NET Class             *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Defines the methods, properties, and events common to all application objects used by         *
-*              Empiria® ASP.NET platform.                                                                    *
+*              Empiria ASP.NET platform.                                                                     *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation.Web {
 
   /// <summary>Defines the methods, properties, and events common to all application objects used by
-  /// Empiria® ASP.NET platform.</summary>
+  /// Empiria ASP.NET platform.</summary>
   public class Global : WebApplication {
 
     public Global() {

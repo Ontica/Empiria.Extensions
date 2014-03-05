@@ -1,13 +1,13 @@
-﻿/* Empiria® Business Framework 2014 **************************************************************************
+﻿/* Empiria Business Framework 2014 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Business Framework                      System   : Supply Network Management         *
+*  Solution  : Empiria Business Framework                       System   : Supply Network Management         *
 *  Namespace : Empiria.Industries.Automotive                    Assembly : Empiria.Industries.Automotive.dll *
 *  Type      : OrderingSystemException                          Pattern  : Empiria Exception Class           *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
-*  Summary   : HTTP module for Empiria® web authentication services.                                         *
+*  Summary   : HTTP module for Empiria web authentication services.                                          *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -23,7 +23,7 @@ using Empiria.Security;
 
 namespace Empiria.WebServices {
 
-  /// <summary>HTTP module for Empiria® web authentication services.</summary>
+  /// <summary>HTTP module for Empiria web authentication services.</summary>
   [Serializable]
   public sealed class EmpiriaAuthHttpModule : IHttpModule {
 

@@ -1,14 +1,14 @@
-﻿/* Empiria® Extended Framework 2014 **************************************************************************
+﻿/* Empiria Extended Framework 2014 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Extended Framework                      System   : Expressions Runtime Library       *
+*  Solution  : Empiria Extended Framework                       System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : Functor                                          Pattern  : Standard Class                    *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Defines a numeric, string, boolean or datetime functor, a function pointer to a library       *
 *              defined function.                                                                             *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Expressions {

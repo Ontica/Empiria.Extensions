@@ -1,13 +1,13 @@
-﻿/* Empiria® Presentation Framework 2014 **********************************************************************
+﻿/* Empiria Presentation Framework 2014 ***********************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Presentation Framework                  System   : Web Presentation Framework        *
+*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : AjaxWebPage                                      Pattern  : Model View Controller             *
-*  Date      : 28/Mar/2014                                      Version  : 5.5     License: CC BY-NC-SA 4.0  *
+*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Abstract type that serves as a processor of XMLHttpRequest requests.                          *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 
@@ -38,7 +38,7 @@ namespace Empiria.Presentation.Web {
     protected new Empiria.Security.EmpiriaUser User {
       get {
         VerifySession();
-        return (Empiria.Security.EmpiriaUser) ExecutionServer.CurrentUser;
+        return Empiria.Security.EmpiriaUser.Current;
       }
     }
 

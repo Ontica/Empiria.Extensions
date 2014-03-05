@@ -1,20 +1,20 @@
-﻿/* Empiria® Extended Framework 2014 **************************************************************************
+﻿/* Empiria Extended Framework 2014 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria® Extended Framework                    System   : Geographic Information Services     *
+*  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItemException                        Pattern  : Empiria Exception Class             *
-*  Date      : 28/Mar/2014                                    Version  : 5.5     License: CC BY-NC-SA 4.0    *
+*  Version   : 5.5        Date: 28/Mar/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
-*  Summary   : The exception that is thrown when a problem occurs in Empiria® Geographic Information         *
+*  Summary   : The exception that is thrown when a problem occurs in Empiria Geographic Information          *
 *              Services System.                                                                              *
 *                                                                                                            *
-**************************************************** Copyright © La Vía Óntica SC + Ontica LLC. 1999-2014. **/
+********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Reflection;
 
 namespace Empiria.Geography {
 
-  /// <summary>The exception that is thrown when a problem occurs in Empiria® Geographic Information
+  /// <summary>The exception that is thrown when a problem occurs in Empiria Geographic Information
   /// Services System.</summary>
   [Serializable]
   public sealed class GeographicItemException : EmpiriaException {
