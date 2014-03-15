@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : PowerType that defines a geographic item type like CountryType, BorroughType or StreetType.   *
 *                                                                                                            *
-********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 using Empiria.Ontology;

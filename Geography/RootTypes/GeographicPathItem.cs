@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Represents a geographic path that serves as a base type for streets, roads, avenues, ...      *
 *                                                                                                            *
-********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System.Data;
 
 namespace Empiria.Geography {

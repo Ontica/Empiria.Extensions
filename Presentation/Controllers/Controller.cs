@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : General class that controls the behavior of a finite state machine.                           *
 *                                                                                                            *
-********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation.Controllers {

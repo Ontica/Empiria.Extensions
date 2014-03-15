@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for grid navigation buttons in a web application.                     *
 *                                                                                                            *
-********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web.UI.WebControls;
 

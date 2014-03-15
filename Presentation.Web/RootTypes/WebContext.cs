@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides the objects from the current HTTP request.                                           *
 *                                                                                                            *
-********************************* Copyright (c) 1999-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web;
 using System.Web.Caching;
