@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                       System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
-*  Type      : IStatement                                       Pattern  : Separated Interface               *
+*  Type      : IStatement                                       Pattern  : Loose coupling interface          *
 *  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Represents an executable statement.                                                           *
