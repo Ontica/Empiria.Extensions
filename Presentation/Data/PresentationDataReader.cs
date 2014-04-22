@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Data                        Assembly : Empiria.Presentation.dll          *
 *  Type      : PresentationDataReader                           Pattern  : Data Services Static Class        *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : static internal class with data read methods for user interface objects.                      *
 *                                                                                                            *

@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : UIComponentItemList                              Pattern  : Empiria List Class                *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Represents an ordered named list of storage Item instances. Implements the IList interface    *
 *              again because needs convert DataRow items to Item items in the IList indexer.                 *

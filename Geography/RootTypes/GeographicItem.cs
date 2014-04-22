@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItem                                 Pattern  : Empiria Object Type                 *
-*  Version   : 5.5        Date: 28/Mar/2014                   License  : GNU AGPLv3  (See license.txt)       *
+*  Version   : 5.5        Date: 25/Jun/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : Represents an abstract place: region, city, country, world zone, zip code region, street, ... *
 *                                                                                                            *
@@ -79,6 +79,9 @@ namespace Empiria.Geography {
           geographicItemType = GeographicItemType.Parse(base.ObjectTypeInfo);
         }
         return geographicItemType;
+      }
+      internal set {
+        geographicItemType = value;
       }
     }
 

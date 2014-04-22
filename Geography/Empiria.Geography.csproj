@@ -230,6 +230,7 @@
     <Compile Include="RootTypes\GeographicItemType.cs" />
     <Compile Include="RootTypes\GeographicItemValidator.cs" />
     <Compile Include="RootTypes\GeographicItemException.cs" />
+    <Compile Include="RootTypes\Address.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="empiria.strong.name.public.key.snk" />

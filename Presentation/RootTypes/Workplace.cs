@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : Workplace                                        Pattern  : Standard Class                    *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Contains the information of running instance of Empiria Workplace. Workplaces are the main    *
 *              objects of the user interface process model.                                                  *

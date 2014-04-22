@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : WorkplaceManager                                 Pattern  : Model View Controller             *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Coordinates and manages user session workplaces and user interface interaction.               *
 *                                                                                                            *

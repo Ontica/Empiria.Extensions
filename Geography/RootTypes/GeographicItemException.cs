@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItemException                        Pattern  : Empiria Exception Class             *
-*  Version   : 5.5        Date: 28/Mar/2014                   License  : GNU AGPLv3  (See license.txt)       *
+*  Version   : 5.5        Date: 25/Jun/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a problem occurs in Empiria Geographic Information          *
 *              Services System.                                                                              *

@@ -1,9 +1,9 @@
 ﻿/* Empiria Extended Framework 2014 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                       System   : Geographic Information Services   *
-*  Namespace : Empiria.Geography                                Assembly : Empiria.Geography.dll             *
-*  Type      : GeographicData                                   Pattern  : Data Services Static Class        *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
+*  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
+*  Type      : GeographicData                                 Pattern  : Data Services Static Class          *
+*  Version   : 5.5        Date: 25/Jun/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : Provides data read and write methods for the Empiria Geographic Information Services.         *
 *                                                                                                            *

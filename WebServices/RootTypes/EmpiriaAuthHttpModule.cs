@@ -3,7 +3,7 @@
 *  Solution  : Empiria Business Framework                       System   : Supply Network Management         *
 *  Namespace : Empiria.Industries.Automotive                    Assembly : Empiria.Industries.Automotive.dll *
 *  Type      : OrderingSystemException                          Pattern  : Empiria Exception Class           *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : HTTP module for Empiria web authentication services.                                          *
 *                                                                                                            *

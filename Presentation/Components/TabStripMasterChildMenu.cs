@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Components                  Assembly : Empiria.Presentation.dll          *
 *  Type      : TabStripMasterChildMenu                          Pattern  : User Interface Component Class    *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : User interface component that holds the structure for a tabstrip master child menu.           *
 *                                                                                                            *

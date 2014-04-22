@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItemType                             Pattern  : Power type                          *
-*  Version   : 5.5        Date: 28/Mar/2014                   License  : GNU AGPLv3  (See license.txt)       *
+*  Version   : 5.5        Date: 25/Jun/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : PowerType that defines a geographic item type like CountryType, BorroughType or StreetType.   *
 *                                                                                                            *
@@ -45,6 +45,14 @@ namespace Empiria.Geography {
     #endregion Constructors and parsers
 
     #region Public methods
+
+    public new GeographicItem CreateInstance() {
+      GeographicItem instance = base.CreateInstance();
+
+      instance.GeographicItemType = this;
+
+      return instance;
+    }
 
     public bool IsTypeOf(GeographicItem geoItem) {
       return (geoItem.ObjectTypeInfo.Equals(this.PartitionedType) ||

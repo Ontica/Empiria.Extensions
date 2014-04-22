@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework 2014                  System   : Document Management Services      *
 *  Namespace : Empiria.Documents                                Assembly : Empiria.Documents.dll             *
 *  Type      : FileType                                         Pattern  : Storage Item                      *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Describes the technology of a system file.                                                    *
 *                                                                                                            *

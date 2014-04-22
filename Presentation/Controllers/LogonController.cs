@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation.Controllers                 Assembly : Empiria.Presentation.dll          *
 *  Type      : LogonController                                  Pattern  : Controller Class                  *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Abstract controller class that performs user authentication and system entrance.              *
 *                                                                                                            *

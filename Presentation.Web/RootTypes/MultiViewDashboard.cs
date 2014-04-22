@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : MultiViewDashboard                               Pattern  : Model View Controller             *
-*  Version   : 5.5        Date: 28/Mar/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Abstract type that represents a dashboard explorer web page. All Empiria web pages types      *
 *              must be descendants of this class.                                                            *
