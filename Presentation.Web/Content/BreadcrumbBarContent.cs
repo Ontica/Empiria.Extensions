@@ -56,7 +56,7 @@ namespace Empiria.Presentation.Web.Content {
       string item = String.Empty;
       string xhtml = String.Empty;
 
-      //Empiria.Ontology.ObjectList breadcrumbs = viewModel.BreadcrumbCommandsMap;
+      //Empiria.Ontology.FixedList breadcrumbs = viewModel.BreadcrumbCommandsMap;
 
       //CommandContent commandContent = new CommandContent(this.WebPage);
       //for (int i = 0; i < breadcrumbs.Count; i++) {

@@ -92,7 +92,7 @@ namespace Empiria.Presentation.Web.Content {
       return html.TrimEnd('|');
     }
 
-    static public string GetComboAjaxHtml<T>(ObjectList<T> dataSource, string dataValueField, Func<T, string> dataTextFunction,
+    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField, Func<T, string> dataTextFunction,
                                              string headerItemText) where T : IStorable {
       string html = String.Empty;
       if (headerItemText.Length != 0) {
@@ -118,7 +118,7 @@ namespace Empiria.Presentation.Web.Content {
       return html.TrimEnd('|');
     }
 
-    static public string GetComboAjaxHtml<T>(ObjectList<T> dataSource, string dataValueField, Func<T, string> dataTextFunction,
+    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField, Func<T, string> dataTextFunction,
                                              string headerItemText, string emptyItemText, string unknownItemText) where T : IStorable {
       string html = GetComboAjaxHtml(headerItemText, emptyItemText, unknownItemText);
 

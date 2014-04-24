@@ -128,7 +128,7 @@ namespace Empiria.WebServices {
       return serializer.Invoke(instance);
     }
 
-    protected IQueryable ToJson<T>(ObjectList<T> list, Func<T, object> serializer) where T : IStorable {
+    protected IQueryable ToJson<T>(FixedList<T> list, Func<T, object> serializer) where T : IStorable {
       object[] array = new object[list.Count];
 
       for (int i = 0; i < list.Count; i++) {

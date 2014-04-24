@@ -38,7 +38,7 @@ namespace Empiria.Geography {
       return PowerType<GeographicItem>.Parse<GeographicItemType>(typeInfo);
     }
 
-    public ObjectList<GeographicRegionItem> GetList() {
+    public FixedList<GeographicRegionItem> GetList() {
       return GeographicData.GetRegions("GeoItemTypeId = " + this.Id.ToString());
     }
 

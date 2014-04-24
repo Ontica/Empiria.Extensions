@@ -60,7 +60,7 @@ namespace Empiria.Geography {
       get { return BaseObject.ParseUnknown<GeographicRegionItem>(thisTypeName); }
     }
 
-    static public ObjectList<GeographicRegionItem> GetList(string filter) {
+    static public FixedList<GeographicRegionItem> GetList(string filter) {
       return GeographicData.GetRegions(filter);
     }
 
@@ -106,11 +106,11 @@ namespace Empiria.Geography {
       base.Link(role, member);
     }
 
-    public ObjectList<T> GetContacts<T>(string roleName) where T : Contact {
+    public FixedList<T> GetContacts<T>(string roleName) where T : Contact {
       return base.GetLinks<T>(roleName);
     }
 
-    public ObjectList<GeographicPathItem> GetPaths(string pathRoleName) {
+    public FixedList<GeographicPathItem> GetPaths(string pathRoleName) {
       var list = base.GetLinks<GeographicPathItem>(pathRoleName);
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
@@ -118,7 +118,7 @@ namespace Empiria.Geography {
       return list;
     }
 
-    public ObjectList<GeographicPathItem> GetPaths(string pathRoleName,
+    public FixedList<GeographicPathItem> GetPaths(string pathRoleName,
                                                    GeographicItemType pathItemType) {
       var list = base.GetLinks<GeographicPathItem>(pathRoleName, (x) => (pathItemType.IsTypeOf(x)));
 
@@ -127,7 +127,7 @@ namespace Empiria.Geography {
       return list;
     }
 
-    public ObjectList<Person> GetPeople(string roleName) {
+    public FixedList<Person> GetPeople(string roleName) {
       var list = base.GetLinks<Person>(roleName);
 
       list.Sort((x, y) => x.FamilyFullName.CompareTo(y.FamilyFullName));
@@ -135,7 +135,7 @@ namespace Empiria.Geography {
       return list;
     }
 
-    public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName) {
+    public FixedList<GeographicRegionItem> GetRegions(string regionRoleName) {
       var list = base.GetLinks<GeographicRegionItem>(regionRoleName);
 
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
@@ -143,7 +143,7 @@ namespace Empiria.Geography {
       return list;
     }
 
-    public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName,
+    public FixedList<GeographicRegionItem> GetRegions(string regionRoleName,
                                                        GeographicItemType geoItemType) {
       var list = base.GetLinks<GeographicRegionItem>(regionRoleName, (x) => (geoItemType.IsTypeOf(x)));
 
@@ -152,7 +152,7 @@ namespace Empiria.Geography {
       return list;
     }
 
-    public ObjectList<GeographicRegionItem> GetRegions(string regionRoleName,
+    public FixedList<GeographicRegionItem> GetRegions(string regionRoleName,
                                                        Predicate<GeographicRegionItem> predicate) {
       var list = base.GetLinks<GeographicRegionItem>(regionRoleName, predicate);
 

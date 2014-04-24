@@ -48,12 +48,12 @@ namespace Empiria.Presentation {
       }
     }
 
-    public int Remove(UIComponentItemList objectList) {
+    public int Remove(UIComponentItemList list) {
       IEnumerator<UIComponentItem> enumerator = this.GetEnumerator();
 
       int counter = 0;
-      for (int i = 0; i < objectList.Count; i++) {
-        if (base.Remove(objectList[i])) {
+      for (int i = 0; i < list.Count; i++) {
+        if (base.Remove(list[i])) {
           counter++;
         }
       }
@@ -62,6 +62,6 @@ namespace Empiria.Presentation {
 
     #endregion Public methods
 
-  } // class ObjectList
+  } // class FixedList
 
 } // namespace Empiria.Ontology

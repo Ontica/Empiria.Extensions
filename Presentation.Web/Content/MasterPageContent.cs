@@ -95,7 +95,7 @@ namespace Empiria.Presentation.Web.Content {
 
     public string GetMasterSubMenusContent() {
       TabStripMasterMenu masterMenu = TabStripMasterMenu.Parse("MasterMenu");
-      ObjectList<TabStripMasterChildMenu> subMenuList = masterMenu.GetSubMenus();
+      FixedList<TabStripMasterChildMenu> subMenuList = masterMenu.GetSubMenus();
 
       string xhtml = String.Empty;
 

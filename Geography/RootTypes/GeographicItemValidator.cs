@@ -20,7 +20,7 @@ namespace Empiria.Geography {
     static public GeographicRegionItem SearchSettlement(GeographicItemType settlementType,
                                                         GeographicRegionItem municipality,
                                                         string settlementName) {
-      ObjectList<GeographicRegionItem> settlements =
+      FixedList<GeographicRegionItem> settlements =
                                           municipality.GetRegions("Municipality_Settlements", settlementType);
 
       foreach (GeographicRegionItem item in settlements) {
@@ -31,7 +31,7 @@ namespace Empiria.Geography {
       return GeographicRegionItem.Empty;
     }
 
-    static public ObjectList<GeographicRegionItem> SearchSettlements(GeographicRegionItem municipality,
+    static public FixedList<GeographicRegionItem> SearchSettlements(GeographicRegionItem municipality,
                                                                      string settlementName, decimal precision) {
       Predicate<GeographicRegionItem> predicate =
                         ((x) => EmpiriaString.JaroWinklerProximityFactor(x.Name, settlementName) >= precision);

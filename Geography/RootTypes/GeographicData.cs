@@ -20,11 +20,11 @@ namespace Empiria.Geography {
 
     #region Internal methods
 
-    static internal ObjectList<GeographicRegionItem> GetRegions(string filterExpression, 
+    static internal FixedList<GeographicRegionItem> GetRegions(string filterExpression, 
                                                                 string sortExpression = "GeoItemNotes, GeoItemName") {
       DataTable table = GeneralDataOperations.GetEntities("EOSGeoItems", filterExpression, sortExpression);
 
-      return new ObjectList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);
+      return new FixedList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);
     }
 
     static internal int WriteGeographicRegionItem(GeographicRegionItem o) {

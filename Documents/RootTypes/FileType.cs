@@ -44,7 +44,7 @@ namespace Empiria.Documents {
       get { return BaseObject.ParseUnknown<FileType>(thisTypeName); }
     }
 
-    static public ObjectList<FileType> GetList() {
+    static public FixedList<FileType> GetList() {
       return GeneralObject.ParseList<FileType>(thisTypeName);
     }
 
