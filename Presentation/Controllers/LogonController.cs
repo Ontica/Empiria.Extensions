@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Abstract controller class that performs user authentication and system entrance.              *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using Empiria.Security;
 
 namespace Empiria.Presentation.Controllers {

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : List structure of FilesFolder instances.                                                     *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2004-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 
@@ -24,14 +24,8 @@ namespace Empiria.Documents.IO {
       //no-op
     }
 
-    public FilesFolderList(int capacity)
-      : base(capacity) {
+    public FilesFolderList(int capacity) : base(capacity) {
       // no-op
-    }
-
-    public FilesFolderList(string name, int capacity)
-      : base(name, capacity, false) {
-      //no-op
     }
 
     #endregion Constructors and parsers

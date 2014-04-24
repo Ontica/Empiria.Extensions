@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a web service operation call fails.                         *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2003-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Reflection;
 

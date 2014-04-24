@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for a breadcrumb bar navigator list for a web page.                   *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Defines a list of variables with associated values.                                           *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2008-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using Empiria.Collections;
 
 namespace Empiria.Expressions {

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Type  that holds view model information used in web based applications.                       *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation.Web {

@@ -8,7 +8,7 @@
 *  Summary   : Represents an ordered named list of storage Item instances. Implements the IList interface    *
 *              again because needs convert DataRow items to Item items in the IList indexer.                 *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 
@@ -18,42 +18,15 @@ namespace Empiria.Presentation {
 
   public class UIComponentItemList : EmpiriaList<UIComponentItem> {
 
-    #region Fields
-
-    #endregion Fields
-
     #region Constructors and parsers
 
     public UIComponentItemList() {
       //no-op
     }
 
-    public UIComponentItemList(int capacity)
-      : base(capacity) {
+    public UIComponentItemList(int capacity) : base(capacity) {
       // no-op
     }
-
-    //public UIComponentItemList(DataRowCollection dataRows) : base(dataRows != null ? dataRows.Count : 0) {
-    //  if(dataRows != null) {
-    //    for (int i = 0; i < dataRows.Count; i++) {
-    //      this.Add(UIComponentItem.LoadWithDataRow(dataRows[i]));
-    //    }      
-    //  }
-    //}
-
-    public UIComponentItemList(string name, int capacity)
-      : base(name, capacity, false) {
-      //no-op
-    }
-
-    //public UIComponentItemList(DataRowCollection dataRows, string name) : 
-    //                              base(name, dataRows != null ? dataRows.Count : 0, false) {
-    //  if(dataRows != null) {
-    //    this.dataRows = dataRows;
-    //    base.AddRange(new T[dataRows.Count]);
-    //  }
-    //  isHybrid = true;
-    //}
 
     #endregion Constructors and parsers
 
@@ -85,10 +58,6 @@ namespace Empiria.Presentation {
         }
       }
       return counter;
-    }
-
-    public void RemoveProtected() {
-      throw new NotImplementedException();
     }
 
     #endregion Public methods

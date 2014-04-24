@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Asbtract class that provides read and write operations on operating system directories.       *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2004-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Data;

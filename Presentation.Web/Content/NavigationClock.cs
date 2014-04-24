@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Holds the XHTML content for a navigation clock and user name item.                            *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using Empiria.Security;
 

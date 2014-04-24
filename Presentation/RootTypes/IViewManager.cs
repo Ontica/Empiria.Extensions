@@ -8,7 +8,7 @@
 *  Summary   : Interface that represents a view manager. Each type of user interface technology has an       *
 *              associated view manager, making it easier to add different application types.                 *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 
 namespace Empiria.Presentation {
 

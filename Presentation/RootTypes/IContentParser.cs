@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Interface that provides methods for user interface content parsing.                           *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 
 namespace Empiria.Presentation {
 

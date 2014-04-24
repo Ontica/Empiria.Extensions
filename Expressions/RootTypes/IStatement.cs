@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Represents an executable statement.                                                           *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2008-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 
 namespace Empiria.Expressions {
 

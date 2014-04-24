@@ -8,7 +8,7 @@
 *  Summary   : Abstract type that represents a prime (UIControl) or compound (UIContainer) user interface    *
 *              container of other controls or containers.                                                    *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Data;
 
