@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                       System   : Geographical Information Services *
 *  Assembly  : Empiria.Geography.dll                            Pattern  : Assembly Attributes File          *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Empiria Geographic Information Services.                                                      *
 *                                                                                                            *
@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 *************************************************************************************************************/
 [assembly: AssemblyTitle("Empiria.Geography")]
 [assembly: AssemblyDescription("Empiria Geographic Information Services")]
-[assembly: AssemblyVersion("5.5.0725.0")]
-[assembly: AssemblyFileVersion("5.5.0725")]
+[assembly: AssemblyVersion("6.0.2310.0")]
+[assembly: AssemblyFileVersion("6.0.2310")]
 [assembly: AssemblyCompany("Ontica")]
 [assembly: AssemblyProduct("Empiria Extended Framework 2014")]
 [assembly: AssemblyCopyright("(c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.")]

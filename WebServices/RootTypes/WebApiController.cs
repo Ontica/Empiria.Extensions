@@ -3,7 +3,7 @@
 *  Solution  : Empiria Service-Oriented Framework               System   : Empiria Web Services              *
 *  Namespace : Empiria.WebServices                              Assembly : Empiria.WebServices.dll           *
 *  Type      : WebApiGlobal                                     Pattern  : Global ASP .NET Class             *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Defines the methods, properties, and events common to all application objects used by         *
 *              Empiria ASP.NET Web Services platform.                                                        *

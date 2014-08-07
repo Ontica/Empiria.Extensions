@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework 2014                  System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : FilesFolderList                                  Pattern  : Empiria List Class                *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : List structure of FilesFolder instances.                                                     *
 *                                                                                                            *

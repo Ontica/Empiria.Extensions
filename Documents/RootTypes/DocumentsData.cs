@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework 2014                  System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : DocumentsData                                    Pattern  : Data Services Static Class        *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Provides database read and write methods for documents management.                            *
 *                                                                                                            *
@@ -79,8 +79,7 @@ namespace Empiria.Documents {
                                 o.DisplayName, o.Tags, o.FileNameFilters, o.Keywords, o.ImpersonationToken,
                                 o.SubFoldersCount, o.FilesCount, o.FilesTotalSize, o.ReferenceId, o.CapturedById,
                                 o.ReviewedById, o.ApprovedById, o.CreationDate, o.LastUpdateDate,
-                                o.ParentFilesFolderId, (char) o.Status, o.FilesIntegrityHashCode,
-                                o.RecordIntegrityHashCode);
+                                o.ParentFilesFolderId, (char) o.Status, o.RecordIntegrityHashCode);
       return DataWriter.Execute(dataOperation);
     }
 

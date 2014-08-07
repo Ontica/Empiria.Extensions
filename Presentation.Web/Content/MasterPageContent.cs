@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web.Content                 Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : MasterPageContent                                Pattern  : Standard Class                    *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Sealed class that represents the XHTML content of a master view used as a canvas for a        *
 *              specific WebPage object.                                                                      *

@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework 2014                  System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : FilesFolder                                      Pattern  : Empiria Object Type               *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Asbtract class that provides read and write operations on operating system directories.       *
 *                                                                                                            *
@@ -57,7 +57,6 @@ namespace Empiria.Documents.IO {
     private int parentFilesFolderId = -1;
     private FilesFolder parentFilesFolder = null;
     private FilesFolderStatus status = FilesFolderStatus.Pending;
-    private string filesIntegrityHashCode = String.Empty;
     private string recordIntegrityHashCode = String.Empty;
 
     private FileInfo[] filesCache = null;
@@ -257,11 +256,6 @@ namespace Empiria.Documents.IO {
 
     #region Internal and protected fields
 
-    internal string FilesIntegrityHashCode {
-      get { return filesIntegrityHashCode; }
-      set { filesIntegrityHashCode = value; }
-    }
-
     internal string Keywords {
       get { return keywords; }
     }
@@ -283,7 +277,6 @@ namespace Empiria.Documents.IO {
       this.subFoldersCount = 0;
       this.filesCount = 0;
       this.filesTotalSize = 0;
-      this.filesIntegrityHashCode = String.Empty;
       this.recordIntegrityHashCode = String.Empty;
     }
 
@@ -388,7 +381,6 @@ namespace Empiria.Documents.IO {
       FileInfo[] files = this.GetFiles();
       this.filesCount = files.Length;
       this.filesTotalSize = this.CalculateFilesSize(files);
-      this.filesIntegrityHashCode = String.Empty;
       this.recordIntegrityHashCode = String.Empty;
       if (this.tags.Length == 0) {
         this.tags = this.ParentFilesFolder.Tags;
@@ -400,10 +392,9 @@ namespace Empiria.Documents.IO {
 
       if (directoryInfo.Exists) {
         FileInfo[] files = this.GetFiles();
-
-        this.filesIntegrityHashCode = files.Length.ToString();
+        this.filesCount = files.Length;
       } else {
-        this.filesIntegrityHashCode = "NO EXISTE";
+        this.filesCount = 0;
       }
     }
 
@@ -459,8 +450,7 @@ namespace Empiria.Documents.IO {
       this.lastUpdateDate = (DateTime) row["LastUpdateDate"];
       this.parentFilesFolderId = (int) row["ParentFilesFolderId"];
       this.status = (FilesFolderStatus) Convert.ToChar(row["FilesFolderStatus"]); ;
-      this.filesIntegrityHashCode = (string) row["FilesIntegrityHashCode"];
-      this.recordIntegrityHashCode = (string) row["FilesFolderRIHC"];
+      this.recordIntegrityHashCode = (string) row["FilesFolderDIF"];
     }
 
     private void SetDirectoryInfo(string path) {

@@ -3,7 +3,7 @@
 *  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : AjaxWebPage                                      Pattern  : Model View Controller             *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Abstract type that serves as a processor of XMLHttpRequest requests.                          *
 *                                                                                                            *

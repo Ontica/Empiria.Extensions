@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                       System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : Function                                         Pattern  : Unit of Work                      *
-*  Version   : 5.5        Date: 25/Jun/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
 *                                                                                                            *
 *  Summary   : Represents a prime or compound function.                                                      *
 *                                                                                                            *
