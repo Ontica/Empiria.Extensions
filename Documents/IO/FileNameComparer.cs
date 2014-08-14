@@ -27,12 +27,12 @@ namespace Empiria.Documents.IO {
     #region Public methods
 
     int IComparer.Compare(object x, object y) {
-      Assertion.RequireObject(x, "x");
-      Assertion.RequireObject(y, "y");
-      Assertion.Require(x is FileInfo, new DocumentsException(DocumentsException.Msg.FileInfoInstanceExpected,
-                                                              x.GetType().ToString()));
-      Assertion.Require(y is FileInfo, new DocumentsException(DocumentsException.Msg.FileInfoInstanceExpected,
-                                                              y.GetType().ToString()));
+      Assertion.AssertObject(x, "x");
+      Assertion.AssertObject(y, "y");
+      Assertion.Assert(x is FileInfo, new DocumentsException(DocumentsException.Msg.FileInfoInstanceExpected,
+                                                             x.GetType().ToString()));
+      Assertion.Assert(y is FileInfo, new DocumentsException(DocumentsException.Msg.FileInfoInstanceExpected,
+                                                             y.GetType().ToString()));
 
       return ((FileInfo) x).Name.ToLowerInvariant().CompareTo(((FileInfo) y).Name.ToLowerInvariant());
     }

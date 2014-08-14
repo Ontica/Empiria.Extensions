@@ -249,7 +249,7 @@ namespace Empiria.Presentation.Web {
       if (this.loadedFromCache) {
         return;
       }
-      Assertion.RequireObject(firstColumnName, "firstColumnName");
+      Assertion.AssertObject(firstColumnName, "firstColumnName");
       totals.Clear();
       totals.Add(firstColumnName, decimal.Zero);
       for (int i = 0; i < additionalColumnNames.Length; i++) {

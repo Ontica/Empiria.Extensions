@@ -71,20 +71,23 @@ namespace Empiria.WebServices {
 
     protected void Assert(bool value, string exceptionText) {
       if (!value) {
-        var e = new AssertionFailsException(AssertionFailsException.Msg.AssertFails, GetSourceMethodName(), exceptionText);
-        var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
-        throw new HttpResponseException(response);
+        try {
+          Empiria.Assertion.Assert(false, exceptionText);
+        } catch (Exception e) {
+          var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
+          throw new HttpResponseException(response);
+        }
       }
     }
 
     protected void Assert(object value, string name) {
       if (value == null) {
-        var e = new AssertionFailsException(name.Contains(' ') ?
-                                                AssertionFailsException.Msg.AssertFails :
-                                                AssertionFailsException.Msg.AssertNotNullObjectFails,
-                                            WebApiController.GetSourceMethodName(), name);
-        var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
-        throw new HttpResponseException(response);
+        try {
+          Empiria.Assertion.Assert(false, name);
+        } catch (Exception e) {
+          var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
+          throw new HttpResponseException(response);
+        }
       }
     }
 

@@ -52,10 +52,10 @@ namespace Empiria.Expressions {
     }
 
     public Function(string name, Type returnType, int precision, string[] argumentNames) {
-      Assertion.EnsureObject(name, "name");
-      Assertion.EnsureObject(returnType, "returnType");
+      Assertion.AssertObject(name, "name");
+      Assertion.AssertObject(returnType, "returnType");
       Assertion.Assert(precision >= 0, "Numerical precision is less than zero");
-      Assertion.EnsureObject(argumentNames, "argumentNames");
+      Assertion.AssertObject(argumentNames, "argumentNames");
 
       this.name = name;
       this.returnType = returnType;

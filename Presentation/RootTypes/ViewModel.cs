@@ -26,8 +26,7 @@ namespace Empiria.Presentation {
 
     #region Constructors and parsers
 
-    private ViewModel()
-      : base(thisTypeName) {
+    private ViewModel() : base(thisTypeName) {
       // Abstract class. Object creation of this type not allowed.
     }
 
@@ -48,71 +47,68 @@ namespace Empiria.Presentation {
 
     #region Public properties
 
+    [DataField(ExtensionDataFieldName + ".ContentHint")]
     public string ContentHint {
-      get { return base.GetAttribute<string>("ContentHint"); }
+      get;
+      private set;
     }
 
+    [DataField(ExtensionDataFieldName + ".ContentTitle")]
     public string ContentTitle {
-      get { return base.GetAttribute<string>("ContentTitle"); }
+      get;
+      set;
     }
 
     public bool DisplayContentTitle {
-      get { return (this.ContentTitle != String.Empty); }
+      get {
+        return (this.ContentTitle != String.Empty);
+      }
     }
 
     public string FullNamespace {
-      get { return base.NamedKey; }
+      get {
+        return base.NamedKey;
+      }
     }
 
+    [DataField(ExtensionDataFieldName + ".ImageName")]
     public string ImageName {
-      get { return base.GetAttribute<string>("ImageName"); }
+      get;
+      private set;
     }
 
     public string Namespace {
-      get { return base.NamedKey; }
+      get {
+        return base.NamedKey;
+      }
     }
 
+    [DataField(ExtensionDataFieldName + ".Source", IsOptional = false)]
     public string Source {
-      get { return base.GetAttribute<string>("Source"); }
+      get;
+      private set;
     }
 
     public string Title {
-      get { return ((title.Length == 0) ? base.Name : title); }
-      set { title = value; }
+      get {
+        return ((title.Length == 0) ? base.Name : title);
+      }
+      set {
+        title = value;
+      }
     }
 
     #endregion Public properties
 
     #region Internal properties
 
+    [DataField(ExtensionDataFieldName + ".KeepInHistory", Default = true)]
     internal bool KeepInNavigationHistory {
-      get { return base.GetAttribute<bool>("KeepInHistory"); }
+      get;
+      private set;
     }
 
     #endregion Internal properties
-
-    #region Public methods
-
-    //OOJJOO: refactoring Parece ser que este método está deprecated A PESAR de que se emplea en la aplicación cliente
-    public string GetQueryString(NameValueCollection viewParameters) {
-      //RelationMemberHashList parameters = base.Relations.CloneGroup("RunTimeParameters", viewParameters);
-
-      //IEnumerator<RelationMember> enumerator = parameters.GetEnumerator();
-      string queryString = String.Empty;
-      //while (enumerator.MoveNext()) {
-      //  RelationMember parameter = enumerator.Current;
-      //  string value = Convert.ToString(parameter.GetTarget());
-      //  if (!String.IsNullOrEmpty(value)) {
-      //    if (queryString.Length != 0) {
-      //      queryString += "&";
-      //    }
-      //    queryString += parameter.Name + "=" + value;
-      //  }
-      //}
-      return queryString;
-    }
-
-    #endregion Public methods
 
   } // class ViewModel
 

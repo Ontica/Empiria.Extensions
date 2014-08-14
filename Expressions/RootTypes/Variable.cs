@@ -29,14 +29,14 @@ namespace Empiria.Expressions {
     }
 
     static public Variable Parse(string symbol) {
-      Assertion.EnsureObject(symbol, "symbol");
+      Assertion.AssertObject(symbol, "symbol");
 
       return new Variable(symbol, null);
     }
 
     static public Variable Parse(string symbol, object value) {
-      Assertion.EnsureObject(symbol, "symbol");
-      Assertion.EnsureObject(value, "value");
+      Assertion.AssertObject(symbol, "symbol");
+      Assertion.AssertObject(value, "value");
 
       return new Variable(symbol, value);
     }

@@ -60,26 +60,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Empiria.Data, Version=5.5.725.0, Culture=neutral, PublicKeyToken=8b7fe9c60c0f43bd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\empiria.assemblies\Empiria.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Empiria.Foundation, Version=5.5.725.0, Culture=neutral, PublicKeyToken=8b7fe9c60c0f43bd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\empiria.assemblies\Empiria.Foundation.dll</HintPath>
-    </Reference>
-    <Reference Include="Empiria.Kernel, Version=5.5.725.0, Culture=neutral, PublicKeyToken=8b7fe9c60c0f43bd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\empiria.assemblies\Empiria.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Empiria.Presentation, Version=5.5.725.0, Culture=neutral, PublicKeyToken=8b7fe9c60c0f43bd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\empiria.assemblies\Empiria.Presentation.dll</HintPath>
-    </Reference>
-    <Reference Include="Empiria.Presentation.Web, Version=5.5.725.0, Culture=neutral, PublicKeyToken=8b7fe9c60c0f43bd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\empiria.assemblies\Empiria.Presentation.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -167,6 +147,20 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Data\Empiria.Data.csproj">
+      <Project>{20c01648-86cc-4e9e-ad71-ba7aa8e44dbc}</Project>
+      <Name>Empiria.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\Foundation\Empiria.Foundation.csproj">
+      <Project>{73ea993b-576b-4a5b-acc5-117dad0254ee}</Project>
+      <Name>Empiria.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\Kernel\Empiria.Kernel.csproj">
+      <Project>{f518e007-2b16-4804-ba45-695ea098e1c0}</Project>
+      <Name>Empiria.Kernel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

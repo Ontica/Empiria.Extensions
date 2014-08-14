@@ -150,7 +150,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C1.Win.C1BarCode.2, Version=2.0.20103.42, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1BarCode.2">
+      <HintPath>..\..\..\empiria.assemblies\C1.Win.C1BarCode.2.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>

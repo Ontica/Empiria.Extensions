@@ -30,8 +30,8 @@ namespace Empiria.Expressions {
     }
 
     static public Assignment Parse(string variableSymbol, Expression expression) {
-      Assertion.EnsureObject(variableSymbol, "variableSymbol");
-      Assertion.EnsureObject(expression, "expression");
+      Assertion.AssertObject(variableSymbol, "variableSymbol");
+      Assertion.AssertObject(expression, "expression");
 
       return new Assignment(variableSymbol, expression);
     }
