@@ -286,7 +286,7 @@ namespace Empiria.Documents.IO {
 
     public void CloneInto(FilesFolder clone) {
       System.Data.DataRow dataRow = this.GetDataRow();
-      clone.ImplementsLoadObjectData(dataRow);
+      clone.OnLoadObjectData(dataRow);
     }
 
     protected void CopyFrom(DirectoryInfo sourceFolder) {
@@ -422,13 +422,7 @@ namespace Empiria.Documents.IO {
       return fileInfoArray;
     }
 
-    protected override void ImplementsSave() {
-      this.keywords = EmpiriaString.BuildKeywords(this.displayName, this.tags);
-
-      DocumentsData.WriteFilesFolder(this);
-    }
-
-    protected override void ImplementsLoadObjectData(DataRow row) {
+    protected override void OnLoadObjectData(DataRow row) {
       this.ownerId = (int) row["FilesFolderOwnerId"];
       this.webServer = WebServer.Parse((int) row["WebServerId"]);
       this.physicalPath = (string) row["PhysicalPath"];
@@ -451,6 +445,12 @@ namespace Empiria.Documents.IO {
       this.parentFilesFolderId = (int) row["ParentFilesFolderId"];
       this.status = (FilesFolderStatus) Convert.ToChar(row["FilesFolderStatus"]); ;
       this.recordIntegrityHashCode = (string) row["FilesFolderDIF"];
+    }
+
+    protected override void OnSave() {
+      this.keywords = EmpiriaString.BuildKeywords(this.displayName, this.tags);
+
+      DocumentsData.WriteFilesFolder(this);
     }
 
     private void SetDirectoryInfo(string path) {

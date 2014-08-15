@@ -85,7 +85,7 @@ namespace Empiria.Presentation {
     #region Private methods
 
     private UIComponentItemList LoadRootItems() {
-      DataView rootsDataView = PresentationDataReader.GetUIRootComponents(this.NamedKey);
+      DataView rootsDataView = PresentationDataReader.GetUIRootComponents(base.NamedKey);
 
       UIComponentItemList list = new UIComponentItemList(rootsDataView.Count);
       for (int i = 0; i < rootsDataView.Count; i++) {

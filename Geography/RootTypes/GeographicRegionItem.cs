@@ -161,8 +161,8 @@ namespace Empiria.Geography {
       return list;
     }
 
-    protected override void ImplementsLoadObjectData(DataRow row) {
-      base.ImplementsLoadObjectData(row);
+    protected override void OnLoadObjectData(DataRow row) {
+      base.OnLoadObjectData(row);
       this.webPage = (string) row["GeoItemWebPage"];
       this.phonePrefix = (string) row["PhonePrefix"];
       this.population = (decimal) row["Population"];
@@ -170,7 +170,7 @@ namespace Empiria.Geography {
       this.gdpPerCapita = Money.Parse(Currency.Parse((int) row["GDPCurrencyId"]), (decimal) row["GDPPerCapita"]);
     }
 
-    protected override void ImplementsSave() {
+    protected override void OnSave() {
       base.Keywords = EmpiriaString.BuildKeywords(this.Name, this.ObjectTypeInfo.DisplayName);
       GeographicData.WriteGeographicRegionItem(this);
     }

@@ -119,7 +119,7 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    protected override void ImplementsLoadObjectData(DataRow row) {
+    protected override void OnLoadObjectData(DataRow row) {
       this.name = (string) row["GeoItemName"];
       this.code = (string) row["GeoItemCode"];
       this.fullName = (string) row["GeoItemNotes"];
