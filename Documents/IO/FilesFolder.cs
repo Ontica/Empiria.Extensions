@@ -13,6 +13,7 @@ using System.Collections;
 using System.Data;
 using System.IO;
 
+using Empiria.Contacts;
 using Empiria.Ontology;
 using Empiria.Security;
 
@@ -35,43 +36,13 @@ namespace Empiria.Documents.IO {
 
     private const string thisTypeName = "ObjectType.FilesFolder";
 
-    private int ownerId = -1;
-    private WebServer webServer = null;
-    private string physicalPath = String.Empty;
-    private string physicalRootPath = String.Empty;
-    private string virtualRootPath = String.Empty;
-    private string displayName = String.Empty;
-    private string tags = String.Empty;
-    private string fileNameFilters = String.Empty;
-    private string keywords = String.Empty;
-    private string impersonationToken = String.Empty;
-    private int subFoldersCount = 0;
-    private int filesCount = 0;
-    private int filesTotalSize = 0;
-    private int referenceId = -1;
-    private int capturedById = -1;
-    private int reviewedById = -1;
-    private int approvedById = -1;
-    private DateTime creationDate = DateTime.Now;
-    private DateTime lastUpdateDate = DateTime.Now;
-    private int parentFilesFolderId = -1;
-    private FilesFolder parentFilesFolder = null;
-    private FilesFolderStatus status = FilesFolderStatus.Pending;
-    private string recordIntegrityHashCode = String.Empty;
-
     private FileInfo[] filesCache = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    public FilesFolder()
-      : base(thisTypeName) {
-
-    }
-
-    protected FilesFolder(string typeName)
-      : base(typeName) {
+    protected FilesFolder(string typeName) : base(typeName) {
       // Empiria Object Type pattern classes always has this constructor. Don't delete
     }
 
@@ -98,7 +69,8 @@ namespace Empiria.Documents.IO {
       DirectoryInfo[] subdirectories = rootFilesFolder.GetDirectories();
 
       for (int i = 0; i < subdirectories.Length; i++) {
-        FilesFolderList childsFolderList = CreateAllFromPath(filesFolderTypeInfo, parentFilesFolder, subdirectories[i].FullName);
+        FilesFolderList childsFolderList = CreateAllFromPath(filesFolderTypeInfo,
+                                                             parentFilesFolder, subdirectories[i].FullName);
         for (int j = 0; j < childsFolderList.Count; j++) {
           filesFolderList.Add(childsFolderList[j]);
         }
@@ -127,24 +99,18 @@ namespace Empiria.Documents.IO {
     static private FilesFolder LoadFromPath(ObjectTypeInfo filesFolderTypeInfo, FilesFolder parentFilesFolder, string path) {
       FilesFolder filesFolder = BaseObject.Create<FilesFolder>(filesFolderTypeInfo);
 
-      filesFolder.ownerId = parentFilesFolder.OwnerId;
-      filesFolder.webServer = WebServer.Current;
-      filesFolder.physicalRootPath = parentFilesFolder.PhysicalRootPath;
-      filesFolder.virtualRootPath = parentFilesFolder.VirtualRootPath;
-      filesFolder.impersonationToken = parentFilesFolder.ImpersonationToken;
-      filesFolder.fileNameFilters = parentFilesFolder.FileNameFilters;
-      filesFolder.tags = parentFilesFolder.Tags;
-      filesFolder.keywords = parentFilesFolder.Keywords;
-      filesFolder.referenceId = -1;
-      filesFolder.capturedById = -1;
-      filesFolder.reviewedById = -1;
-      filesFolder.approvedById = -1;
+      filesFolder.Owner = parentFilesFolder.Owner;
+      filesFolder.WebServer = WebServer.Current;
+      filesFolder.PhysicalRootPath = parentFilesFolder.PhysicalRootPath;
+      filesFolder.VirtualRootPath = parentFilesFolder.VirtualRootPath;
+      filesFolder.ImpersonationToken = parentFilesFolder.ImpersonationToken;
+      filesFolder.FileNameFilters = parentFilesFolder.FileNameFilters;
+      filesFolder.Tags = parentFilesFolder.Tags;
 
       filesFolder.SetDirectoryInfo(path);
 
-      filesFolder.parentFilesFolderId = parentFilesFolder.Id;
-      filesFolder.parentFilesFolder = parentFilesFolder;
-      filesFolder.status = FilesFolderStatus.Pending;
+      filesFolder.ParentFolder = parentFilesFolder;
+      filesFolder.Status = FilesFolderStatus.Pending;
 
       return filesFolder;
     }
@@ -153,131 +119,147 @@ namespace Empiria.Documents.IO {
 
     #region Public fields
 
-    public int ApprovedById {
-      get { return approvedById; }
-      set { approvedById = value; }
+    [DataField("ApprovedById")]
+    LazyObject<Contact> _approvedBy = LazyObject<Contact>.Empty;
+    public Contact ApprovedBy {
+      get { return _approvedBy.Instance; }
+      protected set { _approvedBy.Instance = value; }
     }
 
-    public int CapturedById {
-      get { return capturedById; }
-      set { capturedById = value; }
+    [DataField("CapturedById")]
+    LazyObject<Contact> _capturedBy = LazyObject<Contact>.Empty;
+    public Contact CapturedBy {
+      get { return _capturedBy.Instance; }
+      protected set { _capturedBy.Instance = value; }
     }
 
-    public int SubFoldersCount {
-      get { return subFoldersCount; }
-    }
-
+    [DataField("CreationDate", Default = "DateTime.Now")]
     public DateTime CreationDate {
-      get { return creationDate; }
+      get;
+      private set;
     }
 
+    [DataField("FilesFolderDisplayName")]
     public string DisplayName {
-      get { return displayName; }
+      get;
+      private set;
     }
 
-    public string FileNameFilters {
-      get { return fileNameFilters; }
-      protected set { fileNameFilters = value; }
-    }
-
+    [DataField("FilesCount")]
     public int FilesCount {
-      get { return filesCount; }
+      get;
+      private set;
     }
 
+    [DataField("FileNameFilters")]
+    public string FileNameFilters {
+      get;
+      protected set;
+    }
+
+    [DataField("FilesTotalSize")]
     public int FilesTotalSize {
-      get { return filesTotalSize; }
+      get;
+      private set;
     }
 
+    [DataField("ImpersonationToken")]
     public string ImpersonationToken {
-      get { return impersonationToken; }
-      protected set { impersonationToken = value; }
+      get;
+      protected set;
     }
 
-    public DateTime LastUpdateDate {
-      get { return lastUpdateDate; }
-    }
-
-    public int OwnerId {
-      get { return ownerId; }
-      set { ownerId = value; }
-    }
-
-    public FilesFolder ParentFilesFolder {
+    internal string Keywords {
       get {
-        if (parentFilesFolder == null) {
-          parentFilesFolder = FilesFolder.Parse(this.parentFilesFolderId);
-        }
-        return parentFilesFolder;
+        return EmpiriaString.BuildKeywords(this.DisplayName, this.Tags, this.ParentFolder.Keywords);
       }
     }
 
-    public int ParentFilesFolderId {
-      get { return parentFilesFolderId; }
-      set {
-        parentFilesFolderId = value;
-        parentFilesFolder = null;
-      }
+    [DataField("LastUpdateDate", Default = "DateTime.Now")]
+    public DateTime LastUpdateDate {
+      get;
+      private set;
     }
 
+    [DataField("FilesFolderOwnerId")]
+    LazyObject<Contact> _owner = LazyObject<Contact>.Empty;
+    public Contact Owner {
+      get { return _owner.Instance; }
+      set { _owner.Instance = value; }
+    }
+
+    [DataField("ParentFilesFolderId")]
+    LazyObject<FilesFolder> _parentFilesFolder = LazyObject<FilesFolder>.Empty;
+    public FilesFolder ParentFolder {
+      get { return _parentFilesFolder.Instance; }
+      protected set { _parentFilesFolder.Instance = value; }
+    }
+
+    [DataField("PhysicalPath")]
     public string PhysicalPath {
-      get { return physicalPath; }
+      get;
+      private set;
     }
 
+    [DataField("PhysicalRootPath")]
     public string PhysicalRootPath {
-      get { return physicalRootPath; }
-      protected set { physicalRootPath = value; }
+      get;
+      protected set;
     }
 
-    public int ReviewedById {
-      get { return reviewedById; }
-      protected set { reviewedById = value; }
+    internal protected abstract IIdentifiable Reference {
+      get;
+      set;
     }
 
+    [DataField("ReviewedById")]
+    LazyObject<Contact> _reviewedBy = LazyObject<Contact>.Empty;
+    public Contact ReviewedBy {
+      get { return _reviewedBy.Instance; }
+      protected set { _reviewedBy.Instance = value; }
+    }
+
+    [DataField("FilesFolderStatus", Default = FilesFolderStatus.Pending)]
     public FilesFolderStatus Status {
-      get { return status; }
-      protected set { status = value; }
+      get;
+      protected set;
     }
 
+    [DataField("SubFoldersCount")]
+    public int SubFoldersCount {
+      get;
+      private set;
+    }
+
+    [DataField("FilesFolderTags")]
     public string Tags {
-      get { return tags; }
-      set { tags = value; }
+      get;
+      set;
     }
 
-    public WebServer WebServer {
-      get { return webServer; }
-    }
-
+    [DataField("VirtualRootPath")]
     public string VirtualRootPath {
-      get { return virtualRootPath; }
-      protected set { virtualRootPath = value; }
+      get;
+      protected set;
+    }
+
+    [DataField("WebServerId", Default = "Empiria.Security.WebServer.Current")]
+    public WebServer WebServer {
+      get;
+      private set;
     }
 
     #endregion Public fields
 
     #region Internal and protected fields
 
-    internal string Keywords {
-      get { return keywords; }
-    }
-
-    internal string RecordIntegrityHashCode {
-      get { return recordIntegrityHashCode; }
-      set { recordIntegrityHashCode = value; }
-    }
-
-    internal protected int ReferenceId {
-      get { return referenceId; }
-      protected set { referenceId = value; }
-    }
-
     protected void ResetStatistics() {
-      this.creationDate = ExecutionServer.DateMinValue;
-      this.lastUpdateDate = ExecutionServer.DateMinValue;
+      this.CreationDate = ExecutionServer.DateMinValue;
+      this.LastUpdateDate = ExecutionServer.DateMinValue;
       this.filesCache = null;
-      this.subFoldersCount = 0;
-      this.filesCount = 0;
-      this.filesTotalSize = 0;
-      this.recordIntegrityHashCode = String.Empty;
+      this.SubFoldersCount = 0;
+      this.FilesCount = 0;
+      this.FilesTotalSize = 0;
     }
 
     #endregion Internal and protected fields
@@ -290,15 +272,15 @@ namespace Empiria.Documents.IO {
     }
 
     protected void CopyFrom(DirectoryInfo sourceFolder) {
-      this.physicalPath = this.PhysicalPath.TrimEnd('\\') + @"\" + sourceFolder.Name;
-      this.displayName = sourceFolder.Name;
+      this.PhysicalPath = this.PhysicalPath.TrimEnd('\\') + @"\" + sourceFolder.Name;
+      this.DisplayName = sourceFolder.Name;
 
-      using (ImpersonationContext context = ImpersonationContext.Open(this.impersonationToken)) {
+      using (ImpersonationContext context = ImpersonationContext.Open(this.ImpersonationToken)) {
         DirectoryInfo targetDirectory = null;
-        if (!Directory.Exists(this.physicalPath)) {
-          targetDirectory = Directory.CreateDirectory(this.physicalPath);
-        } else if (!IsEmpty(this.physicalPath)) {
-          throw new DocumentsException(DocumentsException.Msg.CantCopyToNoneEmptyDirectory, this.physicalPath);
+        if (!Directory.Exists(this.PhysicalPath)) {
+          targetDirectory = Directory.CreateDirectory(this.PhysicalPath);
+        } else if (!IsEmpty(this.PhysicalPath)) {
+          throw new DocumentsException(DocumentsException.Msg.CantCopyToNoneEmptyDirectory, this.PhysicalPath);
         }
         foreach (FileInfo file in sourceFolder.GetFiles()) {
           file.CopyTo(targetDirectory.FullName.TrimEnd('\\') + @"\" + file.Name);
@@ -316,8 +298,8 @@ namespace Empiria.Documents.IO {
 
     protected DirectoryInfo[] GetDirectories() {
       DirectoryInfo[] directoriesArray = null;
-      using (ImpersonationContext context = ImpersonationContext.Open(this.impersonationToken)) {
-        DirectoryInfo directoryInfo = new DirectoryInfo(this.physicalPath);
+      using (ImpersonationContext context = ImpersonationContext.Open(this.ImpersonationToken)) {
+        DirectoryInfo directoryInfo = new DirectoryInfo(this.PhysicalPath);
 
         directoriesArray = directoryInfo.GetDirectories();
       }
@@ -362,39 +344,38 @@ namespace Empiria.Documents.IO {
     }
 
     public void Delete() {
-      if (this.referenceId != -1) {
-        throw new DocumentsException(DocumentsException.Msg.CantDeleteReferencedFilesFolder, this.displayName);
+      if (this.Reference.Id != -1) {
+        throw new DocumentsException(DocumentsException.Msg.CantDeleteReferencedFilesFolder, this.DisplayName);
       }
       if (this.Status == FilesFolderStatus.Opened || this.Status == FilesFolderStatus.Closed) {
-        throw new DocumentsException(DocumentsException.Msg.CantDeleteInUseFolder, this.displayName);
+        throw new DocumentsException(DocumentsException.Msg.CantDeleteInUseFolder, this.DisplayName);
       }
-      this.filesCount = 0;
-      this.filesTotalSize = 0;
-      this.subFoldersCount = 0;
-      this.status = FilesFolderStatus.Deleted;
+      this.FilesCount = 0;
+      this.FilesTotalSize = 0;
+      this.SubFoldersCount = 0;
+      this.Status = FilesFolderStatus.Deleted;
       base.Save();
     }
 
     public void UpdateStatistics() {
       this.filesCache = null;
-      this.subFoldersCount = this.GetDirectories().Length;
+      this.SubFoldersCount = this.GetDirectories().Length;
       FileInfo[] files = this.GetFiles();
-      this.filesCount = files.Length;
-      this.filesTotalSize = this.CalculateFilesSize(files);
-      this.recordIntegrityHashCode = String.Empty;
-      if (this.tags.Length == 0) {
-        this.tags = this.ParentFilesFolder.Tags;
+      this.FilesCount = files.Length;
+      this.FilesTotalSize = this.CalculateFilesSize(files);
+      if (this.Tags.Length == 0) {
+        this.Tags = this.ParentFolder.Tags;
       }
     }
 
     public void UpdateFilesCount() {
-      DirectoryInfo directoryInfo = new DirectoryInfo(this.physicalPath);
+      DirectoryInfo directoryInfo = new DirectoryInfo(this.PhysicalPath);
 
       if (directoryInfo.Exists) {
         FileInfo[] files = this.GetFiles();
-        this.filesCount = files.Length;
+        this.FilesCount = files.Length;
       } else {
-        this.filesCount = 0;
+        this.FilesCount = 0;
       }
     }
 
@@ -404,7 +385,7 @@ namespace Empiria.Documents.IO {
 
     private int CalculateFilesSize(FileInfo[] files) {
       long size = 0;
-      using (ImpersonationContext context = ImpersonationContext.Open(this.impersonationToken)) {
+      using (ImpersonationContext context = ImpersonationContext.Open(this.ImpersonationToken)) {
         for (int i = 0; i < files.Length; i++) {
           size += files[i].Length;
         }
@@ -414,52 +395,26 @@ namespace Empiria.Documents.IO {
 
     private FileInfo[] GetFiles(string fileNameFilter) {
       FileInfo[] fileInfoArray = null;
-      using (ImpersonationContext context = ImpersonationContext.Open(this.impersonationToken)) {
-        DirectoryInfo directoryInfo = new DirectoryInfo(this.physicalPath);
+      using (ImpersonationContext context = ImpersonationContext.Open(this.ImpersonationToken)) {
+        DirectoryInfo directoryInfo = new DirectoryInfo(this.PhysicalPath);
 
         fileInfoArray = directoryInfo.GetFiles(fileNameFilter);
       }
       return fileInfoArray;
     }
 
-    protected override void OnLoadObjectData(DataRow row) {
-      this.ownerId = (int) row["FilesFolderOwnerId"];
-      this.webServer = WebServer.Parse((int) row["WebServerId"]);
-      this.physicalPath = (string) row["PhysicalPath"];
-      this.physicalRootPath = (string) row["PhysicalRootPath"];
-      this.virtualRootPath = (string) row["VirtualRootPath"];
-      this.displayName = (string) row["FilesFolderDisplayName"];
-      this.tags = (string) row["FilesFolderTags"];
-      this.fileNameFilters = (string) row["FileNameFilters"];
-      this.keywords = (string) row["FilesFolderKeywords"];
-      this.impersonationToken = (string) row["ImpersonationToken"];
-      this.subFoldersCount = (int) row["SubFoldersCount"];
-      this.filesCount = (int) row["FilesCount"];
-      this.filesTotalSize = (int) row["FilesTotalSize"];
-      this.referenceId = (int) row["ReferenceId"];
-      this.capturedById = (int) row["CapturedById"];
-      this.reviewedById = (int) row["ReviewedById"];
-      this.approvedById = (int) row["ApprovedById"];
-      this.creationDate = (DateTime) row["CreationDate"];
-      this.lastUpdateDate = (DateTime) row["LastUpdateDate"];
-      this.parentFilesFolderId = (int) row["ParentFilesFolderId"];
-      this.status = (FilesFolderStatus) Convert.ToChar(row["FilesFolderStatus"]); ;
-      this.recordIntegrityHashCode = (string) row["FilesFolderDIF"];
-    }
-
     protected override void OnSave() {
-      this.keywords = EmpiriaString.BuildKeywords(this.displayName, this.tags);
-
+      Assertion.Assert(this.Reference != null, "FilesFolder.Reference can't be null.");
       DocumentsData.WriteFilesFolder(this);
     }
 
     private void SetDirectoryInfo(string path) {
-      using (ImpersonationContext context = ImpersonationContext.Open(this.impersonationToken)) {
+      using (ImpersonationContext context = ImpersonationContext.Open(this.ImpersonationToken)) {
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
-        this.physicalPath = directoryInfo.FullName;
-        this.displayName = directoryInfo.Name;
-        this.creationDate = directoryInfo.CreationTime;
-        this.lastUpdateDate = directoryInfo.LastAccessTime;
+        this.PhysicalPath = directoryInfo.FullName;
+        this.DisplayName = directoryInfo.Name;
+        this.CreationDate = directoryInfo.CreationTime;
+        this.LastUpdateDate = directoryInfo.LastAccessTime;
       }
     }
 

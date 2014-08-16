@@ -75,11 +75,11 @@ namespace Empiria.Documents {
 
     static internal int WriteFilesFolder(FilesFolder o) {
       DataOperation dataOperation = DataOperation.Parse("writeLRSFilesFolder", o.Id, o.ObjectTypeInfo.Id,
-                                o.OwnerId, o.WebServer.Id, o.PhysicalPath, o.PhysicalRootPath, o.VirtualRootPath,
+                                o.Owner.Id, o.WebServer.Id, o.PhysicalPath, o.PhysicalRootPath, o.VirtualRootPath,
                                 o.DisplayName, o.Tags, o.FileNameFilters, o.Keywords, o.ImpersonationToken,
-                                o.SubFoldersCount, o.FilesCount, o.FilesTotalSize, o.ReferenceId, o.CapturedById,
-                                o.ReviewedById, o.ApprovedById, o.CreationDate, o.LastUpdateDate,
-                                o.ParentFilesFolderId, (char) o.Status, o.RecordIntegrityHashCode);
+                                o.SubFoldersCount, o.FilesCount, o.FilesTotalSize, o.Reference.Id, o.CapturedBy.Id,
+                                o.ReviewedBy.Id, o.ApprovedBy.Id, o.CreationDate, o.LastUpdateDate,
+                                o.ParentFolder.Id, (char) o.Status, String.Empty);
       return DataWriter.Execute(dataOperation);
     }
 

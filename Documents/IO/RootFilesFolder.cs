@@ -46,6 +46,13 @@ namespace Empiria.Documents.IO {
       return DocumentsData.GetFilesFoldersList(ObjectTypeInfo.Parse(thisTypeName));
     }
 
+    internal protected override IIdentifiable Reference {
+      get { return FilesFolder.Empty; }
+      set { 
+        // no-op;
+      }
+    }
+
     #endregion Constructors and parsers
 
   } // class RootFilesFolder
