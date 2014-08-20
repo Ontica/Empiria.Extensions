@@ -24,13 +24,11 @@ namespace Empiria.Geography {
 
     #region Constructors and parsers
 
-    private GeographicPathItem()
-      : base(thisTypeName) {
+    private GeographicPathItem() : base(thisTypeName) {
       // For create instances use GeographicItemType.CreateInstance method instead
     }
 
-    protected GeographicPathItem(string typeName)
-      : base(typeName) {
+    protected GeographicPathItem(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
@@ -47,15 +45,6 @@ namespace Empiria.Geography {
     }
 
     #endregion Constructors and parsers
-
-    #region Public methods
-
-    protected override void OnSave() {
-      base.Keywords = EmpiriaString.BuildKeywords(this.Name, this.ObjectTypeInfo.DisplayName);
-      GeographicData.WriteGeographicPathItem(this);
-    }
-
-    #endregion Public methods
 
   } // class GeographicPathItem
 

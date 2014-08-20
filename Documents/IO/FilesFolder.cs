@@ -209,7 +209,6 @@ namespace Empiria.Documents.IO {
 
     internal protected abstract IIdentifiable Reference {
       get;
-      set;
     }
 
     [DataField("ReviewedById")]
@@ -267,7 +266,7 @@ namespace Empiria.Documents.IO {
     #region Protected methods
 
     public void CloneInto(FilesFolder clone) {
-      System.Data.DataRow dataRow = this.GetDataRow();
+      DataRow dataRow = this.GetDataRow();
       clone.OnLoadObjectData(dataRow);
     }
 

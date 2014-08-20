@@ -24,23 +24,15 @@ namespace Empiria.Geography {
 
     private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegionItem";
 
-    private string webPage = String.Empty;
-    private string phonePrefix = String.Empty;
-    private decimal population = 0m;
-    private decimal areaSqKm = 0m;
-    private Money gdpPerCapita = new Money();
-
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected GeographicRegionItem()
-      : base(thisTypeName) {
+    protected GeographicRegionItem() : base(thisTypeName) {
       // For create instances use GeographicItemType.CreateInstance method instead
     }
 
-    protected GeographicRegionItem(string typeName)
-      : base(typeName) {
+    protected GeographicRegionItem(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
@@ -68,33 +60,8 @@ namespace Empiria.Geography {
 
     #region Public properties
 
-    public decimal AreaSqKm {
-      get { return areaSqKm; }
-      set { areaSqKm = value; }
-    }
-
-    public string CompoundName {
+    public virtual string CompoundName {
       get { return base.Name + " (" + base.GeographicItemType.DisplayName + ")"; }
-    }
-
-    public Money GDPPerCapita {
-      get { return gdpPerCapita; }
-      set { gdpPerCapita = value; }
-    }
-
-    public string PhonePrefix {
-      get { return phonePrefix; }
-      set { phonePrefix = value; }
-    }
-
-    public decimal Population {
-      get { return population; }
-      set { population = value; }
-    }
-
-    public string WebPage {
-      get { return webPage; }
-      set { webPage = value; }
     }
 
     #endregion Public properties
@@ -127,14 +94,6 @@ namespace Empiria.Geography {
       return list;
     }
 
-    public FixedList<Person> GetPeople(string roleName) {
-      var list = base.GetLinks<Person>(roleName);
-
-      list.Sort((x, y) => x.FamilyFullName.CompareTo(y.FamilyFullName));
-
-      return list;
-    }
-
     public FixedList<GeographicRegionItem> GetRegions(string regionRoleName) {
       var list = base.GetLinks<GeographicRegionItem>(regionRoleName);
 
@@ -159,20 +118,6 @@ namespace Empiria.Geography {
       list.Sort((x, y) => x.Name.CompareTo(y.Name));
 
       return list;
-    }
-
-    protected override void OnLoadObjectData(DataRow row) {
-      base.OnLoadObjectData(row);
-      this.webPage = (string) row["GeoItemWebPage"];
-      this.phonePrefix = (string) row["PhonePrefix"];
-      this.population = (decimal) row["Population"];
-      this.areaSqKm = (decimal) row["AreaSqKm"];
-      this.gdpPerCapita = Money.Parse(Currency.Parse((int) row["GDPCurrencyId"]), (decimal) row["GDPPerCapita"]);
-    }
-
-    protected override void OnSave() {
-      base.Keywords = EmpiriaString.BuildKeywords(this.Name, this.ObjectTypeInfo.DisplayName);
-      GeographicData.WriteGeographicRegionItem(this);
     }
 
     #endregion Public methods

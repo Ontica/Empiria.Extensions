@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides data read and write methods for the Empiria Geographic Information Services.         *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Data;
 
@@ -20,28 +20,26 @@ namespace Empiria.Geography {
 
     #region Internal methods
 
+    static internal FixedList<T> GetRegions<T>(string filter) where T : GeographicRegionItem {
+      throw new NotImplementedException();
+    }
+
+    static internal FixedList<Road> GetRoads<T>(string filter) where T : GeographicPathItem {
+      throw new NotImplementedException();
+    }
+
     static internal FixedList<GeographicRegionItem> GetRegions(string filterExpression, 
-                                                                string sortExpression = "GeoItemNotes, GeoItemName") {
+                                                               string sortExpression = "GeoItemNotes, GeoItemName") {
       DataTable table = GeneralDataOperations.GetEntities("EOSGeoItems", filterExpression, sortExpression);
 
       return new FixedList<GeographicRegionItem>((x) => GeographicRegionItem.Parse(x), table);
     }
 
-    static internal int WriteGeographicRegionItem(GeographicRegionItem o) {
-      var dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, o.Name,
-                                               o.Code, o.FullName, o.Keywords, o.WebPage, o.PhonePrefix,
-                                               o.Population, o.AreaSqKm, o.GDPPerCapita.Amount, o.GDPPerCapita.Currency.Id,
-                                               o.PostedBy.Id, o.ReplacedById, o.PostingDate,
-                                               (char) o.Status, o.StartDate, o.EndDate);
-      return DataWriter.Execute(dataOperation);
-    }
-
-    static internal int WriteGeographicPathItem(GeographicPathItem o) {
-      var dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, o.Name,
-                                               o.Code, o.FullName, o.Keywords, String.Empty, String.Empty,
-                                               0m, 0m, 0m, Currency.Default.Id,
-                                               o.PostedBy.Id, o.ReplacedById, o.PostingDate,
-                                               (char) o.Status, o.StartDate, o.EndDate);
+    static internal int WriteGeographicItem(GeographicItem o) {
+      var dataOperation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.GeographicItemType.Id, 
+                                              o.GeoItemKind.Id, o.Name, o.Code, o.FullName,
+                                              o.Notes, o.Keywords, o.ReplacedById, o.PostedBy.Id,
+                                              o.PostingTime, (char) o.Status, o.StartDate, o.EndDate);
       return DataWriter.Execute(dataOperation);
     }
 

@@ -19,16 +19,16 @@ namespace Empiria.Geography {
     #region Constructors and parsers
 
     public Address() {
-      this.Municipality = GeographicRegionItem.Empty;
-      this.Locality = GeographicRegionItem.Empty;
-      this.Settlement = GeographicRegionItem.Empty;
-      this.PostalCode = GeographicRegionItem.Empty;
+      this.Municipality = Empiria.Geography.Municipality.Empty;
+      this.Location = Empiria.Geography.Location.Empty;
+      this.Settlement = Empiria.Geography.Settlement.Empty;
+      this.PostalCode = Empiria.Geography.PostalCode.Empty;
 
-      this.Street = GeographicPathItem.Empty;
+      this.Street = Road.Empty;
       this.StreetSegment = String.Empty;
-      this.FromStreet = GeographicPathItem.Empty;
-      this.ToStreet = GeographicPathItem.Empty;
-      this.BackStreet = GeographicPathItem.Empty;
+      this.FromStreet = Road.Empty;
+      this.ToStreet = Road.Empty;
+      this.BackStreet = Road.Empty;
 
       this.ExternalNo = String.Empty;
       this.InternalNo = String.Empty;
@@ -49,27 +49,27 @@ namespace Empiria.Geography {
 
     #region Properties
 
-    public GeographicRegionItem Municipality {
+    public Municipality Municipality {
       get;
       set;
     }
 
-    public GeographicRegionItem Locality {
+    public Location Location {
       get;
       set;
     }
 
-    public GeographicRegionItem Settlement {
+    public Settlement Settlement {
       get;
       set;
     }
 
-    public GeographicRegionItem PostalCode {
+    public PostalCode PostalCode {
       get;
       set;
     }
 
-    public GeographicPathItem Street {
+    public Road Street {
       get;
       set;
     }
@@ -79,17 +79,17 @@ namespace Empiria.Geography {
       set;
     }
 
-    public GeographicPathItem FromStreet {
+    public Road FromStreet {
       get;
       set;
     }
 
-    public GeographicPathItem ToStreet {
+    public Road ToStreet {
       get;
       set;
     }
 
-    public GeographicPathItem BackStreet {
+    public Road BackStreet {
       get;
       set;
     }
@@ -121,7 +121,7 @@ namespace Empiria.Geography {
     public string Keywords {
       get {
         return EmpiriaString.BuildKeywords(this.Street.Name, this.ExternalNo, this.InternalNo, 
-                                           this.Settlement.Keywords, this.Locality.Name,
+                                           this.Settlement.Keywords, this.Location.Name,
                                            this.PostalCode.Name, this.StreetSegment, this.Municipality.Name);
       }
     }
@@ -160,8 +160,8 @@ namespace Empiria.Geography {
       if (!this.Settlement.IsEmptyInstance) {
         temp += Settlement.Name + "\n";
       }
-      if (!this.Locality.IsEmptyInstance) {
-        temp += this.Locality.Name + ", "  ;//+ this.Locality.State.Code;
+      if (!this.Location.IsEmptyInstance) {
+        temp += this.Location.Name + ", "  ;
       }
       if (!this.PostalCode.IsEmptyInstance) {
         temp += this.PostalCode.Code;
@@ -170,15 +170,12 @@ namespace Empiria.Geography {
     }
 
     public string ToSearchVector() {
-      return String.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", Municipality.Id, Locality.Id,
+      return String.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", Municipality.Id, Location.Id,
                            Settlement.Id, PostalCode.Id, Street.Id, FromStreet.Id, 
                            ToStreet.Id, BackStreet.Id);
     }
 
     private object GetObject() {
-      //List<KeyValuePair> list = new List<KeyValuePair>();
-
-      //Empiria.KeyValuePair
       return new {
         MunicipalityId = this.Municipality.Id,
       };

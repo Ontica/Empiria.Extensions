@@ -5,17 +5,17 @@
 *  Type      : GeographicItemType                             Pattern  : Power type                          *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
-*  Summary   : PowerType that defines a geographic item type like CountryType, BorroughType or StreetType.   *
-*                                                                                                            *
-********************************* Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+*  Summary   : PowerType used to define geographic items like country, state, municiaplity, highway,         *
+*              roadway, postal code, location, and so on.                                                    *
+********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
-  /// <summary>PowerType that defines a geographic item type like CountryType, BorroughType 
-  /// or StreetType.</summary>
+  /// <summary>PowerType used to define geographic items like country, state, municiaplity, highway,
+  /// roadway, postal code, location, and so on.</summary>
   public sealed class GeographicItemType : PowerType<GeographicItem> {
 
     #region Fields
@@ -27,7 +27,7 @@ namespace Empiria.Geography {
     #region Constructors and parsers
 
     private GeographicItemType(int typeId) : base(thisTypeName, typeId) {
-      // Empiria Power type pattern classes always has this constructor. Don't delete
+      // Empiria Power type pattern classes always has this constructor. Please don't delete.
     }
 
     static public new GeographicItemType Parse(int typeId) {

@@ -48,9 +48,6 @@ namespace Empiria.Documents.IO {
 
     internal protected override IIdentifiable Reference {
       get { return FilesFolder.Empty; }
-      set { 
-        // no-op;
-      }
     }
 
     #endregion Constructors and parsers

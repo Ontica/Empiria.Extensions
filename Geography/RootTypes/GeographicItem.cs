@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Represents an abstract place: region, city, country, world zone, zip code region, street, ... *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Data;
 
@@ -15,39 +15,17 @@ using Empiria.Contacts;
 
 namespace Empiria.Geography {
 
-  public enum GeographicItemStatus {
-    Pending = 'P',
-    Active = 'A',
-    Suspended = 'S',
-    Obsolete = 'O',
-    Delete = 'X',
-  }
-
   public abstract class GeographicItem : BaseObject {
 
     #region Fields
 
     private const string thisTypeName = "ObjectType.GeographicItem";
 
-    private string name = String.Empty;
-    private string code = String.Empty;
-    private string fullName = String.Empty;
-    private string keywords = String.Empty;
-    private Contact postedBy = Person.Empty;
-    private int replacedById = 0;
-    private DateTime postingDate = DateTime.Now;
-    private GeographicItemStatus status = GeographicItemStatus.Pending;
-    private DateTime startDate = DateTime.Today;
-    private DateTime endDate = ExecutionServer.DateMaxValue;
-
-    private GeographicItemType geographicItemType = null;
-
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected GeographicItem(string typeName)
-      : base(typeName) {
+    protected GeographicItem(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
@@ -59,80 +37,90 @@ namespace Empiria.Geography {
 
     #region Public properties
 
-    public string Code {
-      get { return code; }
-      set { code = value; }
-    }
-
-    public DateTime EndDate {
-      get { return endDate; }
-    }
-
-    public string Keywords {
-      get { return keywords; }
-      protected set { keywords = value; }
-    }
-
+    [DataField("GeographicItemTypeId")]
     public GeographicItemType GeographicItemType {
-      get {
-        if (geographicItemType == null) {
-          geographicItemType = GeographicItemType.Parse(base.ObjectTypeInfo);
-        }
-        return geographicItemType;
-      }
-      internal set {
-        geographicItemType = value;
-      }
+      get;
+      internal set;
     }
 
+    [DataField("GeoItemKindId")]
+    public GeoItemKind GeoItemKind {
+      get;
+      protected set;
+    }
+
+    [DataField("GeoItemCode")]
+    internal protected string Code {
+      get;
+      set;
+    }
+
+    [DataField("GeoItemName")]
     public string Name {
-      get { return name; }
-      set { name = value; }
+      get;
+      protected set;
     }
 
-    public string FullName {
-      get { return fullName; }
-      set { fullName = value; }
+    public virtual string FullName {
+      get {
+        return this.Name;
+      }
     }
 
-    public Contact PostedBy {
-      get { return postedBy; }
+    [DataField("GeoItemNotes")]
+    public string Notes {
+      get;
+      set;
     }
 
-    public DateTime PostingDate {
-      get { return postingDate; }
+    public virtual string Keywords {
+      get {
+        return EmpiriaString.BuildKeywords(this.FullName, this.Code, 
+                                           this.GeographicItemType.DisplayName);
+      }
     }
 
+    [DataField("ReplacedById")]
     protected internal int ReplacedById {
-      get { return replacedById; }
+      get;
+      private set;
     }
 
+    [DataField("PostedById", Default = "Contacts.Person.Empty")]
+    public Contact PostedBy {
+      get;
+      private set;
+    }
+
+    [DataField("PostingTime", Default = "DateTime.Now")]
+    public DateTime PostingTime {
+      get;
+      private set;
+    }
+
+    [DataField("GeoItemStatus", Default = GeneralObjectStatus.Pending)]
+    public GeneralObjectStatus Status {
+      get;
+      private set;
+    }
+
+    [DataField("StartDate", Default = "DateTime.Today")]
     public DateTime StartDate {
-      get { return startDate; }
+      get;
+      private set;
     }
 
-    public GeographicItemStatus Status {
-      get { return status; }
+    [DataField("EndDate", Default = "ExecutionServer.DateMaxValue")]
+    public DateTime EndDate {
+      get;
+      private set;
     }
 
     #endregion Public properties
 
-    #region Public methods
-
-    protected override void OnLoadObjectData(DataRow row) {
-      this.name = (string) row["GeoItemName"];
-      this.code = (string) row["GeoItemCode"];
-      this.fullName = (string) row["GeoItemNotes"];
-      this.keywords = (string) row["GeoItemKeywords"];
-      this.postedBy = Contact.Parse((int) row["PostedById"]);
-      this.replacedById = (int) row["ReplacedById"];
-      this.postingDate = (DateTime) row["PostingDate"];
-      this.status = (GeographicItemStatus) Convert.ToChar(row["GeoItemStatus"]);
-      this.startDate = (DateTime) row["StartDate"];
-      this.endDate = (DateTime) row["EndDate"];
+    protected override void OnSave() {
+      GeographicData.WriteGeographicItem(this);
     }
-
-    #endregion Public methods
 
   } // class GeographicItem
 
