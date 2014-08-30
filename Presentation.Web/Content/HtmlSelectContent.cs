@@ -14,9 +14,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
+using System.Web.UI.HtmlControls;
 
 namespace Empiria.Presentation.Web.Content {
 
@@ -26,43 +25,51 @@ namespace Empiria.Presentation.Web.Content {
 
     #region Public methods
 
-    static public void AppendToCombo(HtmlSelect comboControl, IEnumerable dataSource, string dataValueField, string dataTextField) {
+    static public void AppendToCombo(HtmlSelect comboControl, IEnumerable dataSource,
+                                     string dataValueField, string dataTextField) {
       IEnumerator enumerator = dataSource.GetEnumerator();
       if (enumerator.MoveNext()) {
         Object current = enumerator.Current;
         PropertyInfo valueProperty = current.GetType().GetProperty(dataValueField);
         PropertyInfo textProperty = current.GetType().GetProperty(dataTextField);
 
-        comboControl.Items.Add(new ListItem((string) textProperty.GetValue(current, null),
-                                            valueProperty.GetValue(current, null).ToString()));
+        comboControl.Items.Add(new System.Web.UI.WebControls.ListItem((string) textProperty.GetValue(current, null),
+                                                                      valueProperty.GetValue(current, null).ToString()));
         while (enumerator.MoveNext()) {
           current = enumerator.Current;
-          comboControl.Items.Add(new ListItem((string) textProperty.GetValue(current, null),
-                                              valueProperty.GetValue(current, null).ToString()));
+          comboControl.Items.Add(new System.Web.UI.WebControls.ListItem((string) textProperty.GetValue(current, null),
+                                                                        valueProperty.GetValue(current, null).ToString()));
         }
       }
     }
 
     static public void AppendToCombo<T>(HtmlSelect comboControl, IEnumerable dataSource,
-                                        Func<T, string> dataValueFunction, Func<T, string> dataTextFunction) where T : IStorable {
+                                        Func<T, string> dataValueFunction, 
+                                        Func<T, string> dataTextFunction) where T : IStorable {
       IEnumerator enumerator = dataSource.GetEnumerator();
       if (enumerator.MoveNext()) {
         T current = (T) enumerator.Current;
-        comboControl.Items.Add(new ListItem(dataTextFunction.Invoke(current), dataValueFunction.Invoke(current)));
+        comboControl.Items.Add(new System.Web.UI.WebControls.ListItem(dataTextFunction.Invoke(current),
+                                                                      dataValueFunction.Invoke(current)));
         while (enumerator.MoveNext()) {
           current = (T) enumerator.Current;
-          comboControl.Items.Add(new ListItem(dataTextFunction.Invoke(current), dataValueFunction.Invoke(current)));
+          comboControl.Items.Add(new System.Web.UI.WebControls.ListItem(dataTextFunction.Invoke(current),
+                                                                        dataValueFunction.Invoke(current)));
         }
       }
     }
 
-    static public string GetComboAjaxHtml(IEnumerable dataSource, int maxCount, string dataValueField, string dataTextField,
+    static public string GetComboAjaxHtml(IEnumerable dataSource, int maxCount, 
+                                          string dataValueField, string dataTextField,
                                           string headerItemText) {
-      return GetComboAjaxHtml(dataSource, maxCount, dataValueField, dataTextField, headerItemText, String.Empty, String.Empty);
+      return GetComboAjaxHtml(dataSource, maxCount, dataValueField, dataTextField,
+                              headerItemText, String.Empty, String.Empty);
     }
 
-    static public string GetComboAjaxHtml(IEnumerable dataSource, int maxCount, string dataValueField, string dataTextField,
-                                          string headerItemText, string emptyItemText, string unknownItemText) {
+    static public string GetComboAjaxHtml(IEnumerable dataSource, int maxCount,
+                                          string dataValueField, string dataTextField,
+                                          string headerItemText, string emptyItemText,
+                                          string unknownItemText) {
       string html = GetComboAjaxHtml(headerItemText, emptyItemText, unknownItemText);
 
       if (html.Length != 0) {
@@ -92,7 +99,8 @@ namespace Empiria.Presentation.Web.Content {
       return html.TrimEnd('|');
     }
 
-    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField, Func<T, string> dataTextFunction,
+    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField, 
+                                             Func<T, string> dataTextFunction,
                                              string headerItemText) where T : IStorable {
       string html = String.Empty;
       if (headerItemText.Length != 0) {
@@ -118,8 +126,10 @@ namespace Empiria.Presentation.Web.Content {
       return html.TrimEnd('|');
     }
 
-    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField, Func<T, string> dataTextFunction,
-                                             string headerItemText, string emptyItemText, string unknownItemText) where T : IStorable {
+    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField, 
+                                             Func<T, string> dataTextFunction, 
+                                             string headerItemText, string emptyItemText, 
+                                             string unknownItemText) where T : IStorable {
       string html = GetComboAjaxHtml(headerItemText, emptyItemText, unknownItemText);
 
       if (html.Length != 0) {
@@ -220,16 +230,21 @@ namespace Empiria.Presentation.Web.Content {
       }
     }
 
-    static public void LoadCombo(HtmlSelect comboControl, IEnumerable dataSource, string dataValueField, string dataTextField) {
-      LoadCombo(comboControl, dataSource, dataValueField, dataTextField, String.Empty, String.Empty, String.Empty);
+    static public void LoadCombo(HtmlSelect comboControl, IEnumerable dataSource,
+                                 string dataValueField, string dataTextField) {
+      LoadCombo(comboControl, dataSource, dataValueField, dataTextField, 
+                String.Empty, String.Empty, String.Empty);
     }
 
-    static public void LoadCombo(HtmlSelect comboControl, IEnumerable dataSource, string dataValueField, string dataTextField,
+    static public void LoadCombo(HtmlSelect comboControl, IEnumerable dataSource,
+                                 string dataValueField, string dataTextField,
                                  string headerItemText) {
-      LoadCombo(comboControl, dataSource, dataValueField, dataTextField, headerItemText, String.Empty, String.Empty);
+      LoadCombo(comboControl, dataSource, dataValueField, dataTextField,
+                headerItemText, String.Empty, String.Empty);
     }
 
-    static public void LoadCombo(HtmlSelect comboControl, IEnumerable dataSource, string dataValueField, string dataTextField,
+    static public void LoadCombo(HtmlSelect comboControl, IEnumerable dataSource,
+                                 string dataValueField, string dataTextField,
                                  string headerItemText, string emptyItemText, string unknownItemText) {
       comboControl.DataSource = dataSource;
       comboControl.DataValueField = dataValueField;
@@ -239,7 +254,8 @@ namespace Empiria.Presentation.Web.Content {
       LoadCombo(comboControl, headerItemText, emptyItemText, unknownItemText);
     }
 
-    static public void LoadCombo<T>(HtmlSelect comboControl, IEnumerable dataSource, Func<T, string> dataValueFunction, Func<T, string> dataTextFunction,
+    static public void LoadCombo<T>(HtmlSelect comboControl, IEnumerable dataSource,
+                                    Func<T, string> dataValueFunction, Func<T, string> dataTextFunction,
                                     string headerItemText) where T : IStorable {
       comboControl.Items.Clear();
       AppendToCombo(comboControl, dataSource, dataValueFunction, dataTextFunction);
@@ -249,13 +265,13 @@ namespace Empiria.Presentation.Web.Content {
     static public void LoadCombo(HtmlSelect comboControl, string headerItemText, string emptyItemText,
                                  string unknownItemText) {
       if (unknownItemText.Length != 0) {
-        comboControl.Items.Insert(0, new ListItem(unknownItemText, "-2"));
+        comboControl.Items.Insert(0, new System.Web.UI.WebControls.ListItem(unknownItemText, "-2"));
       }
       if (emptyItemText.Length != 0) {
-        comboControl.Items.Insert(0, new ListItem(emptyItemText, "-1"));
+        comboControl.Items.Insert(0, new System.Web.UI.WebControls.ListItem(emptyItemText, "-1"));
       }
       if (headerItemText.Length != 0) {
-        comboControl.Items.Insert(0, new ListItem(headerItemText, String.Empty));
+        comboControl.Items.Insert(0, new System.Web.UI.WebControls.ListItem(headerItemText, String.Empty));
       }
     }
 

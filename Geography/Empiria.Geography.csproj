@@ -102,7 +102,7 @@
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
@@ -196,23 +196,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RootTypes\SettlementType.cs" />
     <Compile Include="RootTypes\Road.cs" />
     <Compile Include="RootTypes\GeographicData.cs" />
     <Compile Include="Empiria.Geography.AssemblyInfo.cs" />
-    <Compile Include="RootTypes\GeographicPathItem.cs" />
-    <Compile Include="RootTypes\PostalCode.cs" />
+    <Compile Include="RootTypes\GeographicPath.cs" />
     <Compile Include="RootTypes\Settlement.cs" />
     <Compile Include="RootTypes\Location.cs" />
     <Compile Include="RootTypes\Country.cs" />
     <Compile Include="RootTypes\State.cs" />
     <Compile Include="RootTypes\Municipality.cs" />
-    <Compile Include="RootTypes\GeographicRegionItem.cs" />
+    <Compile Include="RootTypes\GeographicRegion.cs" />
     <Compile Include="RootTypes\GeographicItem.cs" />
     <Compile Include="RootTypes\GeographicItemType.cs" />
     <Compile Include="RootTypes\GeographicItemValidator.cs" />
-    <Compile Include="RootTypes\GeographicItemException.cs" />
+    <Compile Include="RootTypes\GeographyException.cs" />
     <Compile Include="RootTypes\Address.cs" />
-    <Compile Include="RootTypes\GeoItemKind.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -235,7 +234,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="RootTypes\GeographicItemExceptionMsg.resx">
+    <EmbeddedResource Include="RootTypes\GeographyExceptionMsg.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

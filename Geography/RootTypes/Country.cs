@@ -9,35 +9,41 @@
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Data;
+using System.Collections.Generic;
 
 namespace Empiria.Geography {
 
   /// <summary>Represents a country.</summary>
-  public class Country : GeographicRegionItem {
+  public class Country : GeographicRegion {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegionItem.Country";
+    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Country";
+
+    private Lazy<List<State>> countryStatesList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected Country() : base(thisTypeName) {
-      // For create instances use GeographicItemType.CreateInstance method instead
-    }
-
     protected Country(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
-    static public new Country Parse(int id) {
-      return BaseObject.Parse<Country>(thisTypeName, id);
+    public Country(string countryName, string countryCode) : base(thisTypeName, countryName) {
+      Assertion.AssertObject(countryName, "countryName");
+      Assertion.Assert(countryCode != null, "countryCode");
+
+      this.Code = countryCode;
     }
 
-    static internal new Country Parse(DataRow row) {
-      return BaseObject.Parse<Country>(thisTypeName, row);
+    protected override void OnInitialize() {
+      base.OnInitialize();
+      countryStatesList = new Lazy<List<State>>(() => GeographicData.GetChildGeoItems<State>(this));
+    }
+
+    static public new Country Parse(int id) {
+      return BaseObject.Parse<Country>(thisTypeName, id);
     }
 
     static public new Country Empty {
@@ -52,21 +58,39 @@ namespace Empiria.Geography {
       }
     }
 
-    static public new FixedList<Country> GetList(string filter) {
-      return GeographicData.GetRegions<Country>(filter);
+    static public FixedList<Country> GetList() {
+      return GeographicItem.GetList<Country>();
     }
 
     #endregion Constructors and parsers
 
-    #region Public methods
+    #region Public properties
 
-    public void AddState(State state) {
-      var role = base.ObjectTypeInfo.Associations["Country_States"];
-      base.Link(role, state);
+    [DataField("GeoItemExtData.Code")]
+    public string Code {
+      get;
+      private set;
     }
 
-    public FixedList<State> GetStates() {
-      return base.GetLinks<State>("Country_States");
+    public FixedList<State> States {
+      get {
+        return countryStatesList.Value.ToFixedList();
+      }
+    }
+
+    #endregion Public properties
+
+    #region Public methods
+
+    public State AddState(string stateName, string stateCode) {
+      Assertion.AssertObject(stateName, "stateName");
+      Assertion.Assert(stateCode != null, "stateCode can't be null.");
+
+      var state = new State(this, stateName, stateCode);
+      
+      countryStatesList.Value.Add(state);      
+      
+      return state;
     }
 
     #endregion Public methods

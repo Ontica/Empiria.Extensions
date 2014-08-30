@@ -9,16 +9,18 @@
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Data;
+using System.Collections.Generic;
 
 namespace Empiria.Geography {
 
-  /// <summary>Represents a municipality within a country state.</summary>
-  public class Location : GeographicRegionItem {
+  /// <summary>Represents a location within a municipality.</summary>
+  public class Location : GeographicRegion {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegionItem.Location";
+    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Location";
+
+    private Lazy<List<Settlement>> settlementsList = null;
 
     #endregion Fields
 
@@ -32,54 +34,79 @@ namespace Empiria.Geography {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
+    internal Location(Municipality municipality, string locationName) : 
+                                                 base(thisTypeName, locationName) {
+      this.Municipality = municipality;
+    }
+
+    protected override void OnInitialize() {
+      base.OnInitialize();
+      settlementsList = new Lazy<List<Settlement>>(() => GeographicData.GetChildGeoItems<Settlement>(this));
+    }
+
     static public new Location Parse(int id) {
       return BaseObject.Parse<Location>(thisTypeName, id);
     }
 
-    static internal new Location Parse(DataRow row) {
-      return BaseObject.Parse<Location>(thisTypeName, row);
-    }
-
+    static private readonly Location _empty = BaseObject.ParseEmpty<Location>(thisTypeName);
     static public new Location Empty {
       get {
-        return BaseObject.ParseEmpty<Location>(thisTypeName);
+        return _empty.Clone<Location>();
       }
     }
 
+    static private readonly Location _unknown = BaseObject.ParseUnknown<Location>(thisTypeName);
     static public new Location Unknown {
       get {
-        return BaseObject.ParseUnknown<Location>(thisTypeName);
+        return _unknown.Clone<Location>();
       }
-    }
-
-    static public new FixedList<Location> GetList(string filter) {
-      return GeographicData.GetRegions<Location>(filter);
     }
 
     #endregion Constructors and parsers
 
     #region Public properties
 
-    public override string CompoundName {
-      get { return base.Name + " (" + base.GeographicItemType.DisplayName + ")"; }
-    }
-
+    [DataField("GeoItemParentId")]
     public Municipality Municipality {
       get;
       private set;
+    }
+
+    protected internal override GeographicRegion Parent {
+      get {
+        return this.Municipality;
+      }
+    }
+
+    public FixedList<Settlement> Settlements {
+      get {
+        return settlementsList.Value.ToFixedList();
+      }
+    }
+
+    public State State {
+      get {
+        return this.Municipality.State;
+      }
     }
 
     #endregion Public properties
 
     #region Public methods
 
-    public void AddSettlement(Settlement settlement) {
-      var role = base.ObjectTypeInfo.Associations["Location_Settlements"];
-      base.Link(role, settlement);
+    public Settlement AddSettlement(SettlementType settlementType, string settlementName) {
+      Assertion.AssertObject(settlementType, "settlementType");
+      Assertion.AssertObject(settlementName, "settlementName");
+
+      var settlement = new Settlement(this, settlementType, settlementName);
+
+      settlementsList.Value.Add(settlement);
+
+      return settlement;
     }
 
     public FixedList<Settlement> GetSettlements() {
-      return base.GetLinks<Settlement>("Location_Settlements");
+      return base.GetAssociations<Settlement>();
     }
 
     #endregion Public methods

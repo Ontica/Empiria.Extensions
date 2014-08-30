@@ -20,7 +20,7 @@ namespace Empiria.Geography {
     #region Fields
 
     private const string thisTypeName = "ObjectType.GeographicItem";
-
+    
     #endregion Fields
 
     #region Constructors and parsers
@@ -29,36 +29,40 @@ namespace Empiria.Geography {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
+    protected GeographicItem(string typeName, string geoItemName) : base(typeName) {
+      this.Name = geoItemName;
+    }
+
     static public GeographicItem Parse(int id) {
       return BaseObject.Parse<GeographicItem>(thisTypeName, id);
+    }
+
+    static internal T Parse<T>(DataRow row) where T : GeographicItem {
+      return BaseObject.Parse<T>(thisTypeName, row);
+    }
+
+    static protected FixedList<T> GetList<T>() where T : GeographicItem {
+      return GeographicData.GetGeographicItems<T>();
+    }
+
+    static protected FixedList<T> GetList<T>(string filter, string sort) where T : GeographicItem {
+      return GeographicData.GetGeographicItems<T>(filter, sort);
     }
 
     #endregion Constructors and parsers
 
     #region Public properties
 
-    [DataField("GeographicItemTypeId")]
+    [DataField("GeoItemTypeId")]
     public GeographicItemType GeographicItemType {
       get;
       internal set;
     }
 
-    [DataField("GeoItemKindId")]
-    public GeoItemKind GeoItemKind {
-      get;
-      protected set;
-    }
-
-    [DataField("GeoItemCode")]
-    internal protected string Code {
-      get;
-      set;
-    }
-
     [DataField("GeoItemName")]
     public string Name {
       get;
-      protected set;
+      private set;
     }
 
     public virtual string FullName {
@@ -67,60 +71,63 @@ namespace Empiria.Geography {
       }
     }
 
-    [DataField("GeoItemNotes")]
-    public string Notes {
+    [DataField("GeoItemExtData")]
+    internal protected string ExtendedDataString {
       get;
       set;
     }
 
-    public virtual string Keywords {
+    internal protected virtual string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.FullName, this.Code, 
-                                           this.GeographicItemType.DisplayName);
+        return EmpiriaString.BuildKeywords(this.FullName, this.GeographicItemType.DisplayName);
       }
     }
 
-    [DataField("ReplacedById")]
-    protected internal int ReplacedById {
+    internal protected virtual GeographicRegion Parent {
+      get {
+        return GeographicRegion.Empty;
+      }
+    }
+
+    [DataField("PostingTime", Default = "DateTime.Now")]
+    internal protected DateTime PostingTime {
       get;
       private set;
     }
 
     [DataField("PostedById", Default = "Contacts.Person.Empty")]
-    public Contact PostedBy {
+    internal protected Contact PostedBy {
       get;
-      private set;
-    }
-
-    [DataField("PostingTime", Default = "DateTime.Now")]
-    public DateTime PostingTime {
-      get;
-      private set;
+      set;
     }
 
     [DataField("GeoItemStatus", Default = GeneralObjectStatus.Pending)]
-    public GeneralObjectStatus Status {
+    internal protected GeneralObjectStatus Status {
       get;
       private set;
     }
 
     [DataField("StartDate", Default = "DateTime.Today")]
-    public DateTime StartDate {
+    internal protected DateTime StartDate {
       get;
       private set;
     }
 
     [DataField("EndDate", Default = "ExecutionServer.DateMaxValue")]
-    public DateTime EndDate {
+    internal protected DateTime EndDate {
       get;
       private set;
     }
 
     #endregion Public properties
 
+    #region Public methods
+
     protected override void OnSave() {
       GeographicData.WriteGeographicItem(this);
     }
+
+    #endregion Public methods
 
   } // class GeographicItem
 

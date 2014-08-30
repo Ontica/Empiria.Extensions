@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Static class that provides geographic items validation methods.                               *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Geography {
@@ -17,26 +17,25 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    static public GeographicRegionItem SearchSettlement(GeographicItemType settlementType,
-                                                        GeographicRegionItem municipality,
-                                                        string settlementName) {
-      FixedList<GeographicRegionItem> settlements =
-                                          municipality.GetRegions("Municipality_Settlements", settlementType);
+    static public Settlement SearchSettlement(SettlementType settlementType,
+                                              Municipality municipality,
+                                              string settlementName) {
+      FixedList<Settlement> settlements = municipality.GetSettlements(settlementType);
 
-      foreach (GeographicRegionItem item in settlements) {
+      foreach (Settlement item in settlements) {
         if (EmpiriaString.Similar(item.Name, settlementName)) {
           return item;
         }
       }
-      return GeographicRegionItem.Empty;
+      return Settlement.Empty;
     }
 
-    static public FixedList<GeographicRegionItem> SearchSettlements(GeographicRegionItem municipality,
-                                                                     string settlementName, decimal precision) {
-      Predicate<GeographicRegionItem> predicate =
-                        ((x) => EmpiriaString.JaroWinklerProximityFactor(x.Name, settlementName) >= precision);
+    static public FixedList<Settlement> SearchSettlements(Municipality municipality,
+                                                          string settlementName, decimal precision) {
+      Predicate<Settlement> predicate =
+                  ((x) => EmpiriaString.JaroWinklerProximityFactor(x.Name, settlementName) >= precision);
 
-      return municipality.GetRegions("Municipality_Settlements", predicate);
+      return municipality.Settlements.FindAll(predicate).ToFixedList();
     }
 
     #endregion Public methods

@@ -112,11 +112,14 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidPostalCode" xml:space="preserve">
+    <value>El código postal '{0}' no es válido para {1}.</value>
+  </data>
   <data name="SettlementAlreadyExists" xml:space="preserve">
     <value>Ya existe un asentamiento del tipo {0} con nombre '{1}' perteneciente al municipio {2}.\n\n¿Lo selecciono automáticamente en la lista?</value>
   </data>

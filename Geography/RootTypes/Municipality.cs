@@ -9,61 +9,79 @@
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Data;
+using System.Collections.Generic;
 
 namespace Empiria.Geography {
 
   /// <summary>Represents a municipality within a country state.</summary>
-  public class Municipality : GeographicRegionItem {
+  public class Municipality : GeographicRegion {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegionItem.Municipality";
+    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Municipality";
+
+    private Lazy<List<Location>> locationsList = null;
+    private Lazy<List<Settlement>> settlementsList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected Municipality() : base(thisTypeName) {
-      // For create instances use GeographicItemType.CreateInstance method instead
-    }
-
     protected Municipality(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    }
+
+    internal Municipality(State state, string municipalityName) : base(thisTypeName, municipalityName) {
+      this.State = state;
+    }
+
+    protected override void OnInitialize() {
+      base.OnInitialize();
+      locationsList = new Lazy<List<Location>>(() => GeographicData.GetChildGeoItems<Location>(this));
+      settlementsList = new Lazy<List<Settlement>>(() => GeographicData.GetChildGeoItems<Settlement>(this));
     }
 
     static public new Municipality Parse(int id) {
       return BaseObject.Parse<Municipality>(thisTypeName, id);
     }
 
-    static internal new Municipality Parse(DataRow row) {
-      return BaseObject.Parse<Municipality>(thisTypeName, row);
-    }
-
+    static private readonly Municipality _empty = BaseObject.ParseEmpty<Municipality>(thisTypeName);
     static public new Municipality Empty {
       get {
-        return BaseObject.ParseEmpty<Municipality>(thisTypeName);
+        return _empty.Clone<Municipality>();
       }
     }
 
+    static private readonly Municipality _unknown = BaseObject.ParseUnknown<Municipality>(thisTypeName);
     static public new Municipality Unknown {
       get {
-        return BaseObject.ParseUnknown<Municipality>(thisTypeName);
+        return _unknown.Clone<Municipality>();
       }
-    }
-
-    static public new FixedList<Municipality> GetList(string filter) {
-      return GeographicData.GetRegions<Municipality>(filter);
     }
 
     #endregion Constructors and parsers
 
     #region Public properties
-
-    public override string CompoundName {
-      get { return base.Name + " (" + base.GeographicItemType.DisplayName + ")"; }
+    
+    public FixedList<Location> Locations {
+      get {
+        return locationsList.Value.ToFixedList();
+      }
     }
 
+    protected internal override GeographicRegion Parent {
+      get {
+        return this.State;
+      }
+    }
+
+    public FixedList<Settlement> Settlements {
+      get {
+        return settlementsList.Value.ToFixedList();
+      }
+    }
+
+    [DataField("GeoItemParentId")]
     public State State {
       get;
       private set;
@@ -73,13 +91,47 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    public void AddLocation(Location location) {
-      var role = base.ObjectTypeInfo.Associations["Municipality_Locations"];
-      base.Link(role, location);
+    public Location AddLocation(string locationName) {
+      Assertion.AssertObject(locationName, "locationName");
+
+      var location = new Location(this, locationName);
+      
+      locationsList.Value.Add(location);
+
+      return location;
     }
 
-    public FixedList<Location> GetLocations() {
-      return base.GetLinks<Location>("Municipality_Locations");
+    public Settlement AddSettlement(SettlementType settlementType, string settlementName) {
+      Assertion.AssertObject(settlementType, "settlementType");
+      Assertion.AssertObject(settlementName, "settlementName");
+
+      var settlement = new Settlement(this, settlementType, settlementName);
+
+      settlementsList.Value.Add(settlement);
+
+      return settlement;
+    }
+
+    public Settlement AddSettlement(SettlementType settlementType, string settlementName, 
+                                    string postalCode) {
+      Assertion.AssertObject(postalCode, "postalCode");
+
+      Settlement settlement = this.AddSettlement(settlementType, settlementName);
+      settlement.PostalCode = postalCode;
+
+      return settlement;
+    }
+
+    public void AddRoad(Road road) {
+      this.AssociateWith(road, "Roads");
+    }
+
+    public FixedList<Road> GetRoads() {
+      return this.GetAssociations<Road>("Roads");
+    }
+
+    public FixedList<Settlement> GetSettlements(SettlementType settlementType) {
+      throw new NotImplementedException();
     }
 
     #endregion Public methods

@@ -13,12 +13,12 @@ using System.Data;
 
 namespace Empiria.Geography {
 
-  /// <summary>Represents a country.</summary>
-  public class Road : GeographicPathItem {
+  /// <summary>Represents a road.</summary>
+  public class Road : GeographicPath {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicPathItem.Road";
+    private const string thisTypeName = "ObjectType.GeographicItem.GeographicPath.Road";
 
     #endregion Fields
 
@@ -36,36 +36,18 @@ namespace Empiria.Geography {
       return BaseObject.Parse<Road>(thisTypeName, id);
     }
 
-    static internal Road Parse(DataRow row) {
-      return BaseObject.Parse<Road>(thisTypeName, row);
-    }
-
+    static private readonly Road _empty = BaseObject.ParseEmpty<Road>(thisTypeName);
     static public new Road Empty {
       get {
-        return BaseObject.ParseEmpty<Road>(thisTypeName);
+        return _empty.Clone<Road>();
       }
     }
 
+    static private readonly Road _unknown = BaseObject.ParseUnknown<Road>(thisTypeName);
     static public new Road Unknown {
       get {
-        return BaseObject.ParseUnknown<Road>(thisTypeName);
+        return _unknown.Clone<Road>();
       }
-    }
-
-    static public FixedList<Road> GetList(State state, string filter) {
-      return GeographicData.GetRoads<Road>(filter);
-    }
-    
-    static public FixedList<Road> GetList(Municipality municipality, string filter) {
-      return GeographicData.GetRoads<Road>(filter);
-    }
-
-    static public FixedList<Road> GetList(Location location, string filter) {
-      return GeographicData.GetRoads<Road>(filter);
-    }
-
-    static public FixedList<Road> GetList(Settlement settlement, string filter) {
-      return GeographicData.GetRoads<Road>(filter);
     }
 
     #endregion Constructors and parsers

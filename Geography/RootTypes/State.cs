@@ -9,77 +9,111 @@
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Data;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Empiria.Geography {
 
   /// <summary>Represents a state within a country.</summary>
-  public class State : GeographicRegionItem {
+  public class State : GeographicRegion {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegionItem.State";
+    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.State";
+    private Lazy<List<Municipality>> municipalitiesList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected State() : base(thisTypeName) {
-      // For create instances use GeographicItemType.CreateInstance method instead
-    }
-
     protected State(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    }
+
+    internal State(Country country, string stateName, string stateCode): base(thisTypeName, stateName) {
+      this.Country = country;
+      this.Code = stateCode;
+    }
+
+    protected override void OnInitialize() {
+      base.OnInitialize();
+      municipalitiesList = new Lazy<List<Municipality>>(() => GeographicData.GetChildGeoItems<Municipality>(this));
     }
 
     static public new State Parse(int id) {
       return BaseObject.Parse<State>(thisTypeName, id);
     }
 
-    static internal new State Parse(DataRow row) {
-      return BaseObject.Parse<State>(thisTypeName, row);
-    }
-
+    static private readonly State _empty = BaseObject.ParseEmpty<State>(thisTypeName);
     static public new State Empty {
       get {
-        return BaseObject.ParseEmpty<State>(thisTypeName);
+        return _empty.Clone<State>();
       }
     }
 
+    static private readonly State _unknown = BaseObject.ParseUnknown<State>(thisTypeName);
     static public new State Unknown {
       get {
-        return BaseObject.ParseUnknown<State>(thisTypeName);
+        return _unknown.Clone<State>();
       }
-    }
-
-    static public new FixedList<State> GetList(string filter) {
-      return GeographicData.GetRegions<State>(filter);
     }
 
     #endregion Constructors and parsers
 
     #region Public properties
 
-    public override string CompoundName {
-      get { return base.Name + " (" + base.GeographicItemType.DisplayName + ")"; }
+    [DataField("GeoItemExtData.Code")]
+    public string Code {
+      get;
+      private set;
     }
 
+    [DataField("GeoItemParentId")]
     public Country Country {
       get;
       private set;
+    }
+
+    [DataField("GeoItemExtData.PostalCodesRegEx")]
+    public string PostalCodesPattern {
+      get;
+      private set;
+    }
+
+    public FixedList<Municipality> Municipalities {
+      get {
+        return municipalitiesList.Value.ToFixedList();
+      }
+    }
+
+    protected internal override GeographicRegion Parent {
+      get {
+        return this.Country;
+      }
     }
 
     #endregion Public properties
 
     #region Public methods
 
-    public void AddMunicipality(Municipality municipality) {
-      var role = base.ObjectTypeInfo.Associations["State_Muncipalities"];
-      base.Link(role, municipality);
+    public Municipality AddMunicipality(string municipalityName) {
+      Assertion.AssertObject(municipalityName, "municipalityName");
+
+      var municipality = new Municipality(this, municipalityName);
+
+      municipalitiesList.Value.Add(municipality);
+
+      return municipality;
     }
 
-    public FixedList<Municipality> GetMunicipalities() {
-      return base.GetLinks<Municipality>("State_Muncipalities");
+    internal void AssertPostalCodeIsValid(string value) {
+      Assertion.Assert(value != null, "value can't be null");
+      if (value.Length == 0 || this.PostalCodesPattern.Length == 0) {
+        return;
+      }
+      if (!Regex.IsMatch(value, this.PostalCodesPattern)) {
+        throw new GeographyException(GeographyException.Msg.InvalidPostalCode, value, this.Name);
+      }
     }
 
     #endregion Public methods

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Contains extensible data about geographical addresses.                                        *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using Empiria.DataTypes;
 
@@ -19,10 +19,10 @@ namespace Empiria.Geography {
     #region Constructors and parsers
 
     public Address() {
-      this.Municipality = Empiria.Geography.Municipality.Empty;
-      this.Location = Empiria.Geography.Location.Empty;
-      this.Settlement = Empiria.Geography.Settlement.Empty;
-      this.PostalCode = Empiria.Geography.PostalCode.Empty;
+      this.Municipality = Geography.Municipality.Empty;
+      this.Location = Geography.Location.Empty;
+      this.Settlement = Geography.Settlement.Empty;
+      this.PostalCode = String.Empty;
 
       this.Street = Road.Empty;
       this.StreetSegment = String.Empty;
@@ -64,7 +64,7 @@ namespace Empiria.Geography {
       set;
     }
 
-    public PostalCode PostalCode {
+    public string PostalCode {
       get;
       set;
     }
@@ -122,7 +122,7 @@ namespace Empiria.Geography {
       get {
         return EmpiriaString.BuildKeywords(this.Street.Name, this.ExternalNo, this.InternalNo, 
                                            this.Settlement.Keywords, this.Location.Name,
-                                           this.PostalCode.Name, this.StreetSegment, this.Municipality.Name);
+                                           this.PostalCode, this.StreetSegment, this.Municipality.Name);
       }
     }
 
@@ -161,18 +161,17 @@ namespace Empiria.Geography {
         temp += Settlement.Name + "\n";
       }
       if (!this.Location.IsEmptyInstance) {
-        temp += this.Location.Name + ", "  ;
+        temp += this.Location.Name;
       }
-      if (!this.PostalCode.IsEmptyInstance) {
-        temp += this.PostalCode.Code;
+      if (this.PostalCode.Length != 0) {
+        temp += ", C.P. " + this.PostalCode;
       }
       return temp;
     }
 
     public string ToSearchVector() {
-      return String.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", Municipality.Id, Location.Id,
-                           Settlement.Id, PostalCode.Id, Street.Id, FromStreet.Id, 
-                           ToStreet.Id, BackStreet.Id);
+      return String.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|", Municipality.Id, Location.Id,
+                           Settlement.Id, Street.Id, FromStreet.Id, ToStreet.Id, BackStreet.Id);
     }
 
     private object GetObject() {

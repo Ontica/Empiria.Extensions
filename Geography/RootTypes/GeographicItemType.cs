@@ -7,6 +7,7 @@
 *                                                                                                            *
 *  Summary   : PowerType used to define geographic items like country, state, municiaplity, highway,         *
 *              roadway, postal code, location, and so on.                                                    *
+*                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
@@ -14,7 +15,7 @@ using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
-  /// <summary>PowerType used to define geographic items like country, state, municiaplity, highway,
+  /// <summary>PowerType used to define geographic items like country, state, municipality, highway,
   /// roadway, postal code, location, and so on.</summary>
   public sealed class GeographicItemType : PowerType<GeographicItem> {
 
@@ -37,9 +38,11 @@ namespace Empiria.Geography {
     static internal GeographicItemType Parse(ObjectTypeInfo typeInfo) {
       return PowerType<GeographicItem>.Parse<GeographicItemType>(typeInfo);
     }
-
-    public FixedList<GeographicRegionItem> GetList() {
-      return GeographicData.GetRegions("GeoItemTypeId = " + this.Id.ToString());
+        
+    static public new GeographicItemType Empty {
+      get {
+        return GeographicItemType.Parse(ObjectTypeInfo.Parse("ObjectType.GeographicItem.Empty"));
+      }
     }
 
     #endregion Constructors and parsers
