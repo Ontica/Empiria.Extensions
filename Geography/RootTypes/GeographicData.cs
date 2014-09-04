@@ -26,8 +26,13 @@ namespace Empiria.Geography {
       if (region.IsNew || region.IsEmptyInstance) {
         return new List<T>();
       }
-      string sql = String.Format("SELECT * FROM EOSGeoItems WHERE GeoItemParentId = {0} AND " + 
-                                 "GeoItemTypeId = {1} AND GeoItemStatus = 'A'", region.Id, 307);
+      //var geoItemType = GeographicItemType.Parse<T>();
+      int geoItemTypeId = 307;
+      if (typeof(T).IsSubclassOf(typeof(GeographicRoad))) {
+        return new List<T>();
+      }
+      string sql = String.Format("SELECT * FROM EOSGeoItems WHERE GeoItemParentId = {0} AND " +
+                                 "GeoItemTypeId = {1} AND GeoItemStatus = 'A'", region.Id, geoItemTypeId);
       return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => GeographicItem.Parse<T>(x));
     }
 

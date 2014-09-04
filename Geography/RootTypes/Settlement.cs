@@ -20,31 +20,33 @@ namespace Empiria.Geography {
     #region Fields
 
     private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Settlement";
+    private Lazy<List<Roadway>> roadwaysList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
-
-    protected Settlement() : base(thisTypeName) {
-      // For create instances use GeographicItemType.CreateInstance method instead
-    }
 
     protected Settlement(string typeName) : base(typeName) {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
     internal Settlement(Location location, SettlementType settlementType, string settlementName)
-                                                          : base(thisTypeName, settlementName) {
+                        : base(thisTypeName, settlementName) {
       this.SettlementType = settlementType;
       this.Location = location;
       this.Municipality = location.Municipality;
     }
 
     internal Settlement(Municipality municipality, SettlementType settlementType, string settlementName)
-                                                          : base(thisTypeName, settlementName) {
+                        : base(thisTypeName, settlementName) {
       this.SettlementType = settlementType;
       this.Municipality = municipality;
       this.Location = Location.Empty;
+    }
+
+    protected override void OnInitialize() {
+      base.OnInitialize();
+      roadwaysList = new Lazy<List<Roadway>>(() => GeographicData.GetChildGeoItems<Roadway>(this));
     }
 
     static public new Settlement Parse(int id) {
@@ -101,6 +103,12 @@ namespace Empiria.Geography {
       }
     }
 
+    public FixedList<Roadway> Roadways {
+      get {
+        return roadwaysList.Value.ToFixedList();
+      }
+    }
+
     [DataField("GeoItemExtData.SettlementType")]
     public SettlementType SettlementType {
       get;
@@ -117,6 +125,16 @@ namespace Empiria.Geography {
 
     #region Public methods
 
+    public Roadway AddRoadway(RoadwayType roadwayType, string name) {
+      Assertion.AssertObject(roadwayType, "roadwayType");
+      Assertion.AssertObject(name, "name");
+
+      var roadway = new Roadway(this, roadwayType, name);
+      roadwaysList.Value.Add(roadway);
+
+      return roadway;
+    }
+
     protected override void OnLoadObjectData(DataRow row) {
       base.OnLoadObjectData(row);
 
@@ -124,19 +142,33 @@ namespace Empiria.Geography {
       SetMunicipalityAndLocationWithParent(parent);
     }
 
+    public void RemoveRoadway(Roadway roadway) {
+      Assertion.AssertObject(roadway, "roadway");
+
+      roadway.Remove();
+      roadwaysList.Value.Remove(roadway);
+    }
+
+    #endregion Public methods
+
+    #region Private methods
+
     private void SetMunicipalityAndLocationWithParent(GeographicRegion parent) {
       if (parent.IsEmptyInstance && this.IsSpecialCase) {
+        this.Location = Location.Empty;
         this.Municipality = Municipality.Empty;
-        this.Location = Location.Empty;
+      } else if (parent is Location) {
+        this.Location = (Location) parent;
+        this.Municipality = this.Location.Municipality;
       } else if (parent is Municipality) {
-        this.Municipality = (Municipality) parent;
         this.Location = Location.Empty;
+        this.Municipality = (Municipality) parent;
       } else {
         throw Assertion.AssertNoReachThisCode();
       }
     }
 
-    #endregion Public methods
+    #endregion Private methods
 
   } // class Settlement
 

@@ -62,6 +62,16 @@ namespace Empiria.Geography {
 
     #endregion Constructors and parsers
 
+    #region Public properties
+
+    public new bool IsSpecialCase {
+      get {
+        return base.IsSpecialCase;
+      }
+    }
+
+    #endregion Public properties
+
   } // class GeographicRegion
 
 } // namespace Empiria.Geography

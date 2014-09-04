@@ -20,14 +20,15 @@ namespace Empiria.Geography {
 
     private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Country";
 
-    private Lazy<List<State>> countryStatesList = null;
+    private Lazy<List<State>> statesList = null;
+    private Lazy<List<Highway>> highwaysList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
     protected Country(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise.
     }
 
     public Country(string countryName, string countryCode) : base(thisTypeName, countryName) {
@@ -39,7 +40,8 @@ namespace Empiria.Geography {
 
     protected override void OnInitialize() {
       base.OnInitialize();
-      countryStatesList = new Lazy<List<State>>(() => GeographicData.GetChildGeoItems<State>(this));
+      statesList = new Lazy<List<State>>(() => GeographicData.GetChildGeoItems<State>(this));
+      highwaysList = new Lazy<List<Highway>>(() => GeographicData.GetChildGeoItems<Highway>(this));
     }
 
     static public new Country Parse(int id) {
@@ -72,9 +74,15 @@ namespace Empiria.Geography {
       private set;
     }
 
+    public FixedList<Highway> Highways {
+      get {
+        return highwaysList.Value.ToFixedList();
+      }
+    }
+
     public FixedList<State> States {
       get {
-        return countryStatesList.Value.ToFixedList();
+        return statesList.Value.ToFixedList();
       }
     }
 
@@ -82,15 +90,33 @@ namespace Empiria.Geography {
 
     #region Public methods
 
+    public Highway AddHighway(FederalHighwayType highwayType, string number,
+                              HighwaySection fromOriginToDestination) {
+      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(number, "number");
+      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+
+      var highway = new Highway(this, highwayType, number, fromOriginToDestination);
+      highwaysList.Value.Add(highway);
+
+      return highway;
+    }
+
     public State AddState(string stateName, string stateCode) {
       Assertion.AssertObject(stateName, "stateName");
       Assertion.Assert(stateCode != null, "stateCode can't be null.");
 
       var state = new State(this, stateName, stateCode);
-      
-      countryStatesList.Value.Add(state);      
-      
+      statesList.Value.Add(state);
+
       return state;
+    }
+
+    public void RemoveHighway(Highway highway) {
+      Assertion.AssertObject(highway, "highway");
+
+      highway.Remove();
+      highwaysList.Value.Remove(highway);
     }
 
     #endregion Public methods

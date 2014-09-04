@@ -22,6 +22,8 @@ namespace Empiria.Geography {
 
     private Lazy<List<Location>> locationsList = null;
     private Lazy<List<Settlement>> settlementsList = null;
+    private Lazy<List<Highway>> highwaysList = null;
+    private Lazy<List<Roadway>> roadwaysList = null;
 
     #endregion Fields
 
@@ -39,6 +41,8 @@ namespace Empiria.Geography {
       base.OnInitialize();
       locationsList = new Lazy<List<Location>>(() => GeographicData.GetChildGeoItems<Location>(this));
       settlementsList = new Lazy<List<Settlement>>(() => GeographicData.GetChildGeoItems<Settlement>(this));
+      highwaysList = new Lazy<List<Highway>>(() => GeographicData.GetChildGeoItems<Highway>(this));
+      roadwaysList = new Lazy<List<Roadway>>(() => GeographicData.GetChildGeoItems<Roadway>(this));
     }
 
     static public new Municipality Parse(int id) {
@@ -62,7 +66,15 @@ namespace Empiria.Geography {
     #endregion Constructors and parsers
 
     #region Public properties
-    
+
+    /// <summary>Gets the list of municipal and rural highways managed by this municipality.</summary>
+    public FixedList<Highway> Highways {
+      get {
+        return highwaysList.Value.ToFixedList();
+      }
+    }
+
+    /// <summary>Gets the list of locations within this municipality.</summary>
     public FixedList<Location> Locations {
       get {
         return locationsList.Value.ToFixedList();
@@ -75,6 +87,14 @@ namespace Empiria.Geography {
       }
     }
 
+    /// <summary>Gets the list of roadways belonging to this municipality instance.</summary>
+    public FixedList<Roadway> Roadways {
+      get {
+        return roadwaysList.Value.ToFixedList();
+      }
+    }
+
+    /// <summary>Gets the list of settlements within this municipality instance.</summary>
     public FixedList<Settlement> Settlements {
       get {
         return settlementsList.Value.ToFixedList();
@@ -91,6 +111,32 @@ namespace Empiria.Geography {
 
     #region Public methods
 
+    /// <summary>Adds a new rural highway to this municipality instance.</summary>
+    public Highway AddHighway(RuralHighwayType ruralHighwayType,
+                              HighwaySection fromOriginToDestination) {
+      Assertion.AssertObject(ruralHighwayType, "ruralHighwayType");
+      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+
+      var highway = new Highway(this, ruralHighwayType, fromOriginToDestination);
+      highwaysList.Value.Add(highway);
+
+      return highway;
+    }
+
+    /// <summary>Adds a new highway managed by this municipality instance.</summary> 
+    public Highway AddHighway(MunicipalHighwayType municipalHighwayType,
+                              HighwaySection fromOriginToDestination) {
+      Assertion.AssertObject(municipalHighwayType, "municipalHighwayType");
+      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+
+      var highway = new Highway(this, municipalHighwayType, fromOriginToDestination);
+      highwaysList.Value.Add(highway);
+
+      return highway;
+    }
+
+    /// <summary>Adds a new location within this municipality. Locations are typically small
+    /// isolated towns or villages within large municipalities with rural areas.</summary>
     public Location AddLocation(string locationName) {
       Assertion.AssertObject(locationName, "locationName");
 
@@ -101,6 +147,20 @@ namespace Empiria.Geography {
       return location;
     }
 
+    /// <summary>Adds a new roadway that belongs to this municipality. Roadways attached directly to
+    /// municipalities are common in urban or metropolitan municipalities.</summary>
+    public Roadway AddRoadway(RoadwayType roadwayType, string name) {
+      Assertion.AssertObject(roadwayType, "roadwayType");
+      Assertion.AssertObject(name, "name");
+
+      var roadway = new Roadway(this, roadwayType, name);
+      roadwaysList.Value.Add(roadway);
+
+      return roadway;
+    }
+
+    /// <summary>Adds a new settlement within this municipality. Settlements attached to municipalities
+    /// are common in densely populated municipalities without isolated locations.</summary>
     public Settlement AddSettlement(SettlementType settlementType, string settlementName) {
       Assertion.AssertObject(settlementType, "settlementType");
       Assertion.AssertObject(settlementName, "settlementName");
@@ -112,26 +172,24 @@ namespace Empiria.Geography {
       return settlement;
     }
 
+    /// <summary>Adds a new settlement with postal code within this municipality. Settlements attached to
+    /// municipalities are common in densely populated municipalities without isolated locations.</summary>
     public Settlement AddSettlement(SettlementType settlementType, string settlementName, 
                                     string postalCode) {
       Assertion.AssertObject(postalCode, "postalCode");
 
-      Settlement settlement = this.AddSettlement(settlementType, settlementName);
+      var settlement = this.AddSettlement(settlementType, settlementName);
       settlement.PostalCode = postalCode;
 
       return settlement;
     }
 
-    public void AddRoad(Road road) {
-      this.AssociateWith(road, "Roads");
-    }
+    /// <summary>Removes a roadway from this municipality.</summary>
+    public void RemoveRoadway(Roadway roadway) {
+      Assertion.AssertObject(roadway, "roadway");
 
-    public FixedList<Road> GetRoads() {
-      return this.GetAssociations<Road>("Roads");
-    }
-
-    public FixedList<Settlement> GetSettlements(SettlementType settlementType) {
-      throw new NotImplementedException();
+      roadway.Remove();
+      roadwaysList.Value.Remove(roadway);
     }
 
     #endregion Public methods

@@ -9,6 +9,7 @@
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Collections.Generic;
 
 namespace Empiria.Geography {
 
@@ -20,7 +21,8 @@ namespace Empiria.Geography {
     static public Settlement SearchSettlement(SettlementType settlementType,
                                               Municipality municipality,
                                               string settlementName) {
-      FixedList<Settlement> settlements = municipality.GetSettlements(settlementType);
+      List<Settlement> settlements = 
+                       municipality.Settlements.FindAll((x) => x.SettlementType == settlementType);
 
       foreach (Settlement item in settlements) {
         if (EmpiriaString.Similar(item.Name, settlementName)) {

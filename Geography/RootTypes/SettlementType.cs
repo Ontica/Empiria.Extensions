@@ -11,47 +11,57 @@
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
-  /// <summary>Serves as a naming space for settlement item types. A settlement is defined by the
+   /// <summary>Serves as a naming space for settlement item types. A settlement is defined by the
   /// GeographicItemType powertype but settlement instances can also be qualified within it using
   /// a SettlementType like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.</summary>
-  public class SettlementType {
+  public class SettlementType : ValueObject<string> {
 
     #region Fields
 
     private const string thisTypeName = "ValueType.ListItem.SettlementType";
 
-    static private List<SettlementType> settlementTypeList = SettlementType.GetSettlementTypeList();
-
-    private string value;
-
+    static private FixedList<SettlementType> valuesList =
+           SettlementType.ValueTypeInfo.GetValuesList<SettlementType, string>((x) => new SettlementType(x));
     #endregion Fields
 
     #region Constructors and parsers
 
-    private SettlementType(string value) {
-      this.value = value;
+    private SettlementType(string value) : base(value) {
+
     }
 
     static public SettlementType Parse(string value) {
-      return settlementTypeList.First((x) => x.Value == value);
+      Assertion.AssertObject(value, "value");
+      if (value == SettlementType.Empty.Value) {
+        return SettlementType.Empty;
+      }
+      if (value == SettlementType.Unknown.Value) {
+        return SettlementType.Unknown;
+      }
+      return valuesList.First((x) => x.Value == value);
     }
 
     static public SettlementType Empty {
       get {
-        return new SettlementType("No determinado");
+        SettlementType empty = new SettlementType("No determinado");
+        empty.MarkAsEmpty();
+
+        return empty;
       }
     }
 
     static public SettlementType Unknown {
       get {
-        return new SettlementType("Desconocido");
+        SettlementType unknown = new SettlementType("No proporcionado");
+        unknown.MarkAsUnknown();
+
+        return unknown;
       }
     }
 
@@ -62,70 +72,10 @@ namespace Empiria.Geography {
     }
 
     static public FixedList<SettlementType> GetList() {
-      return settlementTypeList.ToFixedList();
+      return valuesList;
     }
 
     #endregion Constructors and parsers
-
-    #region Public properties and operators overloading
-
-    static public bool operator ==(SettlementType settlementType1, SettlementType settlementType2) {
-      return (settlementType1.value == settlementType2.value);
-    }
-
-    static public bool operator !=(SettlementType settlementType1, SettlementType settlementType2) {
-      return !(settlementType1 == settlementType2);
-    }
-
-    public bool IsEmptyInstance {
-      get {
-        return (this == SettlementType.Empty);
-      }
-    }
-
-    public bool IsUnknownInstance {
-      get {
-        return (this == SettlementType.Unknown);
-      }
-    }
-
-    public string Value {
-      get {
-        return (this.value);
-      }
-    }
-
-    #endregion Public properties and operators overloading
-
-    public override bool Equals(object obj) {
-      if ((obj == null) || !(obj is SettlementType)) {
-        return false;
-      }
-      return this.value == ((SettlementType) obj).value;
-    }
-
-    public bool Equals(SettlementType obj) {
-      return this.value == obj.value;
-    }
-
-    public override int GetHashCode() {
-      return this.value.GetHashCode();
-    }
-
-    public override string ToString() {
-      return this.value;
-    }
-
-    #region Private methods
-
-    static private List<SettlementType> GetSettlementTypeList() {
-      var json = Empiria.Data.JsonObject.Parse(SettlementType.ValueTypeInfo.ExtensionData);
-      List<string> list = json.GetList<string>("Values");
-
-      return list.ConvertAll<SettlementType>((x) => new SettlementType(x));
-    }
-
-    #endregion Private methods
 
   } // class SettlementType
 

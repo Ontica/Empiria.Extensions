@@ -21,6 +21,7 @@ namespace Empiria.Geography {
 
     private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.State";
     private Lazy<List<Municipality>> municipalitiesList = null;
+    private Lazy<List<Highway>> highwaysList = null;
 
     #endregion Fields
 
@@ -37,7 +38,9 @@ namespace Empiria.Geography {
 
     protected override void OnInitialize() {
       base.OnInitialize();
-      municipalitiesList = new Lazy<List<Municipality>>(() => GeographicData.GetChildGeoItems<Municipality>(this));
+      municipalitiesList = 
+                new Lazy<List<Municipality>>(() => GeographicData.GetChildGeoItems<Municipality>(this));
+      highwaysList = new Lazy<List<Highway>>(() => GeographicData.GetChildGeoItems<Highway>(this));
     }
 
     static public new State Parse(int id) {
@@ -74,6 +77,12 @@ namespace Empiria.Geography {
       private set;
     }
 
+    public FixedList<Highway> Highways {
+      get {
+        return highwaysList.Value.ToFixedList();
+      }
+    }
+
     [DataField("GeoItemExtData.PostalCodesRegEx")]
     public string PostalCodesPattern {
       get;
@@ -96,16 +105,55 @@ namespace Empiria.Geography {
 
     #region Public methods
 
+    /// <summary>Adds a municipality to the state.</summary>
     public Municipality AddMunicipality(string municipalityName) {
       Assertion.AssertObject(municipalityName, "municipalityName");
 
       var municipality = new Municipality(this, municipalityName);
-
       municipalitiesList.Value.Add(municipality);
 
       return municipality;
     }
 
+    /// <summary>Adds a new state highway without an offical highway number.</summary>
+    public Highway AddHighway(StateHighwayType highwayType,
+                              HighwaySection fromOriginToDestination) {
+      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+
+      var highway = new Highway(this, highwayType, fromOriginToDestination);
+      highwaysList.Value.Add(highway);
+
+      return highway;
+    }
+
+    /// <summary>Adds a new state highway with a designated official highway number.</summary>
+    public Highway AddHighway(StateHighwayType highwayType, string highwayNumber,
+                              HighwaySection fromOriginToDestination) {
+      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(highwayNumber, "highwayNumber");
+      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+
+      var highway = new Highway(this, highwayType, highwayNumber, fromOriginToDestination);
+      highwaysList.Value.Add(highway);
+
+      return highway;
+    }
+
+    /// <summary>Adds a new rural highway to the state.</summary>
+    public Highway AddHighway(RuralHighwayType ruralHighwayType,
+                              HighwaySection fromOriginToDestination) {
+      Assertion.AssertObject(ruralHighwayType, "ruralHighwayType");
+      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+
+      var highway = new Highway(this, ruralHighwayType, fromOriginToDestination);
+      highwaysList.Value.Add(highway);
+
+      return highway;
+    }
+
+    /// <summary>Throws an exception if the given postal code is not valid for 
+    /// the state postal code rules.</summary>
     internal void AssertPostalCodeIsValid(string value) {
       Assertion.Assert(value != null, "value can't be null");
       if (value.Length == 0 || this.PostalCodesPattern.Length == 0) {
@@ -114,6 +162,14 @@ namespace Empiria.Geography {
       if (!Regex.IsMatch(value, this.PostalCodesPattern)) {
         throw new GeographyException(GeographyException.Msg.InvalidPostalCode, value, this.Name);
       }
+    }
+
+    /// <summary>Remove a highway from the state.</summary>
+    public void RemoveHighway(Highway highway) {
+      Assertion.AssertObject(highway, "highway");
+
+      highway.Remove();
+      highwaysList.Value.Remove(highway);
     }
 
     #endregion Public methods

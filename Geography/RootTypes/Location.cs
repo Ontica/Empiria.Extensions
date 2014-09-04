@@ -21,17 +21,14 @@ namespace Empiria.Geography {
     private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Location";
 
     private Lazy<List<Settlement>> settlementsList = null;
+    private Lazy<List<Roadway>> roadwaysList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected Location() : base(thisTypeName) {
-      // For create instances use GeographicItemType.CreateInstance method instead
-    }
-
     protected Location(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise.
     }
 
     internal Location(Municipality municipality, string locationName) : 
@@ -42,6 +39,7 @@ namespace Empiria.Geography {
     protected override void OnInitialize() {
       base.OnInitialize();
       settlementsList = new Lazy<List<Settlement>>(() => GeographicData.GetChildGeoItems<Settlement>(this));
+      roadwaysList = new Lazy<List<Roadway>>(() => GeographicData.GetChildGeoItems<Roadway>(this));
     }
 
     static public new Location Parse(int id) {
@@ -94,6 +92,16 @@ namespace Empiria.Geography {
 
     #region Public methods
 
+    public Roadway AddRoadway(RoadwayType roadwayType, string name) {
+      Assertion.AssertObject(roadwayType, "roadwayType");
+      Assertion.AssertObject(name, "name");
+
+      var roadway = new Roadway(this, roadwayType, name);
+      roadwaysList.Value.Add(roadway);
+
+      return roadway;
+    }
+
     public Settlement AddSettlement(SettlementType settlementType, string settlementName) {
       Assertion.AssertObject(settlementType, "settlementType");
       Assertion.AssertObject(settlementName, "settlementName");
@@ -105,8 +113,11 @@ namespace Empiria.Geography {
       return settlement;
     }
 
-    public FixedList<Settlement> GetSettlements() {
-      return base.GetAssociations<Settlement>();
+    public void RemoveRoadway(Roadway roadway) {
+      Assertion.AssertObject(roadway, "roadway");
+
+      roadway.Remove();
+      roadwaysList.Value.Remove(roadway);
     }
 
     #endregion Public methods

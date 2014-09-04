@@ -24,11 +24,11 @@ namespace Empiria.Geography {
       this.Settlement = Geography.Settlement.Empty;
       this.PostalCode = String.Empty;
 
-      this.Street = Road.Empty;
+      this.Street = Roadway.Empty;
       this.StreetSegment = String.Empty;
-      this.FromStreet = Road.Empty;
-      this.ToStreet = Road.Empty;
-      this.BackStreet = Road.Empty;
+      this.FromStreet = Roadway.Empty;
+      this.ToStreet = Roadway.Empty;
+      this.BackStreet = Roadway.Empty;
 
       this.ExternalNo = String.Empty;
       this.InternalNo = String.Empty;
@@ -69,7 +69,7 @@ namespace Empiria.Geography {
       set;
     }
 
-    public Road Street {
+    public GeographicRoad Street {
       get;
       set;
     }
@@ -79,17 +79,17 @@ namespace Empiria.Geography {
       set;
     }
 
-    public Road FromStreet {
+    public GeographicRoad FromStreet {
       get;
       set;
     }
 
-    public Road ToStreet {
+    public GeographicRoad ToStreet {
       get;
       set;
     }
 
-    public Road BackStreet {
+    public GeographicRoad BackStreet {
       get;
       set;
     }

@@ -196,11 +196,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RootTypes\Highway.cs" />
+    <Compile Include="RootTypes\FederalHighwayType.cs" />
+    <Compile Include="RootTypes\IHighwayType.cs" />
+    <Compile Include="RootTypes\HighwaySection.cs" />
+    <Compile Include="RootTypes\MunicipalHighwayType.cs" />
+    <Compile Include="RootTypes\StateHighwayType.cs" />
+    <Compile Include="RootTypes\RuralHighwayType.cs" />
+    <Compile Include="RootTypes\RoadwayType.cs" />
+    <Compile Include="RootTypes\Roadway.cs" />
     <Compile Include="RootTypes\SettlementType.cs" />
-    <Compile Include="RootTypes\Road.cs" />
     <Compile Include="RootTypes\GeographicData.cs" />
     <Compile Include="Empiria.Geography.AssemblyInfo.cs" />
-    <Compile Include="RootTypes\GeographicPath.cs" />
+    <Compile Include="RootTypes\GeographicRoad.cs" />
     <Compile Include="RootTypes\Settlement.cs" />
     <Compile Include="RootTypes\Location.cs" />
     <Compile Include="RootTypes\Country.cs" />

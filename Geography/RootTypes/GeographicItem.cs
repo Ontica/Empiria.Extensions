@@ -123,6 +123,11 @@ namespace Empiria.Geography {
 
     #region Public methods
 
+    protected internal void Remove() {
+      this.Status = GeneralObjectStatus.Deleted;
+      //this.MarkAsDeleted();
+    }
+
     protected override void OnSave() {
       GeographicData.WriteGeographicItem(this);
     }
