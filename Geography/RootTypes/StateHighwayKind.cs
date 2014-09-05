@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
-*  Type      : StateHighwayType                               Pattern  : Value object                        *
+*  Type      : StateHighwayKind                               Pattern  : Value object                        *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : String value that describes a kind of state highway.                                          *
@@ -16,47 +16,47 @@ using Empiria.Ontology;
 namespace Empiria.Geography {
 
   /// <summary>String value that describes a kind of state highway.</summary>
-  public class StateHighwayType : ValueObject<string>, IHighwayType {
+  public class StateHighwayKind : ValueObject<string>, IHighwayKind {
 
     #region Fields
 
-    private const string thisTypeName = "ValueType.ListItem.StateHighwayType";
+    private const string thisTypeName = "ValueType.ListItem.StateHighwayKind";
 
-    static private FixedList<StateHighwayType> valuesList =
-       StateHighwayType.ValueTypeInfo.GetValuesList<StateHighwayType, string>((x) => new StateHighwayType(x));
+    static private FixedList<StateHighwayKind> valuesList =
+       StateHighwayKind.ValueTypeInfo.GetValuesList<StateHighwayKind, string>((x) => new StateHighwayKind(x));
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    private StateHighwayType(string value) : base(value) {
+    private StateHighwayKind(string value) : base(value) {
 
     }
 
-    static public StateHighwayType Parse(string value) {
+    static public StateHighwayKind Parse(string value) {
       Assertion.AssertObject(value, "value");
 
-      if (value == StateHighwayType.Empty.Value) {
-        return StateHighwayType.Empty;
+      if (value == StateHighwayKind.Empty.Value) {
+        return StateHighwayKind.Empty;
       }
-      if (value == StateHighwayType.Unknown.Value) {
-        return StateHighwayType.Unknown;
+      if (value == StateHighwayKind.Unknown.Value) {
+        return StateHighwayKind.Unknown;
       }
       return valuesList.First((x) => x.Value == value);
     }
 
-    static public StateHighwayType Empty {
+    static public StateHighwayKind Empty {
       get {
-        StateHighwayType empty = new StateHighwayType("No determinado");
+        StateHighwayKind empty = new StateHighwayKind("No determinado");
         empty.MarkAsEmpty();
 
         return empty;
       }
     }
 
-    static public StateHighwayType Unknown {
+    static public StateHighwayKind Unknown {
       get {
-        StateHighwayType unknown = new StateHighwayType("No proporcionado");
+        StateHighwayKind unknown = new StateHighwayKind("No proporcionado");
         unknown.MarkAsUnknown();
 
         return unknown;
@@ -69,12 +69,12 @@ namespace Empiria.Geography {
       }
     }
 
-    static public FixedList<StateHighwayType> GetList() {
+    static public FixedList<StateHighwayKind> GetList() {
       return valuesList;
     }
 
     #endregion Constructors and parsers
 
-  } // class StateHighwayType
+  } // class StateHighwayKind
 
 } // namespace Empiria.Geography

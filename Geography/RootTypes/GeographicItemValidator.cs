@@ -18,11 +18,11 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    static public Settlement SearchSettlement(SettlementType settlementType,
+    static public Settlement SearchSettlement(SettlementKind settlementKind,
                                               Municipality municipality,
                                               string settlementName) {
-      List<Settlement> settlements = 
-                       municipality.Settlements.FindAll((x) => x.SettlementType == settlementType);
+      List<Settlement> settlements =
+                       municipality.Settlements.FindAll((x) => x.SettlementKind == settlementKind);
 
       foreach (Settlement item in settlements) {
         if (EmpiriaString.Similar(item.Name, settlementName)) {

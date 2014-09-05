@@ -90,13 +90,13 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    public Highway AddHighway(FederalHighwayType highwayType, string number,
+    public Highway AddHighway(FederalHighwayKind highwayKind, string number,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(highwayKind, "highwayKind");
       Assertion.AssertObject(number, "number");
       Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
 
-      var highway = new Highway(this, highwayType, number, fromOriginToDestination);
+      var highway = new Highway(this, highwayKind, number, fromOriginToDestination);
       highwaysList.Value.Add(highway);
 
       return highway;

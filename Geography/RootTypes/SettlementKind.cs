@@ -2,12 +2,12 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
-*  Type      : SettlementType                                 Pattern  : Value object                        *
+*  Type      : SettlementKind                                 Pattern  : Value object                        *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
-*  Summary   : Serves as a naming space for settlement item types. A settlement is defined by the            *
+*  Summary   : Serves as a kind classificator for settlement item types. A settlement is defined by the      *
 *              GeographicItemType powertype but settlement instances can also be qualified within it using   *
-*              a SettlementType like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.           *
+*              a SettlementKind like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.           *
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
@@ -17,48 +17,48 @@ using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
-   /// <summary>Serves as a naming space for settlement item types. A settlement is defined by the
+   /// <summary>Serves as a kind classificator for settlement item types. A settlement is defined by the
   /// GeographicItemType powertype but settlement instances can also be qualified within it using
-  /// a SettlementType like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.</summary>
-  public class SettlementType : ValueObject<string> {
+  /// a SettlementKind like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.</summary>
+  public class SettlementKind : ValueObject<string> {
 
     #region Fields
 
-    private const string thisTypeName = "ValueType.ListItem.SettlementType";
+    private const string thisTypeName = "ValueType.ListItem.SettlementKind";
 
-    static private FixedList<SettlementType> valuesList =
-           SettlementType.ValueTypeInfo.GetValuesList<SettlementType, string>((x) => new SettlementType(x));
+    static private FixedList<SettlementKind> valuesList =
+           SettlementKind.ValueTypeInfo.GetValuesList<SettlementKind, string>((x) => new SettlementKind(x));
     #endregion Fields
 
     #region Constructors and parsers
 
-    private SettlementType(string value) : base(value) {
+    private SettlementKind(string value) : base(value) {
 
     }
 
-    static public SettlementType Parse(string value) {
+    static public SettlementKind Parse(string value) {
       Assertion.AssertObject(value, "value");
-      if (value == SettlementType.Empty.Value) {
-        return SettlementType.Empty;
+      if (value == SettlementKind.Empty.Value) {
+        return SettlementKind.Empty;
       }
-      if (value == SettlementType.Unknown.Value) {
-        return SettlementType.Unknown;
+      if (value == SettlementKind.Unknown.Value) {
+        return SettlementKind.Unknown;
       }
       return valuesList.First((x) => x.Value == value);
     }
 
-    static public SettlementType Empty {
+    static public SettlementKind Empty {
       get {
-        SettlementType empty = new SettlementType("No determinado");
+        SettlementKind empty = new SettlementKind("No determinado");
         empty.MarkAsEmpty();
 
         return empty;
       }
     }
 
-    static public SettlementType Unknown {
+    static public SettlementKind Unknown {
       get {
-        SettlementType unknown = new SettlementType("No proporcionado");
+        SettlementKind unknown = new SettlementKind("No proporcionado");
         unknown.MarkAsUnknown();
 
         return unknown;
@@ -71,12 +71,12 @@ namespace Empiria.Geography {
       }
     }
 
-    static public FixedList<SettlementType> GetList() {
+    static public FixedList<SettlementKind> GetList() {
       return valuesList;
     }
 
     #endregion Constructors and parsers
 
-  } // class SettlementType
+  } // class SettlementKind
 
 } // namespace Empiria.Geography

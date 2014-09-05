@@ -19,8 +19,7 @@ namespace Empiria.Geography {
 
   /// <summary>String value to describe a highway stretch or section typically comprised between two places,
   /// like  'NY - Philadelphia' or 'Ciudad de México - Cuernavaca'. A HighwaySection could also be used to
-  /// name a highway. Some highways are described only with their destination or ending place.
-  /// </summary>
+  /// name a highway. Some highways are described only with their destination or ending place.</summary>
   public class HighwaySection : ValueObject<string> {
 
     #region Fields

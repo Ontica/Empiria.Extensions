@@ -29,25 +29,25 @@ namespace Empiria.Geography {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
-    internal Roadway(Location location, RoadwayType roadwayType, string roadwayName)
+    internal Roadway(Location location, RoadwayKind roadwayKind, string roadwayName)
                     : base(thisTypeName, roadwayName) {
-      this.RoadwayType = roadwayType;
+      this.RoadwayKind = roadwayKind;
       this.Settlement = Settlement.Empty;
       this.Location = location;
       this.Municipality = this.Location.Municipality;
     }
 
-    internal Roadway(Settlement settlement, RoadwayType roadwayType, string roadwayName)
+    internal Roadway(Settlement settlement, RoadwayKind roadwayKind, string roadwayName)
                      : base(thisTypeName, roadwayName) {
-      this.RoadwayType = roadwayType;
+      this.RoadwayKind = roadwayKind;
       this.Settlement = settlement;
       this.Location = settlement.Location;
       this.Municipality = this.Location.Municipality;
     }
 
-    internal Roadway(Municipality municipality, RoadwayType roadwayType, string roadwayName)
-      : base(thisTypeName, roadwayName) {
-      this.RoadwayType = roadwayType;
+    internal Roadway(Municipality municipality, RoadwayKind roadwayKind, string roadwayName)
+                     : base(thisTypeName, roadwayName) {
+      this.RoadwayKind = roadwayKind;
       this.Settlement = Settlement.Empty;
       this.Location = Location.Empty;
       this.Municipality = municipality;
@@ -99,8 +99,8 @@ namespace Empiria.Geography {
       }
     }
 
-    [DataField("GeoItemExtData.RoadwayType")]
-    public RoadwayType RoadwayType {
+    [DataField("GeoItemExtData.RoadwayKind")]
+    public RoadwayKind RoadwayKind {
       get;
       private set;
     }

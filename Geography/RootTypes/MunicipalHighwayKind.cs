@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
-*  Type      : MunicipalHighwayType                           Pattern  : Value object                        *
+*  Type      : MunicipalHighwayKind                           Pattern  : Value object                        *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : String value type that describes a kind of municipal highway.                                 *
@@ -16,48 +16,48 @@ using Empiria.Ontology;
 namespace Empiria.Geography {
 
   /// <summary>String value type that describes a kind of municipal highway.</summary>
-  public class MunicipalHighwayType : ValueObject<string>, IHighwayType {
+  public class MunicipalHighwayKind : ValueObject<string>, IHighwayKind {
 
     #region Fields
 
-    private const string thisTypeName = "ValueType.ListItem.MunicipalHighwayType";
+    private const string thisTypeName = "ValueType.ListItem.MunicipalHighwayKind";
 
-    static private FixedList<MunicipalHighwayType> valuesList =
-      MunicipalHighwayType.ValueTypeInfo.GetValuesList<MunicipalHighwayType, string>((x) => new MunicipalHighwayType(x));
+    static private FixedList<MunicipalHighwayKind> valuesList =
+      MunicipalHighwayKind.ValueTypeInfo.GetValuesList<MunicipalHighwayKind, string>((x) => new MunicipalHighwayKind(x));
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    private MunicipalHighwayType(string value)
+    private MunicipalHighwayKind(string value)
       : base(value) {
 
     }
 
-    static public MunicipalHighwayType Parse(string value) {
+    static public MunicipalHighwayKind Parse(string value) {
       Assertion.AssertObject(value, "value");
 
-      if (value == MunicipalHighwayType.Empty.Value) {
-        return MunicipalHighwayType.Empty;
+      if (value == MunicipalHighwayKind.Empty.Value) {
+        return MunicipalHighwayKind.Empty;
       }
-      if (value == MunicipalHighwayType.Unknown.Value) {
-        return MunicipalHighwayType.Unknown;
+      if (value == MunicipalHighwayKind.Unknown.Value) {
+        return MunicipalHighwayKind.Unknown;
       }
       return valuesList.First((x) => x.Value == value);
     }
 
-    static public MunicipalHighwayType Empty {
+    static public MunicipalHighwayKind Empty {
       get {
-        var empty = new MunicipalHighwayType("No determinado");
+        var empty = new MunicipalHighwayKind("No determinado");
         empty.MarkAsEmpty();
 
         return empty;
       }
     }
 
-    static public MunicipalHighwayType Unknown {
+    static public MunicipalHighwayKind Unknown {
       get {
-        var unknown = new MunicipalHighwayType("No proporcionado");
+        var unknown = new MunicipalHighwayKind("No proporcionado");
         unknown.MarkAsUnknown();
 
         return unknown;
@@ -70,12 +70,12 @@ namespace Empiria.Geography {
       }
     }
 
-    static public FixedList<MunicipalHighwayType> GetList() {
+    static public FixedList<MunicipalHighwayKind> GetList() {
       return valuesList;
     }
 
     #endregion Constructors and parsers
 
-  } // class MunicipalHighwayType
+  } // class MunicipalHighwayKind
 
 } // namespace Empiria.Geography

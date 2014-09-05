@@ -92,21 +92,21 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    public Roadway AddRoadway(RoadwayType roadwayType, string name) {
-      Assertion.AssertObject(roadwayType, "roadwayType");
+    public Roadway AddRoadway(RoadwayKind roadwayKind, string name) {
+      Assertion.AssertObject(roadwayKind, "roadwayKind");
       Assertion.AssertObject(name, "name");
 
-      var roadway = new Roadway(this, roadwayType, name);
+      var roadway = new Roadway(this, roadwayKind, name);
       roadwaysList.Value.Add(roadway);
 
       return roadway;
     }
 
-    public Settlement AddSettlement(SettlementType settlementType, string settlementName) {
-      Assertion.AssertObject(settlementType, "settlementType");
+    public Settlement AddSettlement(SettlementKind settlementKind, string settlementName) {
+      Assertion.AssertObject(settlementKind, "settlementKind");
       Assertion.AssertObject(settlementName, "settlementName");
 
-      var settlement = new Settlement(this, settlementType, settlementName);
+      var settlement = new Settlement(this, settlementKind, settlementName);
 
       settlementsList.Value.Add(settlement);
 

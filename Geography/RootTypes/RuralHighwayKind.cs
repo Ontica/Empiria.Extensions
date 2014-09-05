@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
-*  Type      : RuralHighwayType                               Pattern  : Value object                        *
+*  Type      : RuralHighwayKind                               Pattern  : Value object                        *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : String value type that describes a kind of rural highway.                                     *
@@ -16,47 +16,47 @@ using Empiria.Ontology;
 namespace Empiria.Geography {
 
   /// <summary>String value type that describes a kind of rural highway.</summary>
-  public class RuralHighwayType : ValueObject<string>, IHighwayType {
+  public class RuralHighwayKind : ValueObject<string>, IHighwayKind {
 
     #region Fields
 
-    private const string thisTypeName = "ValueType.ListItem.RuralHighwayType";
+    private const string thisTypeName = "ValueType.ListItem.RuralHighwayKind";
 
-    static private FixedList<RuralHighwayType> valuesList =
-      RuralHighwayType.ValueTypeInfo.GetValuesList<RuralHighwayType, string>((x) => new RuralHighwayType(x));
+    static private FixedList<RuralHighwayKind> valuesList =
+      RuralHighwayKind.ValueTypeInfo.GetValuesList<RuralHighwayKind, string>((x) => new RuralHighwayKind(x));
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    private RuralHighwayType(string value) : base(value) {
+    private RuralHighwayKind(string value) : base(value) {
 
     }
 
-    static public RuralHighwayType Parse(string value) {
+    static public RuralHighwayKind Parse(string value) {
       Assertion.AssertObject(value, "value");
 
-      if (value == RuralHighwayType.Empty.Value) {
-        return RuralHighwayType.Empty;
+      if (value == RuralHighwayKind.Empty.Value) {
+        return RuralHighwayKind.Empty;
       }
-      if (value == RuralHighwayType.Unknown.Value) {
-        return RuralHighwayType.Unknown;
+      if (value == RuralHighwayKind.Unknown.Value) {
+        return RuralHighwayKind.Unknown;
       }
       return valuesList.First((x) => x.Value == value);
     }
 
-    static public RuralHighwayType Empty {
+    static public RuralHighwayKind Empty {
       get {
-        RuralHighwayType empty = new RuralHighwayType("No determinado");
+        RuralHighwayKind empty = new RuralHighwayKind("No determinado");
         empty.MarkAsEmpty();
 
         return empty;
       }
     }
 
-    static public RuralHighwayType Unknown {
+    static public RuralHighwayKind Unknown {
       get {
-        RuralHighwayType unknown = new RuralHighwayType("No proporcionado");
+        RuralHighwayKind unknown = new RuralHighwayKind("No proporcionado");
         unknown.MarkAsUnknown();
 
         return unknown;
@@ -69,12 +69,12 @@ namespace Empiria.Geography {
       }
     }
 
-    static public FixedList<RuralHighwayType> GetList() {
+    static public FixedList<RuralHighwayKind> GetList() {
       return valuesList;
     }
 
     #endregion Constructors and parsers
 
-  } // class RuralHighwayType
+  } // class RuralHighwayKind
 
 } // namespace Empiria.Geography

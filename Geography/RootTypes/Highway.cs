@@ -36,79 +36,64 @@ namespace Empiria.Geography {
     }
 
     /// <summary>Creates a federal highway that typically cross two or more states.</summary>
-    internal Highway(Country country, FederalHighwayType highwayType, string highwayNumber, 
+    internal Highway(Country country, FederalHighwayKind highwayKind, string highwayNumber, 
                      HighwaySection fromOriginToDestination)
-      : base(federalHighwayTypeName, BuildName(highwayType, highwayNumber, fromOriginToDestination)) {
+      : base(federalHighwayTypeName, BuildName(highwayKind, highwayNumber, fromOriginToDestination)) {
       this.Region = country;
-      this.HighwayType = highwayType;
+      this.HighwayKind = highwayKind;
     }
 
     /// <summary>Creates a state highway without an official designated number.</summary>
-    internal Highway(State state, StateHighwayType highwayType, HighwaySection fromOriginToDestination)
-      : base(stateHighwayTypeName, BuildName(highwayType, String.Empty, fromOriginToDestination)) {
+    internal Highway(State state, StateHighwayKind highwayKind, HighwaySection fromOriginToDestination)
+      : base(stateHighwayTypeName, BuildName(highwayKind, String.Empty, fromOriginToDestination)) {
       this.Region = state;
-      this.HighwayType = highwayType;
+      this.HighwayKind = highwayKind;
     }
 
     /// <summary>Creates a state highway with an official highway number.</summary>
-    internal Highway(State state, StateHighwayType highwayType, string highwayNumber,
+    internal Highway(State state, StateHighwayKind stateHighwayKind, string highwayNumber,
                      HighwaySection fromOriginToDestination)
-      : base(stateHighwayTypeName, BuildName(highwayType, highwayNumber, fromOriginToDestination)) {
+      : base(stateHighwayTypeName, BuildName(stateHighwayKind, highwayNumber, fromOriginToDestination)) {
       this.Region = state;
-      this.HighwayType = highwayType;
+      this.HighwayKind = stateHighwayKind;
     }
 
     /// <summary>Creates a state rural highway.</summary>
-    internal Highway(State state, RuralHighwayType ruralHighwayType,
+    internal Highway(State state, RuralHighwayKind ruralHighwayKind,
                      HighwaySection fromOriginToDestination)
-      : base(ruralHigwayTypeName, BuildName(ruralHighwayType, String.Empty, 
+      : base(ruralHigwayTypeName, BuildName(ruralHighwayKind, String.Empty, 
                                             fromOriginToDestination)) {
       this.Region = state;
-      this.HighwayType = ruralHighwayType;
+      this.HighwayKind = ruralHighwayKind;
     }
 
     /// <summary>Creates a municipal rural highway.</summary>
-    internal Highway(Municipality municipality, RuralHighwayType ruralHighwayType,
+    internal Highway(Municipality municipality, RuralHighwayKind ruralHighwayKind,
                      HighwaySection fromOriginToDestination)
-      : base(ruralHigwayTypeName, BuildName(ruralHighwayType, String.Empty, 
+      : base(ruralHigwayTypeName, BuildName(ruralHighwayKind, String.Empty, 
                                             fromOriginToDestination)) {
       this.Region = municipality;
-      this.HighwayType = ruralHighwayType;
+      this.HighwayKind = ruralHighwayKind;
     }
 
     /// <summary>Creates a municipal highway.</summary>
-    internal Highway(Municipality municipality, MunicipalHighwayType municipalHighwayType,
+    internal Highway(Municipality municipality, MunicipalHighwayKind municipalHighwayKind,
                      HighwaySection fromOriginToDestination)
-      : base(municipalHighwayTypeName, BuildName(municipalHighwayType, String.Empty, 
+      : base(municipalHighwayTypeName, BuildName(municipalHighwayKind, String.Empty, 
                                                  fromOriginToDestination)) {
       this.Region = municipality;
-      this.HighwayType = municipalHighwayType;
+      this.HighwayKind = municipalHighwayKind;
     }
 
     static public new Highway Parse(int id) {
       return BaseObject.Parse<Highway>(thisTypeName, id);
     }
 
-    //static private readonly Highway _empty = BaseObject.ParseEmpty<Highway>(thisTypeName);
-    //static public new Highway Empty {
-    //  get {
-    //    return _empty.Clone<Highway>();
-    //  }
-    //}
-
-    //static private readonly Highway _unknown = BaseObject.ParseUnknown<Highway>(thisTypeName);
-
-    //static public new Highway Unknown {
-    //  get {
-    //    return _unknown.Clone<Highway>();
-    //  }
-    //}
-
     #endregion Constructors and parsers
 
     #region Public properties
 
-    public IHighwayType HighwayType {
+    public IHighwayKind HighwayKind {
       get;
       private set;
     }
@@ -147,46 +132,46 @@ namespace Empiria.Geography {
     protected override void OnLoadObjectData(DataRow row) {
       base.OnLoadObjectData(row);
       var json = Empiria.Data.JsonObject.Parse(base.ExtendedDataString);
-      this.HighwayType = this.ParseHighwayType(json.Get<string>("HighwayType", "No determinado"));
-      this.highwaySectionsList = json.GetList<HighwaySection>("Sections");
+      this.HighwayKind = this.ParseHighwayKind(json.Get<string>("HighwayKind", "No determinado"));
+      this.highwaySectionsList = json.GetList<HighwaySection>("Sections", false);
     }
 
     #endregion Public methods
 
     #region Private methods
 
-    static private string BuildName(IHighwayType highwayType, string highwayNumber,
+    static private string BuildName(IHighwayKind highwayKind, string highwayNumber,
                                     HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(highwayKind, "highwayKind");
       Assertion.Assert(highwayNumber != null, "highwayNumber can't be null.");
       Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
       Assertion.Assert(highwayNumber.Length != 0 || !fromOriginToDestination.IsEmptyValue,
                        "To build the highway name I need at least its number or its main section.");
 
       if (highwayNumber.Length != 0 && !fromOriginToDestination.IsEmptyValue) {
-        return highwayType + " " + highwayNumber + " " + fromOriginToDestination;
+        return highwayKind + " " + highwayNumber + " " + fromOriginToDestination;
       } else if (highwayNumber.Length != 0 && fromOriginToDestination.IsEmptyValue) {
-        return highwayType + " " + highwayNumber;
+        return highwayKind + " " + highwayNumber;
       } else if (highwayNumber.Length == 0 && !fromOriginToDestination.IsEmptyValue) {
-        return highwayType + " " + fromOriginToDestination;
+        return highwayKind + " " + fromOriginToDestination;
       } else {    //highwayNumber.Length == 0 && fromOriginToDestination.IsEmptyValue
         throw Assertion.AssertNoReachThisCode();
       }
     }
 
-    /// <summary>Factory method for the HighwayType.</summary>
-    private IHighwayType ParseHighwayType(string highwayName) {
-      Assertion.AssertObject(highwayName, "highwayName");
+    /// <summary>Factory method for this instance HighwayKind.</summary>
+    private IHighwayKind ParseHighwayKind(string highwayKindName) {
+      Assertion.AssertObject(highwayKindName, "highwayName");
 
       switch (this.GeographicItemType.Name) {
         case federalHighwayTypeName:
-          return FederalHighwayType.Parse(highwayName);
+          return FederalHighwayKind.Parse(highwayKindName);
         case stateHighwayTypeName:
-          return StateHighwayType.Parse(highwayName);
+          return StateHighwayKind.Parse(highwayKindName);
         case municipalHighwayTypeName:
-          return MunicipalHighwayType.Parse(highwayName);
+          return MunicipalHighwayKind.Parse(highwayKindName);
         case ruralHigwayTypeName:
-          return RuralHighwayType.Parse(highwayName);
+          return RuralHighwayKind.Parse(highwayKindName);
         default:
           throw Assertion.AssertNoReachThisCode();
       }

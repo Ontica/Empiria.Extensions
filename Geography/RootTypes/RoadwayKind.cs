@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
-*  Type      : RoadwayType                                    Pattern  : Value object                        *
+*  Type      : RoadwayKind                                    Pattern  : Value object                        *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : String classificator for roadway item types. A roadway is defined by the GeographicItemType   *
@@ -21,47 +21,47 @@ namespace Empiria.Geography {
   /// powertype but roadway instances can also be qualified within it using a string classificator
   /// like 'Street' or 'Avenue'.
   /// </summary>
-  public class RoadwayType : ValueObject<string> {
+  public class RoadwayKind : ValueObject<string> {
 
     #region Fields
 
-    private const string thisTypeName = "ValueType.ListItem.RoadwayType";
+    private const string thisTypeName = "ValueType.ListItem.RoadwayKind";
 
-    static private FixedList<RoadwayType> valuesList =
-           RoadwayType.ValueTypeInfo.GetValuesList<RoadwayType, string>((x) => new RoadwayType(x));
+    static private FixedList<RoadwayKind> valuesList =
+           RoadwayKind.ValueTypeInfo.GetValuesList<RoadwayKind, string>((x) => new RoadwayKind(x));
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    private RoadwayType(string value) : base(value) {
+    private RoadwayKind(string value) : base(value) {
 
     }
 
-    static public RoadwayType Parse(string value) {
+    static public RoadwayKind Parse(string value) {
       Assertion.AssertObject(value, "value");
 
-      if (value == RoadwayType.Empty.Value) {
-        return RoadwayType.Empty;
+      if (value == RoadwayKind.Empty.Value) {
+        return RoadwayKind.Empty;
       }
-      if (value == RoadwayType.Unknown.Value) {
-        return RoadwayType.Unknown;
+      if (value == RoadwayKind.Unknown.Value) {
+        return RoadwayKind.Unknown;
       }
       return valuesList.First((x) => x.Value == value);
     }
 
-    static public RoadwayType Empty {
+    static public RoadwayKind Empty {
       get {
-        RoadwayType empty = new RoadwayType("No determinado");
+        RoadwayKind empty = new RoadwayKind("No determinado");
         empty.MarkAsEmpty();
 
         return empty;
       }
     }
 
-    static public RoadwayType Unknown {
+    static public RoadwayKind Unknown {
       get {
-        RoadwayType unknown = new RoadwayType("No proporcionado");
+        RoadwayKind unknown = new RoadwayKind("No proporcionado");
         unknown.MarkAsUnknown();
 
         return unknown;
@@ -74,12 +74,12 @@ namespace Empiria.Geography {
       }
     }
 
-    static public FixedList<RoadwayType> GetList() {
+    static public FixedList<RoadwayKind> GetList() {
       return valuesList;
     }
 
     #endregion Constructors and parsers
-    
-  } // class RoadwayType
+
+  } // class RoadwayKind
 
 } // namespace Empiria.Geography

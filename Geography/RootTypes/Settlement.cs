@@ -30,16 +30,16 @@ namespace Empiria.Geography {
       // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
     }
 
-    internal Settlement(Location location, SettlementType settlementType, string settlementName)
+    internal Settlement(Location location, SettlementKind SettlementKind, string settlementName)
                         : base(thisTypeName, settlementName) {
-      this.SettlementType = settlementType;
+      this.SettlementKind = SettlementKind;
       this.Location = location;
       this.Municipality = location.Municipality;
     }
 
-    internal Settlement(Municipality municipality, SettlementType settlementType, string settlementName)
+    internal Settlement(Municipality municipality, SettlementKind SettlementKind, string settlementName)
                         : base(thisTypeName, settlementName) {
-      this.SettlementType = settlementType;
+      this.SettlementKind = SettlementKind;
       this.Municipality = municipality;
       this.Location = Location.Empty;
     }
@@ -109,8 +109,8 @@ namespace Empiria.Geography {
       }
     }
 
-    [DataField("GeoItemExtData.SettlementType")]
-    public SettlementType SettlementType {
+    [DataField("GeoItemExtData.SettlementKind")]
+    public SettlementKind SettlementKind {
       get;
       private set;
     }
@@ -125,11 +125,11 @@ namespace Empiria.Geography {
 
     #region Public methods
 
-    public Roadway AddRoadway(RoadwayType roadwayType, string name) {
-      Assertion.AssertObject(roadwayType, "roadwayType");
+    public Roadway AddRoadway(RoadwayKind roadwayKind, string name) {
+      Assertion.AssertObject(roadwayKind, "roadwayKind");
       Assertion.AssertObject(name, "name");
 
-      var roadway = new Roadway(this, roadwayType, name);
+      var roadway = new Roadway(this, roadwayKind, name);
       roadwaysList.Value.Add(roadway);
 
       return roadway;

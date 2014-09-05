@@ -116,37 +116,37 @@ namespace Empiria.Geography {
     }
 
     /// <summary>Adds a new state highway without an offical highway number.</summary>
-    public Highway AddHighway(StateHighwayType highwayType,
+    public Highway AddHighway(StateHighwayKind highwayKind,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(highwayKind, "highwayKind");
       Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
 
-      var highway = new Highway(this, highwayType, fromOriginToDestination);
+      var highway = new Highway(this, highwayKind, fromOriginToDestination);
       highwaysList.Value.Add(highway);
 
       return highway;
     }
 
     /// <summary>Adds a new state highway with a designated official highway number.</summary>
-    public Highway AddHighway(StateHighwayType highwayType, string highwayNumber,
+    public Highway AddHighway(StateHighwayKind highwayKind, string highwayNumber,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayType, "highwayType");
+      Assertion.AssertObject(highwayKind, "highwayKind");
       Assertion.AssertObject(highwayNumber, "highwayNumber");
       Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
 
-      var highway = new Highway(this, highwayType, highwayNumber, fromOriginToDestination);
+      var highway = new Highway(this, highwayKind, highwayNumber, fromOriginToDestination);
       highwaysList.Value.Add(highway);
 
       return highway;
     }
 
     /// <summary>Adds a new rural highway to the state.</summary>
-    public Highway AddHighway(RuralHighwayType ruralHighwayType,
+    public Highway AddHighway(RuralHighwayKind ruralHighwayKind,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(ruralHighwayType, "ruralHighwayType");
+      Assertion.AssertObject(ruralHighwayKind, "ruralHighwayKind");
       Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
 
-      var highway = new Highway(this, ruralHighwayType, fromOriginToDestination);
+      var highway = new Highway(this, ruralHighwayKind, fromOriginToDestination);
       highwaysList.Value.Add(highway);
 
       return highway;

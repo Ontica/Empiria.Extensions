@@ -22,21 +22,19 @@ namespace Empiria.Geography {
 
     #region Internal methods
 
-    internal static List<T> GetChildGeoItems<T>(GeographicRegion region) where T : GeographicItem {
-      if (region.IsNew || region.IsEmptyInstance) {
+    static internal List<T> GetChildGeoItems<T>(GeographicRegion region) where T : GeographicItem {
+      if (region.IsNew || region.IsSpecialCase) {
         return new List<T>();
       }
-      //var geoItemType = GeographicItemType.Parse<T>();
-      int geoItemTypeId = 307;
-      if (typeof(T).IsSubclassOf(typeof(GeographicRoad))) {
-        return new List<T>();
-      }
+      var geoItemChildsType = GeographicItemType.Parse<T>();
+      string typesString = geoItemChildsType.GetSubclassesFilter();
       string sql = String.Format("SELECT * FROM EOSGeoItems WHERE GeoItemParentId = {0} AND " +
-                                 "GeoItemTypeId = {1} AND GeoItemStatus = 'A'", region.Id, geoItemTypeId);
+                                 "GeoItemTypeId IN ({1}) AND GeoItemStatus = 'A' ORDER BY GeoItemFullName",
+                                 region.Id, typesString);
       return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => GeographicItem.Parse<T>(x));
     }
 
-    internal static FixedList<T> GetGeographicItems<T>() where T : GeographicItem {
+    static internal FixedList<T> GetGeographicItems<T>() where T : GeographicItem {
       return GeographicData.GetGeographicItems<T>(String.Empty);
     }
 
@@ -58,18 +56,6 @@ namespace Empiria.Geography {
                                           (char) o.Status, o.StartDate, o.EndDate);
       return DataWriter.Execute(operation);
     }
-
-
-    //static internal FixedList<GeographicRegion> GetRegions(string filter) {
-    //  var operation = DataOperation.Parse("SELECT * FROM EOSGeoItems WHERE GeoItemStatus = 'A'");
-
-    //  return DataReader.GetFixedList<GeographicRegion>(operation, (x) => GeographicRegion.Parse(x),
-    //                                                       filter, "GeoItemName, GeoItemFullName");
-    //}
-
-    //static internal FixedList<Road> GetRoads<T>(string filter) where T : GeographicPath {
-    //  throw new NotImplementedException();
-    //}
 
     #endregion Internal methods
 
