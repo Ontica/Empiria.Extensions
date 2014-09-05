@@ -54,17 +54,17 @@ namespace Empiria.Geography {
     }
 
     static public new Roadway Parse(int id) {
-      return BaseObject.Parse<Roadway>(thisTypeName, id);
+      return BaseObject.ParseId<Roadway>(id);
     }
 
-    static private readonly Roadway _empty = BaseObject.ParseEmpty<Roadway>(thisTypeName);
+    static private readonly Roadway _empty = BaseObject.ParseEmpty<Roadway>();
     static public Roadway Empty {
       get {
         return _empty.Clone<Roadway>();
       }
     }
 
-    static private readonly Roadway _unknown = BaseObject.ParseUnknown<Roadway>(thisTypeName);
+    static private readonly Roadway _unknown = BaseObject.ParseUnknown<Roadway>();
     static public Roadway Unknown {
       get {
         return _unknown.Clone<Roadway>();

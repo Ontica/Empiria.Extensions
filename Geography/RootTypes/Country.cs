@@ -45,18 +45,18 @@ namespace Empiria.Geography {
     }
 
     static public new Country Parse(int id) {
-      return BaseObject.Parse<Country>(thisTypeName, id);
+      return BaseObject.ParseId<Country>(id);
     }
 
     static public new Country Empty {
       get {
-        return BaseObject.ParseEmpty<Country>(thisTypeName);
+        return BaseObject.ParseEmpty<Country>();
       }
     }
 
     static public new Country Unknown {
       get {
-        return BaseObject.ParseUnknown<Country>(thisTypeName);
+        return BaseObject.ParseUnknown<Country>();
       }
     }
 

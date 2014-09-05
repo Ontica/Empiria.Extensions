@@ -50,17 +50,17 @@ namespace Empiria.Geography {
     }
 
     static public new Settlement Parse(int id) {
-      return BaseObject.Parse<Settlement>(thisTypeName, id);
+      return BaseObject.ParseId<Settlement>(id);
     }
 
-    static private readonly Settlement _empty = BaseObject.ParseEmpty<Settlement>(thisTypeName);
+    static private readonly Settlement _empty = BaseObject.ParseEmpty<Settlement>();
     static public new Settlement Empty {
       get {
         return _empty.Clone<Settlement>();
       }
     }
 
-    static private readonly Settlement _unknown = BaseObject.ParseUnknown<Settlement>(thisTypeName);
+    static private readonly Settlement _unknown = BaseObject.ParseUnknown<Settlement>();
     static public new Settlement Unknown {
       get {
         return _unknown.Clone<Settlement>();

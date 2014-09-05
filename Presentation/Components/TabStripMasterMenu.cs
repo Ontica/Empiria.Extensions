@@ -33,11 +33,11 @@ namespace Empiria.Presentation.Components {
     }
 
     static public new TabStripMasterMenu Parse(int id) {
-      return BaseObject.Parse<TabStripMasterMenu>(thisTypeName, id);
+      return BaseObject.ParseId<TabStripMasterMenu>(id);
     }
 
     static public new TabStripMasterMenu Parse(string masterMenuNamedKey) {
-      return BaseObject.Parse<TabStripMasterMenu>(thisTypeName, masterMenuNamedKey);
+      return BaseObject.ParseKey<TabStripMasterMenu>(masterMenuNamedKey);
     }
 
     #endregion Constructors and parsers

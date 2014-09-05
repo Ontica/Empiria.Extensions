@@ -36,11 +36,11 @@ namespace Empiria.Presentation {
     }
 
     static public ViewModel Parse(int id) {
-      return BaseObject.Parse<ViewModel>(thisTypeName, id);
+      return BaseObject.ParseId<ViewModel>(id);
     }
 
     static public ViewModel Parse(string viewModelNamespace) {
-      return BaseObject.Parse<ViewModel>(thisTypeName, viewModelNamespace);
+      return BaseObject.ParseKey<ViewModel>(viewModelNamespace);
     }
 
     #endregion Constructors and parsers

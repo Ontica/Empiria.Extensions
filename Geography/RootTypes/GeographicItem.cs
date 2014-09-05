@@ -34,11 +34,11 @@ namespace Empiria.Geography {
     }
 
     static public GeographicItem Parse(int id) {
-      return BaseObject.Parse<GeographicItem>(thisTypeName, id);
+      return BaseObject.ParseId<GeographicItem>(id);
     }
 
-    static internal T Parse<T>(DataRow row) where T : GeographicItem {
-      return BaseObject.Parse<T>(thisTypeName, row);
+    static internal new T Parse<T>(DataRow row) where T : GeographicItem {
+      return BaseObject.Parse<T>(row);
     }
 
     static protected FixedList<T> GetList<T>() where T : GeographicItem {

@@ -47,11 +47,11 @@ namespace Empiria.Presentation {
     }
 
     static public UIComponent Parse(int id) {
-      return BaseObject.Parse<UIComponent>(thisTypeName, id);
+      return BaseObject.ParseId<UIComponent>(id);
     }
 
     static public UIComponent Parse(string uiComponentNamespace) {
-      return BaseObject.Parse<UIComponent>(thisTypeName, uiComponentNamespace);
+      return BaseObject.ParseKey<UIComponent>(uiComponentNamespace);
     }
 
     #endregion Constructors and parsers

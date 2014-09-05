@@ -47,15 +47,15 @@ namespace Empiria.Documents.IO {
     }
 
     static public FilesFolder Parse(int id) {
-      return BaseObject.Parse<FilesFolder>(thisTypeName, id);
+      return BaseObject.ParseId<FilesFolder>(id);
     }
 
     static internal FilesFolder Parse(DataRow dataRow) {
-      return BaseObject.Parse<FilesFolder>(thisTypeName, dataRow);
+      return BaseObject.Parse<FilesFolder>(dataRow);
     }
 
     static public FilesFolder Empty {
-      get { return BaseObject.ParseEmpty<FilesFolder>(thisTypeName); }
+      get { return BaseObject.ParseEmpty<FilesFolder>(); }
     }
 
     static public FilesFolderList CreateAllFromPath(ObjectTypeInfo filesFolderTypeInfo,

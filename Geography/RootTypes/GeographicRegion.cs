@@ -42,10 +42,10 @@ namespace Empiria.Geography {
     }
 
     static public new GeographicRegion Parse(int id) {
-      return BaseObject.Parse<GeographicRegion>(thisTypeName, id);
+      return BaseObject.ParseId<GeographicRegion>(id);
     }
 
-    static private readonly GeographicRegion _empty = BaseObject.ParseEmpty<GeographicRegion>(thisTypeName);
+    static private readonly GeographicRegion _empty = BaseObject.ParseEmpty<GeographicRegion>();
     static public GeographicRegion Empty {
       get {
         return _empty.Clone<GeographicRegion>();
@@ -53,7 +53,7 @@ namespace Empiria.Geography {
     }
 
     static private readonly GeographicRegion _unknown = 
-                                                    BaseObject.ParseUnknown<GeographicRegion>(thisTypeName);
+                                                    BaseObject.ParseUnknown<GeographicRegion>();
     static public GeographicRegion Unknown {
       get {
         return _unknown.Clone<GeographicRegion>();

@@ -34,7 +34,7 @@ namespace Empiria.Presentation.Web {
     }
 
     static public new WebViewModel Parse(int id) {
-      return BaseObject.Parse<WebViewModel>(thisTypeName, id);
+      return BaseObject.ParseId<WebViewModel>(id);
     }
 
     #endregion Constructors and parsers

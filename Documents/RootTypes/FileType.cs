@@ -33,19 +33,19 @@ namespace Empiria.Documents {
     }
 
     static public FileType Parse(int id) {
-      return BaseObject.Parse<FileType>(thisTypeName, id);
+      return BaseObject.ParseId<FileType>(id);
     }
 
     static public FileType Empty {
-      get { return BaseObject.ParseEmpty<FileType>(thisTypeName); }
+      get { return BaseObject.ParseEmpty<FileType>(); }
     }
 
     static public FileType Unknown {
-      get { return BaseObject.ParseUnknown<FileType>(thisTypeName); }
+      get { return BaseObject.ParseUnknown<FileType>(); }
     }
 
     static public FixedList<FileType> GetList() {
-      return GeneralObject.ParseList<FileType>(thisTypeName);
+      return GeneralObject.ParseList<FileType>();
     }
 
     #endregion Constructors and parsers

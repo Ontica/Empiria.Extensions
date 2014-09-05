@@ -33,11 +33,11 @@ namespace Empiria.Presentation.Web.Content {
     }
 
     static public XhtmlTemplate Parse(int id) {
-      return BaseObject.Parse<XhtmlTemplate>(thisTypeName, id);
+      return BaseObject.ParseId<XhtmlTemplate>(id);
     }
 
     static public XhtmlTemplate Parse(string itemNamedKey) {
-      return BaseObject.Parse<XhtmlTemplate>(thisTypeName, itemNamedKey);
+      return BaseObject.ParseKey<XhtmlTemplate>(itemNamedKey);
     }
 
     #endregion Constructors and parsers

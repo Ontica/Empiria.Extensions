@@ -44,17 +44,17 @@ namespace Empiria.Geography {
     }
 
     static public new State Parse(int id) {
-      return BaseObject.Parse<State>(thisTypeName, id);
+      return BaseObject.ParseId<State>(id);
     }
 
-    static private readonly State _empty = BaseObject.ParseEmpty<State>(thisTypeName);
+    static private readonly State _empty = BaseObject.ParseEmpty<State>();
     static public new State Empty {
       get {
         return _empty.Clone<State>();
       }
     }
 
-    static private readonly State _unknown = BaseObject.ParseUnknown<State>(thisTypeName);
+    static private readonly State _unknown = BaseObject.ParseUnknown<State>();
     static public new State Unknown {
       get {
         return _unknown.Clone<State>();

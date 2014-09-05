@@ -35,11 +35,11 @@ namespace Empiria.Documents.IO {
     }
 
     static public new RootFilesFolder Empty {
-      get { return BaseObject.ParseEmpty<RootFilesFolder>(thisTypeName); }
+      get { return BaseObject.ParseEmpty<RootFilesFolder>(); }
     }
 
     static public new RootFilesFolder Parse(int id) {
-      return BaseObject.Parse<RootFilesFolder>(thisTypeName, id);
+      return BaseObject.ParseId<RootFilesFolder>(id);
     }
 
     static public FilesFolderList GetRootFilesFolders() {

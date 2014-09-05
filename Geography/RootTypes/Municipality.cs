@@ -46,17 +46,17 @@ namespace Empiria.Geography {
     }
 
     static public new Municipality Parse(int id) {
-      return BaseObject.Parse<Municipality>(thisTypeName, id);
+      return BaseObject.ParseId<Municipality>(id);
     }
 
-    static private readonly Municipality _empty = BaseObject.ParseEmpty<Municipality>(thisTypeName);
+    static private readonly Municipality _empty = BaseObject.ParseEmpty<Municipality>();
     static public new Municipality Empty {
       get {
         return _empty.Clone<Municipality>();
       }
     }
 
-    static private readonly Municipality _unknown = BaseObject.ParseUnknown<Municipality>(thisTypeName);
+    static private readonly Municipality _unknown = BaseObject.ParseUnknown<Municipality>();
     static public new Municipality Unknown {
       get {
         return _unknown.Clone<Municipality>();

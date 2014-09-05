@@ -37,7 +37,7 @@ namespace Empiria.Geography {
     }
 
     static public new GeographicRoad Parse(int id) {
-      return BaseObject.Parse<GeographicRoad>(thisTypeName, id);
+      return BaseObject.ParseId<GeographicRoad>(id);
     }
 
     //static private readonly GeographicRoad _empty = BaseObject.ParseEmpty<GeographicRoad>(thisTypeName);

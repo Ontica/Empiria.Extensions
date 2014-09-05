@@ -86,7 +86,7 @@ namespace Empiria.Geography {
     }
 
     static public new Highway Parse(int id) {
-      return BaseObject.Parse<Highway>(thisTypeName, id);
+      return BaseObject.ParseId<Highway>(id);
     }
 
     #endregion Constructors and parsers
