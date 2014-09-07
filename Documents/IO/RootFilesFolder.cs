@@ -8,6 +8,7 @@
 *  Summary   : Describes a root folder or directory that serves as a start point of documents storage.       *
 *                                                                                                            *
 ********************************* Copyright (c) 2004-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 
 using Empiria.Ontology;
 
@@ -16,22 +17,10 @@ namespace Empiria.Documents.IO {
   /// <summary>Describes a root folder or directory that serves as a start point of documents storage.</summary>
   public class RootFilesFolder : FilesFolder {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.FilesFolder.RootFilesFolder";
-
-    #endregion Fields
-
     #region Constructors and parsers
 
-    public RootFilesFolder()
-      : base(thisTypeName) {
-
-    }
-
-    private RootFilesFolder(string typeName)
-      : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private RootFilesFolder() {
+      // Required by Empiria Framework.
     }
 
     static public new RootFilesFolder Empty {
@@ -43,7 +32,7 @@ namespace Empiria.Documents.IO {
     }
 
     static public FilesFolderList GetRootFilesFolders() {
-      return DocumentsData.GetFilesFoldersList(ObjectTypeInfo.Parse(thisTypeName));
+      return DocumentsData.GetFilesFoldersList(ObjectTypeInfo.Parse<RootFilesFolder>());
     }
 
     internal protected override IIdentifiable Reference {

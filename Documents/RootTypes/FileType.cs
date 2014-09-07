@@ -14,22 +14,10 @@ namespace Empiria.Documents {
   /// <summary>Describes the technology of a system file.</summary>
   public class FileType : GeneralObject {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.GeneralObject.FileType";
-
-    #endregion Fields
-
     #region Constructors and parsers
 
-    public FileType()
-      : base(thisTypeName) {
-
-    }
-
-    private FileType(string typeName)
-      : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private FileType() {
+      // Required by Empiria Framework.
     }
 
     static public FileType Parse(int id) {

@@ -8,28 +8,17 @@
 *  Summary   : Represents a XHTML template that serves as a user interface item pattern.                     *
 *                                                                                                            *
 ********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 
 namespace Empiria.Presentation.Web.Content {
 
   /// <summary>Represents a XHTML template that serves as a user interface item pattern.</summary>
   public class XhtmlTemplate : GeneralObject {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.GeneralObject.XhtmlTemplate";
-
-    #endregion Fields
-
     #region Constructors and parsers
 
-    public XhtmlTemplate()
-      : base(thisTypeName) {
-
-    }
-
-    protected XhtmlTemplate(string typeName)
-      : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private XhtmlTemplate() {
+      // Required by Empiria Framework.
     }
 
     static public XhtmlTemplate Parse(int id) {

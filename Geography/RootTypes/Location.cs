@@ -18,8 +18,6 @@ namespace Empiria.Geography {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Location";
-
     private Lazy<List<Settlement>> settlementsList = null;
     private Lazy<List<Roadway>> roadwaysList = null;
 
@@ -27,12 +25,11 @@ namespace Empiria.Geography {
 
     #region Constructors and parsers
 
-    protected Location(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise.
+    private Location() {
+      // Required by Empiria Framework.
     }
 
-    internal Location(Municipality municipality, string locationName) : 
-                                                 base(thisTypeName, locationName) {
+    internal Location(Municipality municipality, string locationName) : base(locationName) {
       this.Municipality = municipality;
     }
 

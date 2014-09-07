@@ -17,36 +17,30 @@ namespace Empiria.Geography {
   /// <summary>Represents a roadway (street, avenue, etc).</summary>
   public class Roadway : GeographicRoad {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRoad.Roadway";
-
-    #endregion Fields
-
     #region Constructors and parsers
 
-    protected Roadway(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private Roadway() {
+      // Required by Empiria Framework.
     }
 
-    internal Roadway(Location location, RoadwayKind roadwayKind, string roadwayName)
-                    : base(thisTypeName, roadwayName) {
+    internal Roadway(Location location, RoadwayKind roadwayKind,
+                     string roadwayName) : base(roadwayName) {
       this.RoadwayKind = roadwayKind;
       this.Settlement = Settlement.Empty;
       this.Location = location;
       this.Municipality = this.Location.Municipality;
     }
 
-    internal Roadway(Settlement settlement, RoadwayKind roadwayKind, string roadwayName)
-                     : base(thisTypeName, roadwayName) {
+    internal Roadway(Settlement settlement, RoadwayKind roadwayKind, 
+                     string roadwayName) : base(roadwayName) {
       this.RoadwayKind = roadwayKind;
       this.Settlement = settlement;
       this.Location = settlement.Location;
       this.Municipality = this.Location.Municipality;
     }
 
-    internal Roadway(Municipality municipality, RoadwayKind roadwayKind, string roadwayName)
-                     : base(thisTypeName, roadwayName) {
+    internal Roadway(Municipality municipality, RoadwayKind roadwayKind, 
+                     string roadwayName) : base(roadwayName) {
       this.RoadwayKind = roadwayKind;
       this.Settlement = Settlement.Empty;
       this.Location = Location.Empty;

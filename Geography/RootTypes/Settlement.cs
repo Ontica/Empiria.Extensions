@@ -19,26 +19,25 @@ namespace Empiria.Geography {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Settlement";
     private Lazy<List<Roadway>> roadwaysList = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected Settlement(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private Settlement() {
+      // Required by Empiria Framework.
     }
 
-    internal Settlement(Location location, SettlementKind SettlementKind, string settlementName)
-                        : base(thisTypeName, settlementName) {
+    internal Settlement(Location location, SettlementKind SettlementKind,
+                        string settlementName) : base(settlementName) {
       this.SettlementKind = SettlementKind;
       this.Location = location;
       this.Municipality = location.Municipality;
     }
 
-    internal Settlement(Municipality municipality, SettlementKind SettlementKind, string settlementName)
-                        : base(thisTypeName, settlementName) {
+    internal Settlement(Municipality municipality, SettlementKind SettlementKind,
+                        string settlementName) : base(settlementName) {
       this.SettlementKind = SettlementKind;
       this.Municipality = municipality;
       this.Location = Location.Empty;

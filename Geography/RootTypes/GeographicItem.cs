@@ -12,24 +12,27 @@ using System;
 using System.Data;
 
 using Empiria.Contacts;
+using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
   public abstract class GeographicItem : BaseObject {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.GeographicItem";
-    
-    #endregion Fields
-
     #region Constructors and parsers
 
-    protected GeographicItem(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    protected GeographicItem() {
+      // Required by Empiria Framework.
     }
 
-    protected GeographicItem(string typeName, string geoItemName) : base(typeName) {
+    protected GeographicItem(ObjectTypeInfo powertype) : base(powertype) {
+      // Used by derived partitioned types to create new instances of GeographicItem.
+    }
+
+    protected GeographicItem(string geoItemName) {
+      this.Name = geoItemName;
+    }
+
+    protected GeographicItem(ObjectTypeInfo powertype, string geoItemName) : base(powertype) {
       this.Name = geoItemName;
     }
 
@@ -37,8 +40,8 @@ namespace Empiria.Geography {
       return BaseObject.ParseId<GeographicItem>(id);
     }
 
-    static internal new T Parse<T>(DataRow row) where T : GeographicItem {
-      return BaseObject.Parse<T>(row);
+    static internal T Parse<T>(DataRow row) where T : GeographicItem {
+      return BaseObject.ParseDataRow<T>(row);
     }
 
     static protected FixedList<T> GetList<T>() where T : GeographicItem {
@@ -52,12 +55,6 @@ namespace Empiria.Geography {
     #endregion Constructors and parsers
 
     #region Public properties
-
-    [DataField("GeoItemTypeId")]
-    public GeographicItemType GeographicItemType {
-      get;
-      internal set;
-    }
 
     [DataField("GeoItemName")]
     public string Name {
@@ -79,7 +76,7 @@ namespace Empiria.Geography {
 
     internal protected virtual string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.FullName, this.GeographicItemType.DisplayName);
+        return EmpiriaString.BuildKeywords(this.FullName, this.ObjectTypeInfo.DisplayName);
       }
     }
 

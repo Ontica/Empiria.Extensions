@@ -18,21 +18,14 @@ namespace Empiria.Presentation {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeneralObject.ViewModel";
-
     private string title = String.Empty;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    private ViewModel() : base(thisTypeName) {
-      // Abstract class. Object creation of this type not allowed.
-    }
-
-    protected ViewModel(string typeName)
-      : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    protected ViewModel() {
+      // Required by Empiria Framework.
     }
 
     static public ViewModel Parse(int id) {

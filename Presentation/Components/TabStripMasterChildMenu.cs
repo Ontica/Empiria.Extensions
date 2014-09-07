@@ -8,6 +8,7 @@
 *  Summary   : User interface component that holds the structure for a tabstrip master child menu.           *
 *                                                                                                            *
 ********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 
 namespace Empiria.Presentation.Components {
 
@@ -16,22 +17,14 @@ namespace Empiria.Presentation.Components {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeneralObject.UIComponent.TabStripMasterChildMenu";
-
     TabStripMasterMenu parentMasterMenu = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    private TabStripMasterChildMenu()
-      : this(thisTypeName) {
-
-    }
-
-    protected TabStripMasterChildMenu(string typeName)
-      : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private TabStripMasterChildMenu() {
+      // Required by Empiria Framework.
     }
 
     static public new TabStripMasterChildMenu Parse(int id) {

@@ -26,7 +26,7 @@ namespace Empiria.Geography {
       if (region.IsNew || region.IsSpecialCase) {
         return new List<T>();
       }
-      var geoItemChildsType = GeographicItemType.Parse<T>();
+      var geoItemChildsType = ObjectTypeInfo.Parse<T>();
       string typesString = geoItemChildsType.GetSubclassesFilter();
       string sql = String.Format("SELECT * FROM EOSGeoItems WHERE GeoItemParentId = {0} AND " +
                                  "GeoItemTypeId IN ({1}) AND GeoItemStatus = 'A' ORDER BY GeoItemFullName",
@@ -50,7 +50,7 @@ namespace Empiria.Geography {
     }
 
     static internal int WriteGeographicItem(GeographicItem o) {
-      var operation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.GeographicItemType.Id, 
+      var operation = DataOperation.Parse("writeEOSGeoItem", o.Id, o.ObjectTypeInfo.Id, 
                                           o.Name, o.FullName, o.ExtendedDataString, 
                                           o.Keywords, o.Parent.Id, o.PostedBy.Id, o.PostingTime, 
                                           (char) o.Status, o.StartDate, o.EndDate);

@@ -15,22 +15,10 @@ namespace Empiria.Presentation.Web {
   /// <summary>Type that holds view model information used in web based applications.</summary>
   public class WebViewModel : ViewModel {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.GeneralObject.ViewModel.WebViewModel";
-
-    #endregion Fields
-
     #region Constructors and parsers
 
-    public WebViewModel()
-      : base(thisTypeName) {
-
-    }
-
-    protected WebViewModel(string typeName)
-      : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private WebViewModel() {
+      // Required by Empiria Framework.
     }
 
     static public new WebViewModel Parse(int id) {

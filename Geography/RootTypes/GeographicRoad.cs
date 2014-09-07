@@ -20,39 +20,27 @@ namespace Empiria.Geography {
   /// <summary>Represents a geographic road that could be a roadway, highway or a rural road.</summary>
   public abstract class GeographicRoad : GeographicItem {
 
-    #region Fields
-
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRoad";
-
-    #endregion Fields
-
     #region Constructors and parsers
 
-    protected GeographicRoad(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise.
+    protected GeographicRoad() {
+      // Required by Empiria Framework.
     }
 
-    protected GeographicRoad(string typeName, string roadName) : base(typeName, roadName) {
+    protected GeographicRoad(ObjectTypeInfo powertype) : base(powertype) {
+      // Required by Empiria Framework for all partitioned types.
+    }
 
+    protected GeographicRoad(string roadName) : base(roadName) {
+      // Used by derived types to create new instances of GeographicRoad.
+    }
+
+    protected GeographicRoad(ObjectTypeInfo powertype, string roadName) : base(powertype, roadName) {
+      // Used by derived partitioned types to create new instances of GeographicRoad.
     }
 
     static public new GeographicRoad Parse(int id) {
       return BaseObject.ParseId<GeographicRoad>(id);
     }
-
-    //static private readonly GeographicRoad _empty = BaseObject.ParseEmpty<GeographicRoad>(thisTypeName);
-    //static public GeographicRoad Empty {
-    //  get {
-    //    return _empty.Clone<GeographicRoad>();
-    //  }
-    //}
-
-    //static private readonly GeographicRoad _unknown = BaseObject.ParseUnknown<GeographicRoad>(thisTypeName);
-    //static public GeographicRoad Unknown {
-    //  get {
-    //    return _unknown.Clone<GeographicRoad>();
-    //  }
-    //}
 
     #endregion Constructors and parsers
 

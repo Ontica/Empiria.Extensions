@@ -5,25 +5,22 @@
 *  Type      : Highway                                        Pattern  : Empiria Object Type                 *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
-*  Summary   : Represents a federal, state, municipal or rural highway.                                      *
+*  Summary   : Partitioned type that represents a federal, state, municipal or rural highway.                *
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 using System.Data;
 
+using Empiria.Ontology;
+
 namespace Empiria.Geography {
 
-  /// <summary>Represents a federal, state, municipal or rural highway.</summary>
+  /// <summary>Partitioned type that represents a federal, state, municipal or rural highway.</summary>
+  //[PartitionedType(typeof(HighwayType))]
   public class Highway : GeographicRoad {
 
     #region Fields
-
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRoad.Highway";
-    private const string federalHighwayTypeName = "ObjectType.GeographicItem.GeographicRoad.Highway.FederalHighway";
-    private const string stateHighwayTypeName = "ObjectType.GeographicItem.GeographicRoad.Highway.StateHighway";
-    private const string municipalHighwayTypeName = "ObjectType.GeographicItem.GeographicRoad.Highway.MunicipalHighway";
-    private const string ruralHigwayTypeName = "ObjectType.GeographicItem.GeographicRoad.Highway.RuralHighway";
 
     private List<HighwaySection> highwaySectionsList = new List<HighwaySection>();
 
@@ -31,21 +28,23 @@ namespace Empiria.Geography {
 
     #region Constructors and parsers
 
-    protected Highway(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise
+    private Highway(HighwayType powertype) : base(powertype) {
+      // Required by Empiria Framework for all partitioned types.
     }
 
     /// <summary>Creates a federal highway that typically cross two or more states.</summary>
     internal Highway(Country country, FederalHighwayKind highwayKind, string highwayNumber, 
-                     HighwaySection fromOriginToDestination)
-      : base(federalHighwayTypeName, BuildName(highwayKind, highwayNumber, fromOriginToDestination)) {
+                     HighwaySection fromOriginToDestination) 
+                    : base(HighwayType.FederalHighwayType, BuildName(highwayKind, highwayNumber,
+                                                                     fromOriginToDestination)) {
       this.Region = country;
       this.HighwayKind = highwayKind;
     }
 
     /// <summary>Creates a state highway without an official designated number.</summary>
     internal Highway(State state, StateHighwayKind highwayKind, HighwaySection fromOriginToDestination)
-      : base(stateHighwayTypeName, BuildName(highwayKind, String.Empty, fromOriginToDestination)) {
+                    : base(HighwayType.StateHighwayType, BuildName(highwayKind, String.Empty,
+                                                                   fromOriginToDestination)) {
       this.Region = state;
       this.HighwayKind = highwayKind;
     }
@@ -53,7 +52,8 @@ namespace Empiria.Geography {
     /// <summary>Creates a state highway with an official highway number.</summary>
     internal Highway(State state, StateHighwayKind stateHighwayKind, string highwayNumber,
                      HighwaySection fromOriginToDestination)
-      : base(stateHighwayTypeName, BuildName(stateHighwayKind, highwayNumber, fromOriginToDestination)) {
+                     : base(HighwayType.StateHighwayType, BuildName(stateHighwayKind, highwayNumber,
+                                                                    fromOriginToDestination)) {
       this.Region = state;
       this.HighwayKind = stateHighwayKind;
     }
@@ -61,8 +61,8 @@ namespace Empiria.Geography {
     /// <summary>Creates a state rural highway.</summary>
     internal Highway(State state, RuralHighwayKind ruralHighwayKind,
                      HighwaySection fromOriginToDestination)
-      : base(ruralHigwayTypeName, BuildName(ruralHighwayKind, String.Empty, 
-                                            fromOriginToDestination)) {
+                     : base(HighwayType.RuralHighwayType, BuildName(ruralHighwayKind, String.Empty,
+                                                                    fromOriginToDestination)) {
       this.Region = state;
       this.HighwayKind = ruralHighwayKind;
     }
@@ -70,8 +70,8 @@ namespace Empiria.Geography {
     /// <summary>Creates a municipal rural highway.</summary>
     internal Highway(Municipality municipality, RuralHighwayKind ruralHighwayKind,
                      HighwaySection fromOriginToDestination)
-      : base(ruralHigwayTypeName, BuildName(ruralHighwayKind, String.Empty, 
-                                            fromOriginToDestination)) {
+                     : base(HighwayType.RuralHighwayType, BuildName(ruralHighwayKind, String.Empty, 
+                                                                    fromOriginToDestination)) {
       this.Region = municipality;
       this.HighwayKind = ruralHighwayKind;
     }
@@ -79,8 +79,8 @@ namespace Empiria.Geography {
     /// <summary>Creates a municipal highway.</summary>
     internal Highway(Municipality municipality, MunicipalHighwayKind municipalHighwayKind,
                      HighwaySection fromOriginToDestination)
-      : base(municipalHighwayTypeName, BuildName(municipalHighwayKind, String.Empty, 
-                                                 fromOriginToDestination)) {
+                     : base(HighwayType.MunicipalHighwayType, BuildName(municipalHighwayKind, String.Empty,
+                                                                        fromOriginToDestination)) {
       this.Region = municipality;
       this.HighwayKind = municipalHighwayKind;
     }
@@ -96,6 +96,12 @@ namespace Empiria.Geography {
     public IHighwayKind HighwayKind {
       get;
       private set;
+    }
+
+    public HighwayType HighwayType {
+      get {
+        return (HighwayType) base.ObjectTypeInfo;
+      }
     }
 
     protected internal override GeographicRegion Parent {
@@ -132,7 +138,7 @@ namespace Empiria.Geography {
     protected override void OnLoadObjectData(DataRow row) {
       base.OnLoadObjectData(row);
       var json = Empiria.Data.JsonObject.Parse(base.ExtendedDataString);
-      this.HighwayKind = this.ParseHighwayKind(json.Get<string>("HighwayKind", "No determinado"));
+      this.HighwayKind = this.HighwayType.ParseHighwayKind(json.Get<string>("HighwayKind", "No determinado"));
       this.highwaySectionsList = json.GetList<HighwaySection>("Sections", false);
     }
 
@@ -156,24 +162,6 @@ namespace Empiria.Geography {
         return highwayKind + " " + fromOriginToDestination;
       } else {    //highwayNumber.Length == 0 && fromOriginToDestination.IsEmptyValue
         throw Assertion.AssertNoReachThisCode();
-      }
-    }
-
-    /// <summary>Factory method for this instance HighwayKind.</summary>
-    private IHighwayKind ParseHighwayKind(string highwayKindName) {
-      Assertion.AssertObject(highwayKindName, "highwayName");
-
-      switch (this.GeographicItemType.Name) {
-        case federalHighwayTypeName:
-          return FederalHighwayKind.Parse(highwayKindName);
-        case stateHighwayTypeName:
-          return StateHighwayKind.Parse(highwayKindName);
-        case municipalHighwayTypeName:
-          return MunicipalHighwayKind.Parse(highwayKindName);
-        case ruralHigwayTypeName:
-          return RuralHighwayKind.Parse(highwayKindName);
-        default:
-          throw Assertion.AssertNoReachThisCode();
       }
     }
 

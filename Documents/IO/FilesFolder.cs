@@ -34,16 +34,14 @@ namespace Empiria.Documents.IO {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.FilesFolder";
-
     private FileInfo[] filesCache = null;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    protected FilesFolder(string typeName) : base(typeName) {
-      // Empiria Object Type pattern classes always has this constructor. Don't delete
+    protected FilesFolder() {
+      // Required by Empiria Framework.
     }
 
     static public FilesFolder Parse(int id) {
@@ -51,7 +49,7 @@ namespace Empiria.Documents.IO {
     }
 
     static internal FilesFolder Parse(DataRow dataRow) {
-      return BaseObject.Parse<FilesFolder>(dataRow);
+      return BaseObject.ParseDataRow<FilesFolder>(dataRow);
     }
 
     static public FilesFolder Empty {

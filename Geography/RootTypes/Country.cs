@@ -18,8 +18,6 @@ namespace Empiria.Geography {
 
     #region Fields
 
-    private const string thisTypeName = "ObjectType.GeographicItem.GeographicRegion.Country";
-
     private Lazy<List<State>> statesList = null;
     private Lazy<List<Highway>> highwaysList = null;
 
@@ -27,11 +25,11 @@ namespace Empiria.Geography {
 
     #region Constructors and parsers
 
-    protected Country(string typeName) : base(typeName) {
-      // Required by Empiria Framework. Do not delete. Protected in not sealed classes, private otherwise.
+    private Country() {
+      // Required by Empiria Framework.
     }
 
-    public Country(string countryName, string countryCode) : base(thisTypeName, countryName) {
+    public Country(string countryName, string countryCode) : base(countryName) {
       Assertion.AssertObject(countryName, "countryName");
       Assertion.Assert(countryCode != null, "countryCode");
 

@@ -20,15 +20,7 @@ namespace Empiria.Presentation {
   /// container of other controls or containers.</summary>
   public abstract class UIComponent : GeneralObject {
 
-    #region Abstract members
-
-    internal protected abstract string ParseComponentItemAsString(UIComponentItem item, IContentParser contentParser);
-
-    #endregion Abstract members
-
     #region Fields
-
-    private const string thisTypeName = "ObjectType.GeneralObject.UIComponent";
 
     private UIComponentItemList items = null;
 
@@ -36,14 +28,8 @@ namespace Empiria.Presentation {
 
     #region Constructors and parsers
 
-    private UIComponent()
-      : base(thisTypeName) {
-      // Abstract class. Object creation of this type not allowed.
-    }
-
-    protected UIComponent(string typeName)
-      : base(typeName) {
-      // Empiria Object Type pattern classes always has this constructor. Don't delete
+    protected UIComponent() {
+      // Required by Empiria Framework.
     }
 
     static public UIComponent Parse(int id) {
@@ -71,7 +57,8 @@ namespace Empiria.Presentation {
 
     #region Public methods
 
-    #endregion Public methods
+    protected internal abstract string ParseComponentItemAsString(UIComponentItem item,
+                                                                  IContentParser contentParser);
 
     public string ParseContentAsString(IContentParser contentParser) {
       string content = String.Empty;
@@ -81,6 +68,8 @@ namespace Empiria.Presentation {
       }
       return content;
     }
+
+    #endregion Public methods
 
     #region Private methods
 
