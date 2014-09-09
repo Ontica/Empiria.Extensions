@@ -5,7 +5,7 @@
 *  Type      : GeographicRegion                               Pattern  : Empiria Object Type                 *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
-*  Summary   : Represents a geographic area or region: city, country, world zone, zip code region, etc.      *
+*  Summary   : Represents a geographic area or region: city, country, world zone, postal code region, etc.   *
 *                                                                                                            *
 ********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
@@ -18,7 +18,7 @@ using Empiria.Ontology;
 namespace Empiria.Geography {
 
   /// <summary>Represents a geographic area or region: city, country, world zone,
-  /// zip code region, etc.</summary>
+  /// postal code region, etc.</summary>
   public class GeographicRegion : GeographicItem {
 
     #region Constructors and parsers
@@ -42,8 +42,7 @@ namespace Empiria.Geography {
       }
     }
 
-    static private readonly GeographicRegion _unknown = 
-                                                    BaseObject.ParseUnknown<GeographicRegion>();
+    static private readonly GeographicRegion _unknown = BaseObject.ParseUnknown<GeographicRegion>();
     static public GeographicRegion Unknown {
       get {
         return _unknown.Clone<GeographicRegion>();

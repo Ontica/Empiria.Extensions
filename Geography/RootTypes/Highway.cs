@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
-*  Type      : Highway                                        Pattern  : Empiria Object Type                 *
+*  Type      : Highway                                        Pattern  : Partitioned type                    *
 *  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
 *                                                                                                            *
 *  Summary   : Partitioned type that represents a federal, state, municipal or rural highway.                *
@@ -17,7 +17,7 @@ using Empiria.Ontology;
 namespace Empiria.Geography {
 
   /// <summary>Partitioned type that represents a federal, state, municipal or rural highway.</summary>
-  //[PartitionedType(typeof(HighwayType))]
+  [PartitionedType(typeof(HighwayType))]
   public class Highway : GeographicRoad {
 
     #region Fields
