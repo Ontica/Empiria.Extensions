@@ -20,7 +20,7 @@ namespace Empiria.Geography {
 
     #region Constructors and parsers
 
-    private HighwayType(int typeId) : base(typeId) {
+    private HighwayType() {
       // Empiria powertype types always have this constructor.
     }
 

@@ -46,9 +46,10 @@ namespace Empiria.Geography {
       return BaseObject.ParseId<Country>(id);
     }
 
+    static private readonly Country _empty = BaseObject.ParseEmpty<Country>();
     static public new Country Empty {
       get {
-        return BaseObject.ParseEmpty<Country>();
+        return _empty.Clone<Country>();
       }
     }
 

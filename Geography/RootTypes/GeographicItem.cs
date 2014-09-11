@@ -92,7 +92,7 @@ namespace Empiria.Geography {
       private set;
     }
 
-    [DataField("PostedById", Default = "Contacts.Person.Empty")]
+    [DataField("PostedById")]
     internal protected Contact PostedBy {
       get;
       set;

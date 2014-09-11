@@ -31,7 +31,7 @@ namespace Empiria.Geography {
       string sql = String.Format("SELECT * FROM EOSGeoItems WHERE GeoItemParentId = {0} AND " +
                                  "GeoItemTypeId IN ({1}) AND GeoItemStatus = 'A' ORDER BY GeoItemFullName",
                                  region.Id, typesString);
-      return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => GeographicItem.Parse<T>(x));
+      return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => BaseObject.ParseList<T>(x));
     }
 
     static internal FixedList<T> GetGeographicItems<T>() where T : GeographicItem {
@@ -46,7 +46,7 @@ namespace Empiria.Geography {
       var objectTypeInfo = ObjectTypeInfo.Parse<T>();
       var dataOperation = objectTypeInfo.GetListDataOperation(filter, sort);
 
-      return DataReader.GetFixedList<T>(dataOperation, (x) => GeographicItem.Parse<T>(x));
+      return DataReader.GetList<T>(dataOperation, (x) => BaseObject.ParseList<T>(x)).ToFixedList();
     }
 
     static internal int WriteGeographicItem(GeographicItem o) {
