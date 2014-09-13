@@ -24,6 +24,10 @@ namespace Empiria.Documents.IO {
       //no-op
     }
 
+    public FilesFolderList(List<FilesFolder> list) : base(list) {
+      //no-op
+    }
+
     public FilesFolderList(int capacity) : base(capacity) {
       // no-op
     }

@@ -48,10 +48,6 @@ namespace Empiria.Documents.IO {
       return BaseObject.ParseId<FilesFolder>(id);
     }
 
-    static internal FilesFolder Parse(DataRow dataRow) {
-      return BaseObject.ParseDataRow<FilesFolder>(dataRow);
-    }
-
     static public FilesFolder Empty {
       get { return BaseObject.ParseEmpty<FilesFolder>(); }
     }

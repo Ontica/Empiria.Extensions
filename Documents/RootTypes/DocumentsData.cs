@@ -24,15 +24,11 @@ namespace Empiria.Documents {
     #region Public methods
 
     static public FilesFolderList GetChildFilesFoldersList(FilesFolder parent) {
-      return ConvertToFilesFolderList(GetChildFilesFolders(parent));
-    }
+      var operation = DataOperation.Parse("qryLRSChildFileFolders", parent.Id);
 
-    static public DataView GetChildFilesFolders(FilesFolder parent) {
-      return DataReader.GetDataView(DataOperation.Parse("qryLRSChildFileFolders", parent.Id));
-    }
+      var list = DataReader.GetList<FilesFolder>(operation, (x) => BaseObject.ParseList<FilesFolder>(x));
 
-    static public DataView GetFilesFolders(ObjectTypeInfo filesFolderTypeInfo) {
-      return DataReader.GetDataView(DataOperation.Parse("qryLRSFileFoldersWithType", filesFolderTypeInfo.Id));
+      return new FilesFolderList(list);
     }
 
     static public DataView GetFilesFolders(ObjectTypeInfo filesFolderTypeInfo, string filter, string sort) {
@@ -41,16 +37,11 @@ namespace Empiria.Documents {
     }
 
     static public FilesFolderList GetFilesFoldersList(ObjectTypeInfo filesFolderTypeInfo) {
-      DataView foldersDataView = DocumentsData.GetFilesFolders(filesFolderTypeInfo);
+      var operation = DataOperation.Parse("qryLRSFileFoldersWithType", filesFolderTypeInfo.Id);
 
-      FilesFolderList list = new FilesFolderList();
+      var list = DataReader.GetList<FilesFolder>(operation, (x) => BaseObject.ParseList<FilesFolder>(x));
 
-      for (int i = 0; i < foldersDataView.Count; i++) {
-        FilesFolder filesFolder = FilesFolder.Parse(foldersDataView[i].Row);
-
-        list.Add(filesFolder);
-      }
-      return list;
+      return new FilesFolderList(list);
     }
 
     static public string GetFilesFoldersFilter(Contact filesFolderOwner, string keywords) {
@@ -63,10 +54,6 @@ namespace Empiria.Documents {
         filter += "(FilesFolderOwnerId = " + filesFolderOwner.Id.ToString() + ")";
       }
       return filter;
-    }
-
-    static public DataTable GetObjectNotes(int referenceId) {
-      return DataReader.GetDataTable(DataOperation.Parse("qryFacilityNotes", referenceId));
     }
 
     #endregion Public methods
@@ -83,37 +70,7 @@ namespace Empiria.Documents {
       return DataWriter.Execute(dataOperation);
     }
 
-    static internal int WriteNote(int noteId, int noteTypeId, string noteDirection, int sourceContactId,
-                                 int targetContactId, int referenceId, int objectId,
-                                 DateTime noteTime, string noteText, int responseTypeId,
-                                 string responseMedia, DateTime responseTime, string responseText,
-                                 int parentNoteId, DateTime postingTime, int postedById, string noteStatus) {
-      DataOperation dataOperation = DataOperation.Parse("writeEOSNote", noteId, noteTypeId, noteDirection, sourceContactId,
-                                                        targetContactId, referenceId, objectId, noteTime, noteText,
-                                                        responseTypeId, responseMedia, responseTime, responseText,
-                                                        parentNoteId, postingTime, postedById, noteStatus);
-      return DataWriter.Execute(dataOperation);
-    }
-
     #endregion Internal methods
-
-    #region Private methods
-
-    static private FilesFolderList ConvertToFilesFolderList(DataView dataView) {
-      FilesFolderList filesFolderList = new FilesFolderList();
-
-      for (int i = 0; i < dataView.Count; i++) {
-        filesFolderList.Add(FilesFolder.Parse(dataView[i].Row));
-      }
-
-      return filesFolderList;
-    }
-
-    //static private int GetNextNoteId() {
-    //  return DataWriter.CreateId("EOSNotes");
-    //}
-
-    #endregion Private methods
 
   } // class Documents
 

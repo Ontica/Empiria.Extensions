@@ -40,10 +40,6 @@ namespace Empiria.Geography {
       return BaseObject.ParseId<GeographicItem>(id);
     }
 
-    static internal T Parse<T>(DataRow row) where T : GeographicItem {
-      return BaseObject.ParseDataRow<T>(row);
-    }
-
     static protected FixedList<T> GetList<T>() where T : GeographicItem {
       return GeographicData.GetGeographicItems<T>();
     }

@@ -39,15 +39,24 @@ namespace Empiria.Geography {
       return new Address();
     }
 
+    static private readonly Address _empty = new Address() {
+      IsEmptyInstance = true
+    };
+
     static public Address Empty {
       get {
-        return new Address();
+        return _empty;
       }
     }
 
     #endregion Constructors and parsers
 
     #region Properties
+
+    public bool IsEmptyInstance {
+      get;
+      private set;
+    }
 
     public Municipality Municipality {
       get;
@@ -107,15 +116,6 @@ namespace Empiria.Geography {
     public string UbicationReference {
       get;
       set;
-    }
-
-    public bool IsEmptyInstance {
-      get {
-        if (String.IsNullOrWhiteSpace(this.ExternalNo)) {
-          return true;
-        }
-        return false;
-      }
     }
 
     public string Keywords {
