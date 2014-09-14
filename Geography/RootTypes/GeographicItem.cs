@@ -72,7 +72,7 @@ namespace Empiria.Geography {
 
     internal protected virtual string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.FullName, this.ObjectTypeInfo.DisplayName);
+        return EmpiriaString.BuildKeywords(this.FullName, this.GetEmpiriaType().DisplayName);
       }
     }
 

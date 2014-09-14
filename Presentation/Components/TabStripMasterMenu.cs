@@ -55,7 +55,7 @@ namespace Empiria.Presentation.Components {
           return content.Replace("{MASTER.MENU.ITEMS}", ((UIContainer) item).GetParsedContent());
         default:
           throw new PresentationException(PresentationException.Msg.UnexpectedUIComponentItem,
-                                          base.ObjectTypeInfo.Name, item.TemplateName);
+                                          base.GetEmpiriaType().Name, item.TemplateName);
       }
     }
 

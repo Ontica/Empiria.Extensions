@@ -100,7 +100,7 @@ namespace Empiria.Geography {
 
     public HighwayType HighwayType {
       get {
-        return (HighwayType) base.ObjectTypeInfo;
+        return (HighwayType) base.GetEmpiriaType();
       }
     }
 

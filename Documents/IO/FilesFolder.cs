@@ -114,17 +114,17 @@ namespace Empiria.Documents.IO {
     #region Public fields
 
     [DataField("ApprovedById")]
-    LazyObject<Contact> _approvedBy = LazyObject<Contact>.Empty;
+    LazyInstance<Contact> _approvedBy = LazyInstance<Contact>.Empty;
     public Contact ApprovedBy {
-      get { return _approvedBy.Instance; }
-      protected set { _approvedBy.Instance = value; }
+      get { return _approvedBy.Value; }
+      protected set { _approvedBy.Value = value; }
     }
 
     [DataField("CapturedById")]
-    LazyObject<Contact> _capturedBy = LazyObject<Contact>.Empty;
+    LazyInstance<Contact> _capturedBy = LazyInstance<Contact>.Empty;
     public Contact CapturedBy {
-      get { return _capturedBy.Instance; }
-      protected set { _capturedBy.Instance = value; }
+      get { return _capturedBy.Value; }
+      protected set { _capturedBy.Value = value; }
     }
 
     [DataField("CreationDate", Default = "DateTime.Now")]
@@ -176,17 +176,17 @@ namespace Empiria.Documents.IO {
     }
 
     [DataField("FilesFolderOwnerId")]
-    LazyObject<Contact> _owner = LazyObject<Contact>.Empty;
+    LazyInstance<Contact> _owner = LazyInstance<Contact>.Empty;
     public Contact Owner {
-      get { return _owner.Instance; }
-      set { _owner.Instance = value; }
+      get { return _owner.Value; }
+      set { _owner.Value = value; }
     }
 
     [DataField("ParentFilesFolderId")]
-    LazyObject<FilesFolder> _parentFilesFolder = LazyObject<FilesFolder>.Empty;
+    LazyInstance<FilesFolder> _parentFilesFolder = LazyInstance<FilesFolder>.Empty;
     public FilesFolder ParentFolder {
-      get { return _parentFilesFolder.Instance; }
-      protected set { _parentFilesFolder.Instance = value; }
+      get { return _parentFilesFolder.Value; }
+      protected set { _parentFilesFolder.Value = value; }
     }
 
     [DataField("PhysicalPath")]
@@ -206,10 +206,10 @@ namespace Empiria.Documents.IO {
     }
 
     [DataField("ReviewedById")]
-    LazyObject<Contact> _reviewedBy = LazyObject<Contact>.Empty;
+    LazyInstance<Contact> _reviewedBy = LazyInstance<Contact>.Empty;
     public Contact ReviewedBy {
-      get { return _reviewedBy.Instance; }
-      protected set { _reviewedBy.Instance = value; }
+      get { return _reviewedBy.Value; }
+      protected set { _reviewedBy.Value = value; }
     }
 
     [DataField("FilesFolderStatus", Default = FilesFolderStatus.Pending)]
@@ -258,11 +258,6 @@ namespace Empiria.Documents.IO {
     #endregion Internal and protected fields
 
     #region Protected methods
-
-    public void CloneInto(FilesFolder clone) {
-      DataRow dataRow = this.GetDataRow();
-      clone.OnLoadObjectData(dataRow);
-    }
 
     protected void CopyFrom(DirectoryInfo sourceFolder) {
       this.PhysicalPath = this.PhysicalPath.TrimEnd('\\') + @"\" + sourceFolder.Name;

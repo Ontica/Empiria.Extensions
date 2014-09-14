@@ -32,13 +32,6 @@ namespace Empiria.Geography {
       return ObjectTypeInfo.Parse<HighwayType>(typeName);
     }
 
-    static public HighwayType Empty {
-      get {
-        return
-          HighwayType.Parse("ObjectType.GeographicItem.GeographicRoad.Highway");
-      }
-    }
-
     static public HighwayType FederalHighwayType {
       get {
         return HighwayType.Parse("ObjectType.GeographicItem.GeographicRoad.Highway.FederalHighway");

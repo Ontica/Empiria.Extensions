@@ -26,12 +26,12 @@ namespace Empiria.Geography {
       // Required by Empiria Framework.
     }
 
-    protected GeographicRoad(ObjectTypeInfo powertype) : base(powertype) {
-      // Required by Empiria Framework for all partitioned types.
-    }
-
     protected GeographicRoad(string roadName) : base(roadName) {
       // Used by derived types to create new instances of GeographicRoad.
+    }
+
+    protected GeographicRoad(ObjectTypeInfo powertype) : base(powertype) {
+      // Required by Empiria Framework for all partitioned types.
     }
 
     protected GeographicRoad(ObjectTypeInfo powertype, string roadName) : base(powertype, roadName) {
