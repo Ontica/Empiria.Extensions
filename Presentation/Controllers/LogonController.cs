@@ -36,9 +36,7 @@ namespace Empiria.Presentation.Controllers {
 
     protected bool Logon(string sessionId, string userName, string password, int regionId) {
       OnValidate();
-      EmpiriaIdentity identity = null;
-
-      identity = EmpiriaIdentity.Authenticate(userName, password, sessionId, regionId);
+      EmpiriaIdentity identity = EmpiriaIdentity.Authenticate(userName, password, sessionId, regionId);
 
       if (identity == null) {
         SetException("El usuario no está registrado o la contraseña de acceso proporcionada es incorrecta.");
@@ -53,9 +51,8 @@ namespace Empiria.Presentation.Controllers {
 
     protected bool GuestLogon() {
       OnValidate();
-      EmpiriaIdentity identity = null;
 
-      identity = EmpiriaIdentity.AuthenticateGuest();
+      EmpiriaIdentity identity = EmpiriaIdentity.AuthenticateGuest();
 
       if (identity == null) {
         OnAuthenticateFails();

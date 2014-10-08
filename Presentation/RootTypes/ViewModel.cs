@@ -16,12 +16,6 @@ namespace Empiria.Presentation {
   /// <summary>Abstract class that stores information in a model-view-controller type.</summary>
   public abstract class ViewModel : GeneralObject {
 
-    #region Fields
-
-    private string title = String.Empty;
-
-    #endregion Fields
-
     #region Constructors and parsers
 
     protected ViewModel() {
@@ -82,12 +76,13 @@ namespace Empiria.Presentation {
       private set;
     }
 
+    private string _title = String.Empty;
     public string Title {
       get {
-        return ((title.Length == 0) ? base.Name : title);
+        return ((_title.Length == 0) ? base.Name : _title);
       }
       set {
-        title = value;
+        _title = value;
       }
     }
 

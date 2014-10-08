@@ -10,7 +10,6 @@
 ********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
-
 namespace Empiria.Presentation.Web {
 
   /// <summary>Abstract type that serves as a processor of XMLHttpRequest requests.</summary>

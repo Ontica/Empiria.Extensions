@@ -103,8 +103,8 @@ namespace Empiria.WebServices {
       if (sessionDictionary.ContainsKey(sessionToken)) {
         return sessionDictionary[sessionToken];
       }
-      EmpiriaPrincipal principal = null;
-      if (EmpiriaIdentity.TryAuthenticate(sessionToken, out principal)) {
+      EmpiriaPrincipal principal = EmpiriaIdentity.TryAuthenticate(sessionToken);
+      if (principal != null) {
         StorePrincipal(principal);
         return principal;
       }
