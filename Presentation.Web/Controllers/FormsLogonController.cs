@@ -28,8 +28,9 @@ namespace Empiria.Presentation.Web.Controllers {
 
     #region Public methods
 
-    public bool Logon(string userName, string password, int regionId) {
-      bool success = base.Logon(WebContext.Session.SessionID, userName, password, regionId);
+    public bool Logon(string clientAppKey, string userName, string password, int regionId) {
+      bool success = base.Logon(clientAppKey, userName, password,
+                                WebContext.Session.SessionID, regionId);
 
       if (success) {
         SetLastWorkplaceCookie(regionId.ToString());
@@ -71,9 +72,10 @@ namespace Empiria.Presentation.Web.Controllers {
     protected override void OnAuthenticate(EmpiriaPrincipal principal) {
       EmpiriaIdentity identity = (EmpiriaIdentity) principal.Identity;
 
-      CreateAuthenticationTicket(identity.User.UserName, identity.Session.Token);
+      CreateAuthenticationTicket(identity.User.UserName, principal.Session.Token);
       SetLastUserNameCookie(identity.User.UserName);
-      ExecutionServer.CurrentPrincipal = principal;
+      System.Threading.Thread.CurrentPrincipal = principal;
+      HttpContext.Current.User = principal;
       AttemptsCount = 0;
       WebContext.WorkplaceManager.Start(true);
     }
@@ -86,7 +88,7 @@ namespace Empiria.Presentation.Web.Controllers {
       ValidateClient();
     }
 
-    /// <summary>Throws a secutiry exception if the authentication request arise from 
+    /// <summary>Throws a security exception if the authentication request arise from
     /// an unauthorized client.</summary>
     static private void ValidateClient() {
       string problemMsg = null;

@@ -8,6 +8,8 @@
 *  Summary   : Abstract controller class that performs user authentication and system entrance.              *
 *                                                                                                            *
 ********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
+
 using Empiria.Security;
 
 namespace Empiria.Presentation.Controllers {
@@ -34,17 +36,21 @@ namespace Empiria.Presentation.Controllers {
 
     #region Protected methods
 
-    protected bool Logon(string sessionId, string userName, string password, int regionId) {
+    protected bool Logon(string clientAppKey, string userName, string password,
+                         string entropy, int contextId) {
       OnValidate();
-      EmpiriaIdentity identity = EmpiriaIdentity.Authenticate(userName, password, sessionId, regionId);
-
-      if (identity == null) {
+      EmpiriaPrincipal principal = null;
+      try {
+        principal = EmpiriaIdentity.Authenticate(clientAppKey, userName, password,
+                                                 entropy, contextId);
+      } catch {
+        // no-op
+      }
+      if (principal == null) {
         SetException("El usuario no está registrado o la contraseña de acceso proporcionada es incorrecta.");
         OnAuthenticateFails();
         return false;
       }
-      EmpiriaPrincipal principal = new EmpiriaPrincipal(identity);
-
       OnAuthenticate(principal);
       return true;
     }
@@ -52,16 +58,18 @@ namespace Empiria.Presentation.Controllers {
     protected bool GuestLogon() {
       OnValidate();
 
-      EmpiriaIdentity identity = EmpiriaIdentity.AuthenticateGuest();
+      throw new NotImplementedException();
 
-      if (identity == null) {
-        OnAuthenticateFails();
-        return false;
-      }
-      EmpiriaPrincipal principal = new EmpiriaPrincipal(identity);
+      //EmpiriaIdentity identity = EmpiriaIdentity.AuthenticateGuest();
 
-      OnAuthenticate(principal);
-      return true;
+      //if (identity == null) {
+      //  OnAuthenticateFails();
+      //  return false;
+      //}
+      //EmpiriaPrincipal principal = new EmpiriaPrincipal(identity);
+
+      //OnAuthenticate(principal);
+      //return true;
     }
 
     #endregion Protected methods

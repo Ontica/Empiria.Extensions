@@ -141,23 +141,6 @@ namespace Empiria.WebServices {
 
     #endregion Protected methods
 
-    #region Private methods
-
-    //static private void Initialize() {
-    //  try {
-    //    sessionTimeout = ConfigurationData.GetInteger("Session.Timeout");
-    //    if (!(5 <= sessionTimeout && sessionTimeout <= 600)) {
-    //      throw new WebServicesException(WebServicesException.Msg.InvalidSessionTimeout);
-    //    }
-    //    rootPath = ConfigurationData.GetString("Server.RootPath");
-    //    throw new Exception(ConfigurationData.GetStack());
-    //  } catch (Exception innerException) {
-    //    throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
-    //  }
-    //}
-
-    #endregion Private methods
-
   } // class Global
 
 } // namespace Empiria.Presentation.Web

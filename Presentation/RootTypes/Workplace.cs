@@ -68,7 +68,7 @@ namespace Empiria.Presentation {
     }
 
     public string Theme {
-      get { return ((User != null) ? User.UITheme : "default"); }
+      get { return "default"; }
     }
 
     public Empiria.Security.EmpiriaUser User {

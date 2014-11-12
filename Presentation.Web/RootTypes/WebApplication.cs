@@ -19,7 +19,8 @@ namespace Empiria.Presentation.Web {
 
     #region Fields
 
-    static private readonly string MobileWebApplicationLogonPageUrl = ConfigurationData.GetString("Mobile.Server.RootPath");
+    static private readonly string MobileWebApplicationLogonPageUrl =
+                                                ConfigurationData.GetString("Mobile.Server.RootPath");
     static private readonly string exceptionsPageName = "exception.aspx";
     static private readonly string lastExceptionTag = "empiriaLastException";
     static private readonly string xhtmlMIMEType = "application/xhtml+xml";
@@ -89,15 +90,13 @@ namespace Empiria.Presentation.Web {
     #region Public methods
 
     public void OnAuthenticateRequest(object sender, EventArgs e) {
-      string cookieName = FormsAuthentication.FormsCookieName;
-      HttpCookie authCookie = Request.Cookies[cookieName];
+      HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 
       if (authCookie != null) {
         FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
         authTicket = FormsAuthentication.RenewTicketIfOld(authTicket);
       }
     }
-
 
     public void OnEnd(object sender, EventArgs e) {
       //no-op
@@ -163,7 +162,8 @@ namespace Empiria.Presentation.Web {
         }
         rootPath = ConfigurationData.GetString("Server.RootPath");
       } catch (Exception innerException) {
-        throw new WebPresentationException(WebPresentationException.Msg.WebApplicationInitializationFails, innerException);
+        throw new WebPresentationException(WebPresentationException.Msg.WebApplicationInitializationFails,
+                                           innerException);
       }
     }
 

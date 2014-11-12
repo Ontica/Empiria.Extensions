@@ -43,8 +43,9 @@ namespace Empiria.Presentation.Web.Controllers {
     protected override void OnAuthenticate(EmpiriaPrincipal principal) {
       EmpiriaIdentity identity = (EmpiriaIdentity) principal.Identity;
 
-      CreateAuthenticationTicket(identity.User.UserName, identity.Session.Token);
-      ExecutionServer.CurrentPrincipal = principal;
+      CreateAuthenticationTicket(identity.User.UserName, principal.Session.Token);
+      System.Threading.Thread.CurrentPrincipal = principal;
+      HttpContext.Current.User = principal;
 
       WebContext.WorkplaceManager.Start(false);
     }

@@ -73,7 +73,7 @@ namespace Empiria.Presentation.Web.Content {
     }
 
     public string ServerTitle {
-      get { return ExecutionServer.Name; }
+      get { return ExecutionServer.ServerName; }
     }
 
     #endregion Public properties

@@ -67,7 +67,7 @@ namespace Empiria.Presentation.Web {
     public string ThemePath {
       get {
         if (themeFolder.Length == 0) {
-          themeFolder = "../themes/" + ((this.User != null) ? this.User.UITheme : "default") + "/";
+          themeFolder = "../themes/default/";
         }
         return themeFolder;
       }

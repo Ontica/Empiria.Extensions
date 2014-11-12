@@ -33,9 +33,10 @@ namespace Empiria.Presentation.Web.Content {
 
     #region Public properties
 
+    [DataField(GeneralObject.ExtensionDataFieldName + ".Template", IsOptional = true)]
     public string TemplateString {
-      get { return base.Description; }
-      set { base.Description = value; }
+      get;
+      private set;
     }
 
     #endregion Public properties
