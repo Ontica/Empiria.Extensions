@@ -59,6 +59,12 @@ namespace Empiria.Geography {
       }
     }
 
+    public virtual string CompoundName {
+      get {
+        return base.Name + " (" + base.GetEmpiriaType().DisplayName + ")";
+      }
+    }
+
     #endregion Public properties
 
   } // class GeographicRegion

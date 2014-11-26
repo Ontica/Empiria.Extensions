@@ -118,7 +118,6 @@ namespace Empiria.Geography {
 
     protected internal void Remove() {
       this.Status = GeneralObjectStatus.Deleted;
-      //this.MarkAsDeleted();
     }
 
     protected override void OnSave() {

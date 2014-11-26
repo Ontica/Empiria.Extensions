@@ -137,7 +137,7 @@ namespace Empiria.Geography {
 
     protected override void OnLoadObjectData(DataRow row) {
       base.OnLoadObjectData(row);
-      var json = Empiria.Data.JsonObject.Parse(base.ExtendedDataString);
+      var json = Empiria.Json.JsonObject.Parse(base.ExtendedDataString);
       this.HighwayKind = this.HighwayType.ParseHighwayKind(json.Get<string>("HighwayKind", "No determinado"));
       this.highwaySectionsList = json.GetList<HighwaySection>("Sections", false);
     }

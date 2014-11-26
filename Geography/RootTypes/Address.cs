@@ -132,7 +132,7 @@ namespace Empiria.Geography {
 
     public string ToJson() {
       if (!this.IsEmptyInstance) {
-        return Empiria.Data.JsonConverter.ToJson(this.GetObject());
+        return Empiria.Json.JsonConverter.ToJson(this.GetObject());
       } else {
         return String.Empty;
       }

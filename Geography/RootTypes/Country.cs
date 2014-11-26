@@ -75,13 +75,15 @@ namespace Empiria.Geography {
 
     public FixedList<Highway> Highways {
       get {
-        return highwaysList.Value.ToFixedList();
+        Predicate<Highway> match = (x) => x.Status != GeneralObjectStatus.Deleted;
+        return highwaysList.Value.FindAll(match).ToFixedList();
       }
     }
 
     public FixedList<State> States {
       get {
-        return statesList.Value.ToFixedList();
+        Predicate<State> match = (x) => x.Status != GeneralObjectStatus.Deleted;
+        return statesList.Value.FindAll(match).ToFixedList();
       }
     }
 
@@ -116,6 +118,19 @@ namespace Empiria.Geography {
 
       highway.Remove();
       highwaysList.Value.Remove(highway);
+    }
+
+    protected override void OnSave() {
+      using (var context = StorageContext.Open()) {
+        base.OnSave();
+        foreach (State state in statesList.Value) {
+          state.Save();
+        }
+        foreach (Highway highway in highwaysList.Value) {
+          highway.Save();
+        }
+        context.Update();
+      }
     }
 
     #endregion Public methods
