@@ -169,6 +169,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\IOServicesException.cs" />
+    <Compile Include="IO\FileServices.cs" />
     <Compile Include="RootTypes\FileType.cs" />
     <Compile Include="RootTypes\DocumentsData.cs" />
     <Compile Include="Empiria.Documents.AssemblyInfo.cs" />

@@ -8,6 +8,7 @@
 *  Summary   : Describes the technology of a system file.                                                    *
 *                                                                                                            *
 ********************************* Copyright (c) 2004-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 
 namespace Empiria.Documents {
 

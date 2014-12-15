@@ -130,7 +130,7 @@
     <value>Tuve problemas al leer el directorio con id {0}.</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
-    <value>El directorio '{0}' no existe, por lo que no pude ejecutar la operación. Es posible que se trate de un problema de configuración en el sistema.</value>
+    <value>Path '{0}' is not a valid directory.</value>
   </data>
   <data name="FileInfoInstanceExpected" xml:space="preserve">
     <value>Esperaba que el objeto fuera del tipo System.IO.FileInfo. Sin embargo el tipo del objeto es '{0}'.</value>

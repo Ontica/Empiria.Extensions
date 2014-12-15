@@ -10,7 +10,6 @@
 ********************************* Copyright (c) 2004-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
-using System.Data;
 using System.IO;
 
 using Empiria.Contacts;
@@ -90,7 +89,8 @@ namespace Empiria.Documents.IO {
       return (length == 0);
     }
 
-    static private FilesFolder LoadFromPath(ObjectTypeInfo filesFolderTypeInfo, FilesFolder parentFilesFolder, string path) {
+    static private FilesFolder LoadFromPath(ObjectTypeInfo filesFolderTypeInfo,
+                                            FilesFolder parentFilesFolder, string path) {
       FilesFolder filesFolder = BaseObject.Create<FilesFolder>(filesFolderTypeInfo);
 
       filesFolder.Owner = parentFilesFolder.Owner;
