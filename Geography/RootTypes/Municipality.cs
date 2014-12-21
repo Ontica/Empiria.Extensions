@@ -1,13 +1,13 @@
-﻿/* Empiria Extended Framework 2014 ***************************************************************************
+﻿/* Empiria Extended Framework 2015 ***************************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : Municipality                                   Pattern  : Empiria Object Type                 *
-*  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
+*  Version   : 6.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Represents a municipality within a country state.                                             *
 *                                                                                                            *
-********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 

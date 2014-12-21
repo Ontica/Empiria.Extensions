@@ -1,13 +1,13 @@
-﻿/* Empiria Extended Framework 2014 ***************************************************************************
+﻿/* Empiria Extended Framework 2015 ***************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework 2014                System   : Document Management Services        *
+*  Solution  : Empiria Extended Framework                     System   : Document Management Services        *
 *  Namespace : Empiria.Documents.IO                           Assembly : Empiria.Documents.dll               *
 *  Type      : FileServices                                   Pattern  : Domain Service                      *
-*  Version   : 2.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
+*  Version   : 2.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Empiria file I/O services.                                                                    *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Collections.Generic;

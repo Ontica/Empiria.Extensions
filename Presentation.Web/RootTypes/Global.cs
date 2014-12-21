@@ -1,14 +1,14 @@
-﻿/* Empiria Presentation Framework 2014 ***********************************************************************
+﻿/* Empiria Presentation Framework 2015 ***********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : Global                                           Pattern  : Global ASP .NET Class             *
-*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Defines the methods, properties, and events common to all application objects used by         *
 *              Empiria ASP.NET platform.                                                                     *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation.Web {

@@ -1,14 +1,14 @@
-﻿/* Empiria Presentation Framework 2014 ***********************************************************************
+﻿/* Empiria Presentation Framework 2015 ***********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : Workplace                                        Pattern  : Standard Class                    *
-*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Contains the information of running instance of Empiria Workplace. Workplaces are the main    *
 *              objects of the user interface process model.                                                  *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation {

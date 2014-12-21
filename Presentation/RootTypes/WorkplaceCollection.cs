@@ -1,13 +1,13 @@
-﻿/* Empiria Presentation Framework 2014 ***********************************************************************
+﻿/* Empiria Presentation Framework 2015 ***********************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : WorkplaceCollection                              Pattern  : Hash List                         *
-*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Internal class that holds a collection of Workplace objects using a hash list.                *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using Empiria.Collections;
 
 namespace Empiria.Presentation {

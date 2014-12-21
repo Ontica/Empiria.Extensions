@@ -1,15 +1,15 @@
-﻿/* Empiria Extended Framework 2014 ***************************************************************************
+﻿/* Empiria Extended Framework 2015 ***************************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : RoadwayKind                                    Pattern  : Value object                        *
-*  Version   : 6.0        Date: 23/Oct/2014                   License  : GNU AGPLv3  (See license.txt)       *
+*  Version   : 6.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : String classificator for roadway item types. A roadway is defined by the GeographicItemType   *
 *              powertype but roadway instances can also be qualified within it using a string classificator  *
 *              like 'Street' or 'Avenue'.                                                                    *
 *                                                                                                            *
-********************************** Copyright (c) 2009-2014 La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Linq;
 

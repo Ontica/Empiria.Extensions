@@ -1,13 +1,13 @@
-﻿/* Empiria Extended Framework 2014 ***************************************************************************
+﻿/* Empiria Extended Framework 2015 ***************************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                       System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : Expression                                       Pattern  : Standard Class                    *
-*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Defines an arithmetical, logical, string or datetime expression.                              *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2008-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Collections.Generic;

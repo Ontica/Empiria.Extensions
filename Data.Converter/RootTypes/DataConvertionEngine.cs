@@ -1,13 +1,13 @@
-﻿/* Empiria Foundation Framework 2014 *************************************************************************
+﻿/* Empiria Foundation Framework 2015 *************************************************************************
 *                                                                                                            *
 *  Solution  : Empiria Foundation Framework                     System   : Data Convertion Services          *
 *  Namespace : Empiria.Data.Convertion                          Assembly : Empiria.Data.Convertion.dll       *
 *  Type      : DataConvertionException                          Pattern  : Empiria Exception Class           *
-*  Version   : 6.0        Date: 23/Oct/2014                     License  : GNU AGPLv3  (See license.txt)     *
+*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Performs data convertion from MySQL to SQLServer database tables rows.                        *
 *                                                                                                            *
-********************************* Copyright (c) 2007-2014. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2007-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Data;
 using System.Runtime.Remoting.Messaging;
