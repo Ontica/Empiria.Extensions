@@ -28,9 +28,9 @@ namespace Empiria.Presentation.Web.Controllers {
 
     #region Public methods
 
-    public bool Logon(string clientAppKey, string userName, string password, int regionId) {
-      bool success = base.Logon(clientAppKey, userName, password,
-                                WebContext.Session.SessionID, regionId);
+    public new bool Logon(string clientAppKey, string userName, string password,
+                      string entropy, int regionId) {
+      bool success = base.Logon(clientAppKey, userName, password, entropy, regionId);
 
       if (success) {
         SetLastWorkplaceCookie(regionId.ToString());

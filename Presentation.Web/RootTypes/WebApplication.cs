@@ -12,6 +12,8 @@ using System;
 using System.Web;
 using System.Web.Security;
 
+using Empiria.Security;
+
 namespace Empiria.Presentation.Web {
 
   /// <summary>Provides the methods from the current web application.</summary>
@@ -95,6 +97,9 @@ namespace Empiria.Presentation.Web {
       if (authCookie != null) {
         FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
         authTicket = FormsAuthentication.RenewTicketIfOld(authTicket);
+        EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(authTicket.UserData);
+        System.Threading.Thread.CurrentPrincipal = principal;
+        this.Context.User = principal;
       }
     }
 

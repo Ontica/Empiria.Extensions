@@ -82,18 +82,6 @@ namespace Empiria.Geography {
       }
     }
 
-    [DataField("PostingTime", Default = "DateTime.Now")]
-    internal protected DateTime PostingTime {
-      get;
-      private set;
-    }
-
-    [DataField("PostedById")]
-    internal protected Contact PostedBy {
-      get;
-      set;
-    }
-
     [DataField("GeoItemStatus", Default = GeneralObjectStatus.Pending)]
     internal protected GeneralObjectStatus Status {
       get;

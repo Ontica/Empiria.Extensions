@@ -43,7 +43,25 @@ namespace Empiria.Documents.IO {
       AssureDirectory(directory);
     }
 
-    static public string[] GetFileNames(string rootPath, string fileNameFilter) {
+    public static void DeleteEmptyDirectories(string rootPath) {
+      string[] paths = Directory.GetDirectories(rootPath);
+
+      foreach (string path in paths) {
+        DeleteWhenIsEmpty(path);
+      }
+    }
+
+    static public void DeleteWhenIsEmpty(string folderPath) {
+      if (DirectoryIsEmpty(folderPath)) {
+        Directory.Delete(folderPath, false);
+      }
+    }
+
+    static public bool DirectoryIsEmpty(string folderPath) {
+      return (Directory.EnumerateFileSystemEntries(folderPath).Any() == false);
+    }
+
+    static public FileInfo[] GetFiles(string rootPath, string fileNameFilter) {
       Assertion.AssertObject(rootPath, "rootPath");
       Assertion.AssertObject(fileNameFilter, "fileNameFilter");
       Assertion.Assert(Directory.Exists(rootPath),
@@ -56,19 +74,26 @@ namespace Empiria.Documents.IO {
 
       var directory = new DirectoryInfo(rootPath);
 
-      string[] filesArray = new string[0];
+      FileInfo[] filesArray = new FileInfo[0];
       for (int i = 0; i < searchPatternArray.Length; i++) {
-        string[] temp = FileServices.GetFileNames(directory, searchPatternArray[i]);
+        FileInfo[] temp = directory.GetFiles(searchPatternArray[i]);
         if (i != 0) {
           filesArray = filesArray.Concat(temp).ToArray();
         } else {
           filesArray = temp;
         }
       }
-      Array.Sort(filesArray);
+      Array.Sort(filesArray, (x, y) => x.Name.CompareTo(y.Name));
       return filesArray;
     }
 
+    static public string[] GetFileNames(string rootPath, string fileNameFilter) {
+      FileInfo[] files = GetFiles(rootPath, fileNameFilter);
+
+      return files.Select((x) => x.FullName).ToArray();
+    }
+
+    /// <summary>Moves a file to another folder. When the folder does not exist it is created.</summary>
     static public string MoveFileTo(FileInfo file, string destinationFolder) {
       destinationFolder = destinationFolder.TrimEnd('\\') + @"\";
       AssureDirectory(destinationFolder);
@@ -79,6 +104,8 @@ namespace Empiria.Documents.IO {
       return destinationFileFullName;
     }
 
+    /// <summary>Moves a file to another folder and also change it's name.
+    ///When the folder does not exist it is created.</summary>
     static public string MoveFileTo(FileInfo file, string destinationFolder, string newFileName) {
       destinationFolder = destinationFolder.TrimEnd('\\') + @"\";
       AssureDirectory(destinationFolder);
@@ -90,19 +117,6 @@ namespace Empiria.Documents.IO {
     }
 
     #endregion Public methods
-
-    #region Private methods
-
-    static private string[] GetFileNames(DirectoryInfo root, string fileNameFilter) {
-      FileInfo[] files = root.GetFiles(fileNameFilter);
-      if (files.Length != 0) {
-        return files.Select((x) => x.FullName).ToArray();
-      } else {
-        return new string[0];
-      }
-    }
-
-    #endregion Private methods
 
   } // class FileServices
 

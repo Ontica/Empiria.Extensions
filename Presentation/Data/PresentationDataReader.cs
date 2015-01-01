@@ -53,7 +53,7 @@ namespace Empiria.Presentation.Data {
 
     static private DataTable GetUIComponentItemsDataTable() {
       if (itemsDataTable == null) {
-        itemsDataTable = GeneralDataOperations.GetEntities("vwEUIComponentItems");
+        itemsDataTable = GeneralDataOperations.GetEntities("vwUIComponentItems");
       }
       return itemsDataTable;
     }
