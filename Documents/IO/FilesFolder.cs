@@ -117,14 +117,18 @@ namespace Empiria.Documents.IO {
     LazyInstance<Contact> _approvedBy = LazyInstance<Contact>.Empty;
     public Contact ApprovedBy {
       get { return _approvedBy.Value; }
-      protected set { _approvedBy.Value = value; }
+      protected set {
+        _approvedBy = LazyInstance<Contact>.Parse(value);
+      }
     }
 
     [DataField("CapturedById")]
     LazyInstance<Contact> _capturedBy = LazyInstance<Contact>.Empty;
     public Contact CapturedBy {
       get { return _capturedBy.Value; }
-      protected set { _capturedBy.Value = value; }
+      protected set {
+        _capturedBy = LazyInstance<Contact>.Parse(value);
+      }
     }
 
     [DataField("CreationDate", Default = "DateTime.Now")]
@@ -179,14 +183,14 @@ namespace Empiria.Documents.IO {
     LazyInstance<Contact> _owner = LazyInstance<Contact>.Empty;
     public Contact Owner {
       get { return _owner.Value; }
-      set { _owner.Value = value; }
+      set { _owner = LazyInstance<Contact>.Parse(value); }
     }
 
     [DataField("ParentFilesFolderId")]
     LazyInstance<FilesFolder> _parentFilesFolder = LazyInstance<FilesFolder>.Empty;
     public FilesFolder ParentFolder {
       get { return _parentFilesFolder.Value; }
-      protected set { _parentFilesFolder.Value = value; }
+      protected set { _parentFilesFolder = LazyInstance<FilesFolder>.Parse(value); }
     }
 
     [DataField("PhysicalPath")]
@@ -209,7 +213,9 @@ namespace Empiria.Documents.IO {
     LazyInstance<Contact> _reviewedBy = LazyInstance<Contact>.Empty;
     public Contact ReviewedBy {
       get { return _reviewedBy.Value; }
-      protected set { _reviewedBy.Value = value; }
+      protected set {
+        _reviewedBy = LazyInstance<Contact>.Parse(value);
+      }
     }
 
     [DataField("FilesFolderStatus", Default = FilesFolderStatus.Pending)]
