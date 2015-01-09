@@ -24,24 +24,30 @@ namespace Empiria.Documents {
     #region Public methods
 
     static public FilesFolderList GetChildFilesFoldersList(FilesFolder parent) {
-      var operation = DataOperation.Parse("qryLRSChildFileFolders", parent.Id);
+      throw new NotImplementedException();
 
-      var list = DataReader.GetList<FilesFolder>(operation, (x) => BaseObject.ParseList<FilesFolder>(x));
+      //var operation = DataOperation.Parse("qryLRSChildFileFolders", parent.Id);
 
-      return new FilesFolderList(list);
+      //var list = DataReader.GetList<FilesFolder>(operation, (x) => BaseObject.ParseList<FilesFolder>(x));
+
+      //return new FilesFolderList(list);
     }
 
     static public DataView GetFilesFolders(ObjectTypeInfo filesFolderTypeInfo, string filter, string sort) {
-      return DataReader.GetDataView(DataOperation.Parse("qryLRSFileFoldersWithType", filesFolderTypeInfo.Id),
-                                                                                     filter, sort);
+      throw new NotImplementedException();
+
+      //return DataReader.GetDataView(DataOperation.Parse("qryLRSFileFoldersWithType", filesFolderTypeInfo.Id),
+      //                                                                               filter, sort);
     }
 
     static public FilesFolderList GetFilesFoldersList(ObjectTypeInfo filesFolderTypeInfo) {
-      var operation = DataOperation.Parse("qryLRSFileFoldersWithType", filesFolderTypeInfo.Id);
+      throw new NotImplementedException();
 
-      var list = DataReader.GetList<FilesFolder>(operation, (x) => BaseObject.ParseList<FilesFolder>(x));
+      //var operation = DataOperation.Parse("qryLRSFileFoldersWithType", filesFolderTypeInfo.Id);
 
-      return new FilesFolderList(list);
+      //var list = DataReader.GetList<FilesFolder>(operation, (x) => BaseObject.ParseList<FilesFolder>(x));
+
+      //return new FilesFolderList(list);
     }
 
     static public string GetFilesFoldersFilter(Contact filesFolderOwner, string keywords) {
