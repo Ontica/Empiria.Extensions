@@ -31,7 +31,7 @@ namespace Empiria.Geography {
       this.Municipality = this.Location.Municipality;
     }
 
-    internal Roadway(Settlement settlement, RoadwayKind roadwayKind, 
+    internal Roadway(Settlement settlement, RoadwayKind roadwayKind,
                      string roadwayName) : base(roadwayName) {
       this.RoadwayKind = roadwayKind;
       this.Settlement = settlement;
@@ -39,7 +39,7 @@ namespace Empiria.Geography {
       this.Municipality = this.Location.Municipality;
     }
 
-    internal Roadway(Municipality municipality, RoadwayKind roadwayKind, 
+    internal Roadway(Municipality municipality, RoadwayKind roadwayKind,
                      string roadwayName) : base(roadwayName) {
       this.RoadwayKind = roadwayKind;
       this.Settlement = Settlement.Empty;

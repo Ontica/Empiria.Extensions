@@ -11,7 +11,7 @@
 
 namespace Empiria.Expressions {
 
-  /// <summary>Represents an operator, operand, function or subrexpression as members 
+  /// <summary>Represents an operator, operand, function or subrexpression as members
   /// of an expression.</summary>
   public interface IExpressionToken {
 

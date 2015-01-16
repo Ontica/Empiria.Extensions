@@ -14,7 +14,7 @@ using System.Data;
 
 namespace Empiria.Presentation {
 
-  /// <summary>Represents a compound user interface container of user interface controls (UIControl) or other 
+  /// <summary>Represents a compound user interface container of user interface controls (UIControl) or other
   /// user interface containers.</summary>
   public class UIContainer : UIComponentItem {
 

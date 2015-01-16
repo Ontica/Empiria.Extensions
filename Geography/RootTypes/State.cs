@@ -37,7 +37,7 @@ namespace Empiria.Geography {
 
     protected override void OnInitialize() {
       base.OnInitialize();
-      municipalitiesList = 
+      municipalitiesList =
                 new Lazy<List<Municipality>>(() => GeographicData.GetChildGeoItems<Municipality>(this));
       highwaysList = new Lazy<List<Highway>>(() => GeographicData.GetChildGeoItems<Highway>(this));
     }
@@ -151,7 +151,7 @@ namespace Empiria.Geography {
       return highway;
     }
 
-    /// <summary>Throws an exception if the given postal code is not valid for 
+    /// <summary>Throws an exception if the given postal code is not valid for
     /// the state postal code rules.</summary>
     internal void AssertPostalCodeIsValid(string value) {
       Assertion.Assert(value != null, "value can't be null");

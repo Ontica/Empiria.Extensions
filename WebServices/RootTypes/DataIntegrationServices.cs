@@ -13,8 +13,8 @@ namespace Empiria.WebServices {
   public class DataIntegrationServices : EmpiriaWebService {
 
     public DataIntegrationServices() {
-      //Uncomment the following line if using designed components 
-      //InitializeComponent(); 
+      //Uncomment the following line if using designed components
+      //InitializeComponent();
     }
 
     [WebMethod(EnableSession = true)]

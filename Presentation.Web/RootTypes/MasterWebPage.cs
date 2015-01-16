@@ -14,8 +14,8 @@ using System;
 
 namespace Empiria.Presentation.Web {
 
-  /// <summary>Abstract type that represents a master page that serves as template and container for 
-  /// web pages. Every Empiria web page must be sited over a MasterWebPage, and all master web pages 
+  /// <summary>Abstract type that represents a master page that serves as template and container for
+  /// web pages. Every Empiria web page must be sited over a MasterWebPage, and all master web pages
   /// types must be descendants of this class.</summary>
   public abstract class MasterWebPage : System.Web.UI.MasterPage {
 

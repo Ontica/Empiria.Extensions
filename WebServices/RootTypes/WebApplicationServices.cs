@@ -10,8 +10,8 @@ namespace Empiria.WebServices {
   public class WebApplicationServices : EmpiriaWebService {
 
     public WebApplicationServices() {
-      //Uncomment the following line if using designed components 
-      //InitializeComponent(); 
+      //Uncomment the following line if using designed components
+      //InitializeComponent();
     }
 
     [WebMethod(EnableSession = true)]

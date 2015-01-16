@@ -27,7 +27,7 @@ using System.Runtime.InteropServices;
 [assembly: System.CLSCompliant(true)]
 
 /*************************************************************************************************************
-* Assembly security attributes.                                                                               
+* Assembly security attributes.
 *************************************************************************************************************/
 //[assembly: SecurityPermission(SecurityAction.RequestRefuse, Flags = (SecurityPermissionFlag.Assertion &
 //                                                                     SecurityPermissionFlag.ControlEvidence &

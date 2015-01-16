@@ -187,7 +187,7 @@ namespace Empiria.Expressions {
             if (!Operator.IsListItemDelimiter(currentOperator.Symbol)) {
               operatorsStack.Push(currentOperator);
             }
-          } // if 
+          } // if
         } // if IsOperand
       } // for
       while (operatorsStack.Count != 0) {
@@ -329,7 +329,7 @@ namespace Empiria.Expressions {
             continue;
           }
         }
-        // Otherwise 
+        // Otherwise
         string variableSymbolTag = "ɸ" + tokens[i];
         string variableName = tokens[i];
         this.variablesState.Add(variableSymbolTag, Variable.Parse(variableName));

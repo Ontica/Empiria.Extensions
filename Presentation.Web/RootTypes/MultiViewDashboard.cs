@@ -18,7 +18,7 @@ using Empiria.Presentation.Web.Content;
 
 namespace Empiria.Presentation.Web {
 
-  /// <summary>Abstract type that represents a dashboard explorer web page. 
+  /// <summary>Abstract type that represents a dashboard explorer web page.
   /// All Empiria object explorer web pages types must be descendants of this class.</summary>
   public abstract class MultiViewDashboard : WebPage {
 
@@ -388,7 +388,7 @@ namespace Empiria.Presentation.Web {
       SetRepeaterTemplates();
 
       if (this.userViewSortExpression.Length != 0 && this.dataSource.Table != null) {
-        try {     // Avoids badly formed userViewSortExpression 
+        try {     // Avoids badly formed userViewSortExpression
           this.dataSource.Sort = this.userViewSortExpression;
         } catch {
           this.userViewSortExpression = String.Empty;

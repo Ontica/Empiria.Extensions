@@ -60,7 +60,7 @@ namespace Empiria.Documents {
     }
 
     #endregion Public properties
-    
+
     #region Public methods
 
     protected sealed override void GetFilesCounters(out int filesCount, out int totalSize) {

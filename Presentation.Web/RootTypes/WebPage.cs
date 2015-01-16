@@ -60,7 +60,7 @@ namespace Empiria.Presentation.Web {
     }
 
     public new Empiria.Security.EmpiriaUser User {
-      get { 
+      get {
         return Empiria.Security.EmpiriaUser.Current;
       }
     }
@@ -166,7 +166,7 @@ namespace Empiria.Presentation.Web {
     protected string GetCommandParameter(string parameterName, bool required, object defaultValue) {
       Assertion.AssertObject(parameterName, "parameterName");
 
-      string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ? 
+      string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ?
                                           String.Empty : this.CommandParameters[parameterName];
       value = value.Trim();
       if (!String.IsNullOrEmpty(value)) {
@@ -198,7 +198,7 @@ namespace Empiria.Presentation.Web {
     protected T GetCommandParameter<T>(string parameterName, T defaultValue) {
       string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ?
                                               String.Empty : this.CommandParameters[parameterName];
-      try {    
+      try {
         if (!String.IsNullOrEmpty(value)) {
           return (T) Convert.ChangeType(value, typeof(T));
         } else {

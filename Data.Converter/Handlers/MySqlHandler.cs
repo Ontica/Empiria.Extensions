@@ -34,7 +34,7 @@ namespace Empiria.Data.Convertion.Handlers {
     //    return sql;
     //  } catch (Exception e) {
     //    sql = "Ocurrió un problema al intentar ejecutar la instrucción MySQL :" +
-    //          System.Environment.NewLine + sql + 
+    //          System.Environment.NewLine + sql +
     //          System.Environment.NewLine + System.Environment.NewLine + e.ToString();
     //    return sql;
     //  }

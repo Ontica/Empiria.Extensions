@@ -235,7 +235,7 @@ namespace Empiria.Data.Convertion {
       WriteLog(String.Empty);
 
       int result = DoReplaceDataSet(setName);
-      //isRunning = false;  
+      //isRunning = false;
       WriteLogToDisk();
 
       return result;

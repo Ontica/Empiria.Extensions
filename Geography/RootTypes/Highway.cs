@@ -33,8 +33,8 @@ namespace Empiria.Geography {
     }
 
     /// <summary>Creates a federal highway that typically cross two or more states.</summary>
-    internal Highway(Country country, FederalHighwayKind highwayKind, string highwayNumber, 
-                     HighwaySection fromOriginToDestination) 
+    internal Highway(Country country, FederalHighwayKind highwayKind, string highwayNumber,
+                     HighwaySection fromOriginToDestination)
                     : base(HighwayType.FederalHighwayType, BuildName(highwayKind, highwayNumber,
                                                                      fromOriginToDestination)) {
       this.Region = country;
@@ -70,7 +70,7 @@ namespace Empiria.Geography {
     /// <summary>Creates a municipal rural highway.</summary>
     internal Highway(Municipality municipality, RuralHighwayKind ruralHighwayKind,
                      HighwaySection fromOriginToDestination)
-                     : base(HighwayType.RuralHighwayType, BuildName(ruralHighwayKind, String.Empty, 
+                     : base(HighwayType.RuralHighwayType, BuildName(ruralHighwayKind, String.Empty,
                                                                     fromOriginToDestination)) {
       this.Region = municipality;
       this.HighwayKind = ruralHighwayKind;

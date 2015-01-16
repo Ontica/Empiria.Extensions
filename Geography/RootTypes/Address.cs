@@ -120,7 +120,7 @@ namespace Empiria.Geography {
 
     public string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.Street.Name, this.ExternalNo, this.InternalNo, 
+        return EmpiriaString.BuildKeywords(this.Street.Name, this.ExternalNo, this.InternalNo,
                                            this.Settlement.Keywords, this.Location.Name,
                                            this.PostalCode, this.StreetSegment, this.Municipality.Name);
       }

@@ -156,7 +156,7 @@ namespace Empiria.Presentation.Web {
 
     public void OnStart(object sender, EventArgs e) {
       Empiria.ExecutionServer.Start(ExecutionServerType.WebApplicationServer);
-      
+
       Initialize();
     }
 

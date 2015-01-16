@@ -121,7 +121,7 @@ namespace Empiria.Geography {
       return highway;
     }
 
-    /// <summary>Adds a new highway managed by this municipality instance.</summary> 
+    /// <summary>Adds a new highway managed by this municipality instance.</summary>
     public Highway AddHighway(MunicipalHighwayKind municipalHighwayKind,
                               HighwaySection fromOriginToDestination) {
       Assertion.AssertObject(municipalHighwayKind, "municipalHighwayKind");
@@ -139,7 +139,7 @@ namespace Empiria.Geography {
       Assertion.AssertObject(locationName, "locationName");
 
       var location = new Location(this, locationName);
-      
+
       locationsList.Value.Add(location);
 
       return location;
@@ -172,7 +172,7 @@ namespace Empiria.Geography {
 
     /// <summary>Adds a new settlement with postal code within this municipality. Settlements attached to
     /// municipalities are common in densely populated municipalities without isolated locations.</summary>
-    public Settlement AddSettlement(SettlementKind settlementKind, string settlementName, 
+    public Settlement AddSettlement(SettlementKind settlementKind, string settlementName,
                                     string postalCode) {
       Assertion.AssertObject(postalCode, "postalCode");
 
