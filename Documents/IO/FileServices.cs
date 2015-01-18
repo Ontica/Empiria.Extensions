@@ -33,7 +33,7 @@ namespace Empiria.Documents.IO {
       if (!Directory.Exists(targetDirectory)) {
         Directory.CreateDirectory(targetDirectory);
         AuditTrail.WriteOperation("AssureDirectory", "CreateDirectory",
-                                  new JsonRoot() { new JsonItem("folder", targetDirectory) } );
+                                  new JsonObject() { new JsonItem("folder", targetDirectory) } );
       }
     }
 
