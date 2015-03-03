@@ -60,6 +60,12 @@ namespace Empiria.Presentation.Web.Content {
     }
 
     static public string GetComboAjaxHtml(IEnumerable dataSource, int maxCount,
+                                          string dataValueField, string dataTextField) {
+      return GetComboAjaxHtml(dataSource, maxCount, dataValueField, dataTextField,
+                              String.Empty, String.Empty, String.Empty);
+    }
+
+    static public string GetComboAjaxHtml(IEnumerable dataSource, int maxCount,
                                           string dataValueField, string dataTextField,
                                           string headerItemText) {
       return GetComboAjaxHtml(dataSource, maxCount, dataValueField, dataTextField,
@@ -99,7 +105,7 @@ namespace Empiria.Presentation.Web.Content {
       return html.TrimEnd('|');
     }
 
-    static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField,
+    static public string GetComboAjaxHtml<T>(IEnumerable<T> dataSource, string dataValueField,
                                              Func<T, string> dataTextFunction,
                                              string headerItemText) where T : IStorable {
       string html = String.Empty;
