@@ -2,23 +2,19 @@
 *                                                                                                            *
 *  Solution  : Empiria Service-Oriented Framework               System   : Empiria Web Services              *
 *  Namespace : Empiria.WebServices                              Assembly : Empiria.WebServices.dll           *
-*  Type      : WebApiGlobal                                     Pattern  : Global ASP .NET Class             *
+*  Type      : WebApiController                                 Pattern  : API Controller                    *
 *  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
-*  Summary   : Defines the methods, properties, and events common to all application objects used by         *
-*              Empiria ASP.NET Web Services platform.                                                        *
+*  Summary   : Base class for all API controllers for Empiria applications and systems.                      *
 *                                                                                                            *
 ********************************* Copyright (c) 2003-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Reflection;
 using System.Web.Http;
-//using System.Web.Http.Cors;
+using System.Web.Http.ModelBinding;
 
 using Empiria.Security;
 
@@ -38,55 +34,37 @@ namespace Empiria.WebServices {
     NotModified = System.Net.HttpStatusCode.NotModified
   }
 
-  /// <summary>Defines the methods, properties, and events common to all application objects used by
-  /// Empiria ASP.NET Web Api Services platform.</summary>
-  //[EnableCors("*", "*", "*")]
-  public class WebApiController : ApiController {
+  /// <summary>Base class for all API controllers for Empiria applications and systems.</summary>
+  public abstract class WebApiController : ApiController {
 
-    public WebApiController() {
+    protected WebApiController() {
 
     }
 
     #region Properties
 
     public bool IsSessionAlive {
-      get { return (ExecutionServer.CurrentPrincipal != null); }
+      get {
+        return (ExecutionServer.CurrentPrincipal != null);
+      }
     }
 
     public new EmpiriaUser User {
-      get { return EmpiriaUser.Current; }
+      get {
+        return EmpiriaUser.Current;
+      }
     }
 
     #endregion Properties
 
-    #region Methods
-
-    //[HttpOptions, AllowAnonymous]
-    //public HttpResponseMessage Options() {
-    //  var response = new HttpResponseMessage();
-    //  response.StatusCode = HttpStatusCode.OK;
-
-    //  return response;
-    //}
+    #region Public Methods
 
     protected void Assert(bool value, string exceptionText) {
       if (!value) {
         try {
-          Empiria.Assertion.Assert(false, exceptionText);
+          Assertion.Assert(false, exceptionText);
         } catch (Exception e) {
-          var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
-          throw new HttpResponseException(response);
-        }
-      }
-    }
-
-    protected void Assert(object value, string name) {
-      if (value == null) {
-        try {
-          Empiria.Assertion.Assert(false, name);
-        } catch (Exception e) {
-          var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, e);
-          throw new HttpResponseException(response);
+          throw WebApiException(HttpErrorCode.BadRequest, e);
         }
       }
     }
@@ -95,36 +73,21 @@ namespace Empiria.WebServices {
       if (base.Request.Headers.Contains(headerName)) {
         return;
       }
-      var e = new WebServicesException(WebServicesException.Msg.RequestHeaderMissed, headerName);
-      throw CreateHttpResponseException(e, HttpErrorCode.BadRequest);
+      throw WebApiException(HttpErrorCode.BadRequest,
+                            new WebServicesException(WebServicesException.Msg.RequestHeaderMissed, headerName));
+    }
+
+    protected void AssertValue(object value, string name) {
+      if (value == null) {
+        throw WebApiException(HttpErrorCode.BadRequest,
+                              new WebServicesException(WebServicesException.Msg.RequestValueMissed, name));
+      }
     }
 
     protected void AssertValidModel() {
       if (!this.ModelState.IsValid) {
-        //var errors = this.ModelState
-        //      .Where(e => e.Value.Errors.Count > 0)
-        //      .Select(e => new ValidationError {
-        //        Name = e.Key,
-        //        Message = e.Value.Errors.First().ErrorMessage,
-        //      }).ToArray();
-
-        //var response = new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
-        //response.Content = new ObjectContent<ValidationError[]>(errors, new JsonMediaTypeFormatter());
-        //throw new HttpResponseException(response);
-
-        var response = base.Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, this.ModelState);
-        throw new HttpResponseException(response);
+        throw WebApiException(this.ModelState);
       }
-    }
-
-    protected HttpResponseException CreateHttpResponseException(EmpiriaException e) {
-      return CreateHttpResponseException(e, HttpErrorCode.InternalServerError);
-    }
-
-    protected HttpResponseException CreateHttpResponseException(EmpiriaException e, HttpErrorCode errorCode) {
-      var response = base.Request.CreateErrorResponse((System.Net.HttpStatusCode) errorCode, e);
-      e.Publish();
-      return new HttpResponseException(response);
     }
 
     protected object ToJson<T>(T instance, Func<T, object> serializer) where T : IStorable {
@@ -148,22 +111,28 @@ namespace Empiria.WebServices {
       return array.AsQueryable();
     }
 
-    static private string GetSourceMethodName() {
-      MethodBase sourceMethod = new StackFrame(2).GetMethod();
-      ParameterInfo[] methodPars = sourceMethod.GetParameters();
+    protected HttpResponseException WebApiException(HttpErrorCode httpErrorCode, Exception exception) {
+      var response = base.Request.CreateErrorResponse((System.Net.HttpStatusCode) httpErrorCode,
+                                                      exception.Message);
+      Messaging.Publisher.Publish(exception);
 
-      string methodName = String.Format("{0}.{1}", sourceMethod.DeclaringType, sourceMethod.Name);
-      methodName += "(";
-      for (int i = 0; i < methodPars.Length; i++) {
-        methodName += String.Format("{0}{1} {2}", (i != 0) ? ", " : String.Empty,
-                                    methodPars[i].ParameterType.Name, methodPars[i].Name);
-      }
-      methodName += ")";
-
-      return methodName;
+      return new HttpResponseException(response);
     }
 
-    #endregion Methods
+    #endregion Public Methods
+
+    #region Private Methods
+
+    private HttpResponseException WebApiException(ModelStateDictionary modelStateDictionary) {
+      var response = base.Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
+
+      var exception = new HttpResponseException(response);
+      Messaging.Publisher.Publish(exception);
+
+      return exception;
+    }
+
+    #endregion Private Methods
 
   } // class WebApiController
 

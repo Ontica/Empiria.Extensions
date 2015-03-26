@@ -78,7 +78,7 @@ namespace Empiria.WebServices {
     }
 
     protected virtual void Application_Start(Object sender, EventArgs e) {
-      Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebApiServer);
+      ExecutionServer.Start(ExecutionServerType.WebApiServer);
     }
 
     protected virtual void Application_AuthenticateRequest(Object sender, EventArgs e) {

@@ -19,6 +19,8 @@ namespace Empiria.WebServices {
 
     public enum Msg {
       AjaxInvocationError,
+      AuthenticationHeaderMissed,
+      BadAuthenticationHeaderFormat,
       CommandProcessingError,
       InvalidMaxLogAttempts,
       InvalidSessionTimeout,
@@ -27,12 +29,11 @@ namespace Empiria.WebServices {
       InvalidWebServicePassword,
       NullCommandName,
       NullCommandParameter,
+      RequestHeaderMissed,
+      RequestValueMissed,
       SessionTimeout,
       UnrecognizedCommandName,
       WebServicesServerInitializationFails,
-      BadAuthenticationHeaderFormat,
-      AuthenticationHeaderMissed,
-      RequestHeaderMissed,
     }
 
     static private string resourceBaseName = "Empiria.WebServices.RootTypes.WebServicesExceptionMsg";

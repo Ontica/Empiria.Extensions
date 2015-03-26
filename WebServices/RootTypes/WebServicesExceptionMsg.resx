@@ -149,6 +149,9 @@
   <data name="RequestHeaderMissed" xml:space="preserve">
     <value>Server request do not has the expected header '{0}'.</value>
   </data>
+  <data name="RequestValueMissed" xml:space="preserve">
+    <value>Request value '{0}' is expected but it was missed in the call.</value>
+  </data>
   <data name="SessionTimeout" xml:space="preserve">
     <value>La sesión de trabajo del servicio web ha caducado.\nPor favor, intente ejecutar nuevamente el servicio invocado desde la aplicación origen.</value>
   </data>
