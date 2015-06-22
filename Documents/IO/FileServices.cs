@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Document Management Services        *
 *  Namespace : Empiria.Documents.IO                           Assembly : Empiria.Documents.dll               *
 *  Type      : FileServices                                   Pattern  : Domain Service                      *
-*  Version   : 2.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
+*  Version   : 2.0        Date: 25/Jun/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Empiria file I/O services.                                                                    *
 *                                                                                                            *
@@ -32,8 +32,8 @@ namespace Empiria.Documents.IO {
     static public void AssureDirectory(string targetDirectory) {
       if (!Directory.Exists(targetDirectory)) {
         Directory.CreateDirectory(targetDirectory);
-        AuditTrail.WriteOperation("AssureDirectory", "CreateDirectory",
-                                  new JsonObject() { new JsonItem("folder", targetDirectory) } );
+        FileAuditTrail.WriteOperation("AssureDirectory", "CreateDirectory",
+                                      new JsonObject() { new JsonItem("folder", targetDirectory) });
       }
     }
 

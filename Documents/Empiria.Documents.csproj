@@ -169,6 +169,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\FileAuditTrail.cs" />
     <Compile Include="IO\IOServicesException.cs" />
     <Compile Include="IO\FileServices.cs" />
     <Compile Include="RootTypes\FileType.cs" />

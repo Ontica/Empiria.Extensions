@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                       System   : Document Management Services      *
 *  Assembly  : Empiria.Documents.dll                            Pattern  : Assembly Attributes File          *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Empiria Document Management Services.                                                         *
 *                                                                                                            *
@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 *************************************************************************************************************/
 [assembly: AssemblyTitle("Empiria.Documents")]
 [assembly: AssemblyDescription("Empiria Document Management Services")]
-[assembly: AssemblyVersion("6.0.0104.0")]
-[assembly: AssemblyFileVersion("6.0.0104")]
+[assembly: AssemblyVersion("6.5.0625.0")]
+[assembly: AssemblyFileVersion("6.5.0625")]
 [assembly: AssemblyCompany("Ontica")]
 [assembly: AssemblyProduct("Empiria Extended Framework 2015")]
 [assembly: AssemblyCopyright("(c) 2004-2015. La Vía Óntica SC, Ontica LLC and contributors.")]

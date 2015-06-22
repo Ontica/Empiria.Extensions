@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : FederalHighwayKind                             Pattern  : Value object                        *
-*  Version   : 6.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
+*  Version   : 6.5        Date: 25/Jun/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : String value type that describes a kind of federal highway.                                   *
 *                                                                                                            *

@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                       System   : Messaging Services                *
 *  Namespace : Empiria.Messaging                                Assembly : Empiria.Messaging.dll             *
 *  Type      : EMail                                            Pattern  : Static Class                      *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Operations for send emails.                                                                   *
 *                                                                                                            *

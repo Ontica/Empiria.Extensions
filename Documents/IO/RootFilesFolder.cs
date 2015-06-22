@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                       System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : RootFilesFolder                                  Pattern  : Storage Item                      *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Describes a root folder or directory that serves as a start point of documents storage.       *
 *                                                                                                            *

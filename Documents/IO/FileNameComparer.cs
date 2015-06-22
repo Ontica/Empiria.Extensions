@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Document Management Services        *
 *  Namespace : Empiria.Documents.IO                           Assembly : Empiria.Documents.dll               *
 *  Type      : FileNameComparer                               Pattern  : Storage Item                        *
-*  Version   : 6.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
+*  Version   : 6.5        Date: 25/Jun/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Defines a file name comparision method for sort FileInfo objects array.                       *
 *                                                                                                            *

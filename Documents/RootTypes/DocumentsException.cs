@@ -2,8 +2,8 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                       System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
-*  Type      : DocumentsException                               Pattern  : Empiria Exception Class           *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Type      : DocumentsException                               Pattern  : Exception Class                   *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a user interface process problem occurs.                    *
 *                                                                                                            *

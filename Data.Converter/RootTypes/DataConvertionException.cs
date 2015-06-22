@@ -2,8 +2,8 @@
 *                                                                                                            *
 *  Solution  : Empiria Foundation Framework                     System   : Data Convertion Services          *
 *  Namespace : Empiria.Data.Convertion                          Assembly : Empiria.Data.Convertion.dll       *
-*  Type      : DataConvertionException                          Pattern  : Empiria Exception Class           *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Type      : DataConvertionException                          Pattern  : Exception Class                   *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a data access operation fails.                              *
 *                                                                                                            *

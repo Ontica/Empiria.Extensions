@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicItem                                 Pattern  : Empiria Object Type                 *
-*  Version   : 6.0        Date: 04/Jan/2015                   License  : Please read license.txt file        *
+*  Version   : 6.5        Date: 25/Jun/2015                   License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Represents an abstract place: region, city, country, world zone, zip code region, street, ... *
 *                                                                                                            *

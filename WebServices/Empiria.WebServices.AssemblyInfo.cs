@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Solution  : Empiria Foundation Framework                     System   : Empiria Web Services Library      *
 *  Assembly  : Empiria.WebServices.dll                          Pattern  : Assembly Attributes File          *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Empiria Web Services Library.                                                                 *
 *                                                                                                            *
@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 *************************************************************************************************************/
 [assembly: AssemblyTitle("Empiria.WebServices")]
 [assembly: AssemblyDescription("Empiria Web Services Library")]
-[assembly: AssemblyVersion("6.0.0104.0")]
-[assembly: AssemblyFileVersion("6.0.0104")]
+[assembly: AssemblyVersion("6.5.0625.0")]
+[assembly: AssemblyFileVersion("6.5.0625")]
 [assembly: AssemblyCompany("Ontica")]
 [assembly: AssemblyProduct("Empiria Foundation Framework 2015")]
 [assembly: AssemblyCopyright("(c) 2003-2015. La Vía Óntica SC, Ontica LLC and contributors.")]

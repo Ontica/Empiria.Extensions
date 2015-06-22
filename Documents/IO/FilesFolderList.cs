@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                       System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : FilesFolderList                                  Pattern  : Empiria List Class                *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : List structure of FilesFolder instances.                                                     *
 *                                                                                                            *
@@ -16,7 +16,7 @@ using Empiria.Collections;
 namespace Empiria.Documents.IO {
 
   /// <summary>List structure of FilesFolder instances.</summary>
-  public class FilesFolderList : EmpiriaList<FilesFolder> {
+  public class FilesFolderList : BaseList<FilesFolder> {
 
     #region Constructors and parsers
 

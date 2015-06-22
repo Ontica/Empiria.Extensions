@@ -3,7 +3,7 @@
 *  Solution  : Empiria Foundation Framework                     System   : Data Convertion Services          *
 *  Namespace : Empiria.Data.Convertion.Handlers                 Assembly : Empiria.Data.Convertion.dll       *
 *  Type      : SqlHandler                                       Pattern  : Static Class                      *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Performs SQL Server data read and write bulk operations.                                      *
 *                                                                                                            *

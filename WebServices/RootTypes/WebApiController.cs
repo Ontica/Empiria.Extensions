@@ -3,7 +3,7 @@
 *  Solution  : Empiria Service-Oriented Framework               System   : Empiria Web Services              *
 *  Namespace : Empiria.WebServices                              Assembly : Empiria.WebServices.dll           *
 *  Type      : WebApiController                                 Pattern  : API Controller                    *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Base class for all API controllers for Empiria applications and systems.                      *
 *                                                                                                            *

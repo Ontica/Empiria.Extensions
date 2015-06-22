@@ -2,8 +2,8 @@
 *                                                                                                            *
 *  Solution  : Empiria Service-Oriented Framework               System   : Empiria Web Services              *
 *  Namespace : Empiria.WebServices                              Assembly : Empiria.WebServices.dll           *
-*  Type      : Global                                           Pattern  : Empiria Exception Class           *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Type      : Global                                           Pattern  : Exception Class                   *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a web service operation call fails.                         *
 *                                                                                                            *

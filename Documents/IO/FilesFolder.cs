@@ -3,7 +3,7 @@
 *  Solution  : Empiria Extended Framework                       System   : Document Management Services      *
 *  Namespace : Empiria.Documents.IO                             Assembly : Empiria.Documents.dll             *
 *  Type      : FilesFolder                                      Pattern  : Empiria Object Type               *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Asbtract class that provides read and write operations on operating system directories.       *
 *                                                                                                            *

@@ -2,8 +2,8 @@
 *                                                                                                            *
 *  Solution  : Empiria Extended Framework                       System   : Expressions Runtime Library       *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
-*  Type      : ExpressionsException                             Pattern  : Empiria Exception Class           *
-*  Version   : 6.0        Date: 04/Jan/2015                     License  : Please read license.txt file      *
+*  Type      : ExpressionsException                             Pattern  : Exception Class                   *
+*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a problem occurs in Empiria Expressions Runtime Library.    *
 *                                                                                                            *
