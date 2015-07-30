@@ -36,58 +36,13 @@ namespace Empiria.WebApi.Models {
     #region Constructors and parsers
 
     protected BaseResponseModel(HttpRequestMessage request, T data, string typeName = "") {
-      Assertion.AssertObject(request, "request");
-      Assertion.AssertObject(data, "data");
-      Assertion.Assert(typeName != null, "typeName can't be null");
-
-      this.Request = request;
-      this.TypeName = this.GetTypeName(data, typeName);
-      this.Data = data;
-      this.DataItemsCount = this.GetReturnedItems(data);
-      this.Status = this.GetStatus(this.DataItemsCount);
+      this.Initialize(request, data, typeName);
     }
 
     protected BaseResponseModel(HttpRequestMessage request, ResponseStatus status,
                                 T data, string typeName = "") {
-      Assertion.AssertObject(request, "request");
-      Assertion.AssertObject(data, "data");
-      Assertion.Assert(typeName != null, "typeName can't be null");
-
-      this.Request = request;
+      this.Initialize(request, data, typeName);
       this.Status = status.ToString().ToLowerInvariant();
-      this.TypeName = typeof(T).FullName;
-      this.Data = data;
-      this.DataItemsCount = this.GetReturnedItems(data);
-    }
-
-    private string GetStatus(int dataItemsCount) {
-      ResponseStatus status;
-      if (dataItemsCount > 0) {
-        status = ResponseStatus.Ok;
-      } else {
-        status = ResponseStatus.Ok_No_Data;
-      }
-      return status.ToString().ToLowerInvariant();
-    }
-
-    private int GetReturnedItems(T data) {
-      if (data is ICollection) {
-        return ((ICollection) this.Data).Count;
-      } else {
-        return 1;
-      }
-    }
-
-    private string GetTypeName(object data, string typeName) {
-      if (typeName.Length != 0) {
-        return typeName;
-      }
-      if (data is DataView) {
-        string tableName = ((DataView) data).Table.TableName;
-
-        return tableName;
-      }
-      return data.GetType().FullName;
     }
 
     #endregion Constructors and parsers
@@ -100,20 +55,27 @@ namespace Empiria.WebApi.Models {
       private set;
     }
 
-    [DataMember(Name = "type", Order = 1)]
+    [DataMember(Name = "dataType", Order = 1)]
     public string TypeName {
       get;
       private set;
     }
 
-    [DataMember(Name = "version", Order = 2)]
+    [DataMember(Name = "payloadType", Order = 2)]
+    public string PayloadType {
+      get {
+        return this.GetType().Name;
+      }
+    }
+
+    [DataMember(Name = "version", Order = 3)]
     public virtual string Version {
       get {
         return "1.0";
       }
     }
 
-    [DataMember(Name = "dataItems", Order = 3)]
+    [DataMember(Name = "dataItems", Order = 4)]
     public virtual int DataItemsCount {
       get;
       private set;
@@ -124,14 +86,14 @@ namespace Empiria.WebApi.Models {
       private set;
     }
 
-    [DataMember(Name = "requestId", Order = 4)]
+    [DataMember(Name = "requestId", Order = 5)]
     public Guid RequestId {
       get {
         return WebApiRequest.Current.Guid;
       }
     }
 
-    [DataMember(Name = "links", Order = 5)]
+    [DataMember(Name = "links", Order = 6)]
     public abstract LinksCollectionModel Links {
       get;
     }
@@ -143,6 +105,62 @@ namespace Empiria.WebApi.Models {
     }
 
     #endregion Public properties
+
+    #region Methods
+
+    private int GetReturnedItems(T data) {
+      if (data is ICollection) {
+        return ((ICollection) this.Data).Count;
+      } else {
+        return 1;
+      }
+    }
+
+    private string GetStatus(int dataItemsCount) {
+      ResponseStatus status;
+
+      if (dataItemsCount > 0) {
+        status = ResponseStatus.Ok;
+      } else {
+        status = ResponseStatus.Ok_No_Data;
+      }
+      return status.ToString().ToLowerInvariant();
+    }
+
+    private string GetTypeName(object data, string typeName) {
+      string temp = String.Empty;
+      if (typeName.Length != 0) {
+        temp = typeName;
+      } else if (data is DataView) {
+        temp = ((DataView) data).Table.TableName;
+      } else {
+        temp = data.GetType().FullName;
+      }
+      if (ExecutionServer.IsSpecialLicense) {
+        temp = temp.Replace("Empiria", ExecutionServer.LicenseName);
+      }
+      return temp;
+    }
+
+    private void Initialize(HttpRequestMessage request, T data, string typeName) {
+      Assertion.AssertObject(request, "request");
+      Assertion.AssertObject(data, "data");
+      Assertion.Assert(typeName != null, "typeName can't be null");
+
+      this.Request = request;
+      this.TypeName = this.GetTypeName(data, typeName);
+      this.RefreshData(data);
+    }
+
+    internal void RefreshData(T newData) {
+      Assertion.AssertObject(newData, "newData");
+
+      this.Data = newData;
+      this.DataItemsCount = this.GetReturnedItems(newData);
+      this.Status = this.GetStatus(this.DataItemsCount);
+    }
+
+    #endregion Methods
 
   }  // class BaseResponseModel
 

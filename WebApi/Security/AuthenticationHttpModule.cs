@@ -69,7 +69,7 @@ namespace Empiria.WebApi {
           headerValue.Parameter != null) {
         return headerValue.Parameter;
       } else {
-        throw new SecurityException(SecurityException.Msg.BadAuthenticationHeaderFormat);
+        throw new WebApiException(WebApiException.Msg.BadAuthenticationHeaderFormat);
       }
     }
 
@@ -114,6 +114,8 @@ namespace Empiria.WebApi {
           // no-op
           // There isn't an authentication header so probably is an AllowAnonymous method call
         }
+      } catch (WebApiException innerEx) {
+        LogAndThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx, auditLog);
       } catch (SecurityException innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx, auditLog);
       } catch (Exception innerEx) {

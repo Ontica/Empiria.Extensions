@@ -22,16 +22,12 @@ namespace Empiria.WebApi.Models {
 
     #region Constructors and parsers
 
-    public ExceptionData(Exception e) : this(ExceptionData.GetHttpStatusCode(e), e) {
-
-    }
-
-    public ExceptionData(HttpErrorCode statusCode, Exception exception) {
-      this.HttpStatusCode = (HttpStatusCode) statusCode;
+    public ExceptionData(Exception exception) {
+      this.HttpStatusCode = (HttpStatusCode) this.GetHttpStatusCode(exception);
       this.ErrorCode = this.GetErrorCode(exception);
       this.Source = this.GetErrorSource(exception);
-      this.Message = exception.Message;
-      this.Hint = "This will be the text to help developers.";
+      this.Message = this.GetErrorMessage(exception);
+      this.Hint = this.GetHint(exception);
       this.Issues = new string[0];
     }
 
@@ -75,17 +71,15 @@ namespace Empiria.WebApi.Models {
       internal set;
     }
 
+    public bool IsInternalServerError {
+      get {
+        return (this.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError);
+      }
+    }
+
     #endregion Properties
 
     #region Methods
-
-    private string GetErrorSource(Exception exception) {
-      if (exception.TargetSite != null) {
-        return exception.TargetSite.DeclaringType.FullName + "." + exception.TargetSite.Name;
-      } else {
-        return exception.GetType().FullName;
-      }
-    }
 
     private string GetErrorCode(Exception e) {
       string temp = e.GetType().Name;
@@ -95,17 +89,58 @@ namespace Empiria.WebApi.Models {
       return temp;
     }
 
-    static private HttpErrorCode GetHttpStatusCode(Exception e) {
-      if (e is UnauthorizedException) {
-        return HttpErrorCode.Forbidden;
+    private string GetErrorMessage(Exception exception) {
+      if (!this.IsInternalServerError) {
+        return exception.Message;
+      } else if (ExecutionServer.IsDevelopmentServer) {
+        return "[DevSrvMsg] " + exception.Message;
+      } else {
+        return "We are sorry. Something was wrong processing the request.";
+      }
+    }
+
+    private string GetErrorSource(Exception exception) {
+      if (exception.TargetSite != null) {
+        return exception.TargetSite.DeclaringType.FullName + "." + exception.TargetSite.Name;
+      } else {
+        return exception.GetType().FullName;
+      }
+    }
+
+    private string GetHint(Exception e) {
+      if (e is WebApiException) {
+        return ((WebApiException) e).Hint;
+
+      } else if (this.IsInternalServerError) {
+        return "Please contact technical support with the requestId Guid on " +
+               "hand in order to help them track the issue.";
+      } else if (e is ResourceNotFoundException) {
+        return "Please check each of the url parameters to point to valid resources.";
+
+      } else {
+        return "There is not hint defined for this kind of error.";
+      }
+    }
+
+    private HttpErrorCode GetHttpStatusCode(Exception e) {
+      if (e is WebApiException) {
+        return ((WebApiException) e).ErrorCode;
+
       } else if (e is Security.SecurityException) {
         return HttpErrorCode.Unauthorized;
+
       } else if (e is ValidationException) {
         return HttpErrorCode.BadRequest;
+
+      } else if (e is AssertionFailsException) {
+        return HttpErrorCode.BadRequest;
+
       } else if (e is ResourceNotFoundException) {
         return HttpErrorCode.NotFound;
+
       } else if (e is NotImplementedException) {
         return HttpErrorCode.NotImplemented;
+
       } else {
         return HttpErrorCode.InternalServerError;
       }

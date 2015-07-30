@@ -19,21 +19,13 @@ namespace Empiria.WebApi.Models {
   /// <summary>Holds a collection of web links objects.</summary>
   public class LinksCollectionModel : List<LinkModel> {
 
-    public LinksCollectionModel() {
+    public LinksCollectionModel(IBaseResponseModel responseModel) {
+      Assertion.AssertObject(responseModel, "responseModel");
 
-    }
+      this.Add(responseModel.Request.RequestUri.AbsoluteUri, LinkRelation.Self);
 
-    public LinksCollectionModel(object instance) {
-      string typeName = String.Empty;
-
-      if (instance is IBaseResponseModel) {
-        typeName = ((IBaseResponseModel) instance).TypeName;
-      } else {
-        typeName = instance.GetType().FullName;
-      }
-      if (!typeName.StartsWith("System.")) {
-        this.Add("http://empiria.ws/documentation/metadata/types/" + typeName, LinkRelation.Metadata);
-      }
+      this.Add(responseModel.Request.RequestUri.GetLeftPart(UriPartial.Authority) +
+               "/api/v1/metadata/types/" + responseModel.TypeName, LinkRelation.Metadata);
     }
 
     public void Add(string url, LinkRelation relation) {

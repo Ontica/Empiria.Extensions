@@ -46,10 +46,7 @@ namespace Empiria.WebApi {
     private HttpResponseMessage BadRequest400Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.BadRequest,
                                   request.Method.Method, request.RequestUri.AbsoluteUri);
-      var model = new ExceptionModel(request, HttpErrorCode.BadRequest, e);
-      model.Data.Hint =
-          "Please check the request required parameters and their values. " +
-          "Also review the structure and values of the body content.";
+      var model = new ExceptionModel(request, e);
 
       return model.CreateResponse();
     }
@@ -57,31 +54,23 @@ namespace Empiria.WebApi {
     private HttpResponseMessage MethodNotAllowed405Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.InvalidHttpMethod,
                                   request.Method.Method, request.RequestUri.AbsoluteUri);
-      var model = new ExceptionModel(request, HttpErrorCode.MethodNotAllowed, e);
-      model.Data.Hint =
-        "Please check the list of valid methods using an " +
-        "OPTIONS request to the same endpoint.";
+      var model = new ExceptionModel(request, e);
+
       return model.CreateResponse();
     }
 
     private HttpResponseMessage NotFound404Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.EndpointNotFound,
                                   request.RequestUri.AbsoluteUri);
-      var model = new ExceptionModel(request, HttpErrorCode.NotFound, e);
-      model.Data.Hint =
-        "Please check the request to point to a valid resource. "+
-        "Assure that every required parameter was supplied and " +
-        "review them against typos.";
+      var model = new ExceptionModel(request, e);
 
       return model.CreateResponse();
     }
 
     private HttpResponseMessage Unauthorized401Handler(HttpRequestMessage request) {
-      var e = new SecurityException(SecurityException.Msg.AuthenticationHeaderMissed);
-      var model = new ExceptionModel(request, HttpErrorCode.Unauthorized, e);
-      model.Data.Hint =
-        "Please review the format and value of the request " +
-        "authentication header 'Authorization'.";
+      var e = new WebApiException(WebApiException.Msg.AuthenticationHeaderMissed);
+      var model = new ExceptionModel(request, e);
+
       return model.CreateResponse();
     }
 

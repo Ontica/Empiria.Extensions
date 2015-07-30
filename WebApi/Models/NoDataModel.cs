@@ -2,44 +2,46 @@
 *                                                                                                            *
 *  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
 *  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : IBaseResponseModel                               Pattern  : Interface                         *
+*  Type      : NoDataModel                                      Pattern  : Web Api Response Model            *
 *  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
-*  Summary   : Base interface for web api response types.                                                    *
+*  Summary   : Handles a consistent web api response for Http 200 no-data responses.                         *
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Web.Http.ExceptionHandling;
+
+using Empiria.Json;
 
 namespace Empiria.WebApi.Models {
 
-  /// <summary>Base interface for web api response types.</summary>
-  public interface IBaseResponseModel {
+  /// <summary>Handles a consistent web api response for Http 200 no-data responses.</summary>
+  [DataContract]
+  public class NoDataModel : BaseResponseModel<object> {
 
-    string Status {
-      get;
+    #region Constructors and parsers
+
+    public NoDataModel(HttpRequestMessage request) : base(request, new Array[0], "Empty") {
+
     }
 
-    string Version {
-      get;
+    #endregion Constructors and parsers
+
+    #region Public properties
+
+    public override LinksCollectionModel Links {
+      get {
+        var links = new LinksCollectionModel(this);
+
+        return links;
+      }
     }
 
-    string TypeName {
-      get;
-    }
+    #endregion Public properties
 
-    int DataItemsCount {
-      get;
-    }
-
-    HttpRequestMessage Request {
-      get;
-    }
-
-    Guid RequestId {
-      get;
-    }
-
-  }  // interface IBaseResponseModel
+  }  // class NoDataModel
 
 } // namespace Empiria.WebApi.Models

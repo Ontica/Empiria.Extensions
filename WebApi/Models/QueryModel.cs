@@ -25,41 +25,13 @@ namespace Empiria.WebApi.Models {
       this.request = request;
     }
 
-    static internal QueryModel Parse(HttpRequestMessage request) {
-      Assertion.AssertObject(request, "request");
-
-      return new QueryModel(request);
-    }
-
     #region Public properties
-
-    [DataMember(Name = "skip")]
-    public int Skip {
-      get {
-        return 0;
-      }
-    }
-
-    [DataMember(Name = "top")]
-    public int Top {
-      get {
-        return 100;
-      }
-    }
 
     [DataMember(Name = "filter", EmitDefaultValue=false)]
     [DefaultValue("")]
     public string Filter {
       get {
-        return "the-odata-filter";
-      }
-    }
-
-    [DataMember(Name = "format", EmitDefaultValue = false)]
-    [DefaultValue("")]
-    public string Format {
-      get {
-        return "the-odata-format";
+        return this.GetQueryStringValue<string>("$filter", String.Empty);
       }
     }
 
@@ -67,7 +39,7 @@ namespace Empiria.WebApi.Models {
     [DefaultValue("")]
     public string OrderBy {
       get {
-        return "the-odata-orderBy";
+        return this.GetQueryStringValue<string>("$orderBy", String.Empty);
       }
     }
 
@@ -75,11 +47,25 @@ namespace Empiria.WebApi.Models {
     [DefaultValue("")]
     public string Select {
       get {
-        return "the-odata-select";
+        return this.GetQueryStringValue<string>("$select", String.Empty);
       }
     }
 
     #endregion Public properties
+
+    #region Public methods
+
+    protected T GetQueryStringValue<T>(string fieldName, T defaultValue) {
+      string value = request.RequestUri.ParseQueryString().Get(fieldName);
+      value = EmpiriaString.TrimAll(value);
+      if (String.IsNullOrWhiteSpace(value)) {
+        return defaultValue;
+      } else {
+        return (T) Convert.ChangeType(value, typeof(T));
+      }
+    }
+
+    #endregion Public methods
 
   }  // class QueryModel
 

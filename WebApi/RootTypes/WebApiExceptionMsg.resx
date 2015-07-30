@@ -116,11 +116,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthenticationHeaderMissed" xml:space="preserve">
+    <value>The server received a request over a protected resource without the Authentication header.</value>
+  </data>
+  <data name="BadAuthenticationHeaderFormat" xml:space="preserve">
+    <value>The web server received a request with a bad-formed authentication header.</value>
+  </data>
   <data name="BadRequest" xml:space="preserve">
     <value>The request using method '{0}' has some invalid argument values. The requested endpoint was: {1}.</value>
   </data>
   <data name="BodyMissed" xml:space="preserve">
-    <value>The request has missed a body object of type {0}.</value>
+    <value>The request has missed the body.</value>
   </data>
   <data name="EndpointNotFound" xml:space="preserve">
     <value>The endpoint '{0}' has not been defined or it is missing some required arguments in the query string or the body.</value>
@@ -135,6 +141,6 @@
     <value>The request endpoint has a missed resource: {0}</value>
   </data>
   <data name="ResourceNotFound" xml:space="preserve">
-    <value>"Property with cadastral key '{0}' was not found."</value>
+    <value>There is not a resource with name or identificator '{0}'.</value>
   </data>
 </root>

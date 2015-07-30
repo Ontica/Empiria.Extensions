@@ -27,6 +27,7 @@ namespace Empiria.WebApi {
       ExceptionModel model = new ExceptionModel(context.Request, context.Exception);
 
       var response = model.CreateResponse();
+
       context.Result = new ResponseMessageResult(response);
     }
 

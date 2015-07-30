@@ -48,15 +48,11 @@ namespace Empiria.WebApi {
     #region Public Methods
 
     protected HttpResponseException CreateHttpException(Exception exception) {
+      if (exception is HttpResponseException) {
+        return (HttpResponseException) exception;
+      }
+
       ExceptionModel model = new ExceptionModel(base.Request, exception);
-
-      var response = model.CreateResponse();
-
-      return new HttpResponseException(response);
-    }
-
-    protected HttpResponseException CreateHttpException(HttpErrorCode errorCode, Exception exception) {
-      ExceptionModel model = new ExceptionModel(base.Request, errorCode, exception);
 
       var response = model.CreateResponse();
 
@@ -79,38 +75,30 @@ namespace Empiria.WebApi {
 
     public void RequireBody(IDataModel model) {
       if (model == null) {
-        throw CreateHttpException(HttpErrorCode.BadRequest,
-                                  new WebApiException(WebApiException.Msg.BodyMissed, model.GetType().FullName));
+        throw new WebApiException(WebApiException.Msg.BodyMissed);
       }
-      model.Validate();
+      model.AssertValid();
     }
 
     protected void RequireHeader(string headerName) {
-      if (base.Request.Headers.Contains(headerName)) {
-        return;
+      if (!base.Request.Headers.Contains(headerName)) {
+        throw new WebApiException(WebApiException.Msg.RequestHeaderMissed, headerName);
       }
-      throw CreateHttpException(HttpErrorCode.BadRequest,
-                                new WebApiException(WebApiException.Msg.RequestHeaderMissed, headerName));
     }
 
     public void RequireResource(string value, string resourceName) {
       if (String.IsNullOrWhiteSpace(value)) {
-        throw CreateHttpException(HttpErrorCode.BadRequest,
-                                  new WebApiException(WebApiException.Msg.ResourceMissed, resourceName));
+        throw new WebApiException(WebApiException.Msg.ResourceMissed, resourceName);
+      }
+    }
+
+    public void RequireResource(int value, string resourceName) {
+      if (value == 0 || value == -1 || value == -2) {
+        throw new WebApiException(WebApiException.Msg.ResourceMissed, resourceName);
       }
     }
 
     #endregion Public Methods
-
-    #region Private Methods
-
-    private HttpResponseException WebApiModelStateException(ModelStateDictionary modelStateDictionary) {
-      var response = base.Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
-
-      return new HttpResponseException(response);
-    }
-
-    #endregion Private Methods
 
   } // class WebApiController
 

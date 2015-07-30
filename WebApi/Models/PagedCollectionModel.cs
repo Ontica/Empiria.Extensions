@@ -10,9 +10,11 @@
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.Data;
 using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Web;
 
 namespace Empiria.WebApi.Models {
 
@@ -21,11 +23,13 @@ namespace Empiria.WebApi.Models {
   public class PagedCollectionModel : CollectionModel {
 
     public PagedCollectionModel(HttpRequestMessage request,
-                                ICollection data, string typeName = "") : base(request, data, typeName) {
+                                ArrayList data, string typeName = "") : base(request, data, typeName) {
+      this.DoDataPaging(data);
     }
 
     public PagedCollectionModel(HttpRequestMessage request,
                                 DataTable data, string typeName = "") : base(request, data, typeName) {
+      this.DoDataPaging(data);
     }
 
     #region Public properties
@@ -34,25 +38,87 @@ namespace Empiria.WebApi.Models {
       get {
         var links = new LinksCollectionModel(this);
 
-        links.Add("~/api/v0/.../first", LinkRelation.First);
-        links.Add("~/api/v0/.../previous", LinkRelation.Previous);
-        links.Add("~/api/v0/.../next", LinkRelation.Next);
-        links.Add("~/api/v0/.../last", LinkRelation.Last);
+        if (this.Paging.PagesCount == 0) {
+          return links;
+        }
+
+        if (1 < this.Paging.PageNumber) {
+          links.Add(this.GetPreviousPageUrl(), LinkRelation.Previous);
+        }
+        if (Paging.PageNumber < Paging.PagesCount) {
+          links.Add(this.GetNextPageUrl(), LinkRelation.Next);
+        }
 
         return links;
       }
     }
 
+    PagingModel _pagingModel = null;
     [DataMember(Name = "paging", Order = 20)]
     public PagingModel Paging {
       get {
-        return new PagingModel(base.Data);
+        if (_pagingModel == null) {
+          _pagingModel = new PagingModel((PagingQueryModel) this.Query, base.Data);
+        }
+        return _pagingModel;
+      }
+    }
+
+    public override QueryModel Query {
+      get {
+        return new PagingQueryModel(base.Request);
       }
     }
 
     #endregion Public properties
 
     #region Private methods
+
+    private void DoDataPaging(ArrayList array) {
+      array = array.GetRange(this.Paging.StartIndex, this.Paging.PageSize);
+
+      base.RefreshData(array);
+    }
+
+    private void DoDataPaging(DataTable sourceTable) {
+      DataTable pagedTable = sourceTable.Clone();
+
+      for (int i = this.Paging.StartIndex; i <= this.Paging.EndIndex; i++) {
+        pagedTable.Rows.Add(sourceTable.Rows[i].ItemArray);
+      }
+      base.RefreshData(pagedTable.DefaultView);
+    }
+
+    private string GetNextPageUrl() {
+      Uri requestUri = base.Request.RequestUri;
+      NameValueCollection qs = requestUri.ParseQueryString();
+
+      qs["$top"] = this.Paging.PageSize.ToString();
+      qs["$skip"] = ((this.Paging.PageNumber) * this.Paging.PageSize).ToString();
+
+      return this.GetNewUrlWithUpdatedQueryString(requestUri, qs);
+    }
+
+    private string GetPreviousPageUrl() {
+      Uri requestUri = base.Request.RequestUri;
+      NameValueCollection qs = requestUri.ParseQueryString();
+
+      qs["$top"] = this.Paging.PageSize.ToString();
+      qs["$skip"] = ((this.Paging.PageNumber - 2) * this.Paging.PageSize).ToString();
+
+      return this.GetNewUrlWithUpdatedQueryString(requestUri, qs);
+    }
+
+    private string GetNewUrlWithUpdatedQueryString(Uri requestUri, NameValueCollection qs) {
+      string url = String.Empty;
+
+      if (String.IsNullOrWhiteSpace(requestUri.Query)) {
+        url = requestUri.AbsoluteUri + "?" + qs.ToString();
+      } else {
+        url = requestUri.AbsoluteUri.Replace(requestUri.Query, String.Empty) + "?" + qs.ToString();
+      }
+      return HttpUtility.UrlDecode(url);
+    }
 
     #endregion Private methods
 

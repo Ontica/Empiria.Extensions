@@ -46,7 +46,7 @@ namespace Empiria.WebApi {
 
     /// <summary>
     /// Equivalent to HTTP status 405. Empiria.WebApi.HttpErrorCode.MethodNotAllowed indicates
-    /// that the request method (POST or GET) is not allowed on the requested resource.
+    /// that the request method (e.g, POST or GET) is not allowed on the requested resource.
     /// </summary>
     MethodNotAllowed = HttpStatusCode.MethodNotAllowed,
 

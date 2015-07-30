@@ -74,7 +74,7 @@ namespace Empiria.WebServices {
           headerValue.Parameter != null) {
         return headerValue.Parameter;
       } else {
-        throw new SecurityException(SecurityException.Msg.BadAuthenticationHeaderFormat, GetRequestData());
+        throw new SecurityException(SecurityException.Msg.WrongAuthentication, GetRequestData());
       }
     }
 

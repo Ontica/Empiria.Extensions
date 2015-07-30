@@ -25,13 +25,8 @@ namespace Empiria.WebApi.Models {
 
     internal ExceptionModel(HttpRequestMessage request, Exception exception)
                           : base(request, ExceptionModel.GetResponseModelStatus(exception),
-                                 ExceptionModel.GetExceptionData(exception, request)) {
-      this.Exception = exception;
-    }
-
-    public ExceptionModel(HttpRequestMessage request, HttpErrorCode errorCode, Exception exception)
-                          : base(request, ExceptionModel.GetResponseModelStatus(errorCode),
-                                 ExceptionModel.GetExceptionData(errorCode, exception, request)) {
+                                 ExceptionModel.GetExceptionData(exception, request),
+                                 "Empiria.ExceptionData") {
       this.Exception = exception;
     }
 
@@ -47,7 +42,8 @@ namespace Empiria.WebApi.Models {
     public override LinksCollectionModel Links {
       get {
         var links = new LinksCollectionModel(this);
-        links.Add("http://empiria.ws/documentation/errors/348712", LinkRelation.Help);
+
+        //links.Add("http://empiria.ws/documentation/errors/348712", LinkRelation.Help);
 
         return links;
       }
@@ -78,7 +74,6 @@ namespace Empiria.WebApi.Models {
       return json;
     }
 
-
     #endregion Public methods
 
     #region Private methods
@@ -106,33 +101,32 @@ namespace Empiria.WebApi.Models {
       return exceptionData;
     }
 
-    static private ExceptionData GetExceptionData(HttpErrorCode errorCode, Exception exception,
-                                                  HttpRequestMessage request) {
-      Assertion.AssertObject(exception, "exception");
-      Assertion.AssertObject(request, "request");
-
-      var exceptionData = new ExceptionData(errorCode, exception);
-      exceptionData.Source = ExceptionModel.GetErrorSource(request);
-
-      return exceptionData;
-    }
-
     static private ResponseStatus GetResponseModelStatus(HttpErrorCode errorCode) {
       switch (errorCode) {
         case HttpErrorCode.BadRequest:
           return ResponseStatus.Invalid_Request;
+
         case HttpErrorCode.Forbidden:
           return ResponseStatus.Over_Limit;
+
         case HttpErrorCode.InternalServerError:
           return ResponseStatus.Error;
+
         case HttpErrorCode.MethodNotAllowed:
           return ResponseStatus.Invalid_Request;
+
         case HttpErrorCode.NotFound:
           return ResponseStatus.Invalid_Request;
+
         case HttpErrorCode.NotImplemented:
           return ResponseStatus.Unavailable;
+
+        case HttpErrorCode.ServiceUnavailable:
+          return ResponseStatus.Unavailable;
+
         case HttpErrorCode.Unauthorized:
           return ResponseStatus.Denied;
+
         default:
           throw Assertion.AssertNoReachThisCode();
       }
@@ -141,16 +135,24 @@ namespace Empiria.WebApi.Models {
     static private ResponseStatus GetResponseModelStatus(Exception exception) {
       Assertion.AssertObject(exception, "exception");
 
-      if (exception is UnauthorizedException) {
-        return ResponseStatus.Denied;
+      if (exception is WebApiException) {
+        return ResponseStatus.Invalid_Request;
+
       } else if (exception is Security.SecurityException) {
         return ResponseStatus.Denied;
+
       } else if (exception is ValidationException) {
         return ResponseStatus.Invalid_Request;
+
       } else if (exception is ResourceNotFoundException) {
         return ResponseStatus.Invalid_Request;
+
+      } else if (exception is AssertionFailsException) {
+        return ResponseStatus.Invalid_Request;
+
       } else if (exception is NotImplementedException) {
         return ResponseStatus.Unavailable;
+
       } else {
         return ResponseStatus.Error;
       }

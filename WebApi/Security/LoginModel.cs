@@ -5,7 +5,7 @@
 *  Type      : LoginModel                                       Pattern  : Information Holder                *
 *  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
 *                                                                                                            *
-*  Summary   : Holds information to log in a user into the web api system.                                   *
+*  Summary   : Holds information to login a user into the web api system.                                    *
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
@@ -18,8 +18,10 @@ using Empiria.Security;
 
 namespace Empiria.WebApi.Models {
 
-  /// <summary>Holds information to log in a user into the web api system.</summary>
+  /// <summary>Holds information to login a user into the web api system.</summary>
   public class LoginModel : IDataModel {
+
+    #region Properties
 
     public string api_key {
       get;
@@ -36,7 +38,11 @@ namespace Empiria.WebApi.Models {
       set;
     }
 
-    public void Validate() {
+    #endregion Properties
+
+    #region Methods
+
+    public void AssertValid() {
       Assertion.AssertObject(api_key, "api_key");
       Assertion.AssertObject(user_name, "user_name");
       Assertion.AssertObject(password, "password");
@@ -56,6 +62,8 @@ namespace Empiria.WebApi.Models {
         }
       };
     }
+
+    #endregion Methods
 
   }  // class LoginModel
 
