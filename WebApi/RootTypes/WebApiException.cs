@@ -94,7 +94,7 @@ namespace Empiria.WebApi {
                    "what is described in the API documentation.";
 
           case Msg.ResourceNotFound:
-            return "Please check each of the url parameters to point to valid resources.";
+            return "Please check each of the url parameters to point to a valid resource.";
 
           default:
             return "There was an internal or unknown error in the call.";

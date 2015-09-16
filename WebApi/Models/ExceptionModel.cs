@@ -147,6 +147,9 @@ namespace Empiria.WebApi.Models {
       } else if (exception is ResourceNotFoundException) {
         return ResponseStatus.Invalid_Request;
 
+      } else if (exception is ResourceConflictException) {
+        return ResponseStatus.Invalid_Request;
+
       } else if (exception is AssertionFailsException) {
         return ResponseStatus.Invalid_Request;
 

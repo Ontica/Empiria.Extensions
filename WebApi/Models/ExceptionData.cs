@@ -138,6 +138,9 @@ namespace Empiria.WebApi.Models {
       } else if (e is ResourceNotFoundException) {
         return HttpErrorCode.NotFound;
 
+      } else if (e is ResourceConflictException) {
+        return HttpErrorCode.Conflict;
+
       } else if (e is NotImplementedException) {
         return HttpErrorCode.NotImplemented;
 

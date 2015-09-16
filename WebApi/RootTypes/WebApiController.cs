@@ -73,6 +73,12 @@ namespace Empiria.WebApi {
       return pars;
     }
 
+    public void RequireBody(object model) {
+      if (model == null) {
+        throw new WebApiException(WebApiException.Msg.BodyMissed);
+      }
+    }
+
     public void RequireBody(IDataModel model) {
       if (model == null) {
         throw new WebApiException(WebApiException.Msg.BodyMissed);

@@ -50,6 +50,12 @@ namespace Empiria.WebApi {
     /// </summary>
     MethodNotAllowed = HttpStatusCode.MethodNotAllowed,
 
+
+    /// Equivalent to HTTP status 409. Empiria.WebApi.HttpErrorCode.Conflict indicates
+    /// that the request could not be carried out because of a conflict on the server.
+    /// </summary>
+    Conflict = HttpStatusCode.Conflict,
+
     /// <summary>
     /// Equivalent to HTTP status 500. Empiria.WebApi.HttpErrorCode.InternalServerError indicates
     /// that a generic error has occurred on the server.

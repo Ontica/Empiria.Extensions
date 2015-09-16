@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Formatting\CamelCaseJsonFormattingAttribute.cs" />
+    <Compile Include="Models\NoDataModel.cs" />
     <Compile Include="Models\PagingQueryModel.cs" />
     <Compile Include="RootTypes\HttpOkResponseCode.cs" />
     <Compile Include="RootTypes\WebApiController.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Security\AuthenticationHttpModule.cs" />
     <Compile Include="RootTypes\HttpErrorCode.cs" />
     <Compile Include="RootTypes\WebApiGlobal.cs" />
+    <Compile Include="Security\WebApiAuthorizationFilterAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

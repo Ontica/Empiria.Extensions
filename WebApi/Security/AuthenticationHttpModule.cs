@@ -37,7 +37,17 @@ namespace Empiria.WebApi {
       Assertion.AssertObject(password, "password");
 
       EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, userName, password,
-                                                                    entropy, contextId);
+                                                                entropy, contextId);
+      Assertion.AssertObject(principal, "principal");
+      AuthenticationHttpModule.SetPrincipal(principal);
+
+      return principal;
+    }
+
+    static public EmpiriaPrincipal AuthenticateGuest(string apiClientKey, int contextId = -1) {
+      Assertion.AssertObject(apiClientKey, "apiClientKey");
+
+      EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, AnonymousUser.Guest, contextId);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 
