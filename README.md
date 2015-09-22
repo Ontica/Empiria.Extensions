@@ -3,11 +3,11 @@
 
 Empiria Extended Framework contains the following software components:
 
-* A) Empiria Data Convertion
+* A) Empiria Data Converter
 * B) Empiria Documents
 * C) Empiria Expressions
 * D) Empiria Geography
-* E) Empiria Messaging
-* F) Empiria Presentation
-* G) Empiria Presentation.Web
+* E) Empiria Presentation
+* F) Empiria Presentation.Web
+* G) Empiria Web API
 * H) Empiria Web Services
