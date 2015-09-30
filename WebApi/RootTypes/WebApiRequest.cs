@@ -31,7 +31,7 @@ namespace Empiria.WebApi {
     #region Constructors and parsers
 
     private WebApiRequest() {
-      this.StartTime = DateTime.UtcNow;
+      this.StartTime = DateTime.Now;
       this.Guid = Guid.NewGuid();
       this.AppliedToId = -1;
     }
