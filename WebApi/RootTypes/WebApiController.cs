@@ -29,22 +29,6 @@ namespace Empiria.WebApi {
 
     }
 
-    #region Properties
-
-    public bool IsSessionAlive {
-      get {
-        return (ExecutionServer.CurrentPrincipal != null);
-      }
-    }
-
-    public new EmpiriaUser User {
-      get {
-        return EmpiriaUser.Current;
-      }
-    }
-
-    #endregion Properties
-
     #region Public Methods
 
     protected HttpResponseException CreateHttpException(Exception exception) {
