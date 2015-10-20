@@ -28,6 +28,11 @@ namespace Empiria.WebApi {
 
       var response = model.CreateResponse();
 
+      //Uncomment these lines to log the exception and the request in an external eventlog.
+
+      //Empiria.Messaging.Publisher.Publish(context.Exception);
+      //Empiria.Messaging.Publisher.Publish(context.Request.ToString());
+
       context.Result = new ResponseMessageResult(response);
     }
 

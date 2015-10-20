@@ -78,6 +78,10 @@ namespace Empiria.WebApi {
                                              HttpResponseMessage response) {
       var content = response.Content as ObjectContent;
 
+      if (content == null) {
+        return response;
+      }
+
       if (content.ObjectType.Namespace.StartsWith("Empiria.WebApi.Models")) {
         return response;
       }
@@ -99,6 +103,10 @@ namespace Empiria.WebApi {
     private HttpResponseMessage WrapResponseException(HttpRequestMessage request,
                                                       HttpResponseMessage response) {
       var content = response.Content as ObjectContent;
+
+      if (content == null) {
+        return response;
+      }
 
       if (content.ObjectType.Namespace.StartsWith("Empiria.WebApi.Models")) {
         return response;
