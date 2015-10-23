@@ -1,9 +1,9 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                       System   : Document Management Services      *
-*  Namespace : Empiria.Documents                                Assembly : Empiria.Documents.dll             *
-*  Type      : FileType                                         Pattern  : Storage Item                      *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Solution  : Empiria Extensions Framework                   System   : Empiria I/O Services                *
+*  Namespace : Empiria.IO                                     Assembly : Empiria.IO.dll                      *
+*  Type      : FileType                                       Pattern  : Storage Item                        *
+*  Version   : 6.5                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Describes the technology of a system file.                                                    *
 *                                                                                                            *

@@ -1,9 +1,9 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
+*  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : SettlementKind                                 Pattern  : Value object                        *
-*  Version   : 6.5        Date: 25/Jun/2015                   License  : Please read license.txt file        *
+*  Version   : 6.5                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Serves as a kind classificator for settlement item types. A settlement is defined by the      *
 *              GeographicItemType powertype but settlement instances can also be qualified within it using   *

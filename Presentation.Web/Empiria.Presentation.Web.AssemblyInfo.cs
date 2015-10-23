@@ -1,12 +1,13 @@
-﻿/* Empiria Presentation Framework 2015 ***********************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
+*  Solution  : Empiria Extensions Framework                     System   : Web Presentation Services         *
 *  Assembly  : Empiria.Presentation.Web.dll                     Pattern  : Assembly Attributes File          *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Empiria types for handling the user interface process in web applications.                    *
 *                                                                                                            *
 ********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -15,27 +16,13 @@ using System.Runtime.InteropServices;
 *************************************************************************************************************/
 [assembly: AssemblyTitle("Empiria.Presentation.Web")]
 [assembly: AssemblyDescription("Empiria types for handling the user interface process in web applications")]
-[assembly: AssemblyVersion("6.5.0625.0")]
-[assembly: AssemblyFileVersion("6.5.0625")]
+[assembly: AssemblyVersion("6.5.1023.0")]
+[assembly: AssemblyFileVersion("6.5.1023")]
 [assembly: AssemblyCompany("Ontica")]
-[assembly: AssemblyProduct("Empiria Presentation Framework 2015")]
-[assembly: AssemblyCopyright("(c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.")]
-[assembly: AssemblyTrademark("Empiria and Ontica are either registered trademarks of La Vía Óntica SC or Ontica LLC.")]
+[assembly: AssemblyProduct("Empiria Web Presentation Services")]
+[assembly: AssemblyCopyright("(c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.")]
+[assembly: AssemblyTrademark("Empiria and Ontica are either trademarks of La Vía Óntica SC or Ontica LLC.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: System.CLSCompliant(true)]
-
-/*************************************************************************************************************
-* Assembly security attributes.
-*************************************************************************************************************/
-//[assembly: SecurityPermission(SecurityAction.RequestRefuse, Flags = (SecurityPermissionFlag.Assertion &
-//                                                                     SecurityPermissionFlag.ControlEvidence &
-//                                                                     SecurityPermissionFlag.ControlPolicy &
-//                                                                     SecurityPermissionFlag.Infrastructure &
-//                                                                     SecurityPermissionFlag.SkipVerification &
-//                                                                     SecurityPermissionFlag.UnmanagedCode))]
-//[assembly: EnvironmentPermission(SecurityAction.RequestRefuse, Unrestricted = true)]
-//[assembly: FileDialogPermission(SecurityAction.RequestRefuse, Unrestricted = true)]
-//[assembly: FileIOPermission(SecurityAction.RequestRefuse, Unrestricted = true)]
-
+[assembly: CLSCompliant(true)]

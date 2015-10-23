@@ -1,12 +1,13 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                       System   : Geographical Information Services *
+*  Solution  : Empiria Extensions Framework                     System   : Geographic Data Services          *
 *  Assembly  : Empiria.Geography.dll                            Pattern  : Assembly Attributes File          *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
-*  Summary   : Empiria Geographic Information Services.                                                      *
+*  Summary   : Manages data about geographical locations and roads.                                          *
 *                                                                                                            *
 ********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -14,28 +15,14 @@ using System.Runtime.InteropServices;
 * Assembly configuration attributes.                                                                         *
 *************************************************************************************************************/
 [assembly: AssemblyTitle("Empiria.Geography")]
-[assembly: AssemblyDescription("Empiria Geographic Information Services")]
-[assembly: AssemblyVersion("6.5.0625.0")]
-[assembly: AssemblyFileVersion("6.5.0625")]
+[assembly: AssemblyDescription("Manages data about geographical locations and roads.")]
+[assembly: AssemblyVersion("6.5.1023.0")]
+[assembly: AssemblyFileVersion("6.5.1023")]
 [assembly: AssemblyCompany("Ontica")]
-[assembly: AssemblyProduct("Empiria Extended Framework 2015")]
+[assembly: AssemblyProduct("Empiria Geographic Data Services")]
 [assembly: AssemblyCopyright("(c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.")]
-[assembly: AssemblyTrademark("Empiria and Ontica are either registered trademarks of La Vía Óntica SC or Ontica LLC.")]
+[assembly: AssemblyTrademark("Empiria and Ontica are either trademarks of La Vía Óntica SC or Ontica LLC.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: System.CLSCompliant(true)]
-
-/*************************************************************************************************************
-* Assembly security attributes.                                                                              *
-*************************************************************************************************************/
-//[assembly: SecurityPermission(SecurityAction.RequestRefuse, Flags = (SecurityPermissionFlag.Assertion &
-//                                                                     SecurityPermissionFlag.ControlEvidence &
-//                                                                     SecurityPermissionFlag.ControlPolicy &
-//                                                                     SecurityPermissionFlag.Infrastructure &
-//                                                                     SecurityPermissionFlag.SkipVerification &
-//                                                                     SecurityPermissionFlag.UnmanagedCode))]
-//[assembly: EnvironmentPermission(SecurityAction.RequestRefuse, Unrestricted = true)]
-//[assembly: FileDialogPermission(SecurityAction.RequestRefuse, Unrestricted = true)]
-//[assembly: FileIOPermission(SecurityAction.RequestRefuse, Unrestricted = true)]
-
+[assembly: CLSCompliant(true)]

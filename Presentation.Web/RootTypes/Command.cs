@@ -1,16 +1,15 @@
-﻿/* Empiria Presentation Framework 2015 ***********************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Presentation Framework                   System   : Web Presentation Framework        *
+*  Solution  : Empiria Extensions Framework                     System   : Web Presentation Services         *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : WebUserControl                                   Pattern  : None                              *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Represents a command in the context of an http request.                                       *
 *                                                                                                            *
 ********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web;
-using System.Web.UI;
 using System.Collections.Specialized;
 
 using Empiria.Security;

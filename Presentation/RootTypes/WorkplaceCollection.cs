@@ -1,9 +1,9 @@
-﻿/* Empiria Presentation Framework 2015 ***********************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
+*  Solution  : Empiria Extensions Framework                     System   : Presentation Services             *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : WorkplaceCollection                              Pattern  : Hash List                         *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Internal class that holds a collection of Workplace objects using a hash list.                *
 *                                                                                                            *

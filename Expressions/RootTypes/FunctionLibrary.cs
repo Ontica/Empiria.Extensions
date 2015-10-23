@@ -1,13 +1,14 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                       System   : Expressions Runtime Library       *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Expressions               *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : FunctionLibrary                                  Pattern  : Standard Class                    *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Defines a list of functions used in an evaluation context.                                    *
 *                                                                                                            *
 ********************************* Copyright (c) 2008-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
 
 using Empiria.Collections;
 

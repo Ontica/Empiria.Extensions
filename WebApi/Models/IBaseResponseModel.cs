@@ -1,9 +1,9 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
 *  Type      : IBaseResponseModel                               Pattern  : Interface                         *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Base interface for web api response types.                                                    *
 *                                                                                                            *

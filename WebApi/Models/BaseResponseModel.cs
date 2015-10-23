@@ -1,9 +1,9 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
 *  Type      : BaseResponseModel                                Pattern  : Web Api Response Model            *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Abstract class that handles a uniform and consistent web api response. Special responses      *
 *              should be implemented through derived types of this generic type.                             *

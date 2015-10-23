@@ -184,8 +184,8 @@
     <Compile Include="RootTypes\ImagingItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Printers\Document.cs" />
-    <Compile Include="Printers\Ticket.cs" />
+    <Compile Include="Printing\Document.cs" />
+    <Compile Include="Printing\Ticket.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

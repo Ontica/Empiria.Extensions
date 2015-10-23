@@ -1,14 +1,14 @@
-﻿/* Empiria Land 2015 ******************************************************************************************
-*                                                                                                             *
-*  Solution  : Empiria Land                                    System   : Land Registration System            *
-*  Namespace : Empiria.Land.UI                                 Assembly : Empiria.Land                        *
-*  Type      : LRSHtmlSelectControls                           Pattern  : Presentation Services Static Class  *
-*  Version   : 6.5        Date: 25/Jun/2015                    License  : Please read license.txt file        *
-*                                                                                                             *
-*  Summary   : Static class that generates predefined HtmlSelect controls content for Empiria Government      *
-*              Land Registration System.                                                                      *
-*                                                                                                             *
-********************************** Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+﻿/* Empiria Extensions Framework ******************************************************************************
+*                                                                                                            *
+*  Solution  : Empiria Extensions Framework                     System   : Web Presentation Services         *
+*  Namespace : Empiria.Presentation.Web.Content                 Assembly : Empiria.Presentation.Web.dll      *
+*  Type      : LRSHtmlSelectControls                            Pattern  : Static  Class                     *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
+*                                                                                                            *
+*  Summary   : Static class that generates predefined HtmlSelect controls content for Empiria Government     *
+*              Land Registration System.                                                                     *
+*                                                                                                            *
+********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,9 +1,9 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
+*  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographyException                             Pattern  : Exception Class                     *
-*  Version   : 6.5        Date: 25/Jun/2015                   License  : Please read license.txt file        *
+*  Version   : 6.5                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a problem occurs in Empiria Geographic Information          *
 *              Services System.                                                                              *

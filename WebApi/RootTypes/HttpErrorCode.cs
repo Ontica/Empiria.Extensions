@@ -1,9 +1,9 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
 *  Type      : HttpErrorCode                                    Pattern  : Enumeration                       *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Restricts the Http error status codes to a minimal set for use as Empiria web api responses.  *
 *                                                                                                            *

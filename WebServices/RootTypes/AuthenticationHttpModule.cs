@@ -1,9 +1,9 @@
-﻿/* Empiria Presentation Framework 2015 ***********************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Service-Oriented Framework               System   : Empiria Web Services              *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Legacy Web Services       *
 *  Namespace : Empiria.WebServices                              Assembly : Empiria.WebServices.dll           *
 *  Type      : AuthenticationHttpModule                         Pattern  : IHttpModule                       *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : HTTP module for Empiria web authentication services.                                          *
 *                                                                                                            *

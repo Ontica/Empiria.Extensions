@@ -1,22 +1,16 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                     System   : Document Management Services        *
-*  Namespace : Empiria.Documents.IO                           Assembly : Empiria.Documents.dll               *
+*  Solution  : Empiria Extensions Framework                   System   : Empiria I/O Services                *
+*  Namespace : Empiria.IO                                     Assembly : Empiria.IO.dll                      *
 *  Type      : FileAuditTrail                                 Pattern  : Service provider                    *
-*  Version   : 2.0        Date: 25/Jun/2015                   License  : Please read license.txt file        *
+*  Version   : 2.0                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Audit trail services for file system operations.                                              *
 *                                                                                                            *
 ********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 
-using Empiria.Contacts;
 using Empiria.Json;
-using Empiria.Security;
 
 namespace Empiria.Documents.IO {
 
@@ -37,4 +31,4 @@ namespace Empiria.Documents.IO {
 
   } // class FileServices
 
-} // namespace Empiria.Documents.IO
+} // namespace Empiria.IO

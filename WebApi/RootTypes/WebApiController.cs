@@ -1,9 +1,9 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
 *  Type      : WebApiController                                 Pattern  : Base Controller                   *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Defines the methods, properties, and events common to all Web API controller types            *
 *              used by Empiria ASP.NET Web API platform.                                                     *
@@ -11,12 +11,8 @@
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Specialized;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 
-using Empiria.Security;
 using Empiria.WebApi.Models;
 
 namespace Empiria.WebApi {

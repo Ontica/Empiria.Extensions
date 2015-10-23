@@ -1,16 +1,15 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
 *  Type      : WebApiRequest                                    Pattern  : Information Holder                *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Contains data about a web api request that can be used by audit trails or in the web api      *
 *              request-response pipline.                                                                     *
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Collections.Generic;
 using System.Web;
 
 using Empiria.Security;

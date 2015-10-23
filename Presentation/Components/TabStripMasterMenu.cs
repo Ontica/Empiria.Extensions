@@ -1,9 +1,9 @@
-﻿/* Empiria Presentation Framework 2015 ***********************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Presentation Framework                   System   : Presentation Framework Library    *
+*  Solution  : Empiria Extensions Framework                     System   : Presentation Services             *
 *  Namespace : Empiria.Presentation.Components                  Assembly : Empiria.Presentation.dll          *
 *  Type      : TabStripMasterMenu                               Pattern  : User Interface Component Class    *
-*  Version   : 6.5        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 6.5                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : User interface component that holds the structure for a tabstrip master menu.                 *
 *                                                                                                            *

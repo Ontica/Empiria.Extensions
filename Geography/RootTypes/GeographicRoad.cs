@@ -1,13 +1,14 @@
-﻿/* Empiria Extended Framework 2015 ***************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extended Framework                     System   : Geographic Information Services     *
+*  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicRoad                                 Pattern  : Empiria Object Type                 *
-*  Version   : 6.5        Date: 25/Jun/2015                   License  : Please read license.txt file        *
+*  Version   : 6.5                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Represents a geographic road that could be a roadway, highway or a rural road.                *
 *                                                                                                            *
 ********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+
 using System;
 using System.Data;
 

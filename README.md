@@ -1,7 +1,7 @@
-﻿Empiria Extended Framework
-==========================
+﻿Empiria Extensions Framework
+============================
 
-Empiria Extended Framework contains the following software components:
+Empiria Extensions Framework contains the following software components:
 
 * A) Empiria Data Converter
 * B) Empiria Documents

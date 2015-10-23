@@ -1,17 +1,14 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
-*  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
+*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
 *  Type      : WebApiAuthorizationFilterAttribute               Pattern  : Http Filter                       *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : ASP .NET Web API filter to handle authorization using Empiria security claims.                *
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 

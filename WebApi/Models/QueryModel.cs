@@ -1,9 +1,8 @@
-﻿/* Empiria Service-Oriented Architecture Framework ***********************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria SOA Framework                            System   : Empiria Web Api Framework         *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Type      : QueryModel                                       Pattern  : Information Holder                *
-*  Version   : 1.0        Date: 25/Jun/2015                     License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Holds the configuration data of a query following the OData standard.                         *
 *                                                                                                            *
