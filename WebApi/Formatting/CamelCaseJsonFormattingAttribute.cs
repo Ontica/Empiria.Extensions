@@ -5,19 +5,20 @@
 *  Type      : CamelCaseJsonFormattingAttribute                 Pattern  : Attribute class                   *
 *  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
-*  Summary   : Place on a web API controller class to convert all responses to camel case.                   *
+*  Summary   : Place on a web API controller class to convert all responses to camelCase.                    *
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http.Formatting;
 using System.Web.Http.Controllers;
 
+using Empiria.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Empiria.WebApi.Formatting {
 
-  /// <summary>Place on a web API controller class to convert all responses to camel case.</summary>
+  /// <summary>Place on a web API controller class to convert all responses to camelCase.</summary>
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
   public class CamelCaseJsonFormattingAttribute : Attribute, IControllerConfiguration {
 
@@ -34,16 +35,16 @@ namespace Empiria.WebApi.Formatting {
 
       jsonSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
       jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-      // Add System.Data.DataView serializer
-      jsonSettings.Converters.Add(new Empiria.Json.DataViewConverter());
-      jsonSettings.Converters.Add(new Empiria.Json.DataRowConverter());
+
+      // Add Empiria System.Data.DataView and System.Data.DataRow serializers
+      jsonSettings.Converters.Add(new DataViewConverter());
+      jsonSettings.Converters.Add(new DataRowConverter());
 
       formatter.SerializerSettings = jsonSettings;
 
       controllerSettings.Formatters.Insert(0, formatter);
     }
 
-  } // class PascalCaseAttribute
+  } // class CamelCaseJsonFormattingAttribute
 
-
-} // namespace Empiria.WebApi
+} // namespace Empiria.WebApi.Formatting

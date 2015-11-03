@@ -5,19 +5,20 @@
 *  Type      : PascalCaseJsonFormattingAttribute                Pattern  : Attribute class                   *
 *  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
-*  Summary   : Place on a web API controller class to convert all responses to Pascal case.                  *
+*  Summary   : Place on a web API controller class to convert all responses to PascalCase.                   *
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http.Formatting;
 using System.Web.Http.Controllers;
 
+using Empiria.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Empiria.WebApi.Formatting {
 
-  /// <summary>Place on a web API controller class to convert all responses to Pascal case.</summary>
+  /// <summary>Place on a web API controller class to convert all responses to PascalCase.</summary>
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
   public class PascalCaseJsonFormattingAttribute : Attribute, IControllerConfiguration {
 
@@ -35,11 +36,15 @@ namespace Empiria.WebApi.Formatting {
       jsonSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
       jsonSettings.ContractResolver = new DefaultContractResolver();
 
+      // Add Empiria System.Data.DataView and System.Data.DataRow serializers
+      jsonSettings.Converters.Add(new DataViewConverter());
+      jsonSettings.Converters.Add(new DataRowConverter());
+
       formatter.SerializerSettings = jsonSettings;
 
       controllerSettings.Formatters.Insert(0, formatter);
     }
 
-  } // class PascalCaseAttribute
+  } // class PascalCaseJsonFormattingAttribute
 
-} // namespace Empiria.WebApi
+} // namespace Empiria.WebApi.Formatting
