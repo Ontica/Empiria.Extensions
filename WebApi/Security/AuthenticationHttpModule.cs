@@ -24,7 +24,15 @@ namespace Empiria.WebApi {
 
     #region Fields
 
-    static private readonly string Realm = ConfigurationData.GetString("AuthenticationHttpModule.Realm");
+    static string _realm = null;
+    static private string Realm {
+      get {
+        if (_realm == null) {
+          _realm = ConfigurationData.GetString("AuthenticationHttpModule.Realm");
+        }
+        return _realm;
+      }
+    }
 
     #endregion Fields
 

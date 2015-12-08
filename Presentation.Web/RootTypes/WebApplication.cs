@@ -21,8 +21,6 @@ namespace Empiria.Presentation.Web {
 
     #region Fields
 
-    static private readonly string MobileWebApplicationLogonPageUrl =
-                                                ConfigurationData.GetString("Mobile.Server.RootPath");
     static private readonly string exceptionsPageName = "exception.aspx";
     static private readonly string lastExceptionTag = "empiriaLastException";
     static private readonly string xhtmlMIMEType = "application/xhtml+xml";
@@ -146,9 +144,8 @@ namespace Empiria.Presentation.Web {
     }
 
     public void OnStart(object sender, EventArgs e) {
+      ExecutionServer.Start(ExecutionServerType.WebApplicationServer);
       Initialize();
-
-      Empiria.ExecutionServer.Start(ExecutionServerType.WebApplicationServer);
     }
 
     #endregion Public methods
@@ -178,7 +175,8 @@ namespace Empiria.Presentation.Web {
       bool isMSMobileExplorerClient = (userAgent.IndexOf("MME") != -1);
 
       if (isPocketPCClient || isMSMobileExplorerClient) {
-        Response.Redirect(MobileWebApplicationLogonPageUrl, true);
+        var redirectTo = ConfigurationData.GetString("Mobile.Server.RootPath");
+        Response.Redirect(redirectTo, true);
       }
     }
 
