@@ -23,7 +23,7 @@ namespace Empiria.Core.WebApi {
     #region Public APIs
 
     [HttpPost, AllowAnonymous]
-    [Route("v1/security/change-password/{{userEmail}}")]
+    [Route("v1/security/change-password/{userEmail}")]
     public void ChangePassword([FromBody] LoginModel login, [FromUri] string userEmail) {
       try {
         base.RequireBody(login);

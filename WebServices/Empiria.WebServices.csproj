@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Empiria.WebServices</RootNamespace>
     <AssemblyName>Empiria.WebServices</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>empiria.strong.name.public.key.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DelaySign>true</DelaySign>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -106,7 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="empiria.strong.name.public.key.snk" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
