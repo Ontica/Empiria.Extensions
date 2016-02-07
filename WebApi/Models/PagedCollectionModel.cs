@@ -77,9 +77,9 @@ namespace Empiria.WebApi.Models {
 
     private void DoDataPaging(ArrayList array) {
       /// Because ArrayList.GetRange throws an error when array.Count == 0
-      if (array.Count != 0) {extensions
+      if (array.Count != 0) {
         array = array.GetRange(this.Paging.StartIndex, this.Paging.PageSize);
-      }extensions
+      }
       base.RefreshData(array);
     }
 
