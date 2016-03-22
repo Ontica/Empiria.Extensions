@@ -21,7 +21,9 @@ namespace Empiria.WebApi.Models {
     #region Constructors and parsers
 
     public ExceptionData(Exception exception) {
-      this.HttpStatusCode = (HttpStatusCode) this.GetHttpStatusCode(exception);
+      Assertion.AssertObject(exception, "exception");
+
+      this.HttpStatusCode = (HttpStatusCode) ExceptionData.GetHttpStatusCode(exception);
       this.ErrorCode = this.GetErrorCode(exception);
       this.Source = this.GetErrorSource(exception);
       this.Message = this.GetErrorMessage(exception);
@@ -91,7 +93,7 @@ namespace Empiria.WebApi.Models {
       if (!this.IsInternalServerError) {
         return exception.Message;
       } else if (ExecutionServer.IsDevelopmentServer) {
-        return "[DevSrvMsg] " + exception.Message;
+        return exception.Message;
       } else {
         return "We are sorry. Something was wrong processing the request.";
       }
@@ -120,7 +122,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
-    private HttpErrorCode GetHttpStatusCode(Exception e) {
+    static internal HttpErrorCode GetHttpStatusCode(Exception e) {
       if (e is WebApiException) {
         return ((WebApiException) e).ErrorCode;
 

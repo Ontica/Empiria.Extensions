@@ -68,6 +68,12 @@ namespace Empiria.WebApi.Models {
       }
       if (this.Data.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError) {
         json.Add(new JsonItem("exception", this.Exception));
+        if (this.Exception.InnerException != null) {
+          json.Add(new JsonItem("innerException", this.Exception.InnerException));
+        }
+        if (this.Exception.StackTrace != null) {
+          json.Add(new JsonItem("stackTrace", this.Exception.StackTrace));
+        }
       }
       return json;
     }
@@ -93,7 +99,13 @@ namespace Empiria.WebApi.Models {
       Assertion.AssertObject(exception, "exception");
       Assertion.AssertObject(request, "request");
 
-      var exceptionData = new ExceptionData(exception);
+      ExceptionData exceptionData = null;
+      if (ExecutionServer.IsDevelopmentServer &&
+          ExceptionData.GetHttpStatusCode(exception) == HttpErrorCode.InternalServerError) {
+        exceptionData = new ExceptionExtendedData(exception);
+      }  else {
+        exceptionData = new ExceptionData(exception);
+      }
       exceptionData.Source = ExceptionModel.GetErrorSource(request);
 
       return exceptionData;

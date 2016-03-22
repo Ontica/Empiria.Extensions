@@ -34,13 +34,16 @@ namespace Empiria.Expressions {
       assignmentsTextForm = assignmentsTextForm.Replace(" ", "");
       assignmentsTextForm = assignmentsTextForm.Replace(":=", "~");
 
-      string[] assignmentsArray = assignmentsTextForm.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+      string[] assignmentsArray = assignmentsTextForm.Split(new char[] { ';' },
+                                                            StringSplitOptions.RemoveEmptyEntries);
       for (int i = 0; i < assignmentsArray.Length; i++) {
         string[] assignmentParts = assignmentsArray[i].Split('~');
         if (assignmentParts.Length != 2) {
-          throw new ExpressionsException(ExpressionsException.Msg.NotWellFormedAssignment, assignmentsArray[i]);
+          throw new ExpressionsException(ExpressionsException.Msg.NotWellFormedAssignment,
+                                         assignmentsArray[i]);
         }
-        Assignment assignment = Assignment.Parse(assignmentParts[0], Expression.Parse(assignmentParts[1]));
+        Assignment assignment = Assignment.Parse(assignmentParts[0],
+                                                 Expression.Parse(assignmentParts[1]));
         assignments.Add(assignment);
       }
       return assignments;

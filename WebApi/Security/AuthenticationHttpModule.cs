@@ -127,7 +127,7 @@ namespace Empiria.WebApi {
         string sessionToken = GetAuthenticationHeaderValue();
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
           EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(sessionToken);
-          AuthenticationHttpModule.SetPrincipal(principal);
+          SetPrincipal(principal);
         } else {
           // no-op
           // There isn't an authentication header so probably is an AllowAnonymous method call
@@ -147,7 +147,7 @@ namespace Empiria.WebApi {
 
       if (response.StatusCode == (int) HttpErrorCode.Unauthorized) {
         response.Headers.Add("WWW-Authenticate",
-                             String.Format("Basic realm=\"{0}\"", AuthenticationHttpModule.Realm));
+                             String.Format("Basic realm=\"{0}\"", Realm));
       }
     }
 

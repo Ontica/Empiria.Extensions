@@ -9,9 +9,7 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Data;
 
-using Empiria.Contacts;
 using Empiria.Ontology;
 
 namespace Empiria.Geography {

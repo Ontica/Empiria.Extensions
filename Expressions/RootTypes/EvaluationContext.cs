@@ -180,7 +180,7 @@ namespace Empiria.Expressions {
 
     private object CastAndRound(object result, Type enforcedReturnType, int numericalPrecision) {
       Assertion.AssertObject(enforcedReturnType, "enforcedReturnType");
-      Assertion.Assert(numericalPrecision >= 0, "NumericalPrecision can be grater or equal than zero.");
+      Assertion.Assert(numericalPrecision >= 0, "NumericalPrecision must be greater or equal than zero.");
 
       result = Convert.ChangeType(result, enforcedReturnType);
       if (numericalPrecision != -1 && enforcedReturnType == typeof(decimal)) {

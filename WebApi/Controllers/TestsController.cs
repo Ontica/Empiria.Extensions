@@ -21,6 +21,17 @@ namespace Empiria.Core.WebApi {
 
     #region Public APIs
 
+    [HttpGet, AllowAnonymous]
+    [Route("v1/tests/anonymous")]
+    public SingleObjectModel TestAnonymous() {
+      try {
+        var data = "This is the hello world message.";
+
+        return new SingleObjectModel(base.Request, data);
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
     [HttpGet]
     [Route("v1/tests/secure-data")]
     public SingleObjectModel TestSecureData() {
