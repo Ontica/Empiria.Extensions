@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Presentation Services             *
 *  Namespace : Empiria.Presentation.Components                  Assembly : Empiria.Presentation.dll          *
 *  Type      : TabStripMasterChildMenu                          Pattern  : User Interface Component Class    *
-*  Version   : 6.5                                              License  : Please read license.txt file      *
+*  Version   : 6.7                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : User interface component that holds the structure for a tabstrip master child menu.           *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Presentation.Components {

@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Empiria I/O Services                *
 *  Namespace : Empiria.IO                                     Assembly : Empiria.IO.dll                      *
 *  Type      : RootFilesFolder                                Pattern  : Storage Item                        *
-*  Version   : 6.5                                            License  : Please read license.txt file        *
+*  Version   : 6.7                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Describes a root folder or directory that serves as a start point of documents storage.       *
 *                                                                                                            *
-********************************* Copyright (c) 2004-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2004-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 using Empiria.Ontology;

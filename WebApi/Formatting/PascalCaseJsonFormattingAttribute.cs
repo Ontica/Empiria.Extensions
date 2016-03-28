@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi.Formatting                        Assembly : Empiria.WebApi.dll                *
 *  Type      : PascalCaseJsonFormattingAttribute                Pattern  : Attribute class                   *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Version   : 1.1                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Place on a web API controller class to convert all responses to PascalCase.                   *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http.Formatting;
 using System.Web.Http.Controllers;

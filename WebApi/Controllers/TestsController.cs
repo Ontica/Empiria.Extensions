@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.Core.WebApi                              Assembly : Empiria.WebApi.dll                *
 *  Type      : TestsController                                  Pattern  : Web API Controller                *
-*  Version   : 2.0                                              License  : Please read license.txt file      *
+*  Version   : 1.1                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Web api methods used to test clients and proxies calls.                                       *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web.Http;
 

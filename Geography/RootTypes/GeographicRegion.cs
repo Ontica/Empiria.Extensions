@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : GeographicRegion                               Pattern  : Empiria Object Type                 *
-*  Version   : 6.5                                            License  : Please read license.txt file        *
+*  Version   : 6.7                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Represents a geographic area or region: city, country, world zone, postal code region, etc.   *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Data;
 

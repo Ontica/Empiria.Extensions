@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : Highway                                        Pattern  : Partitioned type                    *
-*  Version   : 6.5                                            License  : Please read license.txt file        *
+*  Version   : 6.7                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Partitioned type that represents a federal, state, municipal or rural highway.                *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
 using System.Data;

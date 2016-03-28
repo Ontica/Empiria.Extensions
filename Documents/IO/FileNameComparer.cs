@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Empiria I/O Services                *
 *  Namespace : Empiria.IO                                     Assembly : Empiria.IO.dll                      *
 *  Type      : FileNameComparer                               Pattern  : Storage Item                        *
-*  Version   : 6.5                                            License  : Please read license.txt file        *
+*  Version   : 6.7                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Defines a file name comparision method for sort FileInfo objects array.                       *
 *                                                                                                            *
-********************************* Copyright (c) 2004-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2004-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.IO;

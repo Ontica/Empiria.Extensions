@@ -3,13 +3,13 @@
 *  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : HighwaySection                                 Pattern  : Value object                        *
-*  Version   : 6.5                                            License  : Please read license.txt file        *
+*  Version   : 6.7                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : String value to describe a highway stretch or section typically comprised between two places, *
 *              like  'NY - Philadelphia' or 'Ciudad de México - Cuernavaca'. A HighwaySection could also be  *
 *              used to name a highway. Some highways are described only with their destination or end place. *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Linq;
 

@@ -3,12 +3,12 @@
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
 *  Type      : WebApiController                                 Pattern  : Base Controller                   *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Version   : 1.1                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Defines the methods, properties, and events common to all Web API controller types            *
 *              used by Empiria ASP.NET Web API platform.                                                     *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Specialized;
 using System.Web.Http;

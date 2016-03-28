@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
 *  Type      : NoDataModel                                      Pattern  : Web Api Response Model            *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Version   : 1.1                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Handles a consistent web api response for Http 200 no-data responses.                         *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;

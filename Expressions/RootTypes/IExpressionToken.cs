@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Expressions               *
 *  Namespace : Empiria.Expressions                              Assembly : Empiria.Expressions.dll           *
 *  Type      : IExpressionToken                                 Pattern  : Loose coupling interface          *
-*  Version   : 6.5                                              License  : Please read license.txt file      *
+*  Version   : 6.7                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Represents an operator, operand, function or subrexpression as members of an expression.      *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2008-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.Expressions {

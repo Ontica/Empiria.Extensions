@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Empiria I/O Services                *
 *  Namespace : Empiria.IO                                     Assembly : Empiria.IO.dll                      *
 *  Type      : DocumentsException                             Pattern  : Exception Class                     *
-*  Version   : 6.5                                            License  : Please read license.txt file        *
+*  Version   : 6.7                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a user interface process problem occurs.                    *
 *                                                                                                            *
-********************************* Copyright (c) 2004-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2004-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Reflection;
 

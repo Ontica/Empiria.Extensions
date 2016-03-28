@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
 *  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
 *  Type      : AuthenticationHttpModule                         Pattern  : IHttpModule                       *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Version   : 1.1                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Http module for Empiria web api authentication services.                                      *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net;
 using System.Net.Http.Headers;

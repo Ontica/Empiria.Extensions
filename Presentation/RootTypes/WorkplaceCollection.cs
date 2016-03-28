@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Presentation Services             *
 *  Namespace : Empiria.Presentation                             Assembly : Empiria.Presentation.dll          *
 *  Type      : WorkplaceCollection                              Pattern  : Hash List                         *
-*  Version   : 6.5                                              License  : Please read license.txt file      *
+*  Version   : 6.7                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Internal class that holds a collection of Workplace objects using a hash list.                *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2015. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using Empiria.Collections;
 
 namespace Empiria.Presentation {
