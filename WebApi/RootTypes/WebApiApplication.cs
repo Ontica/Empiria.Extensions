@@ -75,6 +75,7 @@ namespace Empiria.WebApi {
       // Add System.Data.DataView serializer
       settings.Converters.Add(new Empiria.Json.DataViewConverter());
       settings.Converters.Add(new Empiria.Json.DataRowConverter());
+      settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
       config.Formatters.JsonFormatter.SerializerSettings = settings;
 
