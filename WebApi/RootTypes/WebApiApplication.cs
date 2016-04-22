@@ -17,10 +17,10 @@ namespace Empiria.WebApi {
 
       //config.SuppressHostPrincipal();
 
-      // To enable attribute routing.
+      // To enable attribute routing
       config.MapHttpAttributeRoutes();
 
-      // To configure convention-based routing.
+      // To configure convention-based routing
       WebApiConfig.RegisterWebApiRoutes(config);
     }
 
@@ -72,7 +72,7 @@ namespace Empiria.WebApi {
       settings.Formatting = Newtonsoft.Json.Formatting.Indented;
       settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
-      // Add System.Data.DataView serializer
+      settings.Converters.Add(new Empiria.Json.ValueObjectConverter());
       settings.Converters.Add(new Empiria.Json.DataViewConverter());
       settings.Converters.Add(new Empiria.Json.DataRowConverter());
       settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());

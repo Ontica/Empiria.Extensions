@@ -56,7 +56,7 @@ namespace Empiria.Presentation {
     }
 
     public bool IsUserAuthenticated {
-      get { return (ExecutionServer.CurrentIdentity != null); }
+      get { return (Security.EmpiriaIdentity.Current != null); }
     }
 
     public System.Guid LastRequestGuid {

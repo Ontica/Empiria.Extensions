@@ -28,7 +28,11 @@ namespace Empiria.WebApi {
     static private string Realm {
       get {
         if (_realm == null) {
-          _realm = ConfigurationData.GetString("AuthenticationHttpModule.Realm");
+          try {
+            _realm = ConfigurationData.GetString("AuthenticationHttpModule.Realm");
+          } catch {
+            _realm = "Empiria Web API";
+          }
         }
         return _realm;
       }

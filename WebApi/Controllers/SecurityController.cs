@@ -77,6 +77,8 @@ namespace Empiria.Core.WebApi {
     #region Private methods
 
     private EmpiriaPrincipal GetPrincipal(LoginModel login) {
+      login.AssertValid();
+
       EmpiriaPrincipal principal = AuthenticationHttpModule.Authenticate(login.api_key,
                                                                          login.user_name,
                                                                          login.password);

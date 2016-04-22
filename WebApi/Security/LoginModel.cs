@@ -15,7 +15,7 @@ using Empiria.Security;
 namespace Empiria.WebApi.Models {
 
   /// <summary>Holds information to log in a user into the web api system.</summary>
-  public class LoginModel : IDataModel {
+  public class LoginModel {
 
     #region Properties
 

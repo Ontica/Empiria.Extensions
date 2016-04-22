@@ -20,6 +20,7 @@ namespace Empiria.WebApi {
       AuthenticationHeaderMissed,
       BadAuthenticationHeaderFormat,
       BadRequest,
+      BadBody,
       BodyMissed,
       EndpointNotFound,
       InvalidHttpMethod,
@@ -33,6 +34,16 @@ namespace Empiria.WebApi {
     private Msg message = Msg.BadRequest;
 
     #region Constructors and parsers
+
+    /// <summary>Initializes a new instance of WebApiException class with a specified error
+    /// message.</summary>
+    /// <param name="message">Used to indicate the description of the exception.</param>
+    /// <param name="requestIssues">An array with a list of request issues.</param>
+    public WebApiException(Msg message, string[] requestIssues)
+                           : base(message.ToString(), GetMessage(message, null)) {
+      this.message = message;
+      this.RequestIssues = requestIssues;
+    }
 
     /// <summary>Initializes a new instance of WebApiException class with a specified error
     /// message.</summary>
@@ -59,12 +70,17 @@ namespace Empiria.WebApi {
 
     public string Hint {
       get {
-        switch (message) {
+        switch (this.message) {
 
           case Msg.AuthenticationHeaderMissed:
           case Msg.BadAuthenticationHeaderFormat:
             return "Please review the format and value of the 'Authorization' " +
                    "request header.";
+
+          case Msg.BadBody:
+            return "Please check the request body and their values. " +
+                   "Assure that every required field was supplied and " +
+                   "review them against typos.";
 
           case Msg.BadRequest:
             return "Please check the request required parameters and their values. " +
@@ -110,6 +126,7 @@ namespace Empiria.WebApi {
           case Msg.BadAuthenticationHeaderFormat:
             return HttpErrorCode.BadRequest;
 
+          case Msg.BadBody:
           case Msg.BadRequest:
             return HttpErrorCode.BadRequest;
 
@@ -136,6 +153,12 @@ namespace Empiria.WebApi {
         }
       }
     }
+
+    public string[] RequestIssues {
+      get;
+      private set;
+    } = new string[0];
+
 
     static private string GetMessage(Msg message, params object[] args) {
       return GetResourceMessage(message.ToString(), resourceBaseName, Assembly.GetExecutingAssembly(), args);

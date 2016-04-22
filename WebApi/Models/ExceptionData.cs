@@ -28,7 +28,11 @@ namespace Empiria.WebApi.Models {
       this.Source = this.GetErrorSource(exception);
       this.Message = this.GetErrorMessage(exception);
       this.Hint = this.GetHint(exception);
-      this.Issues = new string[0];
+      if (exception is WebApiException) {
+        this.Issues = ((WebApiException) exception).RequestIssues;
+      } else {
+        this.Issues = new string[0];
+      }
     }
 
     #endregion Constructors and parsers

@@ -10,6 +10,7 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web.Http;
 
@@ -39,6 +40,17 @@ namespace Empiria.WebApi {
       return new HttpResponseException(response);
     }
 
+    protected List<string> GetModelStateErrorList() {
+      List<string> exceptionList = new List<string>();
+
+      foreach (var modelState in base.ModelState.Values) {
+        foreach (var error in modelState.Errors) {
+          exceptionList.Add(error.Exception.Message);
+        }
+      }
+
+      return exceptionList;
+    }
     protected NameValueCollection GetQueryStringAsCollection() {
       string queryString = Uri.UnescapeDataString(base.Request.RequestUri.Query);
       char itemsSeparator = '&';
@@ -57,13 +69,12 @@ namespace Empiria.WebApi {
       if (model == null) {
         throw new WebApiException(WebApiException.Msg.BodyMissed);
       }
-    }
+      if (!base.ModelState.IsValid) {
 
-    public void RequireBody(IDataModel model) {
-      if (model == null) {
-        throw new WebApiException(WebApiException.Msg.BodyMissed);
+        List<string> exceptionList = this.GetModelStateErrorList();;
+
+        throw new WebApiException(WebApiException.Msg.BadBody, exceptionList.ToArray());
       }
-      model.AssertValid();
     }
 
     protected void RequireHeader(string headerName) {

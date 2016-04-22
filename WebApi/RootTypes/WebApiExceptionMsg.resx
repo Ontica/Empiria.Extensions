@@ -122,6 +122,9 @@
   <data name="BadAuthenticationHeaderFormat" xml:space="preserve">
     <value>The web server received a request with a bad-formed authentication header.</value>
   </data>
+  <data name="BadBody" xml:space="preserve">
+    <value>Request body has wrong or incomplete field values.</value>
+  </data>
   <data name="BadRequest" xml:space="preserve">
     <value>The request using method '{0}' has some invalid argument values. The requested endpoint was: {1}.</value>
   </data>
