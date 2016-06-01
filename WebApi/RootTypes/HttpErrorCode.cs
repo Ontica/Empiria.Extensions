@@ -51,7 +51,7 @@ namespace Empiria.WebApi {
     MethodNotAllowed = HttpStatusCode.MethodNotAllowed,
 
 
-    /// Equivalent to HTTP status 409. Empiria.WebApi.HttpErrorCode.Conflict indicates
+    /// <summary>Equivalent to HTTP status 409. Empiria.WebApi.HttpErrorCode.Conflict indicates
     /// that the request could not be carried out because of a conflict on the server.
     /// </summary>
     Conflict = HttpStatusCode.Conflict,
@@ -63,14 +63,13 @@ namespace Empiria.WebApi {
     InternalServerError = HttpStatusCode.InternalServerError,
 
     /// <summary>
-    // Equivalent to HTTP status 501. Empiria.WebApi.HttpErrorCode.NotImplemented indicates
-    // that the server does not support the requested function.
+    /// Equivalent to HTTP status 501. Empiria.WebApi.HttpErrorCode.NotImplemented indicates
+    /// that the server does not support the requested function.
     /// </summary>
     NotImplemented = HttpStatusCode.NotImplemented,
 
-    /// <summary>
-    // Equivalent to HTTP status 503. Empiria.WebApi.HttpErrorCode.ServiceUnavailable indicates
-    // that the server is temporarily unavailable, usually due to high load or maintenance.
+    /// <summary>Equivalent to HTTP status 503. Empiria.WebApi.HttpErrorCode.ServiceUnavailable indicates
+    /// that the server is temporarily unavailable, usually due to high load or maintenance.
     /// </summary>
     ServiceUnavailable = HttpStatusCode.ServiceUnavailable,
 
