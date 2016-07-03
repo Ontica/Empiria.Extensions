@@ -32,6 +32,7 @@ namespace Empiria.Core.WebApi {
         throw base.CreateHttpException(e);
       }
     }
+
     [HttpGet]
     [Route("v1/tests/secure-data")]
     public SingleObjectModel TestSecureData() {
@@ -43,6 +44,21 @@ namespace Empiria.Core.WebApi {
         throw base.CreateHttpException(e);
       }
     }
+
+    [HttpGet]
+    [Route("v1/tests/get-resource/{resourceId}")]
+    public SingleObjectModel TestGetValidResource(int resourceId) {
+      try {
+        if (resourceId % 2 != 0) {
+          throw new ResourceNotFoundException("TestResourceNotFound",
+                                              "Resource with id = '{0}' was not found.", resourceId);
+        }
+        return new SingleObjectModel(base.Request, resourceId);
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
 
     [HttpPost]
     [Route("v1/tests/post-without-body")]
