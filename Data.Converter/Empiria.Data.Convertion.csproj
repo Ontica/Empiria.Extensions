@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
-    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>
+    </DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -24,18 +26,31 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>
+    </DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0AEEA12E-B4F7-4E12-A768-99BB82BD3FC9}</ProjectGuid>
+    <ProjectGuid>{72057702-C138-444B-8074-FBF7215A3D3A}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Empiria.Presentation.Web</AssemblyName>
+    <AssemblyName>Empiria.Data.Convertion</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -43,7 +58,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>true</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Empiria.Presentation.Web</RootNamespace>
+    <RootNamespace>Empiria.Data.Convertion</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -72,7 +87,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\empiria.assemblies\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -81,7 +96,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
     <NoWarn>
@@ -89,9 +104,9 @@
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
@@ -100,7 +115,7 @@
     <OutputPath>..\..\..\empiria.assemblies\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
@@ -123,19 +138,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -147,6 +151,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\empiria.assemblies\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -156,61 +163,33 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.OracleClient">
+      <Name>System.Data.OracleClient</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Name>System.EnterpriseServices</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web">
       <Name>System.Web</Name>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content\GridControlContent.cs" />
-    <Compile Include="Content\GridNavigationButtons.cs" />
-    <Compile Include="Content\HtmlSelectContent.cs" />
-    <Compile Include="Content\XhtmlTemplate.cs" />
-    <Compile Include="Controllers\GuestLogonController.cs" />
-    <Compile Include="Content\BreadcrumbBarContent.cs" />
-    <Compile Include="Content\MasterPageContent.cs" />
-    <Compile Include="Content\MessagingContent.cs" />
-    <Compile Include="Content\NavigationButtons.cs" />
-    <Compile Include="Content\NavigationClock.cs" />
-    <Compile Include="Content\WebContent.cs" />
-    <Compile Include="Controllers\FormsLogonController.cs">
+    <Compile Include="Empiria.Data.Convertion.AssemblyInfo.cs" />
+    <Compile Include="Handlers\SqlHandler.cs" />
+    <Compile Include="Handlers\OdbcHandler.cs" />
+    <Compile Include="Handlers\MySqlHandler.cs" />
+    <Compile Include="RootTypes\DataConvertionException.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Empiria.Presentation.Web.AssemblyInfo.cs" />
-    <Compile Include="RootTypes\AjaxWebPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RootTypes\MVCApplication.cs" />
-    <Compile Include="RootTypes\MVCGlobal.cs" />
-    <Compile Include="RootTypes\MultiViewDashboard.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RootTypes\WebPresentationException.cs" />
-    <Compile Include="RootTypes\Global.cs" />
-    <Compile Include="RootTypes\WebPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RootTypes\MasterWebPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RootTypes\WebApplication.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RootTypes\WebContext.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RootTypes\WebViewModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RootTypes\WebViewManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="RootTypes\WebPresentationExceptionMsg.resx">
+    <Compile Include="RootTypes\DataConvertionEngine.cs" />
+    <EmbeddedResource Include="RootTypes\DataConvertionExceptionMsg.resx">
       <SubType>Designer</SubType>
+      <LastGenOutput>DataExceptionMsg.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -234,21 +213,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\core\Data\Empiria.Data.csproj">
       <Project>{20c01648-86cc-4e9e-ad71-ba7aa8e44dbc}</Project>
       <Name>Empiria.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\core\Foundation\Empiria.Foundation.csproj">
-      <Project>{73ea993b-576b-4a5b-acc5-117dad0254ee}</Project>
-      <Name>Empiria.Foundation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\core\Kernel\Empiria.Kernel.csproj">
       <Project>{f518e007-2b16-4804-ba45-695ea098e1c0}</Project>
       <Name>Empiria.Kernel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Presentation\Empiria.Presentation.csproj">
-      <Project>{2790ad3e-0ae4-4c94-83ba-96bc53185b19}</Project>
-      <Name>Empiria.Presentation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
