@@ -90,7 +90,7 @@ namespace Empiria.WebApi {
     }
 
     public void RequireResource(int value, string resourceName) {
-      if (value == 0 || value == -1 || value == -2) {
+      if (value == 0) {
         throw new WebApiException(WebApiException.Msg.ResourceMissed, resourceName);
       }
     }
