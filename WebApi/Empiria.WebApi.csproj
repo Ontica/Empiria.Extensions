@@ -156,6 +156,7 @@
     <Compile Include="Models\ExceptionExtendedData.cs" />
     <Compile Include="Models\NoDataModel.cs" />
     <Compile Include="Models\PagingQueryModel.cs" />
+    <Compile Include="RootTypes\HttpEndpoint.cs" />
     <Compile Include="RootTypes\HttpOkResponseCode.cs" />
     <Compile Include="RootTypes\WebApiApplication.cs" />
     <Compile Include="RootTypes\WebApiController.cs" />
