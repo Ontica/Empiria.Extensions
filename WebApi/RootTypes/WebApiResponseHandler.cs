@@ -31,10 +31,8 @@ namespace Empiria.WebApi {
 
       if (!response.IsSuccessStatusCode) {
         return this.WrapResponseException(request, response);
-      } else if (!request.RequestUri.AbsolutePath.StartsWith(@"/api/v0/")) {
-        return this.WrapResponse(request, response);
       } else {
-        return response;
+        return this.WrapResponse(request, response);
       }
     }
 

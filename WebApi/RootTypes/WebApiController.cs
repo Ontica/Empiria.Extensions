@@ -51,6 +51,7 @@ namespace Empiria.WebApi {
 
       return exceptionList;
     }
+
     protected NameValueCollection GetQueryStringAsCollection() {
       string queryString = Uri.UnescapeDataString(base.Request.RequestUri.Query);
       char itemsSeparator = '&';

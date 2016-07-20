@@ -21,8 +21,7 @@ namespace Empiria.Core.WebApi {
 
     #region Public APIs
 
-    /// <summary>Gets the server Empiria license name.</summary>
-    /// <returns>A list of HttpEndpoint objects.</returns>
+    /// <summary>Gets the Empiria license name.</summary>
     [HttpGet, AllowAnonymous]
     [Route("v1/system/license")]
     public SingleObjectModel GetLicense() {
