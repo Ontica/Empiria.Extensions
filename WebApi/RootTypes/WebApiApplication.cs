@@ -72,6 +72,7 @@ namespace Empiria.WebApi {
       settings.Formatting = Newtonsoft.Json.Formatting.Indented;
       settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
+//      settings.Converters.Add(new Empiria.Json.DateTimeConverter());
       settings.Converters.Add(new Empiria.Json.ValueObjectConverter());
       settings.Converters.Add(new Empiria.Json.DataViewConverter());
       settings.Converters.Add(new Empiria.Json.DataRowConverter());

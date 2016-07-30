@@ -42,24 +42,24 @@ namespace Empiria.WebApi {
 
     #region Public methods
 
-    static public EmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password,
-                                                  string entropy = "", int contextId = -1) {
+    static public IEmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password,
+                                                 string entropy = "", int contextId = -1) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
       Assertion.AssertObject(userName, "userName");
       Assertion.AssertObject(password, "password");
 
-      EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, userName, password,
-                                                                entropy, contextId);
+      IEmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, userName, password,
+                                                                 entropy, contextId);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 
       return principal;
     }
 
-    static public EmpiriaPrincipal AuthenticateGuest(string apiClientKey, int contextId = -1) {
+    static public IEmpiriaPrincipal AuthenticateGuest(string apiClientKey, int contextId = -1) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
 
-      EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, AnonymousUser.Guest, contextId);
+      IEmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, AnonymousUser.Guest, contextId);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 
@@ -117,7 +117,7 @@ namespace Empiria.WebApi {
       response.End();
     }
 
-    static private void SetPrincipal(EmpiriaPrincipal principal) {
+    static private void SetPrincipal(IEmpiriaPrincipal principal) {
       Thread.CurrentPrincipal = principal;
       if (HttpContext.Current != null) {
         HttpContext.Current.User = principal;
@@ -130,7 +130,8 @@ namespace Empiria.WebApi {
       try {
         string sessionToken = GetAuthenticationHeaderValue();
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
-          EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(sessionToken);
+          IEmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(sessionToken);
+
           SetPrincipal(principal);
         } else {
           // no-op

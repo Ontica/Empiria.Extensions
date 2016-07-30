@@ -44,17 +44,17 @@ namespace Empiria.WebApi.Models {
       Assertion.AssertObject(password, "password");
     }
 
-    static public object ToOAuth(EmpiriaPrincipal principal) {
+    static public object ToOAuth(IEmpiriaPrincipal principal) {
+
       return new {
         access_token = principal.Session.Token,
         token_type = principal.Session.TokenType,
         expires_in = principal.Session.ExpiresIn,
         refresh_token = principal.Session.RefreshToken,
         user = new {
-          uid = principal.Identity.UserId,
-          username = principal.Identity.Name,
-          email = principal.Identity.User.EMail,
-          fullname = principal.Identity.User.FullName,
+          uid = ((IEmpiriaIdentity) principal.Identity).User.Id,
+          username = ((IEmpiriaIdentity) principal.Identity).User.UserName,
+          email = ((IEmpiriaIdentity) principal.Identity).User.EMail
         }
       };
     }

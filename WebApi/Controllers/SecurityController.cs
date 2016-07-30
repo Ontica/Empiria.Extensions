@@ -50,7 +50,7 @@ namespace Empiria.Core.WebApi {
         base.RequireHeader("User-Agent");
         base.RequireBody(login);
 
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
+        IEmpiriaPrincipal principal = this.GetPrincipal(login);
 
         return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
@@ -76,10 +76,10 @@ namespace Empiria.Core.WebApi {
 
     #region Private methods
 
-    private EmpiriaPrincipal GetPrincipal(LoginModel login) {
+    private IEmpiriaPrincipal GetPrincipal(LoginModel login) {
       login.AssertValid();
 
-      EmpiriaPrincipal principal = AuthenticationHttpModule.Authenticate(login.api_key,
+      IEmpiriaPrincipal principal = AuthenticationHttpModule.Authenticate(login.api_key,
                                                                          login.user_name,
                                                                          login.password);
       Assertion.AssertObject(principal, "principal");

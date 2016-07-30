@@ -58,7 +58,7 @@ namespace Empiria.WebApi {
       private set;
     }
 
-    public EmpiriaPrincipal Principal {
+    public IEmpiriaPrincipal Principal {
       get;
       private set;
     }
@@ -77,7 +77,7 @@ namespace Empiria.WebApi {
 
     #region Methods
 
-    internal void SetPrincipal(EmpiriaPrincipal principal) {
+    internal void SetPrincipal(IEmpiriaPrincipal principal) {
       Assertion.AssertObject(principal, "principal");
 
       this.Principal = principal;
