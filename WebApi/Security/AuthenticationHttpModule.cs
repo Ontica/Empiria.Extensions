@@ -98,7 +98,7 @@ namespace Empiria.WebApi {
     static private void LogAndThrowExceptionAsResponse(HttpStatusCode httpStatusCode,
                                                        Exception exception, WebApiAuditTrail auditLog) {
       // 1) Publish the exception in the eventlog
-      Messaging.Publisher.Publish(exception);
+      //Messaging.Publisher.Publish(exception);
 
       // 2) Clear the current response and set their status code
       var response = HttpContext.Current.Response;
@@ -141,6 +141,8 @@ namespace Empiria.WebApi {
         LogAndThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx, auditLog);
       } catch (SecurityException innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx, auditLog);
+      } catch (AssertionFailsException innerEx) {
+        LogAndThrowExceptionAsResponse(HttpStatusCode.BadRequest, innerEx, auditLog);
       } catch (Exception innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.InternalServerError, innerEx, auditLog);
       }

@@ -21,8 +21,7 @@ namespace Empiria.Geography {
     static public Settlement SearchSettlement(SettlementKind settlementKind,
                                               Municipality municipality,
                                               string settlementName) {
-      List<Settlement> settlements =
-                       municipality.Settlements.FindAll((x) => x.SettlementKind == settlementKind);
+      var settlements = municipality.Settlements.FindAll((x) => x.SettlementKind == settlementKind);
 
       foreach (Settlement item in settlements) {
         if (EmpiriaString.Similar(item.Name, settlementName)) {
@@ -37,7 +36,7 @@ namespace Empiria.Geography {
       Predicate<Settlement> predicate =
                   ((x) => EmpiriaString.JaroWinklerProximityFactor(x.Name, settlementName) >= precision);
 
-      return municipality.Settlements.FindAll(predicate).ToFixedList();
+      return municipality.Settlements.FindAll(predicate);
     }
 
     #endregion Public methods
