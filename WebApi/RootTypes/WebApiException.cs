@@ -27,6 +27,7 @@ namespace Empiria.WebApi {
       RequestHeaderMissed,
       ResourceMissed,
       ResourceNotFound,
+      UnauthorizedResource,
     }
 
     static private string resourceBaseName = "Empiria.WebApi.RootTypes.WebApiExceptionMsg";
@@ -108,7 +109,10 @@ namespace Empiria.WebApi {
                    "what is described in the API documentation.";
 
           case Msg.ResourceNotFound:
-            return "Please check each of the url parameters to point to a valid resource.";
+            return "Please check that each of the url parameters point to a valid resource.";
+
+          case Msg.UnauthorizedResource:
+            return "Please check that each of the url parameters point to an unrestricted access resource.";
 
           default:
             return "There was an internal or unknown error in the call.";
@@ -121,6 +125,7 @@ namespace Empiria.WebApi {
         switch (message) {
 
           case Msg.AuthenticationHeaderMissed:
+          case Msg.UnauthorizedResource:
             return HttpErrorCode.Unauthorized;
 
           case Msg.BadAuthenticationHeaderFormat:
@@ -128,25 +133,22 @@ namespace Empiria.WebApi {
 
           case Msg.BadBody:
           case Msg.BadRequest:
-            return HttpErrorCode.BadRequest;
 
           case Msg.BodyMissed:
             return HttpErrorCode.BadRequest;
 
           case Msg.EndpointNotFound:
+          case Msg.ResourceNotFound:
             return HttpErrorCode.NotFound;
 
           case Msg.InvalidHttpMethod:
             return HttpErrorCode.MethodNotAllowed;
 
           case Msg.RequestHeaderMissed:
-            return HttpErrorCode.BadRequest;
 
           case Msg.ResourceMissed:
             return HttpErrorCode.BadRequest;
 
-          case Msg.ResourceNotFound:
-            return HttpErrorCode.NotFound;
 
           default:
             throw Assertion.AssertNoReachThisCode();

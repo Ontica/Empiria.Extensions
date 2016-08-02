@@ -96,6 +96,9 @@ namespace Empiria.WebApi {
       }
     }
 
+    public WebApiException UnauthorizedResource(string resourceName, object value) {
+      return new WebApiException(WebApiException.Msg.UnauthorizedResource, resourceName, value);
+    }
     #endregion Public Methods
 
   } // class WebApiController

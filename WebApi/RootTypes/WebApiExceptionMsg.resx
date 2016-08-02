@@ -146,4 +146,7 @@
   <data name="ResourceNotFound" xml:space="preserve">
     <value>There is not a resource with name or identificator '{0}'.</value>
   </data>
+  <data name="UnauthorizedResource" xml:space="preserve">
+    <value>The current user has no access privileges to the resource with name '{0}' and value '{1}'.</value>
+  </data>
 </root>
