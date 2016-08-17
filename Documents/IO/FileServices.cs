@@ -28,8 +28,6 @@ namespace Empiria.Documents.IO {
     static public void AssureDirectory(string targetDirectory) {
       if (!Directory.Exists(targetDirectory)) {
         Directory.CreateDirectory(targetDirectory);
-        FileAuditTrail.WriteOperation("AssureDirectory", "CreateDirectory",
-                                      new JsonObject() { new JsonItem("folder", targetDirectory) });
       }
     }
 
@@ -57,6 +55,16 @@ namespace Empiria.Documents.IO {
       return (Directory.EnumerateFileSystemEntries(folderPath).Any() == false);
     }
 
+    static public FileInfo[] GetFiles(string rootPath) {
+      Assertion.AssertObject(rootPath, "rootPath");
+      Assertion.Assert(Directory.Exists(rootPath),
+                       new IOServicesException(IOServicesException.Msg.DirectoryNotFound, rootPath));
+
+      var directory = new DirectoryInfo(rootPath);
+
+      return directory.GetFiles("*", SearchOption.AllDirectories);
+    }
+
     static public FileInfo[] GetFiles(string rootPath, string fileNameFilter) {
       Assertion.AssertObject(rootPath, "rootPath");
       Assertion.AssertObject(fileNameFilter, "fileNameFilter");
@@ -72,7 +80,7 @@ namespace Empiria.Documents.IO {
 
       FileInfo[] filesArray = new FileInfo[0];
       for (int i = 0; i < searchPatternArray.Length; i++) {
-        FileInfo[] temp = directory.GetFiles(searchPatternArray[i]);
+        FileInfo[] temp = directory.GetFiles(searchPatternArray[i], SearchOption.AllDirectories);
         if (i != 0) {
           filesArray = filesArray.Concat(temp).ToArray();
         } else {
@@ -90,14 +98,12 @@ namespace Empiria.Documents.IO {
     }
 
     /// <summary>Moves a file to another folder. When the folder does not exist it is created.</summary>
-    static public string MoveFileTo(FileInfo file, string destinationFolder) {
+    static public void MoveFileTo(FileInfo file, string destinationFolder) {
       destinationFolder = destinationFolder.TrimEnd('\\') + @"\";
       AssureDirectory(destinationFolder);
 
       string destinationFileFullName = destinationFolder + file.Name;
       file.MoveTo(destinationFileFullName);
-
-      return destinationFileFullName;
     }
 
     /// <summary>Moves a file to another folder and also change it's name.

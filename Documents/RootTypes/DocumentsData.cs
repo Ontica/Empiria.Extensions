@@ -19,7 +19,7 @@ using Empiria.Ontology;
 namespace Empiria.Documents {
 
   /// <summary>Provides database read and write methods for documents management</summary>
-  static public class DocumentsData {
+  static internal class DocumentsData {
 
     #region Public methods
 

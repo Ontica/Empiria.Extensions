@@ -37,9 +37,14 @@ namespace Empiria.Documents {
 
     #region Public properties
 
+    private DirectoryInfo _directoryInfo = null;
     public DirectoryInfo Directory {
-      get;
-      private set;
+      get {
+        if (_directoryInfo == null) {
+          _directoryInfo = new DirectoryInfo(base.ItemPath);
+        }
+        return _directoryInfo;
+      }
     }
 
     public string FileExtensions {
