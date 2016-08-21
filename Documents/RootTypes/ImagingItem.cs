@@ -38,13 +38,7 @@ namespace Empiria.Documents {
     [DataField("FilesCount")]
     public int FilesCount {
       get;
-      private set;
-    }
-
-    [DataField("FilesTotalSize")]
-    public int FilesTotalSize {
-      get;
-      private set;
+      protected set;
     }
 
     [DataField("ImagingItemPath")]
@@ -54,30 +48,6 @@ namespace Empiria.Documents {
     }
 
     #endregion Public properties
-
-    #region Public methods
-
-    abstract protected void GetFilesCounters(out int filesCount, out int totalSize);
-
-    protected override void OnBeforeSave() {
-      this.RecalculateData();
-    }
-
-    #endregion Public methods
-
-    #region Private methods
-
-    private void RecalculateData() {
-      int filesCount = 0;
-      int totalSize = 0;
-
-      this.GetFilesCounters(out filesCount, out totalSize);
-
-      this.FilesCount = filesCount;
-      this.FilesTotalSize = totalSize;
-    }
-
-    #endregion Private methods
 
   } // class ImagingItem
 

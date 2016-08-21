@@ -66,15 +66,6 @@ namespace Empiria.Documents {
 
     #endregion Public properties
 
-    #region Public methods
-
-    protected sealed override void GetFilesCounters(out int filesCount, out int totalSize) {
-      filesCount = 0;
-      totalSize = 0;
-    }
-
-    #endregion Public methods
-
   }  // class ImagingFolder
 
 }  // namespace Empiria.Documents
