@@ -178,6 +178,7 @@
     <Compile Include="IO\FilesFolderList.cs" />
     <Compile Include="IO\RootFilesFolder.cs" />
     <Compile Include="RootTypes\DocumentsException.cs" />
+    <Compile Include="RootTypes\ImageSet.cs" />
     <Compile Include="RootTypes\ImagingFolder.cs" />
     <Compile Include="RootTypes\ImagingItem.cs" />
   </ItemGroup>
