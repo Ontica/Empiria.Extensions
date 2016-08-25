@@ -9,6 +9,7 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using Empiria.Json;
 
 namespace Empiria.Documents {
 
@@ -43,6 +44,12 @@ namespace Empiria.Documents {
 
     [DataField("ImagingItemPath")]
     public string ItemPath {
+      get;
+      protected set;
+    }
+
+    [DataField("ImagingItemExtData")]
+    public JsonObject ImagingItemExtData {
       get;
       protected set;
     }

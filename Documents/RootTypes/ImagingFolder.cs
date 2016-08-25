@@ -48,13 +48,20 @@ namespace Empiria.Documents {
     }
 
     public string FileExtensions {
-      get;
-      private set;
+      get {
+        return base.ImagingItemExtData.Get<string>("FileExtensions", "*.*");
+      }
     }
 
     public string FullPath {
       get {
         return this.Directory.FullName;
+      }
+    }
+
+    public string UrlRelativePath {
+      get {
+        return base.ImagingItemExtData.Get<string>("UrlPath", String.Empty);
       }
     }
 
