@@ -22,6 +22,10 @@ namespace Empiria.Documents {
 
     }
 
+    static public new ImageSet Parse(int id) {
+      return BaseObject.ParseId<ImageSet>(id);
+    }
+
     #endregion Constructors and parsers
 
     #region Public properties
@@ -36,30 +40,53 @@ namespace Empiria.Documents {
     public DirectoryInfo Directory {
       get {
         if (_directoryInfo == null) {
-          _directoryInfo = new DirectoryInfo(base.ItemPath);
+          _directoryInfo = new DirectoryInfo(this.FullPath);
         }
         return _directoryInfo;
       }
     }
 
-    public string FileExtensions {
-      get;
-      private set;
-    }
-
-    public string FullPath {
+    public virtual string FullPath {
       get {
-        return this.Directory.FullName;
+        return this.ItemPath.Replace("~", this.BaseFolder.ItemPath)
+                             .ToUpperInvariant();
       }
     }
 
-    public string Name {
+    public virtual string UrlRelativePath {
       get {
-        return this.Directory.Name;
+        return this.ItemPath.Replace("~", this.BaseFolder.UrlRelativePath)
+                            .Replace('\\', '/') + '/';
+      }
+    }
+
+    private string[] _imagesFileNamesArray = null;
+    public string[] ImagesNamesArray {
+      get {
+        if (_imagesFileNamesArray == null) {
+          _imagesFileNamesArray = this.GetImagesFileNamesArray();
+        }
+        return _imagesFileNamesArray;
       }
     }
 
     #endregion Public properties
+
+    #region Public methods
+
+    protected virtual string[] GetImagesFileNamesArray() {
+      FileInfo[] files = this.Directory.GetFiles(this.BaseFolder.FileExtension);
+
+      base.FilesCount = files.Length;
+
+      string[] array = new string[files.Length];
+      for (int i = 0; i < files.Length; i++) {
+        array[i] = files[i].Name.ToUpperInvariant();
+      }
+      return array;
+    }
+
+    #endregion Public methods
 
   }  // class ImageSet
 

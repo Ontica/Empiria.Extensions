@@ -47,9 +47,9 @@ namespace Empiria.Documents {
       }
     }
 
-    public string FileExtensions {
+    public string FileExtension {
       get {
-        return base.ImagingItemExtData.Get<string>("FileExtensions", "*.*");
+        return base.ImagingItemExtData.Get<string>("FileExtension", "*.*");
       }
     }
 
@@ -61,7 +61,7 @@ namespace Empiria.Documents {
 
     public string UrlRelativePath {
       get {
-        return base.ImagingItemExtData.Get<string>("UrlPath", String.Empty);
+        return base.ImagingItemExtData.Get<string>("UrlRelativePath", String.Empty);
       }
     }
 
