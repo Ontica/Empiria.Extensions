@@ -388,8 +388,8 @@ namespace Empiria.Data.Convertion {
         WriteDataErrorLog("Ocurrió un problema en la conversión de la tabla: " + sourceTableName + ":");
         WriteDataErrorLog(exception.ToString());
         WriteDataErrorLog(String.Empty);
-        WriteDataErrorLog(String.Empty);
         WriteDataErrorLog("Finished at: " + DateTime.Now.ToLongTimeString());
+        Empiria.Messaging.Publisher.Publish(exception);
         return -1;
       }
     }
@@ -442,6 +442,7 @@ namespace Empiria.Data.Convertion {
           WriteDataErrorLog(exception.ToString());
           WriteDataErrorLog(String.Empty);
           WriteDataErrorLog(String.Empty);
+          Empiria.Messaging.Publisher.Publish(exception);
         } // try
       } // for
       return result;
