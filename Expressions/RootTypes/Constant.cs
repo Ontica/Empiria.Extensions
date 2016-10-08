@@ -18,9 +18,9 @@ namespace Empiria.Expressions {
     #region Fields
 
     static internal readonly string[] ReservedKeywords = new string[] {
-                                                                  "true", "verdadero", 
+                                                                  "true", "verdadero",
                                                                   "false", "falso",
-                                                                  "hoy", "today", 
+                                                                  "hoy", "today",
                                                                   "PI"
                                                                   };
 

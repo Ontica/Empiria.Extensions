@@ -47,7 +47,7 @@ namespace Empiria.Presentation.Web {
     #region Protected methods
 
     protected T GetCommandParameter<T>(string parameterName) {
-      string value = String.IsNullOrEmpty(Request.QueryString[parameterName]) ? 
+      string value = String.IsNullOrEmpty(Request.QueryString[parameterName]) ?
                                           String.Empty : Request.QueryString[parameterName];
       if (!String.IsNullOrEmpty(value)) {
         return (T) Convert.ChangeType(value, typeof(T));

@@ -16,7 +16,7 @@ using Empiria.Presentation.Data;
 
 namespace Empiria.Presentation {
 
-  /// <summary>Abstract type that represents a prime (UIControl) or compound (UIContainer) user interface 
+  /// <summary>Abstract type that represents a prime (UIControl) or compound (UIContainer) user interface
   /// container of other controls or containers.</summary>
   public abstract class UIComponentItem {
 

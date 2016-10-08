@@ -25,7 +25,7 @@ namespace Empiria.Expressions {
     #region Fields
 
     private const string arithmeticalOperators = @" + - * / ÷ \ ^ Ω ";
-    private const string logicalOperators = @" ¬ ∧ ∨ ≡ ≢ ⇒ ";   // ∀∃ 
+    private const string logicalOperators = @" ¬ ∧ ∨ ≡ ≢ ⇒ ";   // ∀∃
     private const string relationalOperators = @" > < ≥ ≤ = ≠ ∈ ";    //∩∪⊂ ⊄ ⊆ ⊊ ∈ ∉ ∅
     private const string groupingOperators = @" ( [ { ) ] } , ; ";
 

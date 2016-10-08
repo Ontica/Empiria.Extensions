@@ -86,7 +86,7 @@ namespace Empiria.Presentation.Web.Controllers {
       ValidateClient();
     }
 
-    /// <summary>Throws a secutiry exception if the authentication request arise from 
+    /// <summary>Throws a secutiry exception if the authentication request arise from
     /// an unauthorized client.</summary>
     static private void ValidateClient() {
       string problemMsg = null;

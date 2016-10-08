@@ -12,7 +12,7 @@ using System.Data;
 
 namespace Empiria.Geography {
 
-  /// <summary>Represents a geographic path that serves as a base type for streets, roads, 
+  /// <summary>Represents a geographic path that serves as a base type for streets, roads,
   /// avenues, ...</summary>
   public class GeographicPathItem : GeographicItem {
 

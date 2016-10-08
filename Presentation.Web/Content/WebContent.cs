@@ -12,7 +12,7 @@
 
 namespace Empiria.Presentation.Web.Content {
 
-  /// <summary>Sealed class that represents the XHTML contents of a master view used as a canvas for a 
+  /// <summary>Sealed class that represents the XHTML contents of a master view used as a canvas for a
   /// specific WebPage object.</summary>
   public abstract class WebContent : IContentParser {
 

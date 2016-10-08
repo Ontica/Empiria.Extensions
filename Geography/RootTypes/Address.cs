@@ -120,7 +120,7 @@ namespace Empiria.Geography {
 
     public string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.Street.Name, this.ExternalNo, this.InternalNo, 
+        return EmpiriaString.BuildKeywords(this.Street.Name, this.ExternalNo, this.InternalNo,
                                            this.Settlement.Keywords, this.Locality.Name,
                                            this.PostalCode.Name, this.StreetSegment, this.Municipality.Name);
       }
@@ -171,7 +171,7 @@ namespace Empiria.Geography {
 
     public string ToSearchVector() {
       return String.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|", Municipality.Id, Locality.Id,
-                           Settlement.Id, PostalCode.Id, Street.Id, FromStreet.Id, 
+                           Settlement.Id, PostalCode.Id, Street.Id, FromStreet.Id,
                            ToStreet.Id, BackStreet.Id);
     }
 

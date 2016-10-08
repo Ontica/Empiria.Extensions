@@ -14,7 +14,7 @@ using Empiria.Ontology;
 
 namespace Empiria.Geography {
 
-  /// <summary>PowerType that defines a geographic item type like CountryType, BorroughType 
+  /// <summary>PowerType that defines a geographic item type like CountryType, BorroughType
   /// or StreetType.</summary>
   public sealed class GeographicItemType : PowerType<GeographicItem> {
 

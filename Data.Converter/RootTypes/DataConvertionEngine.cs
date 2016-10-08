@@ -380,6 +380,8 @@ namespace Empiria.Data.Convertion {
 
         WriteLog(String.Empty);
 
+        Empiria.Messaging.Publisher.Publish("Tabla " + targetTable + " convertida: " + counter.ToString("N0") + " registros");
+
         return counter;
       } catch (Exception exception) {
         isRunning = false;
@@ -435,6 +437,7 @@ namespace Empiria.Data.Convertion {
             deleteFilter = "TRUNCATE TABLE " + dataSource;
           }
           result += DoReplaceData(dataSource, dataSource, sourceSQL, emptyFilter, deleteFilter);
+
         } catch (Exception exception) {
           isRunning = false;
           WriteDataErrorLog(String.Empty);

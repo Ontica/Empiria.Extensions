@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace Empiria.Expressions {
 
-  /// <summary>The exception that is thrown when a problem occurs in Empiria 
+  /// <summary>The exception that is thrown when a problem occurs in Empiria
   /// Expressions Runtime Library.</summary>
   [Serializable]
   public sealed class ExpressionsException : EmpiriaException {
@@ -43,7 +43,7 @@ namespace Empiria.Expressions {
 
     #region Constructors and parsers
 
-    /// <summary>Initializes a new instance of ExpressionsException class with a specified error 
+    /// <summary>Initializes a new instance of ExpressionsException class with a specified error
     /// message.</summary>
     /// <param name="message">Used to indicate the description of the exception.</param>
     /// <param name="args">An optional array of items to format into the exception message.</param>
