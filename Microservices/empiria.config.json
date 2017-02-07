@@ -1,0 +1,163 @@
+﻿{
+  "appName": "Empiria Microservices",
+  "version": "1.0",
+  "date": "2017-02-06",
+  "settings": [
+    {
+      "type": "",
+      "key": "ApplicationKey",
+      "value": "m6ByE6Dr9A9aefYqGU4tstsJrzb3jNe5eMn9BcqGvUZJ9tnZe3FeVbNkHdW58W4k"
+    },
+    {
+      "type": "",
+      "key": "License.Name",
+      "value": "Tlaxcala"
+    },
+    {
+      "type": "",
+      "key": "License.IsSpecial",
+      "value": false
+    },
+    {
+      "type": "",
+      "key": "License.Number",
+      "value": "VUH3IWA8-TLA35HAF-C46V2PKJ-MX75GSK9"
+    },
+    {
+      "type": "",
+      "key": "License.SerialNumber",
+      "value": "FI6FF696E3369LM-LY63U3GB3AN6GQ3-R9SX3ORF369KLZ6-ZFMDF3NXE9MEC33"
+    },
+    {
+      "type": "",
+      "key": "Customer.Name",
+      "value": "Gobierno del Estado de Tlaxcala"
+    },
+    {
+      "type": "",
+      "key": "Customer.Url",
+      "value": "http://www.tlaxcala.gob.mx/"
+    },
+    {
+      "type": "",
+      "key": "DateTime.MaxValue",
+      "value": "2078/12/31"
+    },
+    {
+      "type": "",
+      "key": "DateTime.MinValue",
+      "value": "1900/01/01"
+    },
+    {
+      "type": "",
+      "key": "DateTime.NullValue",
+      "value": "1900/01/01"
+    },
+    {
+      "type": "",
+      "key": "Default.Currency.Id",
+      "value": 600
+    },
+    {
+      "type": "",
+      "key": "IsDevelopmentServer",
+      "value": true
+    },
+    {
+      "type": "",
+      "key": "Organization.Id",
+      "value": 1
+    },
+    {
+      "type": "",
+      "key": "Server.Id",
+      "value": 40
+    },
+    {
+      "type": "",
+      "key": "Server.Name",
+      "value": "Empiria Microservices"
+    },
+    {
+      "type": "",
+      "key": "Service.Provider",
+      "value": "Departamento de Informática, DNRP"
+    },
+    {
+      "type": "",
+      "key": "Support.Url",
+      "value": "http://empiria.ontica.org/support/exceptions.aspx"
+    },
+    {
+      "type": "",
+      "key": "System.Description",
+      "value": "Empiria Core Microservices"
+    },
+    {
+      "type": "",
+      "key": "System.Name",
+      "value": "Empiria Microservices 1.0"
+    },
+    {
+      "type": "",
+      "key": "System.Url",
+      "value": "http://www.ontica.org/"
+    },
+    {
+      "type": "Data",
+      "key": "§DataSource.Default",
+      "value": "UyphNVLnsz61AvWOk8NlkBecUSY2vJ2+I0z0iS9l28IOI2zNXPLJkESP86mDxc6c1E21dOzThN4KjsRGHkg3/hu3knuPD7FXqv2mbBf9WnzFD/VWAqeXNYR7uqI5+5Kz"
+      // "value": "rqcstjh9ZYsq8hvMqk+Lw+dBgkuEeNNOD03mD971KM0D0LK0TsdFTiSLa8jK65otusvcnbBPA4bs0uUq4GCbOFpwHzHcWwunNwIkGhO541Y4eQ689Nk28ClbMZ6VRZ3SINf0OcRnlSmITmGYKTGXoH+oHOOJbHWaq+X5jF4/mznX6xmx9JTKcy4Bzu6/bcmigYp9B/RqprK05rg1Tbjl8XURggW7Ls9B/oRKNqlHF1mwZbU0/yhdyUlIJ/U2N+BahVaXKfPQtnhHQrpolga+Tg=="
+    },
+    {
+      "type": "Data",
+      "key": "DataCache.PlaceBackExpirationMinutes",
+      "value": 0
+    },
+    {
+      "type": "Data",
+      "key": "DataIntegration.Execution.Seconds",
+      "value": 180
+    },
+    {
+      "type": "Data",
+      "key": "DataTechnology.Default",
+      "value": 1
+    },
+    {
+      "type": "Ontology",
+      "key": "ObjectCache.Size",
+      "value": 1048576
+    },
+    {
+      "type": "Ontology",
+      "key": "RelationCache.Size",
+      "value": 1048576
+    },
+    {
+      "type": "Security",
+      "key": "§RSACryptoFile",
+      "value": "ktTzeJScNZxaCmSBvPCmqPGPXkHpqhHqHi7calwmtDA="
+    },
+    {
+      "type": "Security",
+      "key": "§RSACryptoFilePwd",
+      "value": "D4MRrAZXH7rByPNAq/kj9g=="
+    },
+    {
+      "type": "Security",
+      "key": "IV",
+      "value": "@~App_Data/IV.txt"
+    },
+    {
+      "type": "Security",
+      "key": "Key",
+      "value": "@~App_Data/Key.txt"
+    },
+    {
+      "type": "Security",
+      "key": "LKey",
+      "value": "@~App_Data/LKey.txt"
+    }
+  ]
+}
