@@ -34,13 +34,6 @@ namespace Empiria.Core.WebApi {
       }
     }
 
-    [HttpGet, HttpPost, HttpPut, HttpDelete, HttpPatch, HttpHead, HttpOptions]
-    [AllowAnonymous]
-    public void Http404ErrorHandler() {
-      throw new WebApiException(WebApiException.Msg.EndpointNotFound,
-                                base.Request.RequestUri.AbsoluteUri);
-    }
-
     #region Login Controllers
 
     [HttpPost, AllowAnonymous]

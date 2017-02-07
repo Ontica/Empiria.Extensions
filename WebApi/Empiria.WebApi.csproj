@@ -149,7 +149,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Formatting\CamelCaseJsonFormattingAttribute.cs" />
@@ -179,7 +178,6 @@
     <Compile Include="Models\PagedCollectionModel.cs" />
     <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\QueryModel.cs" />
-    <Compile Include="Security\LoginModel.cs" />
     <Compile Include="Security\WebApiAuditTrail.cs" />
     <Compile Include="Security\AuthenticationHttpModule.cs" />
     <Compile Include="RootTypes\HttpErrorCode.cs" />

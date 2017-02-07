@@ -48,6 +48,13 @@ namespace Empiria.Core.WebApi {
       }
     }
 
+    [HttpGet, HttpPost, HttpPut, HttpDelete, HttpPatch, HttpHead, HttpOptions]
+    [AllowAnonymous]
+    public void Http404ErrorHandler() {
+      throw new WebApiException(WebApiException.Msg.EndpointNotFound,
+                                base.Request.RequestUri.AbsoluteUri);
+    }
+
     #endregion Public APIs
 
   }  // class SystemController

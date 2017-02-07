@@ -17,7 +17,7 @@ namespace Empiria.WebApi {
 
   /// <summary>Defines the methods, properties, and events common to all application objects used by
   /// the Empiria web api platform.</summary>
-  public class WebApiGlobal : System.Web.HttpApplication {
+  public class WebApiGlobal : HttpApplication {
 
     #region Constructors and parsers
 
