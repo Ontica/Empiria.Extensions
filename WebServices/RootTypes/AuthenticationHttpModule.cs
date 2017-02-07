@@ -113,10 +113,10 @@ namespace Empiria.WebServices {
           // There isn't an authentication header so probably is an AllowAnonymous method call
         }
       } catch (SecurityException innerEx) {
-        Messaging.Publisher.Publish(innerEx);
+        EmpiriaLog.Error(innerEx);
         ThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx);
       } catch (Exception innerEx) {
-        Messaging.Publisher.Publish(innerEx);
+        EmpiriaLog.Error(innerEx);
         ThrowExceptionAsResponse(HttpStatusCode.InternalServerError, innerEx);
       }
     }

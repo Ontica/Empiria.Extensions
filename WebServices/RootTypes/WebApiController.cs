@@ -114,7 +114,7 @@ namespace Empiria.WebServices {
     protected HttpResponseException WebApiException(HttpErrorCode httpErrorCode, Exception exception) {
       var response = base.Request.CreateErrorResponse((System.Net.HttpStatusCode) httpErrorCode,
                                                       exception.Message);
-      Messaging.Publisher.Publish(exception);
+      EmpiriaLog.Error(exception);
 
       return new HttpResponseException(response);
     }
@@ -127,7 +127,7 @@ namespace Empiria.WebServices {
       var response = base.Request.CreateErrorResponse(HttpStatusCode.BadRequest, this.ModelState);
 
       var exception = new HttpResponseException(response);
-      Messaging.Publisher.Publish(exception);
+      EmpiriaLog.Error(exception);
 
       return exception;
     }
