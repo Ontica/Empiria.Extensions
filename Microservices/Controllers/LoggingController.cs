@@ -22,6 +22,9 @@ namespace Empiria.Core.WebApi {
 
     #region Public APIs
 
+    /// <summary>Stores an array of log entries.</summary>
+    /// <param name="apiKey">The client application key.</param>
+    /// <param name="logEntries">The non-empty array of LogEntryModel instances.</param>
     [HttpPost, AllowAnonymous]
     [Route("v1/logging/{apiKey}")]
     public void PostLogEntryArray(string apiKey, [FromBody] LogEntryModel[] logEntries) {
@@ -30,8 +33,6 @@ namespace Empiria.Core.WebApi {
         base.RequireBody(logEntries);
         Assertion.Assert(logEntries.Length > 0,
                          "Request body must contain a non-empty LogEntry array.");
-
-        EmpiriaLog.Info("This is an inner API call message to log...");
 
         var clientApp = ClientApplication.ParseActive(apiKey);
         var logTrail = new LogTrail(clientApp);
