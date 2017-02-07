@@ -1,0 +1,50 @@
+﻿/* Empiria Extensions Framework ******************************************************************************
+*                                                                                                            *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
+*  Namespace : Empiria.Core.WebApi                              Assembly : Empiria.WebApi.dll                *
+*  Type      : LoggingController                                Pattern  : Web API Controller                *
+*  Version   : 1.1                                              License  : Please read license.txt file      *
+*                                                                                                            *
+*  Summary   : Contains web api methods for application log services.                                        *
+*                                                                                                            *
+********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+using System;
+using System.Web.Http;
+
+using Empiria.Logging;
+using Empiria.Security;
+using Empiria.WebApi;
+
+namespace Empiria.Core.WebApi {
+
+  /// <summary>Contains web api methods for application log services.</summary>
+  public class LoggingController : WebApiController {
+
+    #region Public APIs
+
+    [HttpPost, AllowAnonymous]
+    [Route("v1/logging/{apiKey}")]
+    public void PostLogEntryArray(string apiKey, [FromBody] LogEntryModel[] logEntries) {
+      try {
+        base.RequireResource(apiKey, "apiKey");
+        base.RequireBody(logEntries);
+        Assertion.Assert(logEntries.Length > 0,
+                         "Request body must contain a non-empty LogEntry array.");
+
+        EmpiriaLog.Info("This is an inner API call message to log...");
+
+        var clientApp = ClientApplication.ParseActive(apiKey);
+        var logTrail = new LogTrail(clientApp);
+
+        logTrail.Write(logEntries);
+
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
+    #endregion Public APIs
+
+  }  // class LoggingController
+
+}  // namespace Empiria.Core.WebApi
