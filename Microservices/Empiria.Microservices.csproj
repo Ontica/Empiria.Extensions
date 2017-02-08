@@ -100,6 +100,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\NextObjectIdController.cs" />
     <Compile Include="Controllers\LoggingController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Empiria.Microservices.AssemblyInfo.cs" />
