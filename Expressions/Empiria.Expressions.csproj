@@ -90,6 +90,10 @@
     <Compile Include="RootTypes\Operand.cs" />
     <Compile Include="RootTypes\Expression.cs" />
     <Compile Include="RootTypes\Operator.cs" />
+    <Compile Include="Rules\BusinessRule.cs" />
+    <Compile Include="Rules\BusinessRuleItem.cs" />
+    <Compile Include="Rules\RulesData.cs" />
+    <Compile Include="Rules\RulesLibrary.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="RootTypes\ExpressionsExceptionMsg.resx">

@@ -13,6 +13,8 @@ using System.Collections.Generic;
 
 using Empiria.Ontology;
 
+using Empiria.Expressions.Rules;
+
 namespace Empiria.Expressions {
 
   /// <summary>Represents a prime or compound function.</summary>

@@ -11,6 +11,8 @@
 using System;
 using System.Collections.Generic;
 
+using Empiria.Expressions.Rules;
+
 namespace Empiria.Expressions {
 
   /// <summary>Evaluation context for a list of arithmetical and logical expressions.</summary>
