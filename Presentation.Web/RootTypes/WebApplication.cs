@@ -123,7 +123,7 @@ namespace Empiria.Presentation.Web {
     public void OnSessionEnd(object sender, EventArgs e) {
       try {
         if (ExecutionServer.CurrentPrincipal != null) {
-          ExecutionServer.CurrentPrincipal.Dispose();
+          ExecutionServer.CurrentPrincipal.CloseSession();
         }
         if (Request.IsAuthenticated) {
           FormsAuthentication.SignOut();

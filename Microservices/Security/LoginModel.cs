@@ -44,7 +44,7 @@ namespace Empiria.WebApi.Models {
       Assertion.AssertObject(password, "password");
     }
 
-    static public object ToOAuth(IEmpiriaPrincipal principal) {
+    static public object ToOAuth(EmpiriaPrincipal principal) {
 
       return new {
         access_token = principal.Session.Token,
@@ -52,9 +52,9 @@ namespace Empiria.WebApi.Models {
         expires_in = principal.Session.ExpiresIn,
         refresh_token = principal.Session.RefreshToken,
         user = new {
-          uid = ((IEmpiriaIdentity) principal.Identity).User.Id,
-          username = ((IEmpiriaIdentity) principal.Identity).User.UserName,
-          email = ((IEmpiriaIdentity) principal.Identity).User.EMail
+          uid = principal.Identity.User.Id,
+          username = principal.Identity.User.UserName,
+          email = principal.Identity.User.EMail
         }
       };
     }

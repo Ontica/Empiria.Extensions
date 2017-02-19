@@ -70,7 +70,7 @@ namespace Empiria.Presentation.Web.Controllers {
     }
 
     protected override void OnAuthenticate(EmpiriaPrincipal principal) {
-      EmpiriaIdentity identity = (EmpiriaIdentity) principal.Identity;
+      EmpiriaIdentity identity = principal.Identity;
 
       CreateAuthenticationTicket(identity.User.UserName, principal.Session.Token);
       SetLastUserNameCookie(identity.User.UserName);

@@ -22,7 +22,7 @@ namespace Empiria.Core.WebApi {
 
     #region Public APIs
 
-    [HttpPost, AllowAnonymous]
+    [HttpPost]
     [Route("v1/security/change-password/{userEmail}")]
     public void ChangePassword([FromBody] LoginModel login, [FromUri] string userEmail) {
       try {
@@ -43,7 +43,7 @@ namespace Empiria.Core.WebApi {
         base.RequireHeader("User-Agent");
         base.RequireBody(login);
 
-        IEmpiriaPrincipal principal = this.GetPrincipal(login);
+        EmpiriaPrincipal principal = this.GetPrincipal(login);
 
         return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
@@ -69,10 +69,10 @@ namespace Empiria.Core.WebApi {
 
     #region Private methods
 
-    private IEmpiriaPrincipal GetPrincipal(LoginModel login) {
+    private EmpiriaPrincipal GetPrincipal(LoginModel login) {
       login.AssertValid();
 
-      IEmpiriaPrincipal principal = AuthenticationHttpModule.Authenticate(login.api_key,
+      EmpiriaPrincipal principal = AuthenticationHttpModule.Authenticate(login.api_key,
                                                                          login.user_name,
                                                                          login.password);
       Assertion.AssertObject(principal, "principal");

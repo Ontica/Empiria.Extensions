@@ -73,7 +73,7 @@ namespace Empiria.Presentation.Web {
       }
     }
 
-    protected Empiria.Security.IEmpiriaUser User {
+    protected Empiria.Security.EmpiriaUser User {
       get {
         return Empiria.Security.EmpiriaUser.Current;
       }
