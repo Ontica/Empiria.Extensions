@@ -1,13 +1,13 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.Core.WebApi                              Assembly : Empiria.WebApi.dll                *
+*  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
+*  Namespace : Empiria.Microservices                            Assembly : Empiria.Microservices.dll         *
 *  Type      : LoggingController                                Pattern  : Web API Controller                *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Version   : 1.0                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Contains web api methods for application log services.                                        *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************** Copyright(c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web.Http;
 
@@ -15,7 +15,7 @@ using Empiria.Logging;
 using Empiria.Security;
 using Empiria.WebApi;
 
-namespace Empiria.Core.WebApi {
+namespace Empiria.Microservices {
 
   /// <summary>Contains web api methods for application log services.</summary>
   public class LoggingController : WebApiController {
@@ -48,4 +48,4 @@ namespace Empiria.Core.WebApi {
 
   }  // class LoggingController
 
-}  // namespace Empiria.Core.WebApi
+}  // namespace Empiria.Microservices

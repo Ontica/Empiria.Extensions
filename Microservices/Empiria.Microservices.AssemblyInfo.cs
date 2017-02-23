@@ -2,11 +2,12 @@
 *                                                                                                            *
 *  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
 *  Assembly  : Empiria.Microservices.dll                        Pattern  : Assembly Attributes File          *
-*  Version   : 2.1                                              License  : Please read license.txt file      *
-*																																																						 *
-*  Summary   : Empiria Core Microservices Collection.                                                        *
-*																																																						 *
-********************************** Copyright(c) 1999-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+*  Version   : 1.0                                              License  : Please read license.txt file      *
+*                                                                                                            *
+*  Summary   : Empiria microservices collection that provides security, logging, service directory,          *
+*              ontology metadata and object Id generation services.                                          *
+*                                                                                                            *
+********************************** Copyright(c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -15,7 +16,8 @@ using System.Runtime.InteropServices;
 * Assembly configuration attributes.                                                                         *
 *************************************************************************************************************/
 [assembly: AssemblyTitle("Empiria.Microservices")]
-[assembly: AssemblyDescription("Empiria Core Microservices Collection.")]
+[assembly: AssemblyDescription("Empiria microservices collection that provides security, logging, " +
+                               "service directory, ontology metadata and object Id generation services.")]
 [assembly: AssemblyVersion("1.0.0308.0")]
 [assembly: AssemblyFileVersion("1.0.0308")]
 [assembly: AssemblyCompany("Ontica")]

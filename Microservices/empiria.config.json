@@ -105,6 +105,11 @@
     },
     {
       "type": "Data",
+      "key": "IsObjectIdGeneratorServer",
+      "value": true
+    },
+    {
+      "type": "Data",
       "key": "§DataSource.Default",
       "value": "UyphNVLnsz61AvWOk8NlkBecUSY2vJ2+I0z0iS9l28IOI2zNXPLJkESP86mDxc6c1E21dOzThN4KjsRGHkg3/hu3knuPD7FXqv2mbBf9WnzFD/VWAqeXNYR7uqI5+5Kz"
       // "value": "rqcstjh9ZYsq8hvMqk+Lw+dBgkuEeNNOD03mD971KM0D0LK0TsdFTiSLa8jK65otusvcnbBPA4bs0uUq4GCbOFpwHzHcWwunNwIkGhO541Y4eQ689Nk28ClbMZ6VRZ3SINf0OcRnlSmITmGYKTGXoH+oHOOJbHWaq+X5jF4/mznX6xmx9JTKcy4Bzu6/bcmigYp9B/RqprK05rg1Tbjl8XURggW7Ls9B/oRKNqlHF1mwZbU0/yhdyUlIJ/U2N+BahVaXKfPQtnhHQrpolga+Tg=="
