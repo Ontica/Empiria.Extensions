@@ -32,22 +32,6 @@ namespace Empiria.Core.WebApi {
       }
     }
 
-
-    /// <summary>Gets a list of available endpoints for an authenticated user
-    /// in the context of the client application.</summary>
-    /// <returns>A list of HttpEndpoint objects.</returns>
-    [HttpGet]
-    [Route("v1/system/api-endpoints")]
-    public CollectionModel GetEndpoints() {
-      try {
-        var endpoints = HttpEndpoint.GetList();
-
-        return new CollectionModel(base.Request, endpoints);
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
     [HttpGet, HttpPost, HttpPut, HttpDelete, HttpPatch, HttpHead, HttpOptions]
     [AllowAnonymous]
     public void Http404ErrorHandler() {

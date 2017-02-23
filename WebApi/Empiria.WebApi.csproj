@@ -149,13 +149,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Formatting\CamelCaseJsonFormattingAttribute.cs" />
     <Compile Include="Models\ExceptionExtendedData.cs" />
     <Compile Include="Models\NoDataModel.cs" />
     <Compile Include="Models\PagingQueryModel.cs" />
-    <Compile Include="RootTypes\HttpEndpoint.cs" />
     <Compile Include="RootTypes\HttpOkResponseCode.cs" />
     <Compile Include="RootTypes\WebApiApplication.cs" />
     <Compile Include="RootTypes\WebApiController.cs" />

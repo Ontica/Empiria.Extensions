@@ -103,7 +103,9 @@
     <Compile Include="Controllers\NextObjectIdController.cs" />
     <Compile Include="Controllers\LoggingController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\ServiceDirectoryController.cs" />
     <Compile Include="Empiria.Microservices.AssemblyInfo.cs" />
+    <Compile Include="RootTypes\ServiceDirectoryItem.cs" />
     <Compile Include="Security\LoginModel.cs" />
   </ItemGroup>
   <ItemGroup>
