@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
 *  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
 *  Type      : ServiceHandler                                 Pattern  : Information holder                  *
-*  Version   : 1.1                                            License  : Please read license.txt file        *
+*  Version   : 1.2                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Describes a web service and provides a handler to invoke it.                                  *
 *                                                                                                            *
-********************************* Copyright (c) 2004-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
 namespace Empiria.WebApi.Client {

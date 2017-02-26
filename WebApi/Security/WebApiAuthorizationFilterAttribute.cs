@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : ASP .NET Web API filter to handle authorization using Empiria security claims.                *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Handles a web api response for a collection of objects or DataTable instances.                *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Data;

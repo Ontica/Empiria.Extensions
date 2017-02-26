@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Handles a consistent web api response for Http 200 no-data responses.                         *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;

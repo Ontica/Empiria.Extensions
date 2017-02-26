@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Http module for Empiria web api authentication services.                                      *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net;
 using System.Net.Http.Headers;

@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
 *  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
 *  Type      : WebApiClient                                   Pattern  : Service provider                    *
-*  Version   : 1.1                                            License  : Please read license.txt file        *
+*  Version   : 1.2                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Provides methods to inkove web services using Empiria Web API infrastructure.                 *
 *                                                                                                            *
-********************************* Copyright (c) 2004-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

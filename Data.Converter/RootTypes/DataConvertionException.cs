@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Data Convertion Services          *
 *  Namespace : Empiria.Data.Convertion                          Assembly : Empiria.Data.Convertion.dll       *
 *  Type      : DataConvertionException                          Pattern  : Exception Class                   *
-*  Version   : 6.7                                              License  : Please read license.txt file      *
+*  Version   : 6.8                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a data access operation fails.                              *
 *                                                                                                            *
-********************************* Copyright (c) 2007-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2007-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;

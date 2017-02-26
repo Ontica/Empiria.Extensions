@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Web api methods to get and set system configuration settings.                                 *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web.Http;
 

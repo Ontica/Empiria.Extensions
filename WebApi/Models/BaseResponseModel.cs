@@ -8,7 +8,7 @@
 *  Summary   : Abstract class that handles a uniform and consistent web api response. Special responses      *
 *              should be implemented through derived types of this generic type.                             *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Data;

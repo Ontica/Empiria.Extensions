@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Message handler used to control Web API authentication.                                       *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections;
 using System.Data;

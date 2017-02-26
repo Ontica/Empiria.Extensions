@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Place on a web API controller class to convert all responses to PascalCase.                   *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Net.Http.Formatting;
 using System.Web.Http.Controllers;

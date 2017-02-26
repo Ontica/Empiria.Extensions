@@ -3,13 +3,13 @@
 *  Solution  : Empiria Extensions Framework                   System   : Geographic Data Services            *
 *  Namespace : Empiria.Geography                              Assembly : Empiria.Geography.dll               *
 *  Type      : SettlementKind                                 Pattern  : Value object                        *
-*  Version   : 6.7                                            License  : Please read license.txt file        *
+*  Version   : 6.8                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Serves as a kind classificator for settlement item types. A settlement is defined by the      *
 *              GeographicItemType powertype but settlement instances can also be qualified within it using   *
 *              a SettlementKind like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.           *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Linq;
 

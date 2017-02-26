@@ -8,7 +8,7 @@
 *  Summary   : Represents a web link. A link is a typed connection between two resources that are identified *
 *              by Internationalised Resource Identifiers (IRIs) according to the RFC 5988.                   *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Runtime.Serialization;
 

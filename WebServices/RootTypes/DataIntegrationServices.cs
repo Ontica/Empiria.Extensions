@@ -25,11 +25,6 @@ namespace Empiria.WebServices {
     }
 
     [WebMethod(EnableSession = true)]
-    public int CreateObjectId(string sourceName) {
-      return DataWriter.CreateId(sourceName);
-    }
-
-    [WebMethod(EnableSession = true)]
     public int Execute(string singleSignOnTokenMessage, string dataOperationMessage) {
       SingleSignOnToken ssoToken = SingleSignOnToken.ParseFromMessage(singleSignOnTokenMessage);
       DataOperation dataOperation = DataOperation.ParseFromMessage(dataOperationMessage);

@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                     System   : Web Presentation Services         *
 *  Namespace : Empiria.Presentation.Web                         Assembly : Empiria.Presentation.Web.dll      *
 *  Type      : WebApplication                                   Pattern  : Standard Class                    *
-*  Version   : 6.7                                              License  : Please read license.txt file      *
+*  Version   : 6.8                                              License  : Please read license.txt file      *
 *                                                                                                            *
 *  Summary   : Provides the methods from the current web application.                                        *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web;
 using System.Web.Security;
@@ -122,7 +122,7 @@ namespace Empiria.Presentation.Web {
 
     public void OnSessionEnd(object sender, EventArgs e) {
       try {
-        if (ExecutionServer.CurrentPrincipal != null) {
+        if (ExecutionServer.IsAuthenticated) {
           ExecutionServer.CurrentPrincipal.CloseSession();
         }
         if (Request.IsAuthenticated) {

@@ -3,11 +3,11 @@
 *  Solution  : Empiria Extensions Framework                   System   : Empiria I/O Services                *
 *  Namespace : Empiria.IO                                     Assembly : Empiria.IO.dll                      *
 *  Type      : ImagingItem                                    Pattern  : Empiria Object Type                 *
-*  Version   : 6.7                                            License  : Please read license.txt file        *
+*  Version   : 6.8                                            License  : Please read license.txt file        *
 *                                                                                                            *
 *  Summary   : Abstract class that represents an imaging folder or an image file.                            *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using Empiria.Json;
 

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Web api methods used to test clients and proxies calls.                                       *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2016. La Vía Óntica SC, Ontica LLC and contributors.  **/
+********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Web.Http;
 
