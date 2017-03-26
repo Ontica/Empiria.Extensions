@@ -13,12 +13,18 @@ using Empiria.Collections;
 namespace Empiria.Presentation {
 
   /// <summary>Internal class that holds a collection of Workplace objects using a hash list.</summary>
-  internal sealed class WorkplaceCollection : EmpiriaHashList<Workplace> {
+  internal sealed class WorkplaceCollection {
+
+    #region Fields
+
+    private EmpiriaDictionary<System.Guid, Workplace> collection =
+                                            new EmpiriaDictionary<System.Guid, Workplace>(4);
+
+    #endregion Fields
 
     #region Constructors and parsers
 
-    public WorkplaceCollection(int size, bool synchronized)
-      : base(size, synchronized) {
+    public WorkplaceCollection() {
 
     }
 
@@ -27,8 +33,9 @@ namespace Empiria.Presentation {
     #region Public properties
 
     public Workplace this[System.Guid workplaceGuid] {
-      get { return (Workplace) base[workplaceGuid.ToString()]; }
-      set { base[workplaceGuid.ToString()] = value; }
+      get {
+        return collection[workplaceGuid];
+      }
     }
 
     #endregion Public properties
@@ -36,19 +43,19 @@ namespace Empiria.Presentation {
     #region Public methods
 
     public void Add(Workplace workplace) {
-      base.Add(workplace.Guid.ToString(), workplace);
+      collection.Insert(workplace.Guid, workplace);
     }
 
-    public new void Clear() {
-      base.Clear();
+    public void Clear() {
+      collection.Clear();
     }
 
     public bool Contains(System.Guid workplaceGuid) {
-      return base.ContainsKey(workplaceGuid.ToString());
+      return collection.ContainsKey(workplaceGuid);
     }
 
     public void Remove(System.Guid workplaceGuid) {
-      base.Remove(workplaceGuid.ToString());
+      collection.Remove(workplaceGuid);
     }
 
     #endregion Public methods

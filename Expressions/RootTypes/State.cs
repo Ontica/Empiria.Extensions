@@ -9,22 +9,24 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Collections.Generic;
 
 using Empiria.Collections;
 
 namespace Empiria.Expressions {
 
   /// <summary>Defines a list of variables names with associated values.</summary>
-  public class State<T> : EmpiriaHashList<T> where T : Operand {
+  public class State<T> where T : Operand {
 
     #region Fields
+
+    private EmpiriaDictionary<string, T> collection = new EmpiriaDictionary<string, T>();
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    public State()
-      : base(true) {
+    public State() {
 
     }
 
@@ -37,47 +39,51 @@ namespace Empiria.Expressions {
     #region Public methods
 
     public T GetItem(string itemName) {
-      return base[itemName];
+      return collection[itemName];
     }
 
     public object GetValue(string itemName) {
-      return base[itemName].GetObject();
+      return collection[itemName].GetObject();
     }
 
     #endregion Public methods
 
     #region Internal methods
 
-    internal new void Add(string itemName, T item) {
-      base.Add(itemName, item);
+    internal void Add(string itemName, T item) {
+      collection.Insert(itemName, item);
     }
 
-    internal new void Clear() {
-      base.Clear();
+    internal void Clear() {
+      collection.Clear();
     }
 
-    internal new bool ContainsKey(string itemName) {
-      return base.ContainsKey(itemName);
+    internal bool ContainsKey(string itemName) {
+      return collection.ContainsKey(itemName);
+    }
+
+    public IEnumerator<T> GetEnumerator() {
+      return collection.Values.GetEnumerator();
     }
 
     internal string[] GetKeysArray() {
-      string[] array = new string[base.Count];
+      string[] array = new string[collection.Count];
 
-      base.Keys.CopyTo(array, 0);
+      collection.Keys.CopyTo(array, 0);
 
       return array;
     }
 
     internal T[] GetValuesArray() {
-      T[] array = new T[base.Count];
+      T[] array = new T[collection.Count];
 
-      base.Values.CopyTo(array, 0);
+      collection.Values.CopyTo(array, 0);
 
       return array;
     }
 
     internal void SetValue(string itemName, object value) {
-      base[itemName].SetValue(value);
+      collection[itemName].SetValue(value);
     }
 
     #endregion Internal methods

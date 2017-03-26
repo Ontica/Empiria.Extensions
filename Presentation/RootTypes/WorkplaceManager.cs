@@ -20,7 +20,7 @@ namespace Empiria.Presentation {
     static private readonly string defaultViewModel = ConfigurationData.GetString("Session.DefaultViewModel");
 
     private IViewManager viewManager = null;
-    private WorkplaceCollection workplaceCollection = new WorkplaceCollection(8, false);
+    private WorkplaceCollection workplaceCollection = new WorkplaceCollection();
     private System.Guid currentWorkplaceGuid = System.Guid.Empty;
 
     #endregion Fields

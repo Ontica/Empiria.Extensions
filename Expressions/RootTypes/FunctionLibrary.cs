@@ -9,18 +9,24 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Collections.Generic;
 
 using Empiria.Collections;
 
 namespace Empiria.Expressions {
 
   /// <summary>Defines a list of functions used in an evaluation context.</summary>
-  public class FunctionLibrary : EmpiriaHashList<Function> {
+  public class FunctionLibrary {
+
+    #region Fields
+
+    private EmpiriaDictionary<string, Function> collection = new EmpiriaDictionary<string, Function>();
+
+    #endregion Fields
 
     #region Constructors and parsers
 
-    public FunctionLibrary()
-      : base(true) {
+    public FunctionLibrary() {
 
     }
 
@@ -29,25 +35,31 @@ namespace Empiria.Expressions {
     #region Public methods
 
     public bool ContainsFunction(string functionName) {
-      return base.ContainsKey(functionName);
+      return collection.ContainsKey(functionName);
+    }
+
+    public IEnumerator<Function> GetEnumerator() {
+      return collection.Values.GetEnumerator();
     }
 
     public Function GetFunction(string itemName) {
-      return base[itemName];
+      Assertion.AssertObject(itemName, "itemName");
+
+      return collection[itemName];
     }
 
     public Function[] GetFunctionsArray() {
-      Function[] array = new Function[base.Count];
+      Function[] array = new Function[collection.Count];
 
-      base.Values.CopyTo(array, 0);
+      collection.Values.CopyTo(array, 0);
 
       return array;
     }
 
     public string[] GetNamesArray() {
-      string[] array = new string[base.Count];
+      string[] array = new string[collection.Count];
 
-      base.Keys.CopyTo(array, 0);
+      collection.Keys.CopyTo(array, 0);
 
       return array;
     }
@@ -57,20 +69,20 @@ namespace Empiria.Expressions {
     #region Internal methods
 
     internal void AddFunction(Function function) {
-      base.Add(function.Name, function);
+      collection.Insert(function.Name, function);
     }
 
     internal Operand Call(EvaluationContext context, Functor functor, Operand[] arguments) {
-      // If is  a global function call it
+      // If it is a global function call it
       if (GlobalFunctions.Contains(functor.FunctionName)) {
         return Constant.Parse(GlobalFunctions.Execute(functor.FunctionName, Operand.ToObjectsArray(arguments)));
       }
-      // If is a library function continue, else throw an error
+      // If it is a library function continue, else throw an error
       if (!this.ContainsFunction(functor.FunctionName)) {
         throw new ExpressionsException(ExpressionsException.Msg.UnloadedFunction, functor.FunctionName);
       }
 
-      // If is a library function parse, compile and execute the function
+      // If it is a library function parse, compile and execute the function
       Function function = this.GetFunction(functor.FunctionName);
 
       if (!function.IsCompiled) {
@@ -81,8 +93,8 @@ namespace Empiria.Expressions {
       return Constant.Parse(function.Execute(context, objectArguments));
     }
 
-    internal new void Clear() {
-      base.Clear();
+    internal void Clear() {
+      collection.Clear();
     }
 
     #endregion Internal methods
