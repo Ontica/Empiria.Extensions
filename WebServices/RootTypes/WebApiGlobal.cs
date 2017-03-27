@@ -10,12 +10,8 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2003-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
-using System.Net;
-using System.Net.Http;
 using System.Web;
 using System.Web.Caching;
-using System.Web.Http;
-using System.Web.SessionState;
 
 namespace Empiria.WebServices {
 
@@ -78,7 +74,7 @@ namespace Empiria.WebServices {
     }
 
     protected virtual void Application_Start(Object sender, EventArgs e) {
-      ExecutionServer.Start(ExecutionServerType.WebApiServer);
+
     }
 
     protected virtual void Application_AuthenticateRequest(Object sender, EventArgs e) {

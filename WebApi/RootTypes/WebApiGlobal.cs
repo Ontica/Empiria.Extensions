@@ -74,7 +74,7 @@ namespace Empiria.WebApi {
     }
 
     protected virtual void Application_Start(Object sender, EventArgs e) {
-      ExecutionServer.Start(ExecutionServerType.WebApiServer);
+
     }
 
     protected virtual void Application_AuthenticateRequest(Object sender, EventArgs e) {

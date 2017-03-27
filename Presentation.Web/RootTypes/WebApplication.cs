@@ -106,12 +106,7 @@ namespace Empiria.Presentation.Web {
     }
 
     public void OnError(object sender, EventArgs e) {
-      //Session[lastExceptionTag] = Server.GetLastError();
-      //if (ExecutionServer.CurrentPrincipal != null) {
-      //  Response.Redirect(ExceptionsPageUrl, true);
-      //} else {
-      //  Server.Transfer(ExceptionsPageUrl + "?timeout=true", false);
-      //}
+
     }
 
     public void OnPreSendRequestHeaders(object sender, EventArgs e) {
@@ -144,7 +139,6 @@ namespace Empiria.Presentation.Web {
     }
 
     public void OnStart(object sender, EventArgs e) {
-      ExecutionServer.Start(ExecutionServerType.WebApplicationServer);
       Initialize();
     }
 

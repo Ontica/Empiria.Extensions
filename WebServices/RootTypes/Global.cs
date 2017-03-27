@@ -112,11 +112,7 @@ namespace Empiria.WebServices {
     }
 
     protected void Application_Start(Object sender, EventArgs e) {
-      try {
-        Empiria.ExecutionServer.Start(Empiria.ExecutionServerType.WebServicesServer);
-      } catch (Exception innerException) {
-        throw new WebServicesException(WebServicesException.Msg.WebServicesServerInitializationFails, innerException);
-      }
+
     }
 
     protected void Application_AuthenticateRequest(Object sender, EventArgs e) {
