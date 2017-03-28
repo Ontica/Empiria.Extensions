@@ -41,7 +41,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\empiria.assemblies\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -49,12 +49,13 @@
     <Prefer32Bit>false</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>CS1591,CS1587</NoWarn>
-    <DocumentationFile>..\..\..\empiria.assemblies\Empiria.WebServices.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\empiria.assemblies\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -65,19 +66,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Empiria.WebServices.AssemblyInfo.cs" />
-    <Compile Include="RootTypes\AuthenticationHttpModule.cs" />
-    <Compile Include="RootTypes\WebApiController.cs" />
     <Compile Include="RootTypes\WebApiGlobal.cs" />
-    <Compile Include="RootTypes\WebApplicationServices.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RootTypes\DataIntegrationServices.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="RootTypes\EmpiriaWebService.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RootTypes\Global.cs" />
+    <Compile Include="RootTypes\WebApplicationServices.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RootTypes\WebServicesException.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,10 +110,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
