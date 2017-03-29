@@ -1,9 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Web;
-using System.Web.Security;
-
-using Empiria.Security;
 
 namespace Empiria.Services {
 
