@@ -34,7 +34,7 @@ namespace Empiria.WebApi.Client {
 
       httpClient.BaseAddress = new Uri(baseAddress);
 
-      LoadDefaultHeaders(httpClient);
+      this.LoadDefaultHeaders();
     }
 
     #endregion Constructors and parsers
@@ -46,64 +46,57 @@ namespace Empiria.WebApi.Client {
       set;
     }
 
-    public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequest(HttpMethod.Delete, String.Empty,
-                                                            path, pars);
 
-      return await this.ConvertHttpContent<T>(response.Content);
+    public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
+      HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Delete, String.Empty,
+                                                                 path, pars);
+
+      return await this.ConvertHttpContentAsync<T>(response);
     }
 
 
     public async Task DeleteAsync(string path, params object[] pars) {
-      await this.SendRequest(HttpMethod.Delete, String.Empty,
-                             path, pars);
+      await this.SendRequestAsync(HttpMethod.Delete, String.Empty,
+                                  path, pars);
     }
 
 
     public async Task<T> GetAsync<T>(string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequest(HttpMethod.Get, String.Empty,
-                                                            path, pars);
+      var response = await this.SendRequestAsync(HttpMethod.Get, String.Empty,
+                                                 path, pars);
 
-      return await this.ConvertHttpContent<T>(response.Content);
-    }
-
-
-    public async Task<HttpResponseMessage> GetHttpResponseAsync(string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequest(HttpMethod.Get, String.Empty,
-                                                            path, pars);
-
-      return response;
+      return await this.ConvertHttpContentAsync<T>(response);
     }
 
 
     /// <summary>Sends a json POST request as an asynchronous operation
     /// discarding the response.</summary>
     public async Task PostAsync<T>(T body, string path, params object[] pars) {
-      await this.SendRequest(HttpMethod.Post, body, path, pars);
+      await this.SendRequestAsync(HttpMethod.Post, body, path, pars);
     }
 
     /// <summary>Sends a json POST request of type T as an asynchronous operation
     /// returning a response of type R.</summary>
     public async Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequest(HttpMethod.Post, body, path, pars);
+      HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars);
 
-      return await this.ConvertHttpContent<R>(response.Content);
+      return await this.ConvertHttpContentAsync<R>(response);
     }
 
 
     /// <summary>Sends a json PUT request as an asynchronous operation
     /// discarding the response.</summary>
     public async Task PutAsync<T>(T body, string path, params object[] pars) {
-      await this.SendRequest(HttpMethod.Put, body, path, pars);
+      await this.SendRequestAsync(HttpMethod.Put, body, path, pars);
     }
 
 
     /// <summary>Sends a json PUT request of type T as an asynchronous operation
     /// returning a response of type R.</summary>
     public async Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequest(HttpMethod.Put, body, path, pars);
+      HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Put, body, path, pars);
 
-      return await this.ConvertHttpContent<R>(response.Content);
+      return await this.ConvertHttpContentAsync<R>(response);
     }
 
     #endregion Public methods
@@ -115,36 +108,39 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    private async Task<T> ConvertHttpContent<T>(HttpContent httpContent) {
-      if (typeof(T) == typeof(string)) {
-        var content = await httpContent.ReadAsStringAsync();
+    private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response) {
+      if (typeof(T) == typeof(HttpResponseMessage)) {
+        return (T) (object) response;
+
+      } else if (typeof(T) == typeof(string)) {
+        var content = await response.Content.ReadAsStringAsync();
 
         return (T) (object) content;
 
       } else if (typeof(T) == typeof(JsonObject)) {
-        var content = await httpContent.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync();
 
         return (T) (object) JsonObject.Parse(content);
 
       } else {
-        return await httpContent.ReadAsAsync<T>();
+        return await response.Content.ReadAsAsync<T>();
 
       }
     }
 
 
-    private async Task<HttpResponseMessage> InvokeMethod<T>(HttpMethod method, string fullPath, T body) {
+    private Task<HttpResponseMessage> InvokeMethodAsync<T>(HttpMethod method, string fullPath, T body) {
       if (method == HttpMethod.Get) {
-        return await httpClient.GetAsync(fullPath);
+        return httpClient.GetAsync(fullPath);
 
       } else if (method == HttpMethod.Post) {
-        return await httpClient.PostAsJsonAsync(fullPath, body);
+        return httpClient.PostAsJsonAsync(fullPath, body);
 
       } else if (method == HttpMethod.Put) {
-        return await httpClient.PutAsJsonAsync(fullPath, body);
+        return httpClient.PutAsJsonAsync(fullPath, body);
 
       } else if (method == HttpMethod.Delete) {
-        return await httpClient.DeleteAsync(fullPath);
+        return httpClient.DeleteAsync(fullPath);
 
       } else {
         throw Assertion.AssertNoReachThisCode("Http method handler not defined for '{0}'.",
@@ -153,7 +149,7 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    static private void LoadDefaultHeaders(HttpClient httpClient) {
+    private void LoadDefaultHeaders() {
       httpClient.DefaultRequestHeaders.Accept.Clear();
       httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
@@ -166,12 +162,14 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    private async Task<HttpResponseMessage> SendRequest<T>(HttpMethod method, T body,
-                                                           string path, object[] pars) {
+    private async Task<HttpResponseMessage> SendRequestAsync<T>(HttpMethod method, T body,
+                                                                string path, object[] pars) {
+      Assertion.AssertObject(path, "path");
+
       string fullPath = EmpiriaString.Format(path, pars);
 
       this.SetRequestHeaders();
-      HttpResponseMessage response = await this.InvokeMethod(method, fullPath, body);
+      HttpResponseMessage response = await this.InvokeMethodAsync(method, fullPath, body);
       this.CleanRequestHeaders();
 
       response.EnsureSuccessStatusCode();

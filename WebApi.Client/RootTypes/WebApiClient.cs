@@ -54,9 +54,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      var payload = await handler.DeleteAsync<ResponseModel<T>>(service.Path, pars);
-
-      return payload.Data;
+      return await handler.DeleteAsync<T>(service.Path, pars);
     }
 
 
@@ -65,9 +63,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      var payload = await handler.GetAsync<ResponseModel<T>>(service.Path, pars);
-
-      return payload.Data;
+      return await handler.GetAsync<T>(service.Path, pars);
     }
 
 
@@ -85,9 +81,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      var payload = await handler.PostAsync<T, ResponseModel<R>>(body, service.Path, pars);
-
-      return payload.Data;
+      return await handler.PostAsync<T, R>(body, service.Path, pars);
     }
 
 
@@ -105,9 +99,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      var payload = await handler.PostAsync<T, ResponseModel<R>>(body, service.Path, pars);
-
-      return payload.Data;
+      return await handler.PostAsync<T, R>(body, service.Path, pars);
     }
 
     #endregion Public methods
