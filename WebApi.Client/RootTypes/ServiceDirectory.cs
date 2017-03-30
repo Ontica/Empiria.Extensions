@@ -34,15 +34,15 @@ namespace Empiria.WebApi.Client {
       this.LoadServices();
     }
 
-    private static volatile ServiceDirectory _instance = null;
+    private static ServiceDirectory _instance = null;
     private static object syncRoot = new Object();
     static public ServiceDirectory Instance {
       get {
         if (_instance == null) {
-          lock (syncRoot) {
-            if (_instance == null)
+          //lock (syncRoot) {
+          //  if (_instance == null)
               _instance = new ServiceDirectory();
-          }
+          //}
         }
         return _instance;
       }
@@ -83,7 +83,6 @@ namespace Empiria.WebApi.Client {
 
       var task = client.GetAsync<ResponseModel<ServiceHandler[]>>(SERVICE_DIRECTORY_PATH);
       task.Wait();
-
       this.services.Clear();
       foreach (var item in task.Result.Data) {
         this.services.Add(item.UID, item);
