@@ -156,6 +156,9 @@ namespace Empiria.Presentation.Web {
       if ((index + 1) == this.pageSize) {
         return true;
       }
+      if ((index + 1) == dataSource.Count) {
+        return true;
+      }
       return false;
     }
 
