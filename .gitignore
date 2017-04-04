@@ -15,7 +15,6 @@ App_Data/
 
 # User-specific files
 *.suo
-*.sln
 *.user
 *.sln.docstates
 *.rar
@@ -48,14 +47,9 @@ x64/
 *.vssscc
 .builds
 
-# Visual C++ cache files
-ipch/
-*.aps
-*.ncb
-*.opensdf
-*.sdf
-
-# Visual Studio profiler
+# Visual Studio and VS profiler
+.vs/
+.vscode/
 *.psess
 *.vsp
 *.vspx
@@ -89,8 +83,9 @@ publish
 # Publish Web Output
 *.Publish.xml
 
-# NuGet Packages Directory
+# NuGet Packages Directory and files
 packages
+*.nupkg
 
 # Windows Azure Build Output
 csx
