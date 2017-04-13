@@ -156,10 +156,16 @@ namespace Empiria.Presentation.Web {
       if ((index + 1) == this.pageSize) {
         return true;
       }
-      if ((index + 1) == dataSource.Count) {
-        return true;
+      if (this.IsLastPage()) {
+        if ((dataSource.Count % pageSize) == (index + 1)) {
+          return true;
+        }
       }
       return false;
+    }
+
+    public bool IsLastPage() {
+      return ((this.CurrentPageIndex + 1) == pagedDataSource.PageCount);
     }
 
     public decimal GetColumnPercentage(string dataItemName, string dataTotalItemName) {
