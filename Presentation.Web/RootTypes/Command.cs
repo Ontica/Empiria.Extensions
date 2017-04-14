@@ -72,7 +72,7 @@ namespace Empiria.Presentation.Web {
 
     public T GetParameter<T>(string parameterName) {
       string value = String.IsNullOrEmpty(this.Parameters[parameterName]) ?
-                                        String.Empty : this.Parameters[parameterName];
+                                          String.Empty : this.Parameters[parameterName];
       try {
         if (!String.IsNullOrEmpty(value)) {
           return (T) Convert.ChangeType(value, typeof(T));

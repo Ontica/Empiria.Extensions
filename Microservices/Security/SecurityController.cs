@@ -38,7 +38,7 @@ namespace Empiria.Microservices {
 
     [HttpPost, AllowAnonymous]
     [Route("v1/security/login")]
-    public SingleObjectModel Login(LoginModel login) {
+    public SingleObjectModel Login([FromBody] LoginModel login) {
       try {
         base.RequireHeader("User-Agent");
         base.RequireBody(login);

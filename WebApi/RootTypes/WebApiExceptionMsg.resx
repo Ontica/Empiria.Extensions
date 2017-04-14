@@ -134,8 +134,14 @@
   <data name="EndpointNotFound" xml:space="preserve">
     <value>The endpoint '{0}' has not been defined or it is missing some required arguments in the query string or the body.</value>
   </data>
+  <data name="InvalidHeaderValue" xml:space="preserve">
+    <value>Request header '{0}' was supplied but its value is wrong or has an unrecognized format.</value>
+  </data>
   <data name="InvalidHttpMethod" xml:space="preserve">
     <value>The '{0}' http method is not defined for the endpoint '{1}'.</value>
+  </data>
+  <data name="NullHeaderValue" xml:space="preserve">
+    <value>Request header '{0}' was supplied but its value is null.</value>
   </data>
   <data name="RequestHeaderMissed" xml:space="preserve">
     <value>Request header '{0}' is expected but it was missed in the call.</value>

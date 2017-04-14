@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web.Http;
 
 using Empiria.WebApi.Models;
@@ -66,6 +67,24 @@ namespace Empiria.WebApi {
       return pars;
     }
 
+
+    public T GetRequestHeader<T>(string requestHeaderName) {
+      this.RequireHeader(requestHeaderName);
+
+      string rawValue = base.Request.Headers.GetValues(requestHeaderName).FirstOrDefault();
+
+      if (rawValue == null) {
+        throw new WebApiException(WebApiException.Msg.NullHeaderValue, requestHeaderName);
+      }
+
+      try {
+        return EmpiriaString.ConvertTo<T>(rawValue);
+      } catch (Exception e) {
+        throw new WebApiException(WebApiException.Msg.InvalidHeaderValue, e, requestHeaderName);
+      }
+    }
+
+
     public void RequireBody(object model) {
       if (model == null) {
         throw new WebApiException(WebApiException.Msg.BodyMissed);
@@ -79,6 +98,8 @@ namespace Empiria.WebApi {
     }
 
     protected void RequireHeader(string headerName) {
+      Assertion.AssertObject(headerName, "headerName");
+
       if (!base.Request.Headers.Contains(headerName)) {
         throw new WebApiException(WebApiException.Msg.RequestHeaderMissed, headerName);
       }
@@ -99,6 +120,7 @@ namespace Empiria.WebApi {
     public WebApiException UnauthorizedResource(string resourceName, object value) {
       return new WebApiException(WebApiException.Msg.UnauthorizedResource, resourceName, value);
     }
+
     #endregion Public Methods
 
   } // class WebApiController
