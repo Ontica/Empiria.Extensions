@@ -1,0 +1,32 @@
+﻿{
+  "appName": "Empiria Foundation Unit Tests",
+  "version": "6.8",
+  "date": "2017-04-14",
+  "settings": [
+    {
+      "type": "",
+      "key": "ApplicationKey",
+      "value": "{{APPLICATION-KEY}}"
+    },
+    {
+      "type": "",
+      "key": "GlobalConfigurationFile",
+      "value": "{{GLOBAL-CONFIGURATION-FILE}}"
+    },
+    {
+      "type": "WebApi.Client",
+      "key": "Default.WebApiServer",
+      "value": "Microservices"
+    },
+    {
+      "type": "WebApi.Client",
+      "key": "WebApiServer.Microservices",
+      "value": "{{WEBAPISERVER.MICROSERVICES}}"
+    },
+    {
+      "type": "WebApi.Client",
+      "key": "ServiceDirectory.Path",
+      "value": "v1/system/service-directory"
+    }
+  ]
+}
