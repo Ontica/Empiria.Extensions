@@ -51,7 +51,7 @@ namespace Empiria.WebApi.Client {
       HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Delete, String.Empty,
                                                                  path, pars);
 
-      return await this.ConvertHttpContentAsync<T>(response);
+      return await this.ConvertHttpContentAsync<T>(response, path);
     }
 
 
@@ -65,7 +65,7 @@ namespace Empiria.WebApi.Client {
       var response = await this.SendRequestAsync(HttpMethod.Get, String.Empty,
                                                  path, pars);
 
-      return await this.ConvertHttpContentAsync<T>(response);
+      return await this.ConvertHttpContentAsync<T>(response, path);
     }
 
 
@@ -80,7 +80,7 @@ namespace Empiria.WebApi.Client {
     public async Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
       HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars);
 
-      return await this.ConvertHttpContentAsync<R>(response);
+      return await this.ConvertHttpContentAsync<R>(response, path);
     }
 
 
@@ -96,7 +96,7 @@ namespace Empiria.WebApi.Client {
     public async Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
       HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Put, body, path, pars);
 
-      return await this.ConvertHttpContentAsync<R>(response);
+      return await this.ConvertHttpContentAsync<R>(response, path);
     }
 
     #endregion Public methods
@@ -108,8 +108,15 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response) {
-      if (typeof(T) == typeof(HttpResponseMessage)) {
+    private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
+      string scope = UtilityMethods.GetDataScopeFromPath(path);
+
+      if (scope.Length != 0) {
+        var content = await response.Content.ReadAsStringAsync();
+
+        return JsonObject.Parse(content).Get<T>(scope);
+
+      } else if (typeof(T) == typeof(HttpResponseMessage)) {
         return (T) (object) response;
 
       } else if (typeof(T) == typeof(string)) {
@@ -120,7 +127,11 @@ namespace Empiria.WebApi.Client {
       } else if (typeof(T) == typeof(JsonObject)) {
         var content = await response.Content.ReadAsStringAsync();
 
-        return (T) (object) JsonObject.Parse(content);
+        if (scope.Length != 0) {
+          return (T) (object) JsonObject.Parse(content).Slice(scope);
+        } else {
+          return (T) (object) JsonObject.Parse(content);
+        }
 
       } else {
         return await response.Content.ReadAsAsync<T>();
@@ -167,6 +178,7 @@ namespace Empiria.WebApi.Client {
       Assertion.AssertObject(path, "path");
 
       string fullPath = EmpiriaString.Format(path, pars);
+      fullPath = UtilityMethods.RemoveDataScopeFromPath(fullPath);
 
       this.SetRequestHeaders();
       HttpResponseMessage response = await this.InvokeMethodAsync(method, fullPath, body);

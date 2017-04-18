@@ -57,8 +57,8 @@ namespace Empiria.WebApi.Client {
 
       string searchKey = String.Empty;
 
-      if (IsServicePath(serviceUID)) {
-        searchKey = method.Method + " " + serviceUID;
+      if (IsServiceUriPath(serviceUID)) {
+        searchKey = method.Method + " " + UtilityMethods.RemoveDataScopeFromPath(serviceUID);
       } else {
         searchKey = serviceUID;
       }
@@ -74,7 +74,7 @@ namespace Empiria.WebApi.Client {
 
     #region Private methods
 
-    static private bool IsServicePath(string serviceUID) {
+    static private bool IsServiceUriPath(string serviceUID) {
       return serviceUID.Contains("/");
     }
 

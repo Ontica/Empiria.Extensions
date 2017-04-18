@@ -91,6 +91,7 @@
     <Compile Include="RootTypes\HttpApiClient.cs" />
     <Compile Include="RootTypes\ResponseModel.cs" />
     <Compile Include="RootTypes\ServiceDirectory.cs" />
+    <Compile Include="RootTypes\UtilityMethods.cs" />
     <Compile Include="RootTypes\ServiceHandler.cs" />
     <Compile Include="RootTypes\WebApiClient.cs" />
     <Compile Include="RootTypes\WebApiClientException.cs" />
