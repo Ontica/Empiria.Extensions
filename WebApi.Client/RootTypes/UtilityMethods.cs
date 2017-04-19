@@ -9,6 +9,7 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Net.Http;
 
 namespace Empiria.WebApi.Client {
 
@@ -17,13 +18,22 @@ namespace Empiria.WebApi.Client {
 
     #region Methods
 
-    static internal string BuildDataScopeParameter(string path) {
-      string dataScope = String.Empty;
+    static internal string BuildDataScopeParameter(Type apiCallReturnType,
+                                                   ServiceHandler service, string path) {
+      bool skipAutoDataScope = ((apiCallReturnType.Name == typeof(ResponseModel<>).Name) ||
+                                (apiCallReturnType == typeof(HttpResponseMessage)) ||
+                                UtilityMethods.HasUriPathFormat(path));
 
       if (path.Contains("::")) {
-        dataScope = path.Substring(path.LastIndexOf("::"));
+        return path.Substring(path.LastIndexOf("::"));
+
+      } else if (service.PayloadDataField.Length != 0 && !skipAutoDataScope) {
+        return "::" + service.PayloadDataField;
+
+      } else {
+        return String.Empty;
+
       }
-      return dataScope;
     }
 
 
@@ -34,6 +44,11 @@ namespace Empiria.WebApi.Client {
         dataScope = path.Substring(path.LastIndexOf("::") + 2);
       }
       return dataScope;
+    }
+
+
+    static internal bool HasUriPathFormat(string serviceUID) {
+      return serviceUID.Contains("/");
     }
 
 

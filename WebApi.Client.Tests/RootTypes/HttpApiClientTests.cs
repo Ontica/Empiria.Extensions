@@ -4,32 +4,32 @@ using Xunit;
 using Empiria.Security;
 using Empiria.WebApi.Client;
 
-namespace Empiria {
+namespace Empiria.Tests {
 
   public class HttpApiClientTests {
 
     [Fact]
-    public async void ShouldGetLicenseUsingHttpGetAndResponseModel() {
+    public async void Should_Get_License_Using_HttpGet_And_ResponseModel() {
       var apiClient = new HttpApiClient("http://empiria.land/microservices/");
 
       var license = await apiClient.GetAsync<ResponseModel<string>>("v1/system/license");
 
-      Assert.Equal("Tlaxcala", license.Data);
+      Assert.Equal(ExecutionServer.LicenseName, license.Data);
     }
 
 
     [Fact]
-    public async void ShouldGetLicenseUsingHttpGetAndScopeParameter() {
+    public async void Should_Get_License_Using_Scope_Parameter() {
       var apiClient = new HttpApiClient("http://empiria.land/microservices/");
 
       var license = await apiClient.GetAsync<string>("v1/system/license::data");
 
-      Assert.Equal("Tlaxcala", license);
+      Assert.Equal(ExecutionServer.LicenseName, license);
     }
 
 
     [Fact]
-    public async void ShouldGetDataItemsUsingHttpGetAndScopeParameter() {
+    public async void Should_Get_DataItems_Using_Scope_Parameter() {
       var apiClient = new HttpApiClient("http://empiria.land/microservices/");
 
       var dataItems = await apiClient.GetAsync<int>("v1/system/license::dataItems");
@@ -39,7 +39,7 @@ namespace Empiria {
 
 
     [Fact]
-    public async void ShouldGetNextIdUsingHttpGetAndResponseModel() {
+    public async void Should_Get_NextId_Using_ResponseModel() {
       HttpApiClient apiClient = this.GetAuthenticatedMicroservicesHttpClient();
 
       var nextId = await apiClient.GetAsync<ResponseModel<int>>("v1/id-generator/table-rows/LRSPayments");
@@ -49,7 +49,7 @@ namespace Empiria {
 
 
     [Fact]
-    public async void ShouldGetNextIdUsingHttpGetAndScopeParameter() {
+    public async void Should_Get_NextId_Using_ScopeParameter() {
       HttpApiClient apiClient = this.GetAuthenticatedMicroservicesHttpClient();
 
       var nextId = await apiClient.GetAsync<int>("v1/id-generator/table-rows/LRSPayments::data");
@@ -61,7 +61,7 @@ namespace Empiria {
     #region Auxiliary methods
 
     private void Authenticate() {
-      string sessionToken = "5ae818af-9085-4c56-99cd-cd91dadc01ab-45da6fc3ca1097df604908cb67451efdc752ee5074c42949f9e7e73c6abfa5c8";
+      string sessionToken = ConfigurationData.GetString("Testing.SessionToken");
 
       System.Threading.Thread.CurrentPrincipal = EmpiriaIdentity.Authenticate(sessionToken);
     }
@@ -70,13 +70,16 @@ namespace Empiria {
     private HttpApiClient GetAuthenticatedMicroservicesHttpClient() {
       Authenticate();
 
-      return new HttpApiClient("http://empiria.land/microservices/") {
+      var webApiBaseAddress = ConfigurationData.GetString("Testing.WebApi.BaseAddress");
+
+      return new HttpApiClient(webApiBaseAddress) {
         IncludeAuthorizationHeader = true
       };
+
     }
 
     #endregion Auxiliary methods
 
   }  // HttpApiClientTests
 
-}  // namespace Empiria
+}  // namespace Empiria.Tests

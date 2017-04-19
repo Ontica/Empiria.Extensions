@@ -85,6 +85,12 @@ namespace Empiria.WebApi.Client {
     } = new string[0];
 
 
+    public string PayloadDataField {
+      get;
+      set;
+    } = "data";
+
+
     public string PayloadType {
       get;
       set;

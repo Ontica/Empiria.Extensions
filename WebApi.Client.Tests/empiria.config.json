@@ -1,7 +1,6 @@
 ﻿{
   "appName": "Empiria Foundation Unit Tests",
-  "version": "6.8",
-  "date": "2017-04-14",
+  "date": "2017-04-18",
   "settings": [
     {
       "type": "",
@@ -27,6 +26,16 @@
       "type": "WebApi.Client",
       "key": "ServiceDirectory.Path",
       "value": "v1/system/service-directory"
+    },
+    {
+      "type": "Tests",
+      "key": "Testing.SessionToken",
+      "value": "{{TESTING-SESSION-TOKEN}}"
+    },
+    {
+      "type": "Tests",
+      "key": "Testing.WebApi.BaseAddress",
+      "value": "{{TESTING-WEBAPI-BASEADDRESS}}"
     }
   ]
 }

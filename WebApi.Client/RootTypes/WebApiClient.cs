@@ -54,7 +54,9 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      return await handler.DeleteAsync<T>(service.Path + UtilityMethods.BuildDataScopeParameter(path), pars);
+      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
+
+      return await handler.DeleteAsync<T>(service.Path + dataScopeParameter, pars);
     }
 
 
@@ -63,7 +65,9 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      return await handler.GetAsync<T>(service.Path + UtilityMethods.BuildDataScopeParameter(path), pars);
+      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
+
+      return await handler.GetAsync<T>(service.Path + dataScopeParameter, pars);
     }
 
 
@@ -81,9 +85,9 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      return await handler.PostAsync<T, R>(body,
-                                           service.Path + UtilityMethods.BuildDataScopeParameter(path),
-                                           pars);
+      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
+
+      return await handler.PostAsync<T, R>(body, service.Path + dataScopeParameter, pars);
     }
 
 
@@ -101,9 +105,9 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      return await handler.PostAsync<T, R>(body,
-                                           service.Path + UtilityMethods.BuildDataScopeParameter(path),
-                                           pars);
+      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
+
+      return await handler.PostAsync<T, R>(body, service.Path + dataScopeParameter, pars);
     }
 
     #endregion Public methods

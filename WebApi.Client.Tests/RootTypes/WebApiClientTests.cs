@@ -4,42 +4,52 @@ using Xunit;
 using Empiria.Security;
 using Empiria.WebApi.Client;
 
-namespace Empiria {
+namespace Empiria.Tests {
 
   public class WebApiClientTests {
 
     [Fact]
-    public async void Should_Get_License_Using_Named_Endpoint() {
+    public async void Should_Get_DataItems_Using_NamedEndpoint() {
+      var webApiClient = new WebApiClient();
+
+      var dataItems = await webApiClient.GetAsync<int>("System.GetLicense::dataItems");
+
+      Assert.Equal(1, dataItems);
+    }
+
+
+    [Fact]
+    public async void Should_Get_License_Using_NamedEndpoint() {
       var webApiClient = new WebApiClient();
 
       var license = await webApiClient.GetAsync<string>("System.GetLicense");
 
-      Assert.Equal("Tlaxcala", license);
+      Assert.Equal(ExecutionServer.LicenseName, license);
     }
 
 
     [Fact]
-    public async void Should_Get_License_Using_Uri_And_Response_Model() {
+    public async void Should_Get_License_Using_Uri_And_ResponseModel() {
       var webApiClient = new WebApiClient();
 
       var license = await webApiClient.GetAsync<ResponseModel<string>>("v1/system/license");
 
-      Assert.Equal("Tlaxcala", license.Data);
+      Assert.Equal(ExecutionServer.LicenseName, license.Data);
     }
 
 
     [Fact]
-    public async void Should_Get_License_Using_Uri_And_Scope_Parameter() {
+    public async void Should_Get_License_Using_Uri_And_ScopeParameter() {
       var webApiClient = new WebApiClient();
 
       var license = await webApiClient.GetAsync<string>("v1/system/license::data");
 
-      Assert.Equal("Tlaxcala", license);
+      Assert.Equal(ExecutionServer.LicenseName, license);
     }
 
 
     [Fact]
-    public async void Should_Get_NextId_Using_Response_Model_With_Named_Endpoint() {
+    public async void Should_Get_NextId_Using_Response_Model_With_NamedEndpoint() {
       Authenticate();
       var webApiClient = new WebApiClient();
 
@@ -50,7 +60,7 @@ namespace Empiria {
 
 
     [Fact]
-    public async void Should_Get_NextId_Using_Named_Endpoint() {
+    public async void Should_Get_NextId_Using_NamedEndpoint() {
       Authenticate();
       var webApiClient = new WebApiClient();
 
@@ -63,7 +73,7 @@ namespace Empiria {
     #region Auxiliary methods
 
     private void Authenticate() {
-      string sessionToken = "5ae818af-9085-4c56-99cd-cd91dadc01ab-45da6fc3ca1097df604908cb67451efdc752ee5074c42949f9e7e73c6abfa5c8";
+      string sessionToken = ConfigurationData.GetString("Testing.SessionToken");
 
       System.Threading.Thread.CurrentPrincipal = EmpiriaIdentity.Authenticate(sessionToken);
     }
@@ -73,4 +83,4 @@ namespace Empiria {
 
   }  // WebApiClientTests
 
-}  // namespace Empiria
+}  // namespace Empiria.Tests
