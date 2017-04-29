@@ -5,13 +5,12 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <owners>$author$</owners>
     <licenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/Microservices/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/Ontica/Empiria.Extensions/tree/master/Microservices</projectUrl>
     <iconUrl>http://www.ontica.org/logo.ontica.png</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial Nuget version</releaseNotes>
-    <copyright>Copyright (c) 2007-2017. La Vía Óntica SC, Ontica LLC and contributors.</copyright>
+    <copyright>$copyright$</copyright>
   </metadata>
 </package>

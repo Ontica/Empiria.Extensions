@@ -218,7 +218,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.txt" />
+    <None Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

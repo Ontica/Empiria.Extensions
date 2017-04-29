@@ -107,7 +107,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.txt" />
+    <None Include="LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Empiria.Foundation, Version=6.8.328.0, Culture=neutral, processorArchitecture=MSIL">

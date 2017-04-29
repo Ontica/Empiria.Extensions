@@ -143,9 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Empiria.WebApi.AssemblyInfo.cs" />
-    <Content Include="LICENSE.txt" />
+    <None Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
