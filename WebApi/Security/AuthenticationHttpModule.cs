@@ -22,24 +22,6 @@ namespace Empiria.WebApi {
   [Serializable]
   public sealed class AuthenticationHttpModule : IHttpModule {
 
-    #region Fields
-
-    static string _realm = null;
-    static private string Realm {
-      get {
-        if (_realm == null) {
-          try {
-            _realm = ConfigurationData.GetString("AuthenticationHttpModule.Realm");
-          } catch {
-            _realm = "Empiria Web API";
-          }
-        }
-        return _realm;
-      }
-    }
-
-    #endregion Fields
-
     #region Public methods
 
     static public EmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password,
@@ -68,7 +50,6 @@ namespace Empiria.WebApi {
 
     public void Init(HttpApplication httpApplication) {
       httpApplication.AuthenticateRequest += OnApplicationAuthenticateRequest;
-      httpApplication.EndRequest += OnApplicationEndRequest;
     }
 
     public void Dispose() {
@@ -145,16 +126,6 @@ namespace Empiria.WebApi {
         LogAndThrowExceptionAsResponse(HttpStatusCode.BadRequest, innerEx, auditLog);
       } catch (Exception innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.InternalServerError, innerEx, auditLog);
-      }
-    }
-
-    // If the request was unauthorized, add the WWW-Authenticate header to the response.
-    static private void OnApplicationEndRequest(object sender, EventArgs e) {
-      var response = HttpContext.Current.Response;
-
-      if (response.StatusCode == (int) HttpErrorCode.Unauthorized) {
-        response.Headers.Add("WWW-Authenticate",
-                             String.Format("Basic realm=\"{0}\"", Realm));
       }
     }
 
