@@ -34,7 +34,7 @@ namespace Empiria.Documents {
     }
 
     static public FixedList<FileType> GetList() {
-      return GeneralObject.ParseList<FileType>();
+      return GeneralObject.GetList<FileType>();
     }
 
     #endregion Constructors and parsers

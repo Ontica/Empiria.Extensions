@@ -60,7 +60,7 @@ namespace Empiria.Geography {
     }
 
     static public FixedList<Country> GetList() {
-      return GeographicItem.GetList<Country>();
+      return GeographicItem.GetList<Country>().ToFixedList();
     }
 
     #endregion Constructors and parsers

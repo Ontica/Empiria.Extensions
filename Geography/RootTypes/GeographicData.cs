@@ -34,21 +34,6 @@ namespace Empiria.Geography {
       return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => BaseObject.ParseList<T>(x));
     }
 
-    static internal FixedList<T> GetGeographicItems<T>() where T : GeographicItem {
-      return GeographicData.GetGeographicItems<T>(String.Empty);
-    }
-
-    static internal FixedList<T> GetGeographicItems<T>(string filter) where T : GeographicItem {
-      return GeographicData.GetGeographicItems<T>(filter, "GeoItemStatus = 'A'");
-    }
-
-    static internal FixedList<T> GetGeographicItems<T>(string filter, string sort) where T : GeographicItem {
-      var objectTypeInfo = ObjectTypeInfo.Parse<T>();
-      var dataOperation = objectTypeInfo.GetListDataOperation(filter, sort);
-
-      return DataReader.GetList<T>(dataOperation, (x) => BaseObject.ParseList<T>(x)).ToFixedList();
-    }
-
     static internal int WriteGeographicItem(GeographicItem o) {
       var operation = DataOperation.Parse("writeGeoItem", o.Id, o.GetEmpiriaType().Id,
                                           o.Name, o.FullName, o.ExtendedDataString, o.Keywords,

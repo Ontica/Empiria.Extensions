@@ -28,7 +28,7 @@ namespace Empiria.Microservices {
 
     /// <summary>Gets the full list of available Http API endpoints.</summary>
     static public FixedList<ServiceDirectoryItem> GetList() {
-      return GeneralObject.ParseList<ServiceDirectoryItem>();
+      return GeneralObject.GetList<ServiceDirectoryItem>();
     }
 
     #endregion Constructors and parsers

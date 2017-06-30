@@ -38,14 +38,6 @@ namespace Empiria.Geography {
       return BaseObject.ParseId<GeographicItem>(id);
     }
 
-    static protected FixedList<T> GetList<T>() where T : GeographicItem {
-      return GeographicData.GetGeographicItems<T>();
-    }
-
-    static protected FixedList<T> GetList<T>(string filter, string sort) where T : GeographicItem {
-      return GeographicData.GetGeographicItems<T>(filter, sort);
-    }
-
     #endregion Constructors and parsers
 
     #region Public properties
