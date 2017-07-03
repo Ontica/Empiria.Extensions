@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Http;
-
+using Empiria.Security;
 using Empiria.WebApi.Models;
 
 namespace Empiria.WebApi {
@@ -39,6 +39,14 @@ namespace Empiria.WebApi {
       var response = model.CreateResponse();
 
       return new HttpResponseException(response);
+    }
+
+    protected ClientApplication GetClientApplication() {
+      if (ExecutionServer.IsAuthenticated) {
+        return ExecutionServer.CurrentPrincipal.ClientApp;
+      } else {
+        return this.GetClientApplicationFromRequestHeader();
+      }
     }
 
     protected List<string> GetModelStateErrorList() {
@@ -122,6 +130,20 @@ namespace Empiria.WebApi {
     }
 
     #endregion Public Methods
+
+    #region Private methods
+
+    private ClientApplication GetClientApplicationFromRequestHeader() {
+      const string HEADER_NAME = "ApplicationKey";
+
+      this.RequireHeader(HEADER_NAME);
+
+      string clientApplicationKey = this.GetRequestHeader<string>(HEADER_NAME);
+
+      return ClientApplication.ParseActive(clientApplicationKey);
+    }
+
+    #endregion Private methods
 
   } // class WebApiController
 

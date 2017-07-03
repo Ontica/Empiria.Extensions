@@ -23,19 +23,14 @@ namespace Empiria.Microservices {
     #region Public APIs
 
     /// <summary>Stores an array of log entries.</summary>
-    /// <param name="apiKey">The client application key.</param>
     /// <param name="logEntries">The non-empty array of LogEntryModel instances.</param>
     [HttpPost, AllowAnonymous]
-    [Route("v1/logging/{apiKey}")]
+    [Route("v1/logging")]
     public void PostLogEntryArray(string apiKey, [FromBody] LogEntryModel[] logEntries) {
       try {
-        base.RequireResource(apiKey, "apiKey");
-        base.RequireBody(logEntries);
-        Assertion.Assert(logEntries.Length > 0,
-                         "Request body must contain a non-empty LogEntry array.");
+        ClientApplication clientApplication = base.GetClientApplication();
 
-        var clientApp = ClientApplication.ParseActive(apiKey);
-        var logTrail = new LogTrail(clientApp);
+        var logTrail = new LogTrail(clientApplication);
 
         logTrail.Write(logEntries);
 

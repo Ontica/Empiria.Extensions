@@ -11,6 +11,7 @@
 using System;
 using System.Web.Http;
 
+using Empiria.Security;
 using Empiria.WebApi;
 using Empiria.WebApi.Models;
 
@@ -21,14 +22,15 @@ namespace Empiria.Microservices {
 
     #region Public APIs
 
-    /// <summary>Gets a list of available web services for an authenticated user
-    /// in the context of the client application.</summary>
+    /// <summary>Gets a list of available web services in the context of the client application.</summary>
     /// <returns>A list of services as instances of the type ServiceDirectoryItem.</returns>
     [HttpGet, AllowAnonymous]
     [Route("v1/system/service-directory")]
     public CollectionModel GetServiceDirectory() {
       try {
-        var services = ServiceDirectoryItem.GetList();
+        ClientApplication clientApplication = base.GetClientApplication();
+
+        var services = ServiceDirectoryItem.GetList(clientApplication);
 
         return new CollectionModel(base.Request, services);
       } catch (Exception e) {
