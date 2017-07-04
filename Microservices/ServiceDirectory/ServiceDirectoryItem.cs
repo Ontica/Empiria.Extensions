@@ -9,6 +9,8 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Collections.Generic;
+using Empiria.Security;
 
 namespace Empiria.Microservices {
 
@@ -27,8 +29,36 @@ namespace Empiria.Microservices {
     }
 
     /// <summary>Gets the full list of available Http API endpoints.</summary>
-    static public FixedList<ServiceDirectoryItem> GetList() {
-      return GeneralObject.GetList<ServiceDirectoryItem>();
+    static public FixedList<ServiceDirectoryItem> GetList(ClientApplication clientApplication) {
+      var list = BaseObject.GetList<ServiceDirectoryItem>();
+
+      list = ServiceDirectoryItem.GetFilteredListForClientApplication(list, clientApplication);
+
+      return list.ToFixedList();
+    }
+
+    private static List<ServiceDirectoryItem> GetFilteredListForClientApplication(List<ServiceDirectoryItem> list,
+                                                                                  ClientApplication clientApplication) {
+      var defaultWebApiAddress = clientApplication.WebApiAddresses.Find((x) => x.Name.ToLowerInvariant() == "default");
+
+      Assertion.AssertObject(defaultWebApiAddress.Name,
+                             "ClientApplication doesn't have a default web api server address.");
+
+      foreach (var item in list) {
+        var itemWebApiName = item.ApiName.ToLowerInvariant();
+        if (itemWebApiName == "*") {
+          item.BaseAddress = defaultWebApiAddress.Value;
+        } else {
+          var apiAddress = clientApplication.WebApiAddresses.Find((x) => x.Name.ToLowerInvariant() == itemWebApiName);
+
+          if (apiAddress.Name != null) {
+            item.BaseAddress = apiAddress.Value;
+          } else {
+            item.BaseAddress = defaultWebApiAddress.Value;
+          }
+        }
+      }
+      return list;
     }
 
     #endregion Constructors and parsers
@@ -42,21 +72,18 @@ namespace Empiria.Microservices {
       }
     }
 
-
-    /// <summary>The Http realtive endpoint URL that provides the service.</summary>
-    [DataField(ExtensionDataFieldName + ".api")]
-    public string Api {
+    /// <summary>The base address of the http endpoint.</summary>
+    public string BaseAddress {
       get;
       private set;
     }
 
-    /// <summary>The Http realtive endpoint URL that provides the service.</summary>
+    /// <summary>The Http relative endpoint that provides the service.</summary>
     [DataField(ExtensionDataFieldName + ".path")]
     public string Path {
       get;
       private set;
     }
-
 
     /// <summary>Array with the path parameters.</summary>
     //[DataField(ExtensionDataFieldName + ".parameters", Default = "HttpEndpoint.DefaultHeaders")]
@@ -90,6 +117,7 @@ namespace Empiria.Microservices {
       private set;
     }
 
+
     /// <summary>Array with any additional request headers.</summary>
     //[DataField(ExtensionDataFieldName + ".headers", Default = "HttpEndpoint.DefaultHeaders")]
     public string[] Headers {
@@ -97,7 +125,40 @@ namespace Empiria.Microservices {
       private set;
     } = new string[0];
 
+
+    /// <summary>The response's payload type.</summary>
+    [DataField(ExtensionDataFieldName + ".payloadType")]
+    public string PayloadType {
+      get;
+      private set;
+    }
+
+
+    /// <summary>The response's payload data file name.</summary>
+    [DataField(ExtensionDataFieldName + ".payloadDataField", Default = "data")]
+    public string PayloadDataField {
+      get;
+      private set;
+    }
+
+
+    /// <summary>Array with any additional request headers.</summary>
+    [DataField(ExtensionDataFieldName + ".responseDataType")]
+    public string ResponseDataType {
+      get;
+      private set;
+    }
+
+
+    /// <summary>The API unique identificator</summary>
+    [DataField(ExtensionDataFieldName + ".api")]
+    private string ApiName {
+      get;
+      set;
+    }
+
     #endregion Properties
+
 
   } // class ServiceDirectoryItem
 
