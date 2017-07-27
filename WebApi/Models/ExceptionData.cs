@@ -136,10 +136,16 @@ namespace Empiria.WebApi.Models {
       } else if (e is ValidationException) {
         return HttpErrorCode.BadRequest;
 
+      } else if (e is Json.JsonDataException) {
+        return HttpErrorCode.BadRequest;
+
       } else if (e is AssertionFailsException) {
         return HttpErrorCode.BadRequest;
 
       } else if (e is ResourceNotFoundException) {
+        return HttpErrorCode.NotFound;
+
+      } else if (e is Ontology.OntologyException) {
         return HttpErrorCode.NotFound;
 
       } else if (e is ResourceConflictException) {
