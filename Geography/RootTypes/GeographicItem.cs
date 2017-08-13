@@ -10,6 +10,7 @@
 ********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 
+using Empiria.Json;
 using Empiria.Ontology;
 
 namespace Empiria.Geography {
@@ -55,7 +56,7 @@ namespace Empiria.Geography {
     }
 
     [DataField("GeoItemExtData")]
-    internal protected string ExtendedDataString {
+    internal protected JsonObject ExtensionData {
       get;
       set;
     }

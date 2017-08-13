@@ -65,6 +65,12 @@ namespace Empiria.Geography {
 
     #region Public properties
 
+    public string Code {
+      get {
+        return base.ExtensionData.Get("INEGICode", String.Empty);
+      }
+    }
+
     /// <summary>Gets the list of municipal and rural highways managed by this municipality.</summary>
     public FixedList<Highway> Highways {
       get {

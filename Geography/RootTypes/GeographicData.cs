@@ -36,7 +36,7 @@ namespace Empiria.Geography {
 
     static internal int WriteGeographicItem(GeographicItem o) {
       var operation = DataOperation.Parse("writeGeoItem", o.Id, o.GetEmpiriaType().Id,
-                                          o.Name, o.FullName, o.ExtendedDataString, o.Keywords,
+                                          o.Name, o.FullName, o.ExtensionData.ToString(), o.Keywords,
                                           o.Parent.Id, (char) o.Status, o.StartDate, o.EndDate);
       return DataWriter.Execute(operation);
     }
