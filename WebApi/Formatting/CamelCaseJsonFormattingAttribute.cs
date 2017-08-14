@@ -9,18 +9,26 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Net.Http.Headers;
 using System.Net.Http.Formatting;
 using System.Web.Http.Controllers;
 
-using Empiria.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
+using Empiria.Json;
 
 namespace Empiria.WebApi.Formatting {
 
   /// <summary>Place on a web API controller class to convert all responses to camelCase.</summary>
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
   public class CamelCaseJsonFormattingAttribute : Attribute, IControllerConfiguration {
+
+    private bool browserFriendly = false;
+
+    public CamelCaseJsonFormattingAttribute(bool browserFriendly = false) {
+      this.browserFriendly = browserFriendly;
+    }
 
     public void Initialize(HttpControllerSettings controllerSettings,
                            HttpControllerDescriptor controllerDescriptor) {
@@ -30,6 +38,12 @@ namespace Empiria.WebApi.Formatting {
 
       JsonMediaTypeFormatter formatter = new JsonMediaTypeFormatter();
       formatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
+
+      // Support browser output
+      if (browserFriendly) {
+        var jsonContentTypeHeader = new MediaTypeHeaderValue("text/html");
+        formatter.SupportedMediaTypes.Add(jsonContentTypeHeader);
+      }
 
       var jsonSettings = new JsonSerializerSettings();
 
