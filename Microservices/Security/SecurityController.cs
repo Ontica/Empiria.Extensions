@@ -52,13 +52,33 @@ namespace Empiria.Microservices {
       }
     }
 
+    [HttpPost, AllowAnonymous]
+    [Route("v2/security/login")]
+    public SingleObjectModel LoginV2([FromBody] LoginModel login) {
+      try {
+        base.RequireBody(login);
+        base.RequireHeader("User-Agent");
+
+        ClientApplication clientApp = base.GetClientApplication();
+        login.api_key = clientApp.Key;
+
+        EmpiriaPrincipal principal = this.GetPrincipal(login);
+
+        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+                                     "Empiria.Security.OAuthObject");
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
     #endregion Login Controllers
 
     [HttpPost]
     [Route("v1/security/logout")]
     public void Logout() {
       try {
-        throw new NotImplementedException();
+          return;
+        //throw new NotImplementedException();
         //AuthenticationHttpModule.Logout();
       } catch (Exception e) {
         throw base.CreateHttpException(e);
