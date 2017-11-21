@@ -9,11 +9,19 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Collections.Generic;
 
 namespace Empiria.WebApi.Client {
 
   /// <summary>Describes a web service and provides a handler to invoke it.</summary>
   internal class ServiceHandler {
+
+    #region Constructors and parsers
+
+    private static Dictionary<string, HttpApiClient> cache = new Dictionary<string, HttpApiClient>();
+    private static object locker = new object();
+
+    #endregion Constructors and parsers
 
     #region Constructors and parsers
 
@@ -32,22 +40,12 @@ namespace Empiria.WebApi.Client {
     } = String.Empty;
 
 
-    /// <summary>The API which provides the service.</summary>
-    public string Api {
+    /// <summary>The base address of the http endpoint.</summary>
+    public string BaseAddress {
       get;
       set;
     } = String.Empty;
 
-
-    private WebApiServer _apiServer = null;
-    private WebApiServer ApiServer {
-      get {
-        if (_apiServer == null) {
-          _apiServer = WebApiServer.Parse(this.Api);
-        }
-        return _apiServer;
-      }
-    }
 
     public string Path {
       get;
@@ -102,14 +100,24 @@ namespace Empiria.WebApi.Client {
       set;
     } = String.Empty;
 
+
     #endregion Properties
 
     #region Methods
 
     internal HttpApiClient GetHandler() {
-      var handler = this.ApiServer.GetHandler();
+      string serverUID = this.BaseAddress;
 
-      return PrepareHandler(handler);
+      if (!cache.ContainsKey(serverUID)) {
+        lock (locker) {
+          if (!cache.ContainsKey(serverUID)) {
+            var handler = new HttpApiClient(this.BaseAddress);
+
+            cache.Add(serverUID, handler);
+          }
+        }
+      }
+      return this.PrepareHandler(cache[serverUID]);
     }
 
 

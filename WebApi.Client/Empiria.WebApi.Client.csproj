@@ -98,7 +98,6 @@
     <Compile Include="RootTypes\ServiceHandler.cs" />
     <Compile Include="RootTypes\WebApiClient.cs" />
     <Compile Include="RootTypes\WebApiClientException.cs" />
-    <Compile Include="RootTypes\WebApiServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

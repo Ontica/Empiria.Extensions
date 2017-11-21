@@ -39,23 +39,26 @@ namespace Empiria.Microservices {
 
     private static List<ServiceDirectoryItem> GetFilteredListForClientApplication(List<ServiceDirectoryItem> list,
                                                                                   ClientApplication clientApplication) {
-      var defaultWebApiAddress = clientApplication.WebApiAddresses.Find((x) => x.Name.ToLowerInvariant() == "default");
+      var defaultWebApiAddress = clientApplication.WebApiAddresses.Find((x) => x.Name == "Default");
 
       Assertion.AssertObject(defaultWebApiAddress.Name,
                              "ClientApplication doesn't have a default web api server address.");
 
       foreach (var item in list) {
-        var itemWebApiName = item.ApiName.ToLowerInvariant();
+        var itemWebApiName = item.ApiName;
+
         if (itemWebApiName == "*") {
           item.BaseAddress = defaultWebApiAddress.Value;
+
         } else {
-          var apiAddress = clientApplication.WebApiAddresses.Find((x) => x.Name.ToLowerInvariant() == itemWebApiName);
+          var apiAddress = clientApplication.WebApiAddresses.Find((x) => x.Name == itemWebApiName);
 
           if (apiAddress.Name != null) {
             item.BaseAddress = apiAddress.Value;
           } else {
             item.BaseAddress = defaultWebApiAddress.Value;
           }
+
         }
       }
       return list;
@@ -158,7 +161,6 @@ namespace Empiria.Microservices {
     }
 
     #endregion Properties
-
 
   } // class ServiceDirectoryItem
 

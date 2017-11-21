@@ -44,7 +44,7 @@ namespace Empiria.WebApi.Client {
     public bool IncludeAuthorizationHeader {
       get;
       set;
-    }
+    } = true;
 
 
     public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
@@ -170,6 +170,9 @@ namespace Empiria.WebApi.Client {
       if (httpClient.DefaultRequestHeaders.Contains("Authorization")) {
         httpClient.DefaultRequestHeaders.Remove("Authorization");
       }
+      if (httpClient.DefaultRequestHeaders.Contains("ApplicationKey")) {
+        httpClient.DefaultRequestHeaders.Remove("ApplicationKey");
+      }
     }
 
 
@@ -191,12 +194,13 @@ namespace Empiria.WebApi.Client {
 
 
     private void SetAuthorizationHeader() {
-      if (httpClient.DefaultRequestHeaders.Contains("Authorization")) {
-        return;
-      }
+      this.RemoveAuthorizationHeader();
+
       if (ExecutionServer.IsAuthenticated) {
         httpClient.DefaultRequestHeaders.Add("Authorization",
                                              "bearer " + ExecutionServer.CurrentPrincipal.Session.Token);
+      } else {
+        httpClient.DefaultRequestHeaders.Add("ApplicationKey", ExecutionServer.ApplicationKey);
       }
     }
 
@@ -204,6 +208,8 @@ namespace Empiria.WebApi.Client {
     private void SetRequestHeaders() {
       if (this.IncludeAuthorizationHeader) {
         this.SetAuthorizationHeader();
+      } else {
+        this.RemoveAuthorizationHeader();
       }
     }
 

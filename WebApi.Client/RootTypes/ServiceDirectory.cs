@@ -23,6 +23,9 @@ namespace Empiria.WebApi.Client {
     private Dictionary<string, ServiceHandler> services =
                                           new Dictionary<string, ServiceHandler>();
 
+    private static readonly string DEFAULT_SERVER_UID =
+                                          ConfigurationData.GetString("Default.WebApiServer");
+
     private static readonly string SERVICE_DIRECTORY_PATH =
                                           ConfigurationData.GetString("ServiceDirectory.Path");
 
@@ -75,10 +78,12 @@ namespace Empiria.WebApi.Client {
     #region Private methods
 
     private void LoadServices() {
-      var client = WebApiServer.Default.GetHandler();
+      var httpClient = new HttpApiClient(DEFAULT_SERVER_UID);
 
-      var task = client.GetAsync<ResponseModel<ServiceHandler[]>>(SERVICE_DIRECTORY_PATH);
+      var task = httpClient.GetAsync<ResponseModel<ServiceHandler[]>>(SERVICE_DIRECTORY_PATH);
+
       task.Wait();
+
       this.services.Clear();
       foreach (var item in task.Result.Data) {
         this.services.Add(item.UID, item);
