@@ -116,7 +116,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="HttpNoSuccessStatusCode" xml:space="preserve">
+    <value>An HTTP error was ocurred (status code {0}) calling uri '{1}'.\n\n{2}</value>
+  </data>
   <data name="UndefinedServiceUIDOrEndpoint" xml:space="preserve">
     <value>There is no endpoint or service with the provided UID ('{0}') defined inside the directory services. </value>
+  </data>
+  <data name="UriParsingIssue" xml:space="preserve">
+    <value>There was an error trying to parse http client base address using Uri '{0}'.</value>
   </data>
 </root>

@@ -30,11 +30,18 @@ namespace Empiria.WebApi.Client {
     /// <summary>Initializes a Web API connector to a fixed server.</summary>
     /// <param name="baseAddress">The server's base address.</param>
     public HttpApiClient(string baseAddress) {
-      Assertion.AssertObject(baseAddress, "baseAddress");
+      try {
+        Assertion.AssertObject(baseAddress, "baseAddress");
 
-      httpClient.BaseAddress = new Uri(baseAddress);
+        baseAddress = baseAddress.EndsWith("/") ? baseAddress : baseAddress + "/";
 
-      this.LoadDefaultHeaders();
+        httpClient.BaseAddress = new Uri(baseAddress);
+
+        this.LoadDefaultHeaders();
+
+      } catch (Exception e) {
+        throw new WebApiClientException(WebApiClientException.Msg.UriParsingIssue, e, baseAddress);
+      }
     }
 
     #endregion Constructors and parsers
@@ -111,6 +118,17 @@ namespace Empiria.WebApi.Client {
     private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
       string scope = UtilityMethods.GetDataScopeFromPath(path);
 
+      if (typeof(T) != typeof(HttpResponseMessage)) {
+        if (!response.IsSuccessStatusCode) {
+          var content = await response.Content.ReadAsStringAsync();
+
+          throw new WebApiClientException(WebApiClientException.Msg.HttpNoSuccessStatusCode,
+                                          response.StatusCode,
+                                          $"{this.httpClient.BaseAddress}/{path}",
+                                          content);
+        }
+      }
+
       if (scope.Length != 0) {
         var content = await response.Content.ReadAsStringAsync();
 
@@ -186,8 +204,6 @@ namespace Empiria.WebApi.Client {
       this.SetRequestHeaders();
       HttpResponseMessage response = await this.InvokeMethodAsync(method, fullPath, body);
       this.CleanRequestHeaders();
-
-      response.EnsureSuccessStatusCode();
 
       return response;
     }

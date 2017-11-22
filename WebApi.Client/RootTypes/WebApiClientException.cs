@@ -17,7 +17,9 @@ namespace Empiria.WebApi {
   public sealed class WebApiClientException : EmpiriaException {
 
     public enum Msg {
-      UndefinedServiceUIDOrEndpoint
+      HttpNoSuccessStatusCode,
+      UndefinedServiceUIDOrEndpoint,
+      UriParsingIssue,
     }
 
     static private string resourceBaseName = "Empiria.WebApi.Client.RootTypes.WebApiClientExceptionMsg";
