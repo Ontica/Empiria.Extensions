@@ -27,6 +27,9 @@ namespace Empiria.WebApi.Client {
       if (path.Contains("::")) {
         return path.Substring(path.LastIndexOf("::"));
 
+      } else if (service.PayloadDataField.Length == 0 || service.PayloadDataField == "/") {
+        return String.Empty;
+
       } else if (service.PayloadDataField.Length != 0 && !skipAutoDataScope) {
         return "::" + service.PayloadDataField;
 
