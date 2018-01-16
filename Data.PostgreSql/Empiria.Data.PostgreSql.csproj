@@ -50,7 +50,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>Empiria.Data.MySql</AssemblyName>
+    <AssemblyName>Empiria.Data.PostgreSql</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -58,7 +58,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>true</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>Empiria.Data.MySql</RootNamespace>
+    <RootNamespace>Empiria.Data.PostgreSql</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
