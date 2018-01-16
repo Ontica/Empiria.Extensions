@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empiria.Documents", "Documents\Empiria.Documents.csproj", "{2BD53D27-BD61-49FE-AFE1-D68E21F58E9A}"
 EndProject
@@ -38,6 +38,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empiria.Data.Modeler", "Data.Modeler\Empiria.Data.Modeler.csproj", "{580C1FE5-3838-49BA-A837-61FEE2A9178D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empiria.WebApi.Client.Tests", "WebApi.Client.Tests\Empiria.WebApi.Client.Tests.csproj", "{AEFF8659-C64D-4AA9-ABAA-DB9D6E3767C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empiria.Data.MySql", "Data.MySql\Empiria.Data.MySql.csproj", "{253CEC30-5D27-4F5C-83DA-7833333239CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -197,8 +199,23 @@ Global
 		{AEFF8659-C64D-4AA9-ABAA-DB9D6E3767C5}.Release|x64.Build.0 = Release|Any CPU
 		{AEFF8659-C64D-4AA9-ABAA-DB9D6E3767C5}.Release|x86.ActiveCfg = Release|Any CPU
 		{AEFF8659-C64D-4AA9-ABAA-DB9D6E3767C5}.Release|x86.Build.0 = Release|Any CPU
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Debug|x64.ActiveCfg = Debug|x64
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Debug|x64.Build.0 = Debug|x64
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Debug|x86.ActiveCfg = Debug|x86
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Debug|x86.Build.0 = Debug|x86
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Release|x64.ActiveCfg = Release|x64
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Release|x64.Build.0 = Release|x64
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Release|x86.ActiveCfg = Release|x86
+		{253CEC30-5D27-4F5C-83DA-7833333239CD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56C49DF6-5CC7-4DFE-AEE8-B5AAAF9ED340}
 	EndGlobalSection
 EndGlobal
