@@ -34,11 +34,13 @@ namespace Empiria.Geography {
       return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => BaseObject.ParseList<T>(x));
     }
 
-    static internal int WriteGeographicItem(GeographicItem o) {
+
+    static internal void WriteGeographicItem(GeographicItem o) {
       var operation = DataOperation.Parse("writeGeoItem", o.Id, o.GetEmpiriaType().Id,
                                           o.Name, o.FullName, o.ExtensionData.ToString(), o.Keywords,
                                           o.Parent.Id, (char) o.Status, o.StartDate, o.EndDate);
-      return DataWriter.Execute(operation);
+      
+      DataWriter.Execute(operation);
     }
 
     #endregion Internal methods
