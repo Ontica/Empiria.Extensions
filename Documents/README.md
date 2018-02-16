@@ -1,7 +1,11 @@
-﻿Empiria Documents Library
-=========================
+﻿# Empiria Documents Library
 
-Empiria Documents Library provides the following services:
+Base domain types for document and files management.
 
+# License
 
-Empiria Documents Library is part of the Empiria Extended Framework boundle.
+This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
+
+# Copyright
+
+Copyright © 2004-2018. La Vía Óntica SC, Ontica LLC and colaborators.

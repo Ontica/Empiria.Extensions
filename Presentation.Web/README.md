@@ -1,7 +1,11 @@
-﻿Empiria Web Presentation Services
-=================================
+﻿# Empiria Web Presentation
 
-Empiria Web Presentation Services provides has the following responsibilities:
+Empiria types for handling the user interface process in web applications.
 
+# License
 
-Empiria Web Presentation Services is part of the Empiria Extended Framework boundle.
+This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
+
+# Copyright
+
+Copyright © 2002-2018. La Vía Óntica SC, Ontica LLC and colaborators.

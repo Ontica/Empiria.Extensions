@@ -1,29 +1,18 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Assembly  : Empiria.WebApi.dll                               Pattern  : Assembly Attributes File          *
-*  Version   : 1.2                                              License  : Please read license.txt file      *
+*  Solution : Empiria Extensions Framework                 System  : Core Web Api                            *
+*  Assembly : Empiria.WebApi.dll                           Pattern : Assembly Attributes File                *
+*                                                          License : Please read license.txt file            *
 *                                                                                                            *
-*  Summary   : Manages Web API requests and responses and provides the base API infrastructure.              *
+*  Summary  : Manages http/json web api requests, and provides a core web services infrastructure.           *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 /*************************************************************************************************************
 * Assembly configuration attributes.                                                                         *
 *************************************************************************************************************/
-[assembly: AssemblyTitle("Empiria.WebApi")]
-[assembly: AssemblyDescription("Manages Web API requests and responses and provides " +
-                               "the base API infrastructure.")]
-[assembly: AssemblyVersion("1.2.0328.0")]
-[assembly: AssemblyFileVersion("1.2.0328")]
-[assembly: AssemblyCompany("Ontica")]
-[assembly: AssemblyProduct("Empiria Web API Services")]
-[assembly: AssemblyCopyright("(c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.")]
 [assembly: AssemblyTrademark("Empiria and Ontica are either trademarks of La Vía Óntica SC or Ontica LLC.")]
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]

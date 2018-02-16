@@ -1,8 +1,11 @@
-﻿Empiria Web Api Client
-======================
+﻿# Empiria Web Api Client
 
-Empiria Web Api Client has types to connect .NET-based client applications to
-Empiria HTTP/RESTful web services, and to third party Http services as well.
+Web services core library for XML/SOAP requests.
 
-This infrastructure uses Empiria Web Services Directory in order to simplify
-endpoint configuration and management, providing a very simple to use interface.
+# License
+
+This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
+
+# Copyright
+
+Copyright © 2016-2018. La Vía Óntica SC, Ontica LLC and colaborators.

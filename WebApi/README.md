@@ -1,12 +1,19 @@
-﻿Empiria Web Api Framework License
-=================================
+﻿# Empiria Web Api
 
-Empiria Web Api Framework provides the following services to build RESTful-based services:
+Manages http/json web api requests, and provides a core infrastructure to build RESTful-based web services:
 
-- Web api authentication services
-- Web api audit trailing
-- Web api for exception management
-- Web api consistent responses through response wrappers
-- Query model aligned with OData
+- Authentication Http module
+- Authorization filters
+- Centralized audit trails
+- Web services exception handling
+- Response wrappers to return consistent response's payloads
 - Json formatters
+- Query model aligned with OData
 
+# License
+
+This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
+
+# Copyright
+
+Copyright © 2014-2018. La Vía Óntica SC, Ontica LLC and colaborators.

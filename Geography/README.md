@@ -1,7 +1,10 @@
-﻿Empiria Geographic Information Services
-=======================================
+﻿# Empiria Geography
 
-Empiria Geography provides the following services:
+Manages data about geographical locations and roads.
+# License
 
+This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
 
-Empiria Geography is part of the Empiria Extended Framework boundle.
+# Copyright
+
+Copyright © 2009-2018. La Vía Óntica SC, Ontica LLC and colaborators.

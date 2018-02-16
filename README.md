@@ -1,13 +1,27 @@
-﻿Empiria Extensions Framework
-============================
+﻿# Empiria Extensions Framework
 
 Empiria Extensions Framework contains the following software components:
 
-* A) Empiria Data Converter
-* B) Empiria Documents
-* C) Empiria Expressions
-* D) Empiria Geography
-* E) Empiria Presentation
-* F) Empiria Presentation.Web
-* G) Empiria Web API
-* H) Empiria Web Services
+- Empiria Data Converter
+- Empiria Data Modeler
+- Empiria MySql Data Handler
+- Empiria Oracle Data Handler
+- Empiria PostgreSql Data Handler
+- Empiria Documents
+- Empiria Expressions
+- Empiria Geography
+- Empiria Messaging
+- Empiria Microservices
+- Empiria Presentation
+- Empiria Presentation.Web
+- Empiria Web Api
+- Empiria Web Api Client
+- Empiria Web Services
+
+# License
+
+All software components are distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
+
+# Copyright
+
+Copyright © 2002-2018. La Vía Óntica SC, Ontica LLC and colaborators.

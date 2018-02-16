@@ -1,7 +1,12 @@
-﻿Empiria Web Services
-====================
+﻿# Empiria XML Web Services
 
-Empiria Web Services provides has the following responsibilities:
+.Net client used to call Empiria-based http/json web services.
 
+# License
 
-Empiria Web Services is part of the Empiria Extended Framework boundle.
+This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
+
+# Copyright
+
+Copyright © 2003-2018. La Vía Óntica SC, Ontica LLC and colaborators.
+
