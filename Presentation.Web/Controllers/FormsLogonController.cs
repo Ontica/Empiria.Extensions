@@ -70,6 +70,8 @@ namespace Empiria.Presentation.Web.Controllers {
     }
 
     protected override void OnAuthenticate(EmpiriaPrincipal principal) {
+      Assertion.AssertObject(principal, "principal");
+
       EmpiriaIdentity identity = principal.Identity;
 
       CreateAuthenticationTicket(identity.User.UserName, principal.Session.Token);
@@ -77,6 +79,9 @@ namespace Empiria.Presentation.Web.Controllers {
       System.Threading.Thread.CurrentPrincipal = principal;
       HttpContext.Current.User = principal;
       AttemptsCount = 0;
+
+      Assertion.AssertObject(WebContext.WorkplaceManager, "WebContext.WorkplaceManager");
+
       WebContext.WorkplaceManager.Start(true);
     }
 

@@ -55,12 +55,12 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.4" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.Foundation" Version="7.0.0" />
+    <PackageReference Include="Empiria.Core" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
-    <ProjectReference Include="..\..\core\Foundation\Empiria.Foundation.csproj" />
+    <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
   </ItemGroup>
 </Project>

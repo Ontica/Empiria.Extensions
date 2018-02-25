@@ -10,10 +10,8 @@
 ********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
 using System.Collections.Generic;
-using System.Data;
 
 using Empiria.Data;
-using Empiria.DataTypes;
 using Empiria.Ontology;
 
 namespace Empiria.Geography {
@@ -39,7 +37,7 @@ namespace Empiria.Geography {
       var operation = DataOperation.Parse("writeGeoItem", o.Id, o.GetEmpiriaType().Id,
                                           o.Name, o.FullName, o.ExtensionData.ToString(), o.Keywords,
                                           o.Parent.Id, (char) o.Status, o.StartDate, o.EndDate);
-      
+
       DataWriter.Execute(operation);
     }
 
