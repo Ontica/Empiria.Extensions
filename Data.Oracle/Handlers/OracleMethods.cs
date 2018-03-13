@@ -26,20 +26,28 @@ namespace Empiria.Data.Handlers {
 
 
     public int CountRows(DataOperation operation) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
-      DataTable dataTable = new DataTable();
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new OracleDataAdapter(command);
+
+        var dataTable = new DataTable();
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
-        OracleDataAdapter dataAdapter = new OracleDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
+
         return dataTable.Rows.Count;
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable, exception, operation.SourceName);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
@@ -48,108 +56,102 @@ namespace Empiria.Data.Handlers {
 
 
     public int Execute(DataOperation operation) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
-      int affectedRows = 0;
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
+
         if (ContextUtil.IsInTransaction) {
           connection.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction) ContextUtil.Transaction);
         }
-        affectedRows = command.ExecuteNonQuery();
-        command.Parameters.Clear();
+
+        return command.ExecuteNonQuery();
+
       } catch (Exception exception) {
-        string parametersString = String.Empty;
-        for (int i = 0; i < operation.Parameters.Length; i++) {
-          parametersString += (parametersString.Length != 0 ? ", " : String.Empty) + Convert.ToString(operation.Parameters[i]);
-        }
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
-                                       operation.SourceName, parametersString);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return affectedRows;
     }
 
 
     public T Execute<T>(DataOperation operation) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
-      T result = default(T);
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
+
         if (ContextUtil.IsInTransaction) {
           connection.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction) ContextUtil.Transaction);
         }
-        result = (T) command.ExecuteScalar();
-        command.Parameters.Clear();
-      } catch (Exception exception) {
-        string parametersString = String.Empty;
-        for (int i = 0; i < operation.Parameters.Length; i++) {
-          parametersString += (parametersString.Length != 0 ? ", " : String.Empty) + Convert.ToString(operation.Parameters[i]);
+
+        object result = command.ExecuteScalar();
+
+        if (result != null) {
+          return (T) result;
+        } else {
+          throw new EmpiriaDataException(EmpiriaDataException.Msg.ActionQueryDoesntReturnAValue,
+                                         operation.SourceName);
         }
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
-                                       operation.SourceName, parametersString);
+
+      } catch (Exception exception) {
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return result;
     }
 
 
     public int Execute(IDbConnection connection, DataOperation operation) {
-      OracleCommand command = new OracleCommand(operation.SourceName, (OracleConnection) connection);
+      var command = new OracleCommand(operation.SourceName, (OracleConnection) connection);
 
-      int affectedRows = 0;
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
-        affectedRows = command.ExecuteNonQuery();
-        command.Parameters.Clear();
+        operation.PrepareCommand(command);
+
+        return command.ExecuteNonQuery();
+
       } catch (Exception exception) {
-        string parametersString = String.Empty;
-        for (int i = 0; i < operation.Parameters.Length; i++) {
-          parametersString += (parametersString.Length != 0 ? ", " : String.Empty) + Convert.ToString(operation.Parameters[i]);
-        }
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
-                                       operation.SourceName, parametersString);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
       }
-      return affectedRows;
     }
 
 
     public int Execute(IDbTransaction transaction, DataOperation operation) {
-      OracleCommand command = new OracleCommand(operation.SourceName,
-                                               (OracleConnection) transaction.Connection,
-                                               (OracleTransaction) transaction);
-
-      int affectedRows = 0;
+      var command = new OracleCommand(operation.SourceName,
+                                      (OracleConnection) transaction.Connection,
+                                      (OracleTransaction) transaction);
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
-        affectedRows = command.ExecuteNonQuery();
-        command.Parameters.Clear();
+        operation.PrepareCommand(command);
+
+        return command.ExecuteNonQuery();
+
       } catch (Exception exception) {
-        string parametersString = String.Empty;
-        for (int i = 0; i < operation.Parameters.Length; i++) {
-          parametersString += (parametersString.Length != 0 ? ", " : String.Empty) + Convert.ToString(operation.Parameters[i]);
-        }
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
-                                       operation.SourceName, parametersString);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
       }
-      return affectedRows;
     }
 
 
@@ -161,58 +163,81 @@ namespace Empiria.Data.Handlers {
 
 
     public byte[] GetBinaryFieldValue(DataOperation operation, string fieldName) {
-      throw new NotImplementedException();
+      var reader = (OracleDataReader) this.GetDataReader(operation);
+
+      if (reader.Read()) {
+        OracleBinary blob = reader.GetOracleBinary(reader.GetOrdinal(fieldName));
+
+        return blob.Value;
+
+      } else {
+        return null;
+
+      }
     }
 
 
     public IDbConnection GetConnection(string connectionString) {
-      OracleConnection connection = new OracleConnection(connectionString);
+      var connection = new OracleConnection(connectionString);
+
       if (ContextUtil.IsInTransaction) {
         connection.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction) ContextUtil.Transaction);
       }
+
       return connection;
     }
 
 
     public IDataReader GetDataReader(DataOperation operation) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
-      OracleDataReader dataReader;
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
-        dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+        return command.ExecuteReader(CommandBehavior.CloseConnection);
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataReader, exception, operation.SourceName);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataReader,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         //Don't dipose the connection because this method returns a DataReader.
       }
-      return dataReader;
     }
 
 
     public DataRow GetDataRow(DataOperation operation) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
-      DataTable dataTable = new DataTable(operation.SourceName);
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new OracleDataAdapter(command);
+
+        var dataTable = new DataTable(operation.SourceName);
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
-        OracleDataAdapter dataAdapter = new OracleDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
+
         if (dataTable.Rows.Count != 0) {
           return dataTable.Rows[0];
         } else {
           return null;
         }
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable, exception, operation.SourceName);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
@@ -221,43 +246,59 @@ namespace Empiria.Data.Handlers {
 
 
     public DataTable GetDataTable(DataOperation operation, string dataTableName) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
-      DataTable dataTable = new DataTable(dataTableName);
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new OracleDataAdapter(command);
+
+        var dataTable = new DataTable(dataTableName);
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
-        OracleDataAdapter dataAdapter = new OracleDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
+
+        return dataTable;
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable, exception, operation.SourceName);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return dataTable;
     }
 
 
     public DataView GetDataView(DataOperation operation, string filter, string sort) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
-      DataTable dataTable = new DataTable(operation.SourceName);
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new OracleDataAdapter(command);
+
+        var dataTable = new DataTable(operation.SourceName);
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
-        OracleDataAdapter dataAdapter = new OracleDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
-        return new DataView(dataTable, filter, sort, DataViewRowState.CurrentRows);
+
+        return new DataView(dataTable, filter, sort,
+                            DataViewRowState.CurrentRows);
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataView, exception,
-                                       operation.SourceName, filter, sort);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataView,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
@@ -266,41 +307,51 @@ namespace Empiria.Data.Handlers {
 
 
     public object GetFieldValue(DataOperation operation, string fieldName) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
-      OracleDataReader dataReader;
-      object fieldValue = null;
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
-        dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+        OracleDataReader dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
         if (dataReader.Read()) {
-          fieldValue = dataReader[fieldName];
+          return dataReader[fieldName];
+        } else {
+          return null;
         }
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetFieldValue,
-                                       exception, operation.SourceName, fieldName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString(),
+                                       fieldName);
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return fieldValue;
     }
 
 
     public object GetScalar(DataOperation operation) {
-      OracleConnection connection = new OracleConnection(operation.DataSource.Source);
-      OracleCommand command = new OracleCommand(operation.SourceName, connection);
+      var connection = new OracleConnection(operation.DataSource.Source);
+      var command = new OracleCommand(operation.SourceName, connection);
 
       try {
-        command.CommandType = operation.CommandType;
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
+
         return command.ExecuteScalar();
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetScalar, exception, operation.SourceName);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetScalar,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();

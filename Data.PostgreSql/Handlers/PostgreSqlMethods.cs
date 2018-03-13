@@ -30,17 +30,19 @@ namespace Empiria.Data.Handlers {
       using (connection) {
         connection.Open();
         NpgsqlTransaction transaction = ((NpgsqlConnection) connection).BeginTransaction();
-        NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter();
+        var dataAdapter = new NpgsqlDataAdapter();
         dataAdapter.SelectCommand = new NpgsqlCommand(queryString,
                                                       (NpgsqlConnection) connection,
                                                       transaction);
 
-        NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(dataAdapter);
+        var commandBuilder = new NpgsqlCommandBuilder(dataAdapter);
 
         dataAdapter.InsertCommand = commandBuilder.GetInsertCommand();
         dataAdapter.InsertCommand.Transaction = transaction;
+
         DataTable source = DataReader.GetDataTable(DataOperation.Parse(queryString));
         dataAdapter.Fill(source);
+
         for (int i = 0; i < table.Rows.Count; i++) {
           table.Rows[i].SetAdded();
           source.ImportRow(table.Rows[i]);
@@ -54,25 +56,28 @@ namespace Empiria.Data.Handlers {
 
 
     public int CountRows(DataOperation operation) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
-
-      DataTable dataTable = new DataTable();
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new NpgsqlDataAdapter(command);
+
+        var dataTable = new DataTable();
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
-        NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
+
         return dataTable.Rows.Count;
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception, operation.SourceName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
@@ -81,102 +86,94 @@ namespace Empiria.Data.Handlers {
 
 
     public int Execute(DataOperation operation) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
-      int affectedRows = 0;
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
-        if (ContextUtil.IsInTransaction) {
-          connection.EnlistTransaction((System.Transactions.Transaction) ContextUtil.Transaction);
-        }
-        affectedRows = command.ExecuteNonQuery();
+
+        return command.ExecuteNonQuery();
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
                                        operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return affectedRows;
     }
 
 
     public T Execute<T>(DataOperation operation) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
-      T result = default(T);
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
-        if (ContextUtil.IsInTransaction) {
-          connection.EnlistTransaction((System.Transactions.Transaction) ContextUtil.Transaction);
+
+        object result = command.ExecuteScalar();
+
+        if (result != null) {
+          return (T) result;
+        } else {
+          throw new EmpiriaDataException(EmpiriaDataException.Msg.ActionQueryDoesntReturnAValue,
+                                         operation.SourceName);
         }
-        result = (T) command.ExecuteScalar();
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
                                        operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return result;
     }
 
 
     public int Execute(IDbConnection connection, DataOperation operation) {
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, (NpgsqlConnection) connection);
+      var command = new NpgsqlCommand(operation.SourceName, (NpgsqlConnection) connection);
 
-      int affectedRows = 0;
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
-        affectedRows = command.ExecuteNonQuery();
-        command.Parameters.Clear();
+        operation.PrepareCommand(command);
+
+        return command.ExecuteNonQuery();
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
                                        operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
       }
-      return affectedRows;
     }
 
 
     public int Execute(IDbTransaction transaction, DataOperation operation) {
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName,
-                                                (NpgsqlConnection) transaction.Connection,
-                                                (NpgsqlTransaction) transaction);
-
-      int affectedRows = 0;
+      var command = new NpgsqlCommand(operation.SourceName,
+                                      (NpgsqlConnection) transaction.Connection,
+                                      (NpgsqlTransaction) transaction);
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
-        affectedRows = command.ExecuteNonQuery();
-        command.Parameters.Clear();
+        operation.PrepareCommand(command);
+
+        return command.ExecuteNonQuery();
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery, exception,
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
+                                       exception,
                                        operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
       }
-      return affectedRows;
     }
 
 
@@ -193,61 +190,66 @@ namespace Empiria.Data.Handlers {
 
 
     public IDbConnection GetConnection(string connectionString) {
-      NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+      var connection = new NpgsqlConnection(connectionString);
+
       if (ContextUtil.IsInTransaction) {
         connection.EnlistTransaction((System.Transactions.Transaction) ContextUtil.Transaction);
       }
+
       return connection;
     }
 
 
     public IDataReader GetDataReader(DataOperation operation) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
-      NpgsqlDataReader dataReader;
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
-        dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+        return command.ExecuteReader(CommandBehavior.CloseConnection);
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataReader,
-                                       exception, operation.SourceName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
-        //Do not dipose the NpgsqlConnection object because this method returns a DataReader.
+        //Don't dipose the connection because this method returns a DataReader.
       }
-      return dataReader;
     }
 
 
     public DataRow GetDataRow(DataOperation operation) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
-      DataTable dataTable = new DataTable(operation.SourceName);
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new NpgsqlDataAdapter(command);
+
+        var dataTable = new DataTable(operation.SourceName);
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
-        NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
+
         if (dataTable.Rows.Count != 0) {
           return dataTable.Rows[0];
         } else {
           return null;
         }
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception, operation.SourceName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
@@ -256,52 +258,59 @@ namespace Empiria.Data.Handlers {
 
 
     public DataTable GetDataTable(DataOperation operation, string dataTableName) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
-        DataTable dataTable = new DataTable(dataTableName);
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new NpgsqlDataAdapter(command);
+
+        var dataTable = new DataTable(dataTableName);
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
-        NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
 
         return dataTable;
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception, operation.SourceName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-
     }
 
 
     public DataView GetDataView(DataOperation operation, string filter, string sort) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
-        DataTable dataTable = new DataTable(operation.SourceName);
+        operation.PrepareCommand(command);
+
+        var dataAdapter = new NpgsqlDataAdapter(command);
+
+        var dataTable = new DataTable(operation.SourceName);
+
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
-        NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(command);
+
         dataAdapter.Fill(dataTable);
         dataAdapter.Dispose();
-        return new DataView(dataTable, filter, sort, DataViewRowState.CurrentRows);
+
+        return new DataView(dataTable, filter, sort,
+                            DataViewRowState.CurrentRows);
+
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataView, exception,
-                                       operation.SourceName, filter, sort);
+        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataView,
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
@@ -310,48 +319,51 @@ namespace Empiria.Data.Handlers {
 
 
     public object GetFieldValue(DataOperation operation, string fieldName) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
-      NpgsqlDataReader dataReader;
-      object fieldValue = null;
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
-        dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+        NpgsqlDataReader dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
         if (dataReader.Read()) {
-          fieldValue = dataReader[fieldName];
+          return dataReader[fieldName];
+        } else {
+          return null;
         }
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetFieldValue,
-                                       exception, operation.SourceName, fieldName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString(),
+                                       fieldName);
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
       }
-      return fieldValue;
     }
 
 
     public object GetScalar(DataOperation operation) {
-      NpgsqlConnection connection = new NpgsqlConnection(operation.DataSource.Source);
-      NpgsqlCommand command = new NpgsqlCommand(operation.SourceName, connection);
+      var connection = new NpgsqlConnection(operation.DataSource.Source);
+      var command = new NpgsqlCommand(operation.SourceName, connection);
 
       try {
-        command.CommandType = operation.CommandType;
-        if (operation.ExecutionTimeout != 0) {
-          command.CommandTimeout = operation.ExecutionTimeout;
-        }
-        operation.FillParameters(command);
+        operation.PrepareCommand(command);
+
         connection.Open();
+
         return command.ExecuteScalar();
+
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetScalar,
-                                       exception, operation.SourceName);
+                                       exception,
+                                       operation.SourceName, operation.ParametersToString());
+
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
