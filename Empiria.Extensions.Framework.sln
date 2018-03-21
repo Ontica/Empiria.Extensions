@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empiria.Data.Convertion", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empiria.Messaging", "Messaging\Empiria.Messaging.csproj", "{F645AD11-F071-46C4-99E0-8419E6A291D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empiria.Microservices", "Microservices\Empiria.Microservices.csproj", "{C713189F-B0AD-49F0-926D-361B15D567E0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empiria.WebApi", "WebApi\Empiria.WebApi.csproj", "{42B7D25B-356F-4E93-9F17-A2F9422C368D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empiria.WebApi.Client", "WebApi.Client\Empiria.WebApi.Client.csproj", "{E372C9E6-68A9-4D85-83C1-254AC6B32D1B}"
@@ -196,24 +194,6 @@ Global
 		{F645AD11-F071-46C4-99E0-8419E6A291D1}.Release|x64.Build.0 = Release|Any CPU
 		{F645AD11-F071-46C4-99E0-8419E6A291D1}.Release|x86.ActiveCfg = Release|Any CPU
 		{F645AD11-F071-46C4-99E0-8419E6A291D1}.Release|x86.Build.0 = Release|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Debug|x64.Build.0 = Debug|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Debug|x86.Build.0 = Debug|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Multisolutions|Any CPU.ActiveCfg = Multisolutions|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Multisolutions|Any CPU.Build.0 = Multisolutions|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Multisolutions|x64.ActiveCfg = Multisolutions|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Multisolutions|x64.Build.0 = Multisolutions|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Multisolutions|x86.ActiveCfg = Multisolutions|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Multisolutions|x86.Build.0 = Multisolutions|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Release|x64.ActiveCfg = Release|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Release|x64.Build.0 = Release|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Release|x86.ActiveCfg = Release|Any CPU
-		{C713189F-B0AD-49F0-926D-361B15D567E0}.Release|x86.Build.0 = Release|Any CPU
 		{42B7D25B-356F-4E93-9F17-A2F9422C368D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42B7D25B-356F-4E93-9F17-A2F9422C368D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B7D25B-356F-4E93-9F17-A2F9422C368D}.Debug|x64.ActiveCfg = Debug|Any CPU
