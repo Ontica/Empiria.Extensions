@@ -1,18 +1,17 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : ExceptionData                                    Pattern  : Information Holder                *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Information Holder                    *
+*  Type     : ExceptionData                                License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Contains the data for an exception response.                                                  *
+*  Summary  : Contains the data for an exception response.                                                   *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net;
 using System.Runtime.Serialization;
 
-namespace Empiria.WebApi.Models {
+namespace Empiria.WebApi.Internals {
 
   /// <summary>Contains the data for an exception response.</summary>
   [DataContract]
@@ -20,7 +19,7 @@ namespace Empiria.WebApi.Models {
 
     #region Constructors and parsers
 
-    public ExceptionData(Exception exception) {
+    internal ExceptionData(Exception exception) {
       Assertion.AssertObject(exception, "exception");
 
       this.HttpStatusCode = (HttpStatusCode) ExceptionData.GetHttpStatusCode(exception);
@@ -45,11 +44,13 @@ namespace Empiria.WebApi.Models {
       private set;
     }
 
+
     [DataMember(Name = "errorCode")]
     public string ErrorCode {
       get;
       private set;
     }
+
 
     [DataMember(Name = "errorSource")]
     public string Source {
@@ -57,11 +58,13 @@ namespace Empiria.WebApi.Models {
       internal set;
     }
 
+
     [DataMember(Name = "errorMessage")]
     public string Message {
       get;
       private set;
     }
+
 
     [DataMember(Name = "errorHint")]
     public string Hint {
@@ -69,11 +72,13 @@ namespace Empiria.WebApi.Models {
       internal set;
     }
 
+
     [DataMember(Name = "requestIssues")]
     public string[] Issues {
       get;
       internal set;
     }
+
 
     public bool IsInternalServerError {
       get {
@@ -93,6 +98,7 @@ namespace Empiria.WebApi.Models {
       return temp;
     }
 
+
     private string GetErrorMessage(Exception exception) {
       if (!this.IsInternalServerError) {
         return exception.Message;
@@ -103,6 +109,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     private string GetErrorSource(Exception exception) {
       if (exception.TargetSite != null) {
         return exception.TargetSite.DeclaringType.FullName + "." + exception.TargetSite.Name;
@@ -110,6 +117,7 @@ namespace Empiria.WebApi.Models {
         return exception.GetType().FullName;
       }
     }
+
 
     private string GetHint(Exception e) {
       if (e is WebApiException) {
@@ -125,6 +133,7 @@ namespace Empiria.WebApi.Models {
         return "There is not hint defined for this kind of error.";
       }
     }
+
 
     static internal HttpErrorCode GetHttpStatusCode(Exception e) {
       if (e is WebApiException) {
@@ -163,4 +172,5 @@ namespace Empiria.WebApi.Models {
 
   }  // class ExceptionData
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi.Internals
+

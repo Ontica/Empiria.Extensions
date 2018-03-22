@@ -1,18 +1,17 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : PagingModel                                      Pattern  : Information Holder                *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Information Holder                    *
+*  Type     : PagingModel                                  License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Holds the configuration data of a page.                                                       *
+*  Summary  : Holds the configuration data of a page.                                                        *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections;
 using System.Runtime.Serialization;
 
-namespace Empiria.WebApi.Models {
+namespace Empiria.WebApi.Internals {
 
   /// <summary>Holds the configuration data of a page.</summary>
   [DataContract]
@@ -21,7 +20,7 @@ namespace Empiria.WebApi.Models {
     private ICollection data;
     private PagingQueryModel query;
 
-    public PagingModel(PagingQueryModel query, ICollection data) {
+    internal PagingModel(PagingQueryModel query, ICollection data) {
       Assertion.AssertObject(query, "query");
       Assertion.AssertObject(data, "data");
 
@@ -29,6 +28,7 @@ namespace Empiria.WebApi.Models {
       this.data = data;
       AssertIsValid();
     }
+
 
     private void AssertIsValid() {
       Assertion.Assert(0 <= query.Skip && query.Skip <= this.data.Count,
@@ -44,6 +44,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     [DataMember(Name = "page", Order = 1)]
     public int PageNumber {
       get {
@@ -54,12 +55,14 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     [DataMember(Name = "pagesCount", Order = 2)]
     public int PagesCount {
       get {
         return (data.Count / query.Top) + ((data.Count % query.Top != 0) ? 1 : 0);
       }
     }
+
 
     public int PageSize {
       get {
@@ -71,6 +74,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     public int StartIndex {
       get {
         if (1 <= query.Skip && query.Skip < data.Count) {
@@ -80,6 +84,7 @@ namespace Empiria.WebApi.Models {
         }
       }
     }
+
 
     public int EndIndex {
       get {
@@ -95,4 +100,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class PagedDataModel
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi.Internals

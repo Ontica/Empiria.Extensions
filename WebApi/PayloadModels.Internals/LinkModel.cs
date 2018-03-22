@@ -1,32 +1,17 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : LinkModel                                        Pattern  : Information Holder                *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Information Holder                    *
+*  Type     : LinkModel                                    License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Represents a web link. A link is a typed connection between two resources that are identified *
-*              by Internationalised Resource Identifiers (IRIs) according to the RFC 5988.                   *
+*  Summary  : Represents a web link. A link is a typed connection between two resources that are identified  *
+*             by Internationalised Resource Identifiers (IRIs) according to the RFC 5988.                    *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Runtime.Serialization;
 
-namespace Empiria.WebApi.Models {
-
-  public enum LinkRelation {
-    Self,
-    Append,
-    Edit,
-    Delete,
-    Metadata,
-    Help,
-    First,
-    Previous,
-    Next,
-    Last,
-    Up,
-  }
+namespace Empiria.WebApi.Internals {
 
   /// <summary>Represents a web link. A link is a typed connection between two resources that are identified
   /// by Internationalised Resource Identifiers (IRIs) according to the RFC 5988.</summary>
@@ -35,11 +20,12 @@ namespace Empiria.WebApi.Models {
 
     #region Constructors and parsers
 
-    public LinkModel(string url, LinkRelation relation) :
+    internal LinkModel(string url, LinkRelation relation) :
       this(url, relation.ToString().ToLowerInvariant(), GetLinkRelationMethod(relation)) {
     }
 
-    public LinkModel(string url, string relation, string method = "GET") {
+
+    internal LinkModel(string url, string relation, string method = "GET") {
       Assertion.AssertObject(url, "url");
       Assertion.AssertObject(relation, "relation");
       Assertion.AssertObject(method, "method");
@@ -60,12 +46,14 @@ namespace Empiria.WebApi.Models {
       private set;
     }
 
+
    /// <summary>Link relation that describes how this link relates to the previous call.</summary>
     [DataMember(Name = "rel")]
     public string Relation {
       get;
       private set;
     }
+
 
     /// <summary>Http method required for the related call.</summary>
     [DataMember(Name = "method")]
@@ -95,4 +83,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class LinkModel
 
-}  // namespace Empiria.WebApi.Models
+}  // namespace Empiria.WebApi.Internals

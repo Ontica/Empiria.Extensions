@@ -1,31 +1,22 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : BaseResponseModel                                Pattern  : Web Api Response Model            *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Response Model                        *
+*  Type     : BaseResponseModel                            License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Abstract class that handles a uniform and consistent web api response. Special responses      *
-*              should be implemented through derived types of this generic type.                             *
+*  Summary  : Abstract class that handles a uniform and consistent web api response. Special responses       *
+*             should be implemented through derived types of this generic type.                              *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections;
 using System.Data;
 using System.Net.Http;
 using System.Runtime.Serialization;
 
-namespace Empiria.WebApi.Models {
+using Empiria.WebApi.Internals;
 
-  public enum ResponseStatus {
-    Ok,
-    Ok_No_Data,
-    Denied,
-    Over_Limit,
-    Unavailable,
-    Invalid_Request,
-    Error,
-  }
+namespace Empiria.WebApi {
 
   /// <summary>Abstract class that handles a uniform and consistent web api response. Special responses
   /// should be implemented through derived types of this generic type.</summary>
@@ -38,6 +29,7 @@ namespace Empiria.WebApi.Models {
     protected BaseResponseModel(HttpRequestMessage request, T data, string typeName = "") {
       this.Initialize(request, data, typeName);
     }
+
 
     protected BaseResponseModel(HttpRequestMessage request, ResponseStatus status,
                                 T data, string typeName = "") {
@@ -55,11 +47,13 @@ namespace Empiria.WebApi.Models {
       private set;
     }
 
+
     [DataMember(Name = "dataType", Order = 1)]
     public string TypeName {
       get;
       private set;
     }
+
 
     [DataMember(Name = "payloadType", Order = 2)]
     public string PayloadType {
@@ -68,6 +62,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     [DataMember(Name = "version", Order = 3)]
     public virtual string Version {
       get {
@@ -75,16 +70,19 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     [DataMember(Name = "dataItems", Order = 4)]
     public virtual int DataItemsCount {
       get;
       private set;
     }
 
+
     public HttpRequestMessage Request {
       get;
       private set;
     }
+
 
     [DataMember(Name = "requestId", Order = 5)]
     public Guid RequestId {
@@ -93,10 +91,12 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     [DataMember(Name = "links", Order = 6)]
     public abstract LinksCollectionModel Links {
       get;
     }
+
 
     [DataMember(Name = "data", Order = 100)]
     public T Data {
@@ -116,6 +116,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     private string GetStatus(int dataItemsCount) {
       ResponseStatus status;
 
@@ -126,6 +127,7 @@ namespace Empiria.WebApi.Models {
       }
       return status.ToString().ToLowerInvariant();
     }
+
 
     private string GetTypeName(object data, string typeName) {
       string temp = String.Empty;
@@ -147,6 +149,7 @@ namespace Empiria.WebApi.Models {
       return temp;
     }
 
+
     private void Initialize(HttpRequestMessage request, T data, string typeName) {
       Assertion.AssertObject(request, "request");
       Assertion.AssertObject(data, "data");
@@ -156,6 +159,7 @@ namespace Empiria.WebApi.Models {
       this.TypeName = this.GetTypeName(data, typeName);
       this.RefreshData(data);
     }
+
 
     internal void RefreshData(T newData) {
       Assertion.AssertObject(newData, "newData");
@@ -169,4 +173,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class BaseResponseModel
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi

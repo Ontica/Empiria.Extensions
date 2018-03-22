@@ -1,23 +1,23 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : PagedCollectionModel                             Pattern  : Web Api Response Model            *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Response Model                        *
+*  Type     : PagedCollectionModel                         License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Holds the information for a web response of paged collection of objects.                      *
+*  Summary  : Holds the information for a web response of paged collection of objects.                       *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace Empiria.WebApi.Models {
+using Empiria.WebApi.Internals;
+
+namespace Empiria.WebApi {
 
   /// <summary>Holds the information for a web response of paged collection of objects.</summary>
   [DataContract]
@@ -27,6 +27,7 @@ namespace Empiria.WebApi.Models {
                                 ArrayList array, string typeName = "") : base(request, array, typeName) {
       this.DoDataPaging(array);
     }
+
 
     public PagedCollectionModel(HttpRequestMessage request,
                                 DataTable data, string typeName = "") : base(request, data, typeName) {
@@ -54,6 +55,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     PagingModel _pagingModel = null;
     [DataMember(Name = "paging", Order = 20)]
     public PagingModel Paging {
@@ -64,6 +66,7 @@ namespace Empiria.WebApi.Models {
         return _pagingModel;
       }
     }
+
 
     public override QueryModel Query {
       get {
@@ -83,6 +86,7 @@ namespace Empiria.WebApi.Models {
       base.RefreshData(array);
     }
 
+
     private void DoDataPaging(DataTable sourceTable) {
       DataTable pagedTable = sourceTable.Clone();
 
@@ -91,6 +95,7 @@ namespace Empiria.WebApi.Models {
       }
       base.RefreshData(pagedTable.DefaultView);
     }
+
 
     private string GetNextPageUrl() {
       Uri requestUri = base.Request.RequestUri;
@@ -102,6 +107,7 @@ namespace Empiria.WebApi.Models {
       return this.GetNewUrlWithUpdatedQueryString(requestUri, qs);
     }
 
+
     private string GetPreviousPageUrl() {
       Uri requestUri = base.Request.RequestUri;
       NameValueCollection qs = requestUri.ParseQueryString();
@@ -111,6 +117,7 @@ namespace Empiria.WebApi.Models {
 
       return this.GetNewUrlWithUpdatedQueryString(requestUri, qs);
     }
+
 
     private string GetNewUrlWithUpdatedQueryString(Uri requestUri, NameValueCollection qs) {
       string url = String.Empty;
@@ -127,4 +134,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class PagedDataModel
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi

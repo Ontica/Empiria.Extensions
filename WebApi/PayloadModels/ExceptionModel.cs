@@ -1,20 +1,21 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : ExceptionModel                                   Pattern  : Web Api Response Model            *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Response Model                        *
+*  Type     : ExceptionModel                               License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Contains the data for an exception response.                                                  *
+*  Summary  : The data model returned on exception responses.                                                *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;
 
 using Empiria.Json;
 
-namespace Empiria.WebApi.Models {
+using Empiria.WebApi.Internals;
+
+namespace Empiria.WebApi {
 
   [DataContract]
   internal class ExceptionModel : BaseResponseModel<ExceptionData> {
@@ -37,6 +38,7 @@ namespace Empiria.WebApi.Models {
       private set;
     }
 
+
     public override LinksCollectionModel Links {
       get {
         var links = new LinksCollectionModel(this);
@@ -54,6 +56,7 @@ namespace Empiria.WebApi.Models {
     internal HttpResponseMessage CreateResponse() {
       return base.Request.CreateResponse<ExceptionModel>(this.Data.HttpStatusCode, this);
     }
+
 
     internal JsonObject GetAuditTrailData() {
       var json = new JsonObject();
@@ -95,6 +98,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     static private ExceptionData GetExceptionData(Exception exception, HttpRequestMessage request) {
       Assertion.AssertObject(exception, "exception");
       Assertion.AssertObject(request, "request");
@@ -110,6 +114,7 @@ namespace Empiria.WebApi.Models {
 
       return exceptionData;
     }
+
 
     static private ResponseStatus GetResponseModelStatus(HttpErrorCode errorCode) {
       switch (errorCode) {
@@ -141,6 +146,7 @@ namespace Empiria.WebApi.Models {
           throw Assertion.AssertNoReachThisCode();
       }
     }
+
 
     static private ResponseStatus GetResponseModelStatus(Exception exception) {
       Assertion.AssertObject(exception, "exception");
@@ -175,4 +181,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class ExceptionModel
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi

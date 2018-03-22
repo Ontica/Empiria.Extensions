@@ -1,24 +1,23 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : PagingQueryModel                                 Pattern  : Information Holder                *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Information Holder                    *
+*  Type     : PagingQueryModel                             License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Extends QueryModel type with top and skip conditions to page data according to OData.         *
+*  Summary  : Extends QueryModel type with top and skip conditions to page data according to OData.          *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;
 
-namespace Empiria.WebApi.Models {
+namespace Empiria.WebApi.Internals {
 
   /// <summary>Extends QueryModel type with top and skip conditions to page data according to OData.</summary>
   [DataContract]
   public class PagingQueryModel : QueryModel {
 
-    public PagingQueryModel(HttpRequestMessage request) : base(request) {
+    internal PagingQueryModel(HttpRequestMessage request) : base(request) {
 
     }
 
@@ -35,6 +34,7 @@ namespace Empiria.WebApi.Models {
       }
     }
 
+
     [DataMember(Name = "top")]
     public int Top {
       get {
@@ -50,4 +50,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class PagingQueryModel
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi.Internals

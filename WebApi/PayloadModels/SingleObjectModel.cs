@@ -1,18 +1,19 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : SingleObjectModel                                Pattern  : Web Api Response Model            *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Response Model                        *
+*  Type     : SingleObjectModel                            License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Handles a consistent web api response for single objects.                                     *
+*  Summary  : Handles a consistent web api response for single objects.                                      *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;
 
-namespace Empiria.WebApi.Models {
+using Empiria.WebApi.Internals;
+
+namespace Empiria.WebApi {
 
   /// <summary>Handles a consistent web api response for single objects.</summary>
   [DataContract]
@@ -41,4 +42,4 @@ namespace Empiria.WebApi.Models {
 
   }  // class SingleObjectModel
 
-} // namespace Empiria.WebApi.Models
+} // namespace Empiria.WebApi
