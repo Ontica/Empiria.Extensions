@@ -52,16 +52,15 @@
     <WarningsAsErrors />
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Empiria.WebApi" Version="2.0.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Postings.Core\Empiria.Postings.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
+    <PackageReference Include="Empiria.WebApi" Version="2.0.0" />
+  </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
-    <ProjectReference Include="..\..\extensions\Microservices\Empiria.Microservices.csproj" />
-    <ProjectReference Include="..\..\steps\Steps.ProjectManagement\Empiria.Steps.ProjectManagement.csproj" />
+    <ProjectReference Include="..\..\extensions\WebApi\Empiria.WebApi.csproj" />
   </ItemGroup>
 </Project>

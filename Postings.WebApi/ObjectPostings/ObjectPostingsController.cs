@@ -12,7 +12,6 @@ using System.Web.Http;
 
 using Empiria.Json;
 using Empiria.WebApi;
-using Empiria.WebApi.Models;
 
 namespace Empiria.Postings.WebApi {
 
