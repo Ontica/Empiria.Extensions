@@ -1,13 +1,12 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Formatting                        Assembly : Empiria.WebApi.dll                *
-*  Type      : CamelCaseJsonFormattingAttribute                 Pattern  : Attribute class                   *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Formatters                            *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Attribute class                       *
+*  Type     : CamelCaseJsonFormattingAttribute             License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary   : Place on a web API controller class to convert all responses to camelCase.                    *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net.Http.Headers;
 using System.Net.Http.Formatting;

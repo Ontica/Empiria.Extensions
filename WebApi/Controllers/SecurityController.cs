@@ -1,21 +1,18 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
-*  Namespace : Empiria.Microservices                            Assembly : Empiria.Microservices.dll         *
-*  Type      : SecurityController                               Pattern  : Web API Controller                *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Base controllers                      *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Web Api Controller                    *
+*  Type     : SecurityController                           License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Contains web api methods for login and logout users and for change credentials.               *
+*  Summary  : Contains web api methods for login and logout users and for change credentials.                *
 *                                                                                                            *
-********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.Http;
 
 using Empiria.Security;
-using Empiria.WebApi;
-using Empiria.WebApi.Models;
 
-namespace Empiria.Microservices {
+namespace Empiria.WebApi.Controllers {
 
   /// <summary>Contains web api methods for login and logout users and for change credentials.</summary>
   public class SecurityController : WebApiController {
@@ -104,4 +101,4 @@ namespace Empiria.Microservices {
 
   }  // class SecurityController
 
-}  // namespace Empiria.Microservices
+}  // namespace Empiria.WebApi.Controllers

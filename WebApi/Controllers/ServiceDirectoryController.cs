@@ -1,21 +1,18 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
-*  Namespace : Empiria.Microservices                            Assembly : Empiria.Microservices.dll         *
-*  Type      : ServiceDirectoryController                       Pattern  : Web API Controller                *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Base controllers                      *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Web Api Controller                    *
+*  Type     : ServiceDirectoryController                   License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Web api methods to get information about the web service directory.                           *
+*  Summary  : Web api methods to get information about the web service directory.                            *
 *                                                                                                            *
-********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.Http;
 
 using Empiria.Security;
-using Empiria.WebApi;
-using Empiria.WebApi.Models;
 
-namespace Empiria.Microservices {
+namespace Empiria.WebApi.Controllers {
 
   /// <summary>Web api methods to get information about the web service directory.</summary>
   public class ServiceDirectoryController : WebApiController {
@@ -42,4 +39,4 @@ namespace Empiria.Microservices {
 
   }  // class ServiceDirectoryController
 
-}  // namespace Empiria.Microservices
+}  // namespace Empiria.WebApi.Controllers

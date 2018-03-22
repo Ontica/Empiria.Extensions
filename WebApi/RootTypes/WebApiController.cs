@@ -15,7 +15,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Http;
 using Empiria.Security;
-using Empiria.WebApi.Models;
 
 namespace Empiria.WebApi {
 

@@ -13,7 +13,6 @@ using System.Net.Http;
 using System.Web;
 
 using Empiria.Json;
-using Empiria.WebApi.Models;
 
 namespace Empiria.WebApi {
 

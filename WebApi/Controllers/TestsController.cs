@@ -1,20 +1,16 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.Core.WebApi                              Assembly : Empiria.WebApi.dll                *
-*  Type      : TestsController                                  Pattern  : Web API Controller                *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Base controllers                      *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Web Api Controller                    *
+*  Type     : TestsController                              License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary   : Web api methods used to test clients and proxies calls.                                       *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.Http;
 
-using Empiria.WebApi;
-using Empiria.WebApi.Models;
-
-namespace Empiria.Core.WebApi {
+namespace Empiria.WebApi.Controllers {
 
   /// <summary> Web api methods to get and set system configuration settings.</summary>
   public class TestsController : WebApiController {
@@ -88,4 +84,4 @@ namespace Empiria.Core.WebApi {
 
   }  // class TestsController
 
-}  // namespace Empiria.Core.WebApi
+}  // namespace Empiria.WebApi.Controllers

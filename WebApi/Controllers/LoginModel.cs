@@ -1,18 +1,17 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
-*  Namespace : Empiria.Microservices                            Assembly : Empiria.Microservices.dll         *
-*  Type      : LoginModel                                       Pattern  : Information Holder                *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Base controllers                      *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Model                                 *
+*  Type     : LoginModel                                   License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Holds information to log in a user into the web api system.                                   *
+*  Summary  : Holds information to log in a user into the web api system.                                    *
 *                                                                                                            *
-********************************** Copyright(c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 using Empiria.Security;
 
-namespace Empiria.Microservices {
+namespace Empiria.WebApi.Controllers {
 
   /// <summary>Holds information to log in a user into the web api system.</summary>
   public class LoginModel {
@@ -63,4 +62,4 @@ namespace Empiria.Microservices {
 
   }  // class LoginModel
 
-} // namespace Empiria.Microservices
+} // namespace Empiria.WebApi.Controllers

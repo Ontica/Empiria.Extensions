@@ -1,21 +1,19 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
-*  Namespace : Empiria.Microservices                            Assembly : Empiria.Microservices.dll         *
-*  Type      : ObjectIdGenerationController                     Pattern  : Web API Controller                *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Base controllers                      *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Web Api Controller                    *
+*  Type     : ObjectIdGenerationController                 License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Contains web api methods that serves to generate object, relations and tables unique IDs.     *
+*  Summary  : Web api methods that serves to generate object, relations and tables unique IDs.               *
 *                                                                                                            *
-********************************** Copyright(c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.Http;
 
 using Empiria.Data;
 using Empiria.Ontology;
-using Empiria.WebApi;
 
-namespace Empiria.Microservices {
+namespace Empiria.WebApi.Controllers {
 
   /// <summary>Contains web api methods that serves to generate object IDs.</summary>
   public class ObjectIdGenerationController : WebApiController {
@@ -77,4 +75,4 @@ namespace Empiria.Microservices {
 
   }  // class ObjectIdGenerationController
 
-}  // namespace Empiria.Microservices
+}  // namespace Empiria.WebApi.Controllers

@@ -15,12 +15,11 @@ using System.Web.Http.Controllers;
 
 using Empiria.Json;
 using Empiria.Security;
-using Empiria.WebApi.Models;
 
 namespace Empiria.WebApi {
 
   /// <summary>Holds web request and response information and write them to an audit trail log.</summary>
-  public class WebApiAuditTrail : AuditTrail {
+  internal class WebApiAuditTrail : AuditTrail {
 
     #region Constructors and parsers
 

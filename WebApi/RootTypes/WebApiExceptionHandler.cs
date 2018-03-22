@@ -14,8 +14,6 @@ using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
 using System.Web.Http.Results;
 
-using Empiria.WebApi.Models;
-
 namespace Empiria.WebApi {
 
   /// <summary>Message handler that controls the output of all exceptions throwed by the web api</summary>
