@@ -27,9 +27,9 @@ namespace Empiria.WebApi.Controllers {
       try {
         ClientApplication clientApplication = base.GetClientApplication();
 
-        var services = ServiceDirectoryItem.GetList(clientApplication);
+        var endpointsList = EndpointConfig.GetList(clientApplication);
 
-        return new CollectionModel(base.Request, services);
+        return new CollectionModel(base.Request, endpointsList);
       } catch (Exception e) {
         throw base.CreateHttpException(e);
       }
