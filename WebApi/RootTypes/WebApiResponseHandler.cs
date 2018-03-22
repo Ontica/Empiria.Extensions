@@ -16,8 +16,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Empiria.WebApi.Models;
-
 namespace Empiria.WebApi {
 
   /// <summary>Message handler used to control Web API authentication.</summary>
@@ -48,6 +46,7 @@ namespace Empiria.WebApi {
       return model.CreateResponse();
     }
 
+
     private HttpResponseMessage MethodNotAllowed405Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.InvalidHttpMethod,
                                   request.Method.Method, request.RequestUri.AbsoluteUri);
@@ -55,6 +54,7 @@ namespace Empiria.WebApi {
 
       return model.CreateResponse();
     }
+
 
     private HttpResponseMessage NotFound404Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.EndpointNotFound,
@@ -64,12 +64,14 @@ namespace Empiria.WebApi {
       return model.CreateResponse();
     }
 
+
     private HttpResponseMessage Unauthorized401Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.AuthenticationHeaderMissed);
       var model = new ExceptionModel(request, e);
 
       return model.CreateResponse();
     }
+
 
     private HttpResponseMessage WrapResponse(HttpRequestMessage request,
                                              HttpResponseMessage response) {
@@ -79,23 +81,29 @@ namespace Empiria.WebApi {
         return response;
       }
 
-      if (content.ObjectType.Namespace.StartsWith("Empiria.WebApi.Models")) {
+      // If is already a base response model (or base payload)
+      if (typeof(IBaseResponseModel).IsAssignableFrom(content.ObjectType)) {
         return response;
       }
+
       if (typeof(ICollection).IsAssignableFrom(content.ObjectType)) {
         var model = new CollectionModel(request, (ICollection) content.Value);
 
         return request.CreateResponse(model);
+
       } else if (typeof(DataTable).IsAssignableFrom(content.ObjectType)) {
         var model = new CollectionModel(request, (DataTable) content.Value);
 
         return request.CreateResponse(model);
+
       } else {
         var model = new SingleObjectModel(request, content.Value);
 
         return request.CreateResponse(model);
+
       }
     }
+
 
     private HttpResponseMessage WrapResponseException(HttpRequestMessage request,
                                                       HttpResponseMessage response) {
@@ -105,9 +113,11 @@ namespace Empiria.WebApi {
         return response;
       }
 
-      if (content.ObjectType.Namespace.StartsWith("Empiria.WebApi.Models")) {
+      // If is already a base response model (or base payload)
+      if (typeof(IBaseResponseModel).IsAssignableFrom(content.ObjectType)) {
         return response;
       }
+
       switch(response.StatusCode) {
         case HttpStatusCode.BadRequest:
           return this.BadRequest400Handler(request);
