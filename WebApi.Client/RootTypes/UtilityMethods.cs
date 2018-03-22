@@ -24,14 +24,16 @@ namespace Empiria.WebApi.Client {
                                 (apiCallReturnType == typeof(HttpResponseMessage)) ||
                                 UtilityMethods.HasUriPathFormat(path));
 
+      string payloadDataField = service.Endpoint.PayloadDataField;
+
       if (path.Contains("::")) {
         return path.Substring(path.LastIndexOf("::"));
 
-      } else if (service.PayloadDataField.Length == 0 || service.PayloadDataField == "/") {
+      } else if (payloadDataField.Length == 0 || payloadDataField == "/") {
         return String.Empty;
 
-      } else if (service.PayloadDataField.Length != 0 && !skipAutoDataScope) {
-        return "::" + service.PayloadDataField;
+      } else if (payloadDataField.Length != 0 && !skipAutoDataScope) {
+        return "::" + payloadDataField;
 
       } else {
         return String.Empty;

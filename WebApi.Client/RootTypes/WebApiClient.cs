@@ -45,7 +45,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      await handler.DeleteAsync(service.Path, pars);
+      await handler.DeleteAsync(service.Endpoint.Path, pars);
     }
 
 
@@ -56,7 +56,7 @@ namespace Empiria.WebApi.Client {
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.DeleteAsync<T>(service.Path + dataScopeParameter, pars);
+      return await handler.DeleteAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
     }
 
 
@@ -67,7 +67,7 @@ namespace Empiria.WebApi.Client {
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.GetAsync<T>(service.Path + dataScopeParameter, pars);
+      return await handler.GetAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
     }
 
 
@@ -76,7 +76,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      await handler.PostAsync(body, service.Path, pars);
+      await handler.PostAsync(body, service.Endpoint.Path, pars);
     }
 
 
@@ -87,7 +87,7 @@ namespace Empiria.WebApi.Client {
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.PostAsync<T, R>(body, service.Path + dataScopeParameter, pars);
+      return await handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
     }
 
 
@@ -96,7 +96,7 @@ namespace Empiria.WebApi.Client {
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      await handler.PostAsync(body, service.Path, pars);
+      await handler.PostAsync(body, service.Endpoint.Path, pars);
     }
 
 
@@ -107,7 +107,7 @@ namespace Empiria.WebApi.Client {
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.PostAsync<T, R>(body, service.Path + dataScopeParameter, pars);
+      return await handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
     }
 
     #endregion Public methods

@@ -25,93 +25,31 @@ namespace Empiria.WebApi.Client {
 
     #region Constructors and parsers
 
-    internal ServiceHandler() {
+    internal ServiceHandler(EndpointConfig endpoint) {
+      Assertion.AssertObject(endpoint, "endpoint");
 
+      this.Endpoint = endpoint;
     }
 
     #endregion Constructors and parsers
 
     #region Properties
 
-    /// <summary>Unique ID string for the service descriptor.</summary>
-    public string UID {
+    internal EndpointConfig Endpoint {
       get;
-      set;
-    } = String.Empty;
-
-
-    /// <summary>The base address of the http endpoint.</summary>
-    public string BaseAddress {
-      get;
-      set;
-    } = String.Empty;
-
-
-    public string Path {
-      get;
-      set;
-    } = String.Empty;
-
-
-    public string[] Parameters {
-      get;
-      set;
-    } = new string[0];
-
-
-    public string Method {
-      get;
-      set;
-    } = "GET";
-
-
-    public string Description {
-      get;
-      set;
-    } = String.Empty;
-
-
-    public bool IsProtected {
-      get;
-      set;
-    } = true;
-
-
-    public string[] Headers {
-      get;
-      set;
-    } = new string[0];
-
-
-    public string PayloadDataField {
-      get;
-      set;
-    } = "data";
-
-
-    public string PayloadType {
-      get;
-      set;
-    } = String.Empty;
-
-
-    public string ResponseDataType {
-      get;
-      set;
-    } = String.Empty;
-
+    }
 
     #endregion Properties
 
     #region Methods
 
     internal HttpApiClient GetHandler() {
-      string serverUID = this.BaseAddress;
+      string serverUID = this.Endpoint.BaseAddress;
 
       if (!cache.ContainsKey(serverUID)) {
         lock (locker) {
           if (!cache.ContainsKey(serverUID)) {
-            var handler = new HttpApiClient(this.BaseAddress);
+            var handler = new HttpApiClient(this.Endpoint.BaseAddress);
 
             cache.Add(serverUID, handler);
           }
@@ -124,7 +62,7 @@ namespace Empiria.WebApi.Client {
     internal HttpApiClient PrepareHandler(HttpApiClient handler) {
       Assertion.AssertObject(handler, "handler");
 
-      handler.IncludeAuthorizationHeader = this.IsProtected;
+      handler.IncludeAuthorizationHeader = this.Endpoint.IsProtected;
 
       return handler;
     }

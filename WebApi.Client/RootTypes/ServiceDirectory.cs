@@ -88,10 +88,10 @@ namespace Empiria.WebApi.Client {
       foreach (var endpoint in endpointsList) {
         var serviceHandler = new ServiceHandler(endpoint);
 
-        this.services.Add(serviceHandler.EndPoint.UID,
+        this.services.Add(serviceHandler.Endpoint.UID,
                           serviceHandler);
 
-        this.services.Add($"{serviceHandler.EndPoint.Method} {serviceHandler.EndPoint.Path}",
+        this.services.Add($"{serviceHandler.Endpoint.Method} {serviceHandler.Endpoint.Path}",
                           serviceHandler);
       }
     }
