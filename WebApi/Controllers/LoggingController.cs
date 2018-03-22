@@ -1,21 +1,19 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Microservices             *
-*  Namespace : Empiria.Microservices                            Assembly : Empiria.Microservices.dll         *
-*  Type      : LoggingController                                Pattern  : Web API Controller                *
-*  Version   : 1.0                                              License  : Please read license.txt file      *
+*  Module   : Empiria Web Api                              Component : Base controllers                      *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Web Api Controller                    *
+*  Type     : LoggingController                            License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Contains web api methods for application log services.                                        *
+*  Summary  : Contains web api methods for application log services.                                         *
 *                                                                                                            *
-********************************** Copyright(c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.Http;
 
 using Empiria.Logging;
 using Empiria.Security;
-using Empiria.WebApi;
 
-namespace Empiria.Microservices {
+namespace Empiria.WebApi.Controllers {
 
   /// <summary>Contains web api methods for application log services.</summary>
   public class LoggingController : WebApiController {
@@ -26,7 +24,7 @@ namespace Empiria.Microservices {
     /// <param name="logEntries">The non-empty array of LogEntryModel instances.</param>
     [HttpPost, AllowAnonymous]
     [Route("v1/logging")]
-    public void PostLogEntryArray(string apiKey, [FromBody] LogEntryModel[] logEntries) {
+    public void PostLogEntryArray([FromBody] LogEntryModel[] logEntries) {
       try {
         ClientApplication clientApplication = base.GetClientApplication();
 
@@ -43,4 +41,4 @@ namespace Empiria.Microservices {
 
   }  // class LoggingController
 
-}  // namespace Empiria.Microservices
+}  // namespace Empiria.WebApi.Controllers
