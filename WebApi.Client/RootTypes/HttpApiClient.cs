@@ -55,55 +55,63 @@ namespace Empiria.WebApi.Client {
 
 
     public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Delete, String.Empty,
-                                                                 path, pars);
+      var response = await this.SendRequestAsync(HttpMethod.Delete,
+                                                 String.Empty, path, pars)
+                                .ConfigureAwait(false);
 
-      return await this.ConvertHttpContentAsync<T>(response, path);
+      return await this.ConvertHttpContentAsync<T>(response, path)
+                       .ConfigureAwait(false);
     }
 
 
-    public async Task DeleteAsync(string path, params object[] pars) {
-      await this.SendRequestAsync(HttpMethod.Delete, String.Empty,
-                                  path, pars);
+    public Task DeleteAsync(string path, params object[] pars) {
+      return this.SendRequestAsync(HttpMethod.Delete, String.Empty,
+                                   path, pars);
     }
 
 
     public async Task<T> GetAsync<T>(string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Get, String.Empty,
-                                                 path, pars);
+                                                 path, pars)
+                               .ConfigureAwait(false);
 
-      return await this.ConvertHttpContentAsync<T>(response, path);
+      return await this.ConvertHttpContentAsync<T>(response, path)
+                       .ConfigureAwait(false);
     }
 
 
     /// <summary>Sends a json POST request as an asynchronous operation
     /// discarding the response.</summary>
-    public async Task PostAsync<T>(T body, string path, params object[] pars) {
-      await this.SendRequestAsync(HttpMethod.Post, body, path, pars);
+    public Task PostAsync<T>(T body, string path, params object[] pars) {
+      return this.SendRequestAsync(HttpMethod.Post, body, path, pars);
     }
 
     /// <summary>Sends a json POST request of type T as an asynchronous operation
     /// returning a response of type R.</summary>
     public async Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars);
+      var response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars)
+                               .ConfigureAwait(false);
 
-      return await this.ConvertHttpContentAsync<R>(response, path);
+      return await this.ConvertHttpContentAsync<R>(response, path)
+                       .ConfigureAwait(false);
     }
 
 
     /// <summary>Sends a json PUT request as an asynchronous operation
     /// discarding the response.</summary>
-    public async Task PutAsync<T>(T body, string path, params object[] pars) {
-      await this.SendRequestAsync(HttpMethod.Put, body, path, pars);
+    public Task PutAsync<T>(T body, string path, params object[] pars) {
+      return this.SendRequestAsync(HttpMethod.Put, body, path, pars);
     }
 
 
     /// <summary>Sends a json PUT request of type T as an asynchronous operation
     /// returning a response of type R.</summary>
     public async Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
-      HttpResponseMessage response = await this.SendRequestAsync(HttpMethod.Put, body, path, pars);
+      var response = await this.SendRequestAsync(HttpMethod.Put, body, path, pars)
+                               .ConfigureAwait(false);
 
-      return await this.ConvertHttpContentAsync<R>(response, path);
+      return await this.ConvertHttpContentAsync<R>(response, path)
+                       .ConfigureAwait(false);
     }
 
     #endregion Public methods
@@ -120,7 +128,8 @@ namespace Empiria.WebApi.Client {
 
       if (typeof(T) != typeof(HttpResponseMessage)) {
         if (!response.IsSuccessStatusCode) {
-          var content = await response.Content.ReadAsStringAsync();
+          var content = await response.Content.ReadAsStringAsync()
+                                              .ConfigureAwait(false);
 
           throw new WebApiClientException(WebApiClientException.Msg.HttpNoSuccessStatusCode,
                                           response.StatusCode,
@@ -130,7 +139,8 @@ namespace Empiria.WebApi.Client {
       }
 
       if (scope.Length != 0) {
-        var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync()
+                                            .ConfigureAwait(false);
 
         return JsonObject.Parse(content).Get<T>(scope);
 
@@ -138,12 +148,14 @@ namespace Empiria.WebApi.Client {
         return (T) (object) response;
 
       } else if (typeof(T) == typeof(string)) {
-        var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync()
+                                            .ConfigureAwait(false);
 
         return (T) (object) content;
 
       } else if (typeof(T) == typeof(JsonObject)) {
-        var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync()
+                                            .ConfigureAwait(false);
 
         if (scope.Length != 0) {
           return (T) (object) JsonObject.Parse(content).Slice(scope);
@@ -152,7 +164,8 @@ namespace Empiria.WebApi.Client {
         }
 
       } else {
-        return await response.Content.ReadAsAsync<T>();
+        return await response.Content.ReadAsAsync<T>()
+                             .ConfigureAwait(false);
 
       }
     }
@@ -188,21 +201,22 @@ namespace Empiria.WebApi.Client {
       if (httpClient.DefaultRequestHeaders.Contains("Authorization")) {
         httpClient.DefaultRequestHeaders.Remove("Authorization");
       }
+
       if (httpClient.DefaultRequestHeaders.Contains("ApplicationKey")) {
         httpClient.DefaultRequestHeaders.Remove("ApplicationKey");
       }
     }
 
 
-    private async Task<HttpResponseMessage> SendRequestAsync<T>(HttpMethod method, T body,
-                                                                string path, object[] pars) {
+    private Task<HttpResponseMessage> SendRequestAsync<T>(HttpMethod method, T body,
+                                                          string path, object[] pars) {
       Assertion.AssertObject(path, "path");
 
       string fullPath = EmpiriaString.Format(path, pars);
       fullPath = UtilityMethods.RemoveDataScopeFromPath(fullPath);
 
       this.SetRequestHeaders();
-      HttpResponseMessage response = await this.InvokeMethodAsync(method, fullPath, body);
+      Task<HttpResponseMessage> response = this.InvokeMethodAsync(method, fullPath, body);
       this.CleanRequestHeaders();
 
       return response;

@@ -40,74 +40,74 @@ namespace Empiria.WebApi.Client {
 
     #region Public methods
 
-    public async Task DeleteAsync(string path, params object[] pars) {
+    public Task DeleteAsync(string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Delete, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      await handler.DeleteAsync(service.Endpoint.Path, pars);
+      return handler.DeleteAsync(service.Endpoint.Path, pars);
     }
 
 
-    public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
+    public Task<T> DeleteAsync<T>(string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Delete, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.DeleteAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
+      return handler.DeleteAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
     }
 
 
-    public async Task<T> GetAsync<T>(string path, params object[] pars) {
+    public Task<T> GetAsync<T>(string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Get, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.GetAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
+      return handler.GetAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
     }
 
 
-    public async Task PostAsync<T>(T body, string path, params object[] pars) {
+    public Task PostAsync<T>(T body, string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      await handler.PostAsync(body, service.Endpoint.Path, pars);
+      return handler.PostAsync(body, service.Endpoint.Path, pars);
     }
 
 
-    public async Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
+    public Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
+      return handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
     }
 
 
-    public async Task PutAsync<T>(T body, string path, params object[] pars) {
+    public Task PutAsync<T>(T body, string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Put, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      await handler.PostAsync(body, service.Endpoint.Path, pars);
+      return handler.PostAsync(body, service.Endpoint.Path, pars);
     }
 
 
-    public async Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
+    public Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Put, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return await handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
+      return handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
     }
 
     #endregion Public methods
