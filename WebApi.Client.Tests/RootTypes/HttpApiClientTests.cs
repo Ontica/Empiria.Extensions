@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 using Xunit;
 
 using Empiria.Security;
@@ -8,9 +10,11 @@ namespace Empiria.Tests {
 
   public class HttpApiClientTests {
 
+    private readonly string BASE_ADDRESS = ConfigurationData.Get<string>("Testing.WebApi.BaseAddress");
+
     [Fact]
-    public async void Should_Get_License_Using_HttpGet_And_ResponseModel() {
-      var apiClient = new HttpApiClient("http://empiria.land/microservices/");
+    public async Task Should_Get_License_Using_HttpGet_And_ResponseModel() {
+      var apiClient = new HttpApiClient(BASE_ADDRESS);
 
       var license = await apiClient.GetAsync<ResponseModel<string>>("v1/system/license");
 
@@ -19,8 +23,8 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_License_Using_Scope_Parameter() {
-      var apiClient = new HttpApiClient("http://empiria.land/microservices/");
+    public async Task Should_Get_License_Using_Scope_Parameter() {
+      var apiClient = new HttpApiClient(BASE_ADDRESS);
 
       var license = await apiClient.GetAsync<string>("v1/system/license::data");
 
@@ -29,8 +33,8 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_DataItems_Using_Scope_Parameter() {
-      var apiClient = new HttpApiClient("http://empiria.land/microservices/");
+    public async Task Should_Get_DataItems_Using_Scope_Parameter() {
+      var apiClient = new HttpApiClient(BASE_ADDRESS);
 
       var dataItems = await apiClient.GetAsync<int>("v1/system/license::dataItems");
 
@@ -39,9 +43,10 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_NextId_Using_ResponseModel() {
-      HttpApiClient apiClient = this.GetAuthenticatedMicroservicesHttpClient();
+    public async Task Should_Get_NextId_Using_ResponseModel() {
+      var apiClient = new HttpApiClient(BASE_ADDRESS);
 
+      Authenticate();
       var nextId = await apiClient.GetAsync<ResponseModel<int>>("v1/id-generator/table-rows/LRSPayments");
 
       Assert.True(nextId.Data > 0);
@@ -49,9 +54,10 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_NextId_Using_ScopeParameter() {
-      HttpApiClient apiClient = this.GetAuthenticatedMicroservicesHttpClient();
+    public async Task Should_Get_NextId_Using_ScopeParameter() {
+      var apiClient = new HttpApiClient(BASE_ADDRESS);
 
+      Authenticate();
       var nextId = await apiClient.GetAsync<int>("v1/id-generator/table-rows/LRSPayments::data");
 
       Assert.True(nextId > 0);
@@ -63,19 +69,7 @@ namespace Empiria.Tests {
     private void Authenticate() {
       string sessionToken = ConfigurationData.GetString("Testing.SessionToken");
 
-      System.Threading.Thread.CurrentPrincipal = EmpiriaIdentity.Authenticate(sessionToken);
-    }
-
-
-    private HttpApiClient GetAuthenticatedMicroservicesHttpClient() {
-      Authenticate();
-
-      var webApiBaseAddress = ConfigurationData.GetString("Testing.WebApi.BaseAddress");
-
-      return new HttpApiClient(webApiBaseAddress) {
-        IncludeAuthorizationHeader = true
-      };
-
+      System.Threading.Thread.CurrentPrincipal = AuthenticationService.Authenticate(sessionToken);
     }
 
     #endregion Auxiliary methods

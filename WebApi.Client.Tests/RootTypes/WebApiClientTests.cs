@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 using Xunit;
 
 using Empiria.Security;
@@ -9,7 +11,7 @@ namespace Empiria.Tests {
   public class WebApiClientTests {
 
     [Fact]
-    public async void Should_Get_DataItems_Using_NamedEndpoint() {
+    public async Task Should_Get_DataItems_Using_NamedEndpoint() {
       var webApiClient = new WebApiClient();
 
       var dataItems = await webApiClient.GetAsync<int>("System.GetLicense::dataItems");
@@ -19,7 +21,7 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_License_Using_NamedEndpoint() {
+    public async Task Should_Get_License_Using_NamedEndpoint() {
       var webApiClient = new WebApiClient();
 
       var license = await webApiClient.GetAsync<string>("System.GetLicense");
@@ -29,7 +31,7 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_License_Using_Uri_And_ResponseModel() {
+    public async Task Should_Get_License_Using_Uri_And_ResponseModel() {
       var webApiClient = new WebApiClient();
 
       var license = await webApiClient.GetAsync<ResponseModel<string>>("v1/system/license");
@@ -39,7 +41,7 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_License_Using_Uri_And_ScopeParameter() {
+    public async Task Should_Get_License_Using_Uri_And_ScopeParameter() {
       var webApiClient = new WebApiClient();
 
       var license = await webApiClient.GetAsync<string>("v1/system/license::data");
@@ -49,7 +51,7 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_NextId_Using_Response_Model_With_NamedEndpoint() {
+    public async Task Should_Get_NextId_Using_Response_Model_With_NamedEndpoint() {
       Authenticate();
       var webApiClient = new WebApiClient();
 
@@ -60,7 +62,7 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async void Should_Get_NextId_Using_NamedEndpoint() {
+    public async Task Should_Get_NextId_Using_NamedEndpoint() {
       Authenticate();
       var webApiClient = new WebApiClient();
 
@@ -75,7 +77,7 @@ namespace Empiria.Tests {
     private void Authenticate() {
       string sessionToken = ConfigurationData.GetString("Testing.SessionToken");
 
-      System.Threading.Thread.CurrentPrincipal = EmpiriaIdentity.Authenticate(sessionToken);
+      System.Threading.Thread.CurrentPrincipal = AuthenticationService.Authenticate(sessionToken);
     }
 
 
