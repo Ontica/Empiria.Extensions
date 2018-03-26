@@ -41,8 +41,8 @@ namespace Empiria.Presentation.Controllers {
       OnValidate();
       EmpiriaPrincipal principal = null;
       try {
-        principal = EmpiriaIdentity.Authenticate(clientAppKey, userName, password,
-                                                 entropy, contextId);
+        principal = AuthenticationService.Authenticate(clientAppKey, userName, password,
+                                                       entropy, contextId);
       } catch {
         // no-op
       }

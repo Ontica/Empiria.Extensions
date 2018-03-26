@@ -94,9 +94,13 @@ namespace Empiria.Presentation.Web {
 
       if (authCookie != null) {
         FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
         authTicket = FormsAuthentication.RenewTicketIfOld(authTicket);
-        EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(authTicket.UserData);
+
+        EmpiriaPrincipal principal = AuthenticationService.Authenticate(authTicket.UserData);
+
         System.Threading.Thread.CurrentPrincipal = principal;
+
         this.Context.User = principal;
       }
     }

@@ -30,8 +30,9 @@ namespace Empiria.WebApi {
       Assertion.AssertObject(userName, "userName");
       Assertion.AssertObject(password, "password");
 
-      EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, userName, password,
-                                                                entropy, contextId);
+      EmpiriaPrincipal principal = AuthenticationService.Authenticate(apiClientKey,
+                                                                      userName, password,
+                                                                      entropy, contextId);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 
@@ -41,7 +42,9 @@ namespace Empiria.WebApi {
     static public EmpiriaPrincipal AuthenticateGuest(string apiClientKey, int contextId = -1) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
 
-      EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(apiClientKey, AnonymousUser.Guest, contextId);
+      EmpiriaPrincipal principal = AuthenticationService.AuthenticateAnonymous(apiClientKey,
+                                                                               AnonymousUser.Guest,
+                                                                               contextId);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 
@@ -111,7 +114,7 @@ namespace Empiria.WebApi {
       try {
         string sessionToken = GetAuthenticationHeaderValue();
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
-          EmpiriaPrincipal principal = EmpiriaIdentity.Authenticate(sessionToken);
+          EmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
 
           SetPrincipal(principal);
         } else {

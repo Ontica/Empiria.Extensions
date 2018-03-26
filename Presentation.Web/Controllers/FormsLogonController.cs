@@ -29,11 +29,11 @@ namespace Empiria.Presentation.Web.Controllers {
     #region Public methods
 
     public new bool Logon(string clientAppKey, string userName, string password,
-                      string entropy, int regionId) {
-      bool success = base.Logon(clientAppKey, userName, password, entropy, regionId);
+                          string entropy, int contextId) {
+      bool success = base.Logon(clientAppKey, userName, password, entropy, contextId);
 
       if (success) {
-        SetLastWorkplaceCookie(regionId.ToString());
+        SetLastWorkplaceCookie(contextId.ToString());
       }
       return success;
     }

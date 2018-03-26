@@ -25,7 +25,9 @@ namespace Empiria.WebApi.Controllers {
       try {
         base.RequireBody(login);
 
-        EmpiriaUser.ChangePassword(login.api_key, login.user_name, userEmail, login.password);
+        UserManagementService.ChangePassword(login.api_key, login.user_name,
+                                             userEmail, login.password);
+
       } catch (Exception e) {
         throw base.CreateHttpException(e);
       }
