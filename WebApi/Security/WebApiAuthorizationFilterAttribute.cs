@@ -1,13 +1,12 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi.Models                            Assembly : Empiria.WebApi.dll                *
-*  Type      : WebApiAuthorizationFilterAttribute               Pattern  : Http Filter                       *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Security                                     Component : Web Api Security Services             *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Http Filter Attribute                 *
+*  Type     : WebApiAuthorizationFilterAttribute           License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : ASP .NET Web API filter to handle authorization using Empiria security claims.                *
+*  Summary  : ASP .NET Web API filter to handle authorization using Empiria security claims.                 *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
@@ -15,13 +14,6 @@ using System.Web.Http.Filters;
 using Empiria.Security;
 
 namespace Empiria.WebApi {
-
-  // Defines Web API security claims for client applications and users
-  public enum WebApiClaimType {
-    ClientApp_Controller,
-    ClientApp_Method,
-    User_Role,
-  }
 
   /// <summary>ASP .NET Web API filter to handle authorization using Empiria security claims.</summary>
   [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
@@ -60,24 +52,30 @@ namespace Empiria.WebApi {
       switch (this.ClaimType) {
 
         case WebApiClaimType.ClientApp_Controller:
-          ClientApplication.Current.AssertClaim(SecurityClaimType.WebApiController, this.ClaimValue,
-                                 "The API key doesn't have execution permissions over this controller.");
+          SecurityClaimsService.EnsureClaim(ClientApplication.Current,
+                                            SecurityClaimType.WebApiController,
+                                            this.ClaimValue,
+                                            "The API key doesn't have execution permissions over this controller.");
           return;
 
         case WebApiClaimType.ClientApp_Method:
-          ClientApplication.Current.AssertClaim(SecurityClaimType.WebApiMethod, this.ClaimValue,
-                                 "The API key doesn't have execution permissions over this method.");
+          SecurityClaimsService.EnsureClaim(ClientApplication.Current,
+                                            SecurityClaimType.WebApiMethod,
+                                            this.ClaimValue,
+                                            "The API key doesn't have execution permissions over this method.");
           return;
 
         case WebApiClaimType.User_Role:
-          EmpiriaPrincipal.Current.AssertClaim(SecurityClaimType.UserRole, this.ClaimValue,
-                   String.Format("This functionality can be executed only by users playing the role '{0}'.",
-                                  this.ClaimValue));
+          SecurityClaimsService.EnsureClaim(EmpiriaUser.Current,
+                                            SecurityClaimType.UserRole,
+                                            this.ClaimValue,
+                    $"This functionality can be executed only by users playing the role '{this.ClaimValue}'.");
           return;
 
         default:
           throw Assertion.AssertNoReachThisCode();
       }
+
     }
 
     #endregion Methods
