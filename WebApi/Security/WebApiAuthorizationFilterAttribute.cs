@@ -12,6 +12,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
 using Empiria.Security;
+using Empiria.Security.Claims;
 
 namespace Empiria.WebApi {
 
@@ -52,23 +53,23 @@ namespace Empiria.WebApi {
       switch (this.ClaimType) {
 
         case WebApiClaimType.ClientApp_Controller:
-          SecurityClaimsService.EnsureClaim(ClientApplication.Current,
-                                            SecurityClaimType.WebApiController,
-                                            this.ClaimValue,
-                                            "The API key doesn't have execution permissions over this controller.");
+          ClaimsService.EnsureClaim(ClientApplication.Current,
+                                    Security.Claims.ClaimType.WebApiController,
+                                    this.ClaimValue,
+                                    "The API key doesn't have execution permissions over this controller.");
           return;
 
         case WebApiClaimType.ClientApp_Method:
-          SecurityClaimsService.EnsureClaim(ClientApplication.Current,
-                                            SecurityClaimType.WebApiMethod,
-                                            this.ClaimValue,
-                                            "The API key doesn't have execution permissions over this method.");
+          ClaimsService.EnsureClaim(ClientApplication.Current,
+                                    Security.Claims.ClaimType.WebApiMethod,
+                                    this.ClaimValue,
+                                    "The API key doesn't have execution permissions over this method.");
           return;
 
         case WebApiClaimType.User_Role:
-          SecurityClaimsService.EnsureClaim(EmpiriaUser.Current,
-                                            SecurityClaimType.UserRole,
-                                            this.ClaimValue,
+          ClaimsService.EnsureClaim(EmpiriaUser.Current,
+                                    Security.Claims.ClaimType.UserRole,
+                                    this.ClaimValue,
                     $"This functionality can be executed only by users playing the role '{this.ClaimValue}'.");
           return;
 
