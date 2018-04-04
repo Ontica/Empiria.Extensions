@@ -21,6 +21,9 @@ namespace Empiria.WebApi.Client {
 
     #region Fields
 
+    private static readonly int HTTP_CALL_TIMEOUT_MILLISECONDS =
+                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 5000);
+
     private HttpClient httpClient = new HttpClient();
 
     #endregion Fields
@@ -36,6 +39,7 @@ namespace Empiria.WebApi.Client {
         baseAddress = baseAddress.EndsWith("/") ? baseAddress : baseAddress + "/";
 
         httpClient.BaseAddress = new Uri(baseAddress);
+        httpClient.Timeout = new TimeSpan(TimeSpan.TicksPerMillisecond * HTTP_CALL_TIMEOUT_MILLISECONDS);
 
         this.LoadDefaultHeaders();
 
