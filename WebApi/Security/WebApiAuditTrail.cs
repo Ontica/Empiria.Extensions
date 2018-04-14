@@ -61,9 +61,10 @@ namespace Empiria.WebApi {
     #region Private methods
 
     private JsonObject GetOperationData(Uri requestUri) {
-      var json = new JsonObject() {
-         new JsonItem("endpoint", requestUri.PathAndQuery),
-      };
+      var json = new JsonObject();
+
+      json.Add("endpoint", requestUri.PathAndQuery);
+
       return json;
     }
 
@@ -115,12 +116,13 @@ namespace Empiria.WebApi {
       } else {
         reason = response.ReasonPhrase;
       }
-      var json = new JsonObject() {
-         new JsonItem("statusCode", (int) response.StatusCode),
-         new JsonItem("statusName", response.StatusCode.ToString()),
-         new JsonItem("reason", reason),
-         new JsonItem("source", source),
-      };
+      var json = new JsonObject();
+
+      json.Add("statusCode", (int) response.StatusCode);
+      json.Add("statusName", response.StatusCode.ToString());
+      json.Add("reason", reason);
+      json.Add("source", source);
+
       base.SetResponse((int) response.StatusCode, 0, json);
     }
 
@@ -154,12 +156,13 @@ namespace Empiria.WebApi {
     }
 
     private void SetResponse(HttpResponse response, Exception exception) {
-      var json = new JsonObject() {
-         new JsonItem("statusCode", response.StatusCode),
-         new JsonItem("statusName", response.Status.ToString()),
-         new JsonItem("reason", exception.Message),
-         new JsonItem("source", exception.Source),
-      };
+      var json = new JsonObject();
+
+      json.Add("statusCode", response.StatusCode);
+      json.Add("statusName", response.Status.ToString());
+      json.Add("reason", exception.Message);
+      json.Add("source", exception.Source);
+
       base.SetResponse(response.StatusCode, 0, json);
     }
 

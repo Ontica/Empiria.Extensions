@@ -61,21 +61,21 @@ namespace Empiria.WebApi {
     internal JsonObject GetAuditTrailData() {
       var json = new JsonObject();
 
-      json.Add(new JsonItem("statusCode", (int) this.Data.HttpStatusCode));
-      json.Add(new JsonItem("errorCode", this.Data.ErrorCode));
-      json.Add(new JsonItem("errorSource", this.Data.Source));
-      json.Add(new JsonItem("errorMessage", this.Data.Message));
-      json.Add(new JsonItem("errorHint", this.Data.Hint));
+      json.Add("statusCode", (int) this.Data.HttpStatusCode);
+      json.Add("errorCode", this.Data.ErrorCode);
+      json.Add("errorSource", this.Data.Source);
+      json.Add("errorMessage", this.Data.Message);
+      json.Add("errorHint", this.Data.Hint);
       if (this.Data.Issues.Length != 0) {
-        json.Add(new JsonItem("issues", this.Data.Issues));
+        json.Add("issues", this.Data.Issues);
       }
       if (this.Data.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError) {
-        json.Add(new JsonItem("exception", this.Exception));
+        json.Add("exception", this.Exception);
         if (this.Exception.InnerException != null) {
-          json.Add(new JsonItem("innerException", this.Exception.InnerException));
+          json.Add("innerException", this.Exception.InnerException);
         }
         if (this.Exception.StackTrace != null) {
-          json.Add(new JsonItem("stackTrace", this.Exception.StackTrace));
+          json.Add("stackTrace", this.Exception.StackTrace);
         }
       }
       return json;
