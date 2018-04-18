@@ -12,6 +12,7 @@ using System;
 
 using Empiria.Json;
 using Empiria.Ontology;
+using Empiria.StateEnums;
 
 namespace Empiria.Geography {
 
@@ -73,8 +74,8 @@ namespace Empiria.Geography {
       }
     }
 
-    [DataField("GeoItemStatus", Default = GeneralObjectStatus.Pending)]
-    internal protected GeneralObjectStatus Status {
+    [DataField("GeoItemStatus", Default = EntityStatus.Pending)]
+    internal protected EntityStatus Status {
       get;
       private set;
     }
@@ -96,7 +97,7 @@ namespace Empiria.Geography {
     #region Public methods
 
     protected internal void Remove() {
-      this.Status = GeneralObjectStatus.Deleted;
+      this.Status = EntityStatus.Deleted;
     }
 
     protected override void OnSave() {

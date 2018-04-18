@@ -11,6 +11,8 @@
 using System;
 using System.Collections.Generic;
 
+using Empiria.StateEnums;
+
 namespace Empiria.Geography {
 
   /// <summary>Represents a country.</summary>
@@ -75,14 +77,14 @@ namespace Empiria.Geography {
 
     public FixedList<Highway> Highways {
       get {
-        Predicate<Highway> match = (x) => x.Status != GeneralObjectStatus.Deleted;
+        Predicate<Highway> match = (x) => x.Status != EntityStatus.Deleted;
         return highwaysList.Value.FindAll(match).ToFixedList();
       }
     }
 
     public FixedList<State> States {
       get {
-        Predicate<State> match = (x) => x.Status != GeneralObjectStatus.Deleted;
+        Predicate<State> match = (x) => x.Status != EntityStatus.Deleted;
         return statesList.Value.FindAll(match).ToFixedList();
       }
     }
