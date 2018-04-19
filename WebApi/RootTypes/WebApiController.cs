@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Http;
+
+using Empiria.Json;
 using Empiria.Security;
 
 namespace Empiria.WebApi {
@@ -47,6 +49,17 @@ namespace Empiria.WebApi {
         return this.GetClientApplicationFromRequestHeader();
       }
     }
+
+
+    public T GetFromBody<T>(object body, string itemPath) {
+      Assertion.AssertObject(body, "body");
+      Assertion.AssertObject(itemPath, "itemPath");
+
+      var json = JsonObject.Parse(body);
+
+      return json.Get<T>(itemPath);
+    }
+
 
     protected List<string> GetModelStateErrorList() {
       List<string> exceptionList = new List<string>();
