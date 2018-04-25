@@ -16,22 +16,30 @@ namespace Empiria.Postings {
   /// <summary>Data read and write methods for postings.</summary>
   static internal class PostingsData {
 
+    static internal FixedList<ObjectPosting> GetObjectPostingsList(string objectType, string objectUID,
+                                                                   string keywords = "") {
+      string filter = $"(ObjectType = '{objectType}' AND ObjectUID = '{objectUID}' AND Status <> 'X')";
+
+      if (keywords.Length != 0) {
+        filter += " AND ";
+        filter += SearchExpression.ParseAndLike("Keywords", EmpiriaString.BuildKeywords(keywords));
+      }
+
+      return BaseObject.GetList<ObjectPosting>(filter, "PostingTime")
+                       .ToFixedList();
+    }
+
+
     static internal void WritePosting(ObjectPosting o) {
       var op = DataOperation.Parse("writePosting",
                                     o.Id, o.GetEmpiriaType().Id, o.UID,
                                     o.ObjectType, o.ObjectUID,
-                                    o.ExtensionData.ToString(), o.Text, o.Keywords,
+                                    o.ControlNo, o.Title, o.Body, o.Tags,
+                                    o.ExtensionData.ToString(), o.Keywords,
                                     (char) o.AccessMode, o.Owner.Id, o.ParentId,
                                     o.Date, (char) o.Status);
 
       DataWriter.Execute(op);
-    }
-
-    static internal FixedList<ObjectPosting> GetObjectPostingsList(string objectType, string objectUID) {
-      string filter = $"(ObjectType = '{objectType}' AND ObjectUID = '{objectUID}' AND Status <> 'X')";
-
-      return BaseObject.GetList<ObjectPosting>(filter, "PostingDate")
-                       .ToFixedList();
     }
 
   }  // class PostingsData

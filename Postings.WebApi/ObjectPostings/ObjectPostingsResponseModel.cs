@@ -31,7 +31,7 @@ namespace Empiria.Postings.WebApi {
     static internal object ToResponse(this ObjectPosting posting) {
       return new {
         uid = posting.UID,
-        text = posting.Text,
+        text = posting.Body,
         date = posting.Date,
         owner = posting.Owner.Nickname
       };

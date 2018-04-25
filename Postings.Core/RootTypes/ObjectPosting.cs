@@ -170,7 +170,7 @@ namespace Empiria.Postings {
 
     protected override void OnSave() {
       if (this.UID.Length == 0) {
-        this.UID = EmpiriaString.BuildRandomString(6, 24);
+        this.UID = EmpiriaString.BuildRandomString(6, 36);
         this.Owner = EmpiriaUser.Current.AsContact();
       }
       PostingsData.WritePosting(this);
