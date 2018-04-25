@@ -45,7 +45,7 @@ namespace Empiria.Presentation.Web.Content {
 
     static public void AppendToCombo<T>(HtmlSelect comboControl, IEnumerable dataSource,
                                         Func<T, string> dataValueFunction,
-                                        Func<T, string> dataTextFunction) where T : IStorable {
+                                        Func<T, string> dataTextFunction) where T : IIdentifiable {
       IEnumerator enumerator = dataSource.GetEnumerator();
       if (enumerator.MoveNext()) {
         T current = (T) enumerator.Current;
@@ -107,7 +107,7 @@ namespace Empiria.Presentation.Web.Content {
 
     static public string GetComboAjaxHtml<T>(IEnumerable<T> dataSource, string dataValueField,
                                              Func<T, string> dataTextFunction,
-                                             string headerItemText) where T : IStorable {
+                                             string headerItemText) where T : IIdentifiable {
       string html = String.Empty;
       if (headerItemText.Length != 0) {
         html += GetComboAjaxHtmlItem(String.Empty, headerItemText);
@@ -135,7 +135,7 @@ namespace Empiria.Presentation.Web.Content {
     static public string GetComboAjaxHtml<T>(FixedList<T> dataSource, string dataValueField,
                                              Func<T, string> dataTextFunction,
                                              string headerItemText, string emptyItemText,
-                                             string unknownItemText) where T : IStorable {
+                                             string unknownItemText) where T : IIdentifiable {
       string html = GetComboAjaxHtml(headerItemText, emptyItemText, unknownItemText);
 
       if (html.Length != 0) {
@@ -262,7 +262,7 @@ namespace Empiria.Presentation.Web.Content {
 
     static public void LoadCombo<T>(HtmlSelect comboControl, IEnumerable dataSource,
                                     Func<T, string> dataValueFunction, Func<T, string> dataTextFunction,
-                                    string headerItemText) where T : IStorable {
+                                    string headerItemText) where T : IIdentifiable {
       comboControl.Items.Clear();
       AppendToCombo(comboControl, dataSource, dataValueFunction, dataTextFunction);
       LoadCombo(comboControl, headerItemText, String.Empty, String.Empty);
