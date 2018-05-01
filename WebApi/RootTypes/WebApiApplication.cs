@@ -50,21 +50,34 @@ namespace Empiria.WebApi {
 
     protected override void Application_Start(object sender, EventArgs e) {
       base.Application_Start(sender, e);
+
       RegisterGlobalHandlers(GlobalConfiguration.Configuration);
+
       GlobalConfiguration.Configure(WebApiConfig.Register);
+
       RegisterFormatters(GlobalConfiguration.Configuration);
+
       RegisterGlobalFilters(GlobalConfiguration.Configuration);
     }
 
+
     private void RegisterGlobalHandlers(HttpConfiguration config) {
+
       config.MessageHandlers.Add(new AuditTrailHandler());
+
       config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
+
       config.MessageHandlers.Add(new WebApiResponseHandler());
+
+      // config.MessageHandlers.Add(new StorageContextHandler());
+
     }
+
 
     protected void Application_BeginRequest(object sender, EventArgs e) {
 
     }
+
 
     private void RegisterFormatters(HttpConfiguration config) {
       var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -72,7 +85,7 @@ namespace Empiria.WebApi {
       settings.Formatting = Newtonsoft.Json.Formatting.Indented;
       settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
-//      settings.Converters.Add(new Empiria.Json.DateTimeConverter());
+      settings.Converters.Add(new Empiria.Json.DateTimeConverter());
       settings.Converters.Add(new Empiria.Json.ValueObjectConverter());
       settings.Converters.Add(new Empiria.Json.DataViewConverter());
       settings.Converters.Add(new Empiria.Json.DataRowConverter());
