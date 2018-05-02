@@ -3,6 +3,8 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.ExceptionHandling;
 
+using Empiria.Json;
+
 namespace Empiria.WebApi {
 
   static public class WebApiConfig {
@@ -83,18 +85,23 @@ namespace Empiria.WebApi {
       var settings = new Newtonsoft.Json.JsonSerializerSettings();
 
       settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+
       settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
-      settings.Converters.Add(new Empiria.Json.DateTimeConverter());
-      settings.Converters.Add(new Empiria.Json.ValueObjectConverter());
-      settings.Converters.Add(new Empiria.Json.DataViewConverter());
-      settings.Converters.Add(new Empiria.Json.DataRowConverter());
+      // Empiria Json converters
+
+      settings.DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
+      settings.Converters.Add(new DateTimeConverter());
+
+      settings.Converters.Add(new ValueObjectConverter());
+      settings.Converters.Add(new DataViewConverter());
+      settings.Converters.Add(new DataRowConverter());
+
+      // Third party converters
       settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
       config.Formatters.JsonFormatter.SerializerSettings = settings;
-
-      // Remove Xml formatter
-      config.Formatters.Remove(config.Formatters.XmlFormatter);
+      config.Formatters.Remove(config.Formatters.XmlFormatter);         // Remove Xml formatter
     }
 
     static public void RegisterGlobalFilters(HttpConfiguration config) {
