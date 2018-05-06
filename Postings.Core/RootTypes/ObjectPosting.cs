@@ -61,12 +61,6 @@ namespace Empiria.Postings {
 
     #region Public properties
 
-    [DataField("UID")]
-    public string UID {
-      get;
-      private set;
-    } = String.Empty;
-
 
     [DataField("ObjectType")]
     public string ObjectType {
@@ -169,8 +163,7 @@ namespace Empiria.Postings {
 
 
     protected override void OnSave() {
-      if (this.UID.Length == 0) {
-        this.UID = EmpiriaString.BuildRandomString(6, 36);
+      if (this.IsNew) {
         this.Owner = EmpiriaUser.Current.AsContact();
       }
       PostingsData.WritePosting(this);
