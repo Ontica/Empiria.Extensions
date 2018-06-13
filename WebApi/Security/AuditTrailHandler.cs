@@ -22,6 +22,10 @@ namespace Empiria.WebApi {
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                                                                  CancellationToken cancellationToken) {
+      if (request.Method == HttpMethod.Options) {
+        return await base.SendAsync(request, cancellationToken);
+      }
+
       var auditTrailLog = new WebApiAuditTrail();
 
       HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
