@@ -24,8 +24,8 @@ namespace Empiria.WebApi {
   public class PagedCollectionModel : CollectionModel {
 
     public PagedCollectionModel(HttpRequestMessage request,
-                                ArrayList array, string typeName = "") : base(request, array, typeName) {
-      this.DoDataPaging(array);
+                                ICollection data, string typeName = "") : base(request, data, typeName) {
+      this.DoDataPaging(data);
     }
 
 
@@ -78,12 +78,18 @@ namespace Empiria.WebApi {
 
     #region Private methods
 
-    private void DoDataPaging(ArrayList array) {
+    private void DoDataPaging(ICollection data) {
       /// Because ArrayList.GetRange throws an error when array.Count == 0
-      if (array.Count != 0) {
-        array = array.GetRange(this.Paging.StartIndex, this.Paging.PageSize);
+      if (data.Count != 0) {
+        ArrayList page = new ArrayList(data);
+
+        page = page.GetRange(this.Paging.StartIndex, this.Paging.PageSize);
+
+        base.RefreshData(page);
+
+      } else {
+        base.RefreshData(data);
       }
-      base.RefreshData(array);
     }
 
 
