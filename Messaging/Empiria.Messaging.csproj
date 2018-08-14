@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Company>Ontica</Company>
     <Product>Empiria Messaging</Product>
-    <Description>Provides email and other messaging services.</Description>
+    <Description>Provides message queuing and email services.</Description>
     <Copyright>(c) 2007-2018. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>7.0.0</Version>
     <AssemblyVersion>7.0.0</AssemblyVersion>

@@ -1,6 +1,6 @@
 ﻿# Empiria Messaging
 
-Provides email and other messaging services.
+Provides message queuing and email services.
 
 # License
 

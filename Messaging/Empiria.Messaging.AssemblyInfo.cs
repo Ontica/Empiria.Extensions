@@ -4,7 +4,7 @@
 *  Assembly : Empiria.Messaging.dll                        Pattern : Assembly Attributes File                *
 *                                                          License : Please read license.txt file            *
 *                                                                                                            *
-*  Summary  : Provides email and other messaging services.                                                   *
+*  Summary  : Provides messaging queuing and email services.                                                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
