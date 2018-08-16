@@ -1,13 +1,12 @@
-﻿/* Empiria Foundation Framework ******************************************************************************
+﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Foundation Framework                     System   : Messaging Services                *
-*  Namespace : Empiria.Messaging                                Assembly : Empiria.Messaging.dll             *
-*  Type      : EMailConfig                                      Pattern  : Empiria Semiabstract Object Type  *
-*  Version   : 6.8                                              License  : Please read license.txt file      *
+*  Module   : Messaging Services                           Component : EMail Services                        *
+*  Assembly : Empiria.Messaging.dll                        Pattern   : Information Holder                    *
+*  Type     : EMailConfig                                  License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Configuration data for email SMTP clients.                                                    *
+*  Summary  : Contains configuration data for email SMTP clients.                                            *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 using Empiria.Json;
@@ -32,8 +31,7 @@ namespace Empiria.Messaging {
     static public EMailConfig Parse(string serverName) {
       Assertion.AssertObject(serverName, "serverName");
 
-      string jsonString = ConfigurationData.GetString(serverName + ".Email.ConfigData");
-      var jsonObject = JsonObject.Parse(jsonString);
+      var jsonObject = ConfigurationData.Get<JsonObject>(serverName + ".Email.ConfigData");
 
       return new EMailConfig(jsonObject);
     }
@@ -99,6 +97,6 @@ namespace Empiria.Messaging {
 
     #endregion Private methods
 
-  } //class EMail
+  } //class EMailConfig
 
 } //namespace Empiria.Messaging
