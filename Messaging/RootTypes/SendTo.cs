@@ -32,13 +32,13 @@ namespace Empiria.Messaging {
 
 
     public SendTo(string address, string displayName = null,
-                  string sendWhen = null, string ruleName = null) {
+                  string sendWhen = null, string ruleName = "Default") {
       Assertion.AssertObject(address, "address");
 
       this.Address = address;
       this.DisplayName = displayName ?? String.Empty;
       this.SendWhen = sendWhen ?? String.Empty;
-      this.RuleName = ruleName ?? String.Empty;
+      this.RuleName = ruleName ?? "Default";
     }
 
 
@@ -65,6 +65,8 @@ namespace Empiria.Messaging {
     } = new SendTo() {
       IsEmptyInstance = true
     };
+
+
     #endregion Constructors and parsers
 
     #region Properties
@@ -79,6 +81,7 @@ namespace Empiria.Messaging {
       get;
       private set;
     } = String.Empty;
+
 
     public string Address {
       get;
@@ -114,13 +117,18 @@ namespace Empiria.Messaging {
 
     #region Methods
 
+    public void SetPriority(Priority priority) {
+      this.Priority = priority;
+    }
+
+
     public virtual JsonObject ToJson() {
       var json = new JsonObject();
 
       json.Add("address", this.Address);
       json.AddIfValue("displayName", this.DisplayName);
       json.AddIfValue("sendWhen", this.SendWhen);
-      json.AddIfValue("ruleName", this.RuleName);
+      json.AddIf("ruleName", this.RuleName, this.RuleName != "Default");
       json.AddIf("priority", this.Priority, this.Priority != Priority.Normal);
       json.AddIfValue("format", this.Format);
 

@@ -9,7 +9,6 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
-using Empiria.Contacts;
 using Empiria.Json;
 using Empiria.Ontology;
 using Empiria.StateEnums;
@@ -43,6 +42,15 @@ namespace Empiria.Messaging {
       return BaseObject.ParseId<Message>(id);
     }
 
+    public bool IsReadyToProcess() {
+      return this.IsInProcessStatus && this.PostingTime.AddMinutes(this.Queue.DefaultProcessingDelayMinutes) > DateTime.Now;
+    }
+
+    private bool IsInProcessStatus {
+      get {
+        return (this.ProcessingStatus == ExecutionStatus.Pending || this.ProcessingStatus == ExecutionStatus.Failed);
+      }
+    }
 
     static internal Message Parse(string uid) {
       return BaseObject.ParseKey<Message>(uid);
@@ -140,6 +148,8 @@ namespace Empiria.Messaging {
 
 
     protected override void OnSave() {
+      Assertion.AssertObject(this.Queue, "Message's queue can't be null.");
+
       if (base.IsNew) {
         this.PostingTime = DateTime.Now;
         this.ProcessingTime = ExecutionServer.DateMaxValue;
