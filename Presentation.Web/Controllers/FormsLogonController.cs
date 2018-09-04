@@ -29,13 +29,8 @@ namespace Empiria.Presentation.Web.Controllers {
     #region Public methods
 
     public new bool Logon(string clientAppKey, string userName, string password,
-                          string entropy, int contextId) {
-      bool success = base.Logon(clientAppKey, userName, password, entropy, contextId);
-
-      if (success) {
-        SetLastWorkplaceCookie(contextId.ToString());
-      }
-      return success;
+                          string entropy, Json.JsonObject contextData = null) {
+      return base.Logon(clientAppKey, userName, password, entropy, contextData);
     }
 
     public string GetLastAuthenticatedUserName() {
@@ -45,16 +40,6 @@ namespace Empiria.Presentation.Web.Controllers {
         return cookie.Value; //WebContext.Server.HtmlDecode(cookie.Value);
       } else {
         return String.Empty;
-      }
-    }
-
-    public string GetLastAuthenticatedWorkplace() {
-      System.Web.HttpCookie cookie = WebContext.Request.Cookies["empiriaLastWorkplace_" + ExecutionServer.LicenseName];
-
-      if (cookie != null) {
-        return cookie.Value;
-      } else {
-        return Empiria.ExecutionServer.OrganizationId.ToString();
       }
     }
 
@@ -157,15 +142,6 @@ namespace Empiria.Presentation.Web.Controllers {
       System.Web.HttpCookie cookie = new System.Web.HttpCookie("empiriaLastUserName_" + ExecutionServer.LicenseName);
 
       cookie.Value = userName;
-      cookie.Expires = DateTime.Now.AddDays(3d);
-
-      WebContext.Response.Cookies.Add(cookie);
-    }
-
-    private void SetLastWorkplaceCookie(string workplace) {
-      System.Web.HttpCookie cookie = new System.Web.HttpCookie("empiriaLastWorkplace_" + ExecutionServer.LicenseName);
-
-      cookie.Value = workplace;
       cookie.Expires = DateTime.Now.AddDays(3d);
 
       WebContext.Response.Cookies.Add(cookie);

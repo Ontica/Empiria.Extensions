@@ -25,26 +25,25 @@ namespace Empiria.WebApi {
     #region Public methods
 
     static public EmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password,
-                                                 string entropy = "", int contextId = -1) {
+                                                 string entropy = "") {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
       Assertion.AssertObject(userName, "userName");
       Assertion.AssertObject(password, "password");
 
       EmpiriaPrincipal principal = AuthenticationService.Authenticate(apiClientKey,
                                                                       userName, password,
-                                                                      entropy, contextId);
+                                                                      entropy);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 
       return principal;
     }
 
-    static public EmpiriaPrincipal AuthenticateGuest(string apiClientKey, int contextId = -1) {
+    static public EmpiriaPrincipal AuthenticateGuest(string apiClientKey) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
 
       EmpiriaPrincipal principal = AuthenticationService.AuthenticateAnonymous(apiClientKey,
-                                                                               AnonymousUser.Guest,
-                                                                               contextId);
+                                                                               AnonymousUser.Guest);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipal(principal);
 

@@ -37,12 +37,12 @@ namespace Empiria.Presentation.Controllers {
     #region Protected methods
 
     protected bool Logon(string clientAppKey, string userName, string password,
-                         string entropy, int contextId) {
+                         string entropy, Json.JsonObject contextData = null) {
       OnValidate();
       EmpiriaPrincipal principal = null;
       try {
         principal = AuthenticationService.Authenticate(clientAppKey, userName, password,
-                                                       entropy, contextId);
+                                                       entropy, contextData);
       } catch {
         // no-op
       }
