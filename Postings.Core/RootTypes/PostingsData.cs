@@ -16,9 +16,8 @@ namespace Empiria.Postings {
   /// <summary>Data read and write methods for postings.</summary>
   static internal class PostingsData {
 
-    static internal FixedList<ObjectPosting> GetObjectPostingsList(string objectType, string objectUID,
-                                                                   string keywords = "") {
-      string filter = $"(ObjectType = '{objectType}' AND ObjectUID = '{objectUID}' AND Status <> 'X')";
+    static internal FixedList<ObjectPosting> GetObjectPostingsList(string objectUID, string keywords = "") {
+      string filter = $"(ObjectUID = '{objectUID}' AND Status <> 'X')";
 
       if (keywords.Length != 0) {
         filter += " AND ";
@@ -33,11 +32,11 @@ namespace Empiria.Postings {
     static internal void WritePosting(ObjectPosting o) {
       var op = DataOperation.Parse("writePosting",
                                     o.Id, o.GetEmpiriaType().Id, o.UID,
-                                    o.ObjectType, o.ObjectUID,
-                                    o.ControlNo, o.Title, o.Body, o.Tags,
+                                    o.ObjectUID, o.ControlNo,
+                                    o.Title, o.Body, o.Tags,
                                     o.ExtensionData.ToString(), o.Keywords,
-                                    (char) o.AccessMode, o.Owner.Id, o.ParentId,
-                                    o.Date, (char) o.Status);
+                                    (char) o.AccessMode, o.Owner.Id,
+                                    o.ParentId, o.Date, (char) o.Status);
 
       DataWriter.Execute(op);
     }

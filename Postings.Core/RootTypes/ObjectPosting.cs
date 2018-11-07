@@ -26,13 +26,10 @@ namespace Empiria.Postings {
     }
 
 
-    public ObjectPosting(string objectType, string objectUID,
-                         JsonObject data) {
-      Assertion.AssertObject(objectType, "objectType");
+    public ObjectPosting(string objectUID, JsonObject data) {
       Assertion.AssertObject(objectUID, "objectUID");
       this.AssertIsValid(data);
 
-      this.ObjectType = objectType;
       this.ObjectUID = objectUID;
 
       this.Load(data);
@@ -49,24 +46,16 @@ namespace Empiria.Postings {
     }
 
 
-    static public FixedList<ObjectPosting> GetList(string objectType, string objectUID, string keywords = "") {
-      Assertion.AssertObject(objectType, "objectType");
+    static public FixedList<ObjectPosting> GetList(string objectUID, string keywords = "") {
       Assertion.AssertObject(objectUID, "objectUID");
 
-      return PostingsData.GetObjectPostingsList(objectType, objectUID, keywords);
+      return PostingsData.GetObjectPostingsList(objectUID, keywords);
     }
 
 
     #endregion Constructors and parsers
 
     #region Public properties
-
-
-    [DataField("ObjectType")]
-    public string ObjectType {
-      get;
-      private set;
-    } = String.Empty;
 
 
     [DataField("ObjectUID")]
@@ -135,14 +124,14 @@ namespace Empiria.Postings {
     internal int ParentId {
       get;
       private set;
-    }
+    } = -1;
 
 
     [DataField("PostingTime", Default = "DateTime.Now")]
     public DateTime Date {
       get;
       private set;
-    }
+    } = DateTime.Now;
 
 
     [DataField("Status", Default = EntityStatus.Active)]
@@ -191,7 +180,11 @@ namespace Empiria.Postings {
 
 
     private void Load(JsonObject data) {
-      this.Body = data.Get<string>("text", this.Body);
+      this.Title = data.Get<string>("title", this.Title);
+      this.Body = data.Get<string>("body", this.Body);
+      this.Tags = data.Get<string>("tags", this.Tags);
+      this.ControlNo = data.Get<string>("controlNo", this.ControlNo);
+
     }
 
     #endregion Private methods

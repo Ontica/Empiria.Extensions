@@ -21,11 +21,11 @@ namespace Empiria.Postings.WebApi {
     #region GET methods
 
     [HttpGet]
-    [Route("v1/postings/{objectType}/{objectUID}")]
-    public CollectionModel GetObjectPostings(string objectType, string objectUID) {
+    [Route("v1/postings/{objectUID}")]
+    public CollectionModel GetObjectPostingsList(string objectUID) {
       try {
 
-        FixedList<ObjectPosting> postingsList = ObjectPosting.GetList(objectType, objectUID);
+        FixedList<ObjectPosting> postingsList = ObjectPosting.GetList(objectUID);
 
         return new CollectionModel(this.Request, postingsList.ToResponse(),
                                    typeof(ObjectPosting).FullName);
@@ -35,20 +35,41 @@ namespace Empiria.Postings.WebApi {
       }
     }
 
+
+
+    [HttpGet]
+    [Route("v1/postings/{objectUID}/{postingUID}")]
+    public SingleObjectModel GetPosting(string objectUID, string postingUID) {
+      try {
+
+        var posting = ObjectPosting.Parse(postingUID);
+
+        Assertion.Assert(posting.ObjectUID == objectUID,
+                         $"posting.UID '{postingUID}' is not related with object.UID = '{objectUID}'.");
+
+        return new SingleObjectModel(this.Request, posting.ToResponse(),
+                                     typeof(ObjectPosting).FullName);
+
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
+
     #endregion GET methods
 
     #region UPDATE methods
 
     [HttpPost]
-    [Route("v1/postings/{objectType}/{objectUID}")]
-    public SingleObjectModel CreateObjectPosting(string objectType, string objectUID,
+    [Route("v1/postings/{objectUID}")]
+    public SingleObjectModel CreateObjectPosting(string objectUID,
                                                  [FromBody] object body) {
       try {
         base.RequireBody(body);
 
         var bodyAsJson = JsonObject.Parse(body);
 
-        var posting = new ObjectPosting(objectType, objectUID, bodyAsJson);
+        var posting = new ObjectPosting(objectUID, bodyAsJson);
 
         posting.Save();
 
@@ -61,17 +82,38 @@ namespace Empiria.Postings.WebApi {
     }
 
 
+    [HttpPut, HttpPatch]
+    [Route("v1/postings/{objectUID}/{postingUID}")]
+    public SingleObjectModel UpdateObjectPosting(string objectUID, string postingUID,
+                                                 [FromBody] object body) {
+      try {
+        base.RequireBody(body);
+
+        var bodyAsJson = JsonObject.Parse(body);
+
+        var posting = ObjectPosting.Parse(postingUID);
+
+        posting.Update(bodyAsJson);
+
+        return new SingleObjectModel(this.Request, posting,
+                                     typeof(ObjectPosting).FullName);
+
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
+
     [HttpDelete]
-    [Route("v1/postings/{objectType}/{objectUID}/{postingUID}")]
-    public CollectionModel DeleteObjectPosting(string objectType, string objectUID,
-                                               string postingUID) {
+    [Route("v1/postings/{objectUID}/{postingUID}")]
+    public CollectionModel DeleteObjectPosting(string objectUID, string postingUID) {
       try {
 
         var posting = ObjectPosting.Parse(postingUID);
 
         posting.Delete();
 
-        return this.GetObjectPostings(objectType, objectUID);
+        return this.GetObjectPostingsList(objectUID);
 
       } catch (Exception e) {
         throw base.CreateHttpException(e);
