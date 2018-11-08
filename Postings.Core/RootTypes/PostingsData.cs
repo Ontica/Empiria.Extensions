@@ -34,7 +34,7 @@ namespace Empiria.Postings {
                                     o.Id, o.GetEmpiriaType().Id, o.UID,
                                     o.ObjectUID, o.ControlNo,
                                     o.Title, o.Body, o.Tags,
-                                    o.ExtensionData.ToString(), o.Keywords,
+                                    o.FileName, o.Keywords,
                                     (char) o.AccessMode, o.Owner.Id,
                                     o.ParentId, o.Date, (char) o.Status);
 

@@ -85,6 +85,13 @@ namespace Empiria.Postings {
     } = String.Empty;
 
 
+    [DataField("ExtData")]
+    public string FileName {
+      get;
+      private set;
+    } = String.Empty;
+
+
     [DataField("Body")]
     public string Body {
       get;
@@ -184,7 +191,7 @@ namespace Empiria.Postings {
       this.Body = data.Get<string>("body", this.Body);
       this.Tags = data.Get<string>("tags", this.Tags);
       this.ControlNo = data.Get<string>("controlNo", this.ControlNo);
-
+      this.FileName = data.Get<string> ("fileName", this.FileName);
     }
 
     #endregion Private methods

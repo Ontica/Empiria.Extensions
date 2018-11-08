@@ -34,6 +34,7 @@ namespace Empiria.Postings.WebApi {
         objectUID = posting.ObjectUID,
         body = posting.Body,
         title = posting.Title,
+        fileName = posting.FileName,
         controlNo = posting.ControlNo,
         tags = posting.Tags,
         date = posting.Date,
