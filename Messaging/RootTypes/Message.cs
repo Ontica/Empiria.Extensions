@@ -42,15 +42,20 @@ namespace Empiria.Messaging {
       return BaseObject.ParseId<Message>(id);
     }
 
+
     public bool IsReadyToProcess() {
-      return this.IsInProcessStatus && this.PostingTime.AddMinutes(this.Queue.DefaultProcessingDelayMinutes) > DateTime.Now;
+      return this.IsInProcessStatus &&
+             this.PostingTime.AddMinutes(this.Queue.DefaultProcessingDelayMinutes) < DateTime.Now;
     }
+
 
     private bool IsInProcessStatus {
       get {
-        return (this.ProcessingStatus == ExecutionStatus.Pending || this.ProcessingStatus == ExecutionStatus.Failed);
+        return (this.ProcessingStatus == ExecutionStatus.Pending ||
+                this.ProcessingStatus == ExecutionStatus.Failed);
       }
     }
+
 
     static internal Message Parse(string uid) {
       return BaseObject.ParseKey<Message>(uid);
@@ -64,7 +69,7 @@ namespace Empiria.Messaging {
     }
 
 
-    #endregion Constructor and parsers
+    #endregion Constructors and parsers
 
     #region Properties
 

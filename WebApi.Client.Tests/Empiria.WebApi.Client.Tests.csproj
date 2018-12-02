@@ -71,4 +71,12 @@
   <ItemGroup>
     <ProjectReference Include="..\WebApi.Client\Empiria.WebApi.Client.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="empiria.config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="empiria.environment.vars.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

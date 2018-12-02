@@ -20,9 +20,9 @@ namespace Empiria.Messaging {
     #region Public methods
 
     static internal List<Message> GetQueueMessages(MessageQueue queue) {
-      string sql = $"SELECT * FROM QueuedMessages " +
-                   $"WHERE QueueId = {queue.Id} AND ProcessingStatus <> 'X' " +
-                   $"ORDER BY PostingTime, MessageId";
+      var sql = $"SELECT * FROM QueuedMessages " +
+                $"WHERE QueueId = {queue.Id} AND ProcessingStatus <> 'X' " +
+                $"ORDER BY PostingTime, MessageId";
 
       return DataReader.GetList<Message>(DataOperation.Parse(sql));
     }
@@ -33,7 +33,7 @@ namespace Empiria.Messaging {
                                     o.Queue.Id, o.UID, o.UnitOfWorkUID,
                                     o.PostingTime, o.MessageData.ToString(),
                                     o.ProcessingTime, o.ProcessingData.ToString(),
-                                    o.ProcessingStatus);
+                                    (char) o.ProcessingStatus);
 
       DataWriter.Execute(op);
     }

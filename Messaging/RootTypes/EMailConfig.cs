@@ -91,7 +91,7 @@ namespace Empiria.Messaging {
       this.UseDefaultCredentials = json.Get("UseDefaultCredentials", true);
       this.SenderEMailAddress = json.Get<string>("SenderEMailAddress");
       this.SenderName = json.Get<string>("SenderName");
-      this.SenderEMailPassword = json.Get<String>("SenderEMailPassword");
+      this.SenderEMailPassword = json.Get<string>("SenderEMailPassword");
       this.BccMirrorEMailAddress = json.Get<string>("BccMirrorEMailAddress", String.Empty);
     }
 

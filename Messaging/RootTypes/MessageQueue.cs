@@ -62,7 +62,7 @@ namespace Empiria.Messaging {
 
     public double DefaultProcessingDelayMinutes {
       get {
-        return 20;
+        return 10;
       }
     }
 
