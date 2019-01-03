@@ -51,12 +51,39 @@ namespace Empiria.WebApi.Controllers {
       }
     }
 
+
+    [HttpPost, AllowAnonymous]
+    [Route("v1.5/security/login")]
+    public SingleObjectModel LoginV1_5([FromBody] LoginModel login) {
+      try {
+        base.RequireBody(login);
+        base.RequireHeader("User-Agent");
+
+        ClientApplication clientApp = base.GetClientApplication();
+        login.api_key = clientApp.Key;
+
+        login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
+        login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
+
+        EmpiriaPrincipal principal = this.GetPrincipal(login);
+
+        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+                                     "Empiria.Security.OAuthObject");
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
+
+
     [HttpPost, AllowAnonymous]
     [Route("v2/security/login")]
     public SingleObjectModel LoginV2([FromBody] LoginModel login) {
       try {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
+
+       // System.Threading.Thread.Sleep(1000);
 
         ClientApplication clientApp = base.GetClientApplication();
         login.api_key = clientApp.Key;
