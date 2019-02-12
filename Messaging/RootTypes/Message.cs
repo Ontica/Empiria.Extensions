@@ -43,13 +43,7 @@ namespace Empiria.Messaging {
     }
 
 
-    public bool IsReadyToProcess() {
-      return this.IsInProcessStatus &&
-             this.PostingTime.AddMinutes(this.Queue.DefaultProcessingDelayMinutes) < DateTime.Now;
-    }
-
-
-    private bool IsInProcessStatus {
+    public bool IsInProcessStatus {
       get {
         return (this.ProcessingStatus == ExecutionStatus.Pending ||
                 this.ProcessingStatus == ExecutionStatus.Failed);

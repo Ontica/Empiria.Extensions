@@ -60,12 +60,6 @@ namespace Empiria.Messaging {
 
     #region Read properties and methods
 
-    public double DefaultProcessingDelayMinutes {
-      get {
-        return 10;
-      }
-    }
-
 
     public FixedList<Message> Messages {
       get {
@@ -75,7 +69,7 @@ namespace Empiria.Messaging {
 
 
     public FixedList<Message> GetNextMessages() {
-      return this.Messages.FindAll(x => x.IsReadyToProcess());
+      return this.Messages.FindAll(x => x.IsInProcessStatus);
     }
 
 
@@ -83,18 +77,18 @@ namespace Empiria.Messaging {
       Assertion.AssertObject(unitOfWorkUID, "unitOfWorkUID");
 
       return this.Messages.FindAll(x => x.UnitOfWorkUID == unitOfWorkUID &&
-                                        x.IsReadyToProcess());
+                                        x.IsInProcessStatus);
     }
 
 
     public Message TryGetNextMessage() {
-      return this.Messages.Find(x => x.IsReadyToProcess());
+      return this.Messages.Find(x => x.IsInProcessStatus);
     }
 
 
     public string TryGetNextUnitOfWork() {
       var message = this.Messages.Find(x => x.UnitOfWorkUID.Length != 0 &&
-                                            x.IsReadyToProcess());
+                                            x.IsInProcessStatus);
 
       if (message != null) {
         return message.UnitOfWorkUID;
