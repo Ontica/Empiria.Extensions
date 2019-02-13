@@ -7,17 +7,17 @@ using Empiria.Json;
 
 namespace Empiria.WebApi {
 
-  static public class WebApiConfig {
+  static internal class WebApiConfig {
 
     #region Public methods
 
-    static public void Register(HttpConfiguration config) {
+    static internal void RegisterCallback(HttpConfiguration config) {
 
       // To enable CORS
       var cors = new EnableCorsAttribute("*", "*", "*");
       config.EnableCors(cors);
 
-      //config.SuppressHostPrincipal();
+      // config.SuppressHostPrincipal();
 
       // To enable attribute routing
       config.MapHttpAttributeRoutes();
@@ -50,12 +50,10 @@ namespace Empiria.WebApi {
 
   public class WebApiApplication : WebApiGlobal {
 
-    protected override void Application_Start(object sender, EventArgs e) {
-      base.Application_Start(sender, e);
-
+    static public void Register() {
       RegisterGlobalHandlers(GlobalConfiguration.Configuration);
 
-      GlobalConfiguration.Configure(WebApiConfig.Register);
+      GlobalConfiguration.Configure(WebApiConfig.RegisterCallback);
 
       RegisterFormatters(GlobalConfiguration.Configuration);
 
@@ -63,25 +61,14 @@ namespace Empiria.WebApi {
     }
 
 
-    private void RegisterGlobalHandlers(HttpConfiguration config) {
+    protected override void Application_Start(object sender, EventArgs e) {
+      base.Application_Start(sender, e);
 
-      config.MessageHandlers.Add(new AuditTrailHandler());
-
-      config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
-
-      config.MessageHandlers.Add(new WebApiResponseHandler());
-
-      // config.MessageHandlers.Add(new StorageContextHandler());
-
+      Register();
     }
 
 
-    protected void Application_BeginRequest(object sender, EventArgs e) {
-
-    }
-
-
-    private void RegisterFormatters(HttpConfiguration config) {
+    static private void RegisterFormatters(HttpConfiguration config) {
       var settings = new Newtonsoft.Json.JsonSerializerSettings();
 
       settings.Formatting = Newtonsoft.Json.Formatting.Indented;
@@ -104,7 +91,21 @@ namespace Empiria.WebApi {
       config.Formatters.Remove(config.Formatters.XmlFormatter);         // Remove Xml formatter
     }
 
-    static public void RegisterGlobalFilters(HttpConfiguration config) {
+
+    static private void RegisterGlobalHandlers(HttpConfiguration config) {
+
+      config.MessageHandlers.Add(new AuditTrailHandler());
+
+      config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
+
+      config.MessageHandlers.Add(new WebApiResponseHandler());
+
+      // config.MessageHandlers.Add(new StorageContextHandler());
+
+    }
+
+
+    static private void RegisterGlobalFilters(HttpConfiguration config) {
       // Denies anonymous access to every controller without the AllowAnonymous attribute
       if (!ExecutionServer.IsPassThroughServer) {
         config.Filters.Add(new AuthorizeAttribute());

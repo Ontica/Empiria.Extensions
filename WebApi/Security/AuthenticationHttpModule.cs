@@ -25,7 +25,7 @@ namespace Empiria.WebApi {
     #region Public methods
 
     static public EmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password,
-                                                 string entropy = "") {
+                                                string entropy = "") {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
       Assertion.AssertObject(userName, "userName");
       Assertion.AssertObject(password, "password");
