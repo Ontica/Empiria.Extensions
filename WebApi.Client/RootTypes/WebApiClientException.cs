@@ -9,12 +9,13 @@
 *                                                                                                            *
 ********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
 using System;
+using System.Net.Http;
 using System.Reflection;
 
 namespace Empiria.WebApi {
 
   /// <summary>The exception that is thrown when a web api client call fails.</summary>
-  public sealed class WebApiClientException : EmpiriaException {
+  public sealed class WebApiClientException : EmpiriaException, IWebApiResponse {
 
     public enum Msg {
       HttpNoSuccessStatusCode,
@@ -24,7 +25,17 @@ namespace Empiria.WebApi {
 
     static private string resourceBaseName = "Empiria.WebApi.Client.RootTypes.WebApiClientExceptionMsg";
 
+
     #region Constructors and parsers
+
+    /// <summary>Initializes a new instance of WebApiClientException class with a specified error
+    /// message.</summary>
+    /// <param name="message">Used to indicate the description of the exception.</param>
+    /// <param name="args">An optional array of objects to format into the exception message.</param>
+    public WebApiClientException(HttpResponseMessage response, Msg message, params object[] args)
+                           : base(message.ToString(), GetMessage(message, args)) {
+      this.Response = response;
+    }
 
     /// <summary>Initializes a new instance of WebApiClientException class with a specified error
     /// message.</summary>
@@ -48,6 +59,10 @@ namespace Empiria.WebApi {
     #endregion Constructors and parsers
 
     #region Methods
+
+    public HttpResponseMessage Response {
+      get;
+    }
 
     static private string GetMessage(Msg message, params object[] args) {
       return GetResourceMessage(message.ToString(), resourceBaseName, Assembly.GetExecutingAssembly(), args);

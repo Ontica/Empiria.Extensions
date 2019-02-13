@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
 
 using Empiria.Json;
@@ -22,17 +23,25 @@ namespace Empiria.WebApi {
 
   /// <summary>Defines the methods, properties, and events common to all Web API controller
   ///types used by Empiria ASP.NET Web API platform.</summary>
-  public abstract class WebApiController : ApiController {
+  public class WebApiController : ApiController {
 
-    protected WebApiController() {
+    static public readonly bool IsPassThroughServer = ConfigurationData.Get<bool>("IsPassThroughServer");
+
+
+    public WebApiController() {
 
     }
 
     #region Public Methods
 
+
     protected HttpResponseException CreateHttpException(Exception exception) {
       if (exception is HttpResponseException) {
         return (HttpResponseException) exception;
+      }
+
+      if (exception is IWebApiResponse) {
+        return new HttpResponseException(((IWebApiResponse) exception).Response);
       }
 
       ExceptionModel model = new ExceptionModel(base.Request, exception);

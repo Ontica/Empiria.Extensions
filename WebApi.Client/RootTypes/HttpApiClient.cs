@@ -75,9 +75,18 @@ namespace Empiria.WebApi.Client {
 
 
     public async Task<T> GetAsync<T>(string path, params object[] pars) {
-      var response = await this.SendRequestAsync(HttpMethod.Get, String.Empty,
-                                                 path, pars)
+      var response = await this.SendRequestAsync(HttpMethod.Get, String.Empty, path, pars)
                                .ConfigureAwait(false);
+
+      return await this.ConvertHttpContentAsync<T>(response, path)
+                       .ConfigureAwait(false);
+    }
+
+
+    /// <summary>Sends a json POST request as an asynchronous operation without body.</summary>
+    public async Task<T> PostAsync<T>(string path, params object[] pars) {
+      var response = await this.SendRequestAsync(HttpMethod.Post, String.Empty, path, pars)
+                                .ConfigureAwait(false);
 
       return await this.ConvertHttpContentAsync<T>(response, path)
                        .ConfigureAwait(false);
@@ -89,6 +98,7 @@ namespace Empiria.WebApi.Client {
     public Task PostAsync<T>(T body, string path, params object[] pars) {
       return this.SendRequestAsync(HttpMethod.Post, body, path, pars);
     }
+
 
     /// <summary>Sends a json POST request of type T as an asynchronous operation
     /// returning a response of type R.</summary>
@@ -135,7 +145,7 @@ namespace Empiria.WebApi.Client {
           var content = await response.Content.ReadAsStringAsync()
                                               .ConfigureAwait(false);
 
-          throw new WebApiClientException(WebApiClientException.Msg.HttpNoSuccessStatusCode,
+          throw new WebApiClientException(response, WebApiClientException.Msg.HttpNoSuccessStatusCode,
                                           response.StatusCode,
                                           $"{this.httpClient.BaseAddress}/{path}",
                                           content);
@@ -221,6 +231,7 @@ namespace Empiria.WebApi.Client {
 
       this.SetRequestHeaders();
       Task<HttpResponseMessage> response = this.InvokeMethodAsync(method, fullPath, body);
+
       this.CleanRequestHeaders();
 
       return response;
