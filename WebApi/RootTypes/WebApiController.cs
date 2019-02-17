@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Net.Http;
 using System.Web.Http;
 
 using Empiria.Json;
@@ -25,7 +24,7 @@ namespace Empiria.WebApi {
   ///types used by Empiria ASP.NET Web API platform.</summary>
   public class WebApiController : ApiController {
 
-    static public readonly bool IsPassThroughServer = ConfigurationData.Get<bool>("IsPassThroughServer");
+    static public readonly bool IsPassThroughServer = ConfigurationData.Get("IsPassThroughServer", false);
 
 
     public WebApiController() {
@@ -50,6 +49,7 @@ namespace Empiria.WebApi {
 
       return new HttpResponseException(response);
     }
+
 
     protected ClientApplication GetClientApplication() {
       if (ExecutionServer.IsAuthenticated) {
@@ -81,6 +81,7 @@ namespace Empiria.WebApi {
 
       return exceptionList;
     }
+
 
     protected NameValueCollection GetQueryStringAsCollection() {
       string queryString = Uri.UnescapeDataString(base.Request.RequestUri.Query);
@@ -118,9 +119,10 @@ namespace Empiria.WebApi {
       if (model == null) {
         throw new WebApiException(WebApiException.Msg.BodyMissed);
       }
+
       if (!base.ModelState.IsValid) {
 
-        List<string> exceptionList = this.GetModelStateErrorList();;
+        List<string> exceptionList = this.GetModelStateErrorList();
 
         throw new WebApiException(WebApiException.Msg.BadBody, exceptionList.ToArray());
       }
@@ -134,17 +136,20 @@ namespace Empiria.WebApi {
       }
     }
 
+
     public void RequireResource(string value, string resourceName) {
       if (String.IsNullOrWhiteSpace(value)) {
         throw new WebApiException(WebApiException.Msg.ResourceMissed, resourceName);
       }
     }
 
+
     public void RequireResource(int value, string resourceName) {
       if (value == 0) {
         throw new WebApiException(WebApiException.Msg.ResourceMissed, resourceName);
       }
     }
+
 
     public WebApiException UnauthorizedResource(string resourceName, object value) {
       return new WebApiException(WebApiException.Msg.UnauthorizedResource, resourceName, value);
