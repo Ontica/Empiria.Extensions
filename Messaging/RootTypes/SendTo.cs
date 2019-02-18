@@ -36,7 +36,7 @@ namespace Empiria.Messaging {
       Assertion.AssertObject(address, "address");
 
       this.Address = address;
-      this.DisplayName = displayName ?? String.Empty;
+      this.Name = displayName ?? String.Empty;
       this.SendWhen = sendWhen ?? String.Empty;
       this.RuleName = ruleName ?? "Default";
     }
@@ -50,7 +50,7 @@ namespace Empiria.Messaging {
       var sendTo = new SendTo();
 
       sendTo.Address = json.Get<string>("address", String.Empty);
-      sendTo.DisplayName = json.Get<string>("displayName", String.Empty);
+      sendTo.Name = json.Get<string>("name", String.Empty);
       sendTo.SendWhen = json.Get<string>("sendWhen", String.Empty);
       sendTo.RuleName = json.Get<string>("ruleName", "Default");
       sendTo.Priority = json.Get<Priority>("priority", Priority.Normal);
@@ -89,7 +89,7 @@ namespace Empiria.Messaging {
     } = String.Empty;
 
 
-    public string DisplayName {
+    public string Name {
       get;
       private set;
     } = String.Empty;
@@ -126,7 +126,7 @@ namespace Empiria.Messaging {
       var json = new JsonObject();
 
       json.Add("address", this.Address);
-      json.AddIfValue("displayName", this.DisplayName);
+      json.AddIfValue("name", this.Name);
       json.AddIfValue("sendWhen", this.SendWhen);
       json.AddIf("ruleName", this.RuleName, this.RuleName != "Default");
       json.AddIf("priority", this.Priority, this.Priority != Priority.Normal);
