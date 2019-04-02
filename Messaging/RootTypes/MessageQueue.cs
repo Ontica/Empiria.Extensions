@@ -69,7 +69,11 @@ namespace Empiria.Messaging {
 
 
     public FixedList<Message> GetNextMessages() {
-      return this.Messages.FindAll(x => x.IsInProcessStatus);
+      var messages = this.Messages.FindAll(x => x.IsInProcessStatus);
+
+      messages.Sort((x, y) => x.PostingTime.CompareTo(y.PostingTime));
+
+      return messages;
     }
 
 
