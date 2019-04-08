@@ -12,16 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 
-using Empiria.Json;
+using Empiria.Security;
 
 namespace Empiria.Documents.IO {
 
   /// <summary>Empiria file I/O services.</summary>
   static public class FileServices {
-
-    #region Public properties
-
-    #endregion Public properties
 
     #region Public methods
 
@@ -31,13 +27,15 @@ namespace Empiria.Documents.IO {
       }
     }
 
+
     static public void AssureDirectoryForFile(string fileName) {
       string directory = fileName.Substring(0, fileName.LastIndexOf('\\'));
 
       AssureDirectory(directory);
     }
 
-    public static void DeleteEmptyDirectories(string rootPath) {
+
+    static public void DeleteEmptyDirectories(string rootPath) {
       string[] paths = Directory.GetDirectories(rootPath);
 
       foreach (string path in paths) {
@@ -45,15 +43,18 @@ namespace Empiria.Documents.IO {
       }
     }
 
+
     static public void DeleteWhenIsEmpty(string folderPath) {
       if (DirectoryIsEmpty(folderPath)) {
         Directory.Delete(folderPath, false);
       }
     }
 
+
     static public bool DirectoryIsEmpty(string folderPath) {
       return (Directory.EnumerateFileSystemEntries(folderPath).Any() == false);
     }
+
 
     static public FileInfo[] GetFiles(string rootPath) {
       Assertion.AssertObject(rootPath, "rootPath");
@@ -64,6 +65,7 @@ namespace Empiria.Documents.IO {
 
       return directory.GetFiles("*", SearchOption.AllDirectories);
     }
+
 
     static public FileInfo[] GetFiles(string rootPath, string fileNameFilter) {
       Assertion.AssertObject(rootPath, "rootPath");
@@ -79,6 +81,7 @@ namespace Empiria.Documents.IO {
       var directory = new DirectoryInfo(rootPath);
 
       FileInfo[] filesArray = new FileInfo[0];
+
       for (int i = 0; i < searchPatternArray.Length; i++) {
         FileInfo[] temp = directory.GetFiles(searchPatternArray[i], SearchOption.AllDirectories);
         if (i != 0) {
@@ -87,9 +90,12 @@ namespace Empiria.Documents.IO {
           filesArray = temp;
         }
       }
+
       Array.Sort(filesArray, (x, y) => x.Name.CompareTo(y.Name));
+
       return filesArray;
     }
+
 
     static public string[] GetFileNames(string rootPath, string fileNameFilter) {
       FileInfo[] files = GetFiles(rootPath, fileNameFilter);
@@ -97,14 +103,26 @@ namespace Empiria.Documents.IO {
       return files.Select((x) => x.FullName).ToArray();
     }
 
+
+    static public byte[] StreamToArray(Stream stream) {
+      byte[] array = new byte[stream.Length];
+
+      stream.Read(array, 0, (int) stream.Length);
+
+      return array;
+    }
+
+
     /// <summary>Moves a file to another folder. When the folder does not exist it is created.</summary>
     static public void MoveFileTo(FileInfo file, string destinationFolder) {
       destinationFolder = destinationFolder.TrimEnd('\\') + @"\";
       AssureDirectory(destinationFolder);
 
       string destinationFileFullName = destinationFolder + file.Name;
+
       file.MoveTo(destinationFileFullName);
     }
+
 
     /// <summary>Moves a file to another folder and also change it's name.
     ///When the folder does not exist it is created.</summary>
@@ -117,6 +135,7 @@ namespace Empiria.Documents.IO {
 
       return destinationFileFullName;
     }
+
 
     #endregion Public methods
 
