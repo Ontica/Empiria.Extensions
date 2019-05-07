@@ -1,6 +1,6 @@
-﻿# Empiria Postings Web Api
+﻿# Empiria Posting Services Web Api
 
-  Empiria Posting Services Http/Json web services interface.
+  Http/Json web services interface for Empiria Posting Services.
 
 # License
 

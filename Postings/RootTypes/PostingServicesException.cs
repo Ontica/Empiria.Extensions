@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Empiria Postings                             Component : Domain services                       *
 *  Assembly : Empiria.Postings.dll                         Pattern   : Exception type                        *
-*  Type     : PostingServiceException                      License   : Please read LICENSE.txt file          *
+*  Type     : PostingServicesException                     License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : The exception that is thrown when a posting service problem occurs.                            *
 *                                                                                                            *
@@ -14,13 +14,13 @@ namespace Empiria.Postings {
 
   /// <summary>The exception that is thrown when a posting service problem occurs.</summary>
   [Serializable]
-  public sealed class PostingServiceException : EmpiriaException {
+  public sealed class PostingServicesException : EmpiriaException {
 
     public enum Msg {
 
     }
 
-    static private string resourceBaseName = "Empiria.Postings.RootTypes.PostingServiceExceptionMsg";
+    static private string resourceBaseName = "Empiria.Postings.RootTypes.PostingServicesExceptionMsg";
 
     #region Constructors and parsers
 
@@ -28,7 +28,7 @@ namespace Empiria.Postings {
     /// message.</summary>
     /// <param name="message">Used to indicate the description of the exception.</param>
     /// <param name="args">An optional array of objects to format into the exception message.</param>
-    public PostingServiceException(Msg message, params object[] args)
+    public PostingServicesException(Msg message, params object[] args)
       : base(message.ToString(), GetMessage(message, args)) {
 
     }
@@ -38,7 +38,7 @@ namespace Empiria.Postings {
     /// <param name="message">Used to indicate the description of the exception.</param>
     /// <param name="innerException">This is the inner exception.</param>
     /// <param name="args">An optional array of objects to format into the exception message.</param>
-    public PostingServiceException(Msg message, Exception innerException, params object[] args)
+    public PostingServicesException(Msg message, Exception innerException, params object[] args)
       : base(message.ToString(), GetMessage(message, args), innerException) {
 
     }
@@ -53,6 +53,6 @@ namespace Empiria.Postings {
 
     #endregion Private methods
 
-  } // class PostingServiceException
+  } // class PostingServicesException
 
 } // namespace Empiria.Postings

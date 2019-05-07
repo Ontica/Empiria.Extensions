@@ -1,5 +1,5 @@
-﻿Empiria Postings Core License
-=============================
+﻿Empiria Postings License
+========================
 
 Copyright (c) 2017-2019. La Vía Óntica SC, Ontica LLC and contributors.
 -----------------------------------------------------------------------
