@@ -22,10 +22,11 @@ namespace Empiria.Postings.WebApi {
 
     [HttpGet]
     [Route("v1/postings/{objectUID}")]
-    public CollectionModel GetObjectPostingsList(string objectUID) {
+    public CollectionModel GetObjectPostingsList(string objectUID,
+                                                 [FromUri] string keywords = "") {
       try {
 
-        FixedList<ObjectPosting> postingsList = ObjectPosting.GetList(objectUID);
+        FixedList<ObjectPosting> postingsList = ObjectPosting.GetList(objectUID, keywords);
 
         return new CollectionModel(this.Request, postingsList.ToResponse(),
                                    typeof(ObjectPosting).FullName);
@@ -59,6 +60,23 @@ namespace Empiria.Postings.WebApi {
     #endregion GET methods
 
     #region UPDATE methods
+
+
+    [HttpPost]
+    [Route("v1/postings/update-all")]
+    public NoDataModel UpdateAll() {
+      try {
+
+        ObjectPosting.UpdateAll();
+
+        return new NoDataModel(this.Request);
+
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
+
 
     [HttpPost]
     [Route("v1/postings/{objectUID}")]

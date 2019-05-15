@@ -19,6 +19,9 @@ namespace Empiria.Postings {
   /// <summary>Handles information about a posting attached to an object.</summary>
   public class ObjectPosting : BaseObject {
 
+    private readonly string libraryBaseAddress =
+                              ConfigurationData.GetString("Empiria.Governance", "DocumentsLibrary.BaseAddress");
+
     #region Constructors and parsers
 
     protected ObjectPosting() {
@@ -52,6 +55,14 @@ namespace Empiria.Postings {
       return PostingsData.GetObjectPostingsList(objectUID, keywords);
     }
 
+    static public void UpdateAll() {
+      var postings = BaseObject.GetList<ObjectPosting>();
+
+      foreach (var posting in postings) {
+        posting.Save();
+      }
+    }
+
 
     #endregion Constructors and parsers
 
@@ -72,7 +83,7 @@ namespace Empiria.Postings {
 
 
     [DataField("ControlNo")]
-    public string ControlNo {
+    public string Authors {
       get;
       private set;
     } = String.Empty;
@@ -80,13 +91,6 @@ namespace Empiria.Postings {
 
     [DataField("Title")]
     public string Title {
-      get;
-      private set;
-    } = String.Empty;
-
-
-    [DataField("ExtData")]
-    public string FileName {
       get;
       private set;
     } = String.Empty;
@@ -106,6 +110,31 @@ namespace Empiria.Postings {
     } = String.Empty;
 
 
+    [DataField("FileUrl")]
+    public string FilePath {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    public string FileUrl {
+      get {
+        if (this.FilePath.StartsWith("~/")) {
+          return this.FilePath.Replace("~/", libraryBaseAddress + "/");
+        } else {
+          return this.FilePath;
+        }
+      }
+    }
+
+
+    [DataField("Updated")]
+    public string Updated {
+      get;
+      private set;
+    } = String.Empty;
+
+
     [DataField("OwnerId")]
     public Contact Owner {
       get;
@@ -115,7 +144,7 @@ namespace Empiria.Postings {
 
     internal string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.ControlNo, this.Title, this.Tags, this.Body);
+        return EmpiriaString.BuildKeywords(this.Authors, this.Title, this.Tags, this.Body);
       }
     }
 
@@ -190,8 +219,8 @@ namespace Empiria.Postings {
       this.Title = data.Get<string>("title", this.Title);
       this.Body = data.Get<string>("body", this.Body);
       this.Tags = data.Get<string>("tags", this.Tags);
-      this.ControlNo = data.Get<string>("controlNo", this.ControlNo);
-      this.FileName = data.Get<string> ("fileName", this.FileName);
+      this.Authors = data.Get<string>("authors", this.Authors);
+      this.FilePath = data.Get<string> ("filePath", this.FilePath);
     }
 
     #endregion Private methods
