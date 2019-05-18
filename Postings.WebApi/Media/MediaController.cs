@@ -26,10 +26,10 @@ namespace Empiria.Postings.Media.WebApi {
     [Route("v1/media/{mediaUID}")]
     public SingleObjectModel GetMedia(string mediaUID) {
       try {
-        var mediaObject = MediaObject.Parse(mediaUID);
+        var mediaFile = MediaFile.Parse(mediaUID);
 
-        return new SingleObjectModel(this.Request, mediaObject.ToResponse(),
-                                     typeof(MediaObject).FullName);
+        return new SingleObjectModel(this.Request, mediaFile.ToResponse(),
+                                     typeof(MediaFile).FullName);
 
       } catch (Exception e) {
         throw base.CreateHttpException(e);
@@ -61,10 +61,10 @@ namespace Empiria.Postings.Media.WebApi {
           Assertion.AssertFail($"Invalid request. There are no files and one was expected.");
         }
 
-        MediaObject mediaObject = MediaServices.Upload(fullRequest.Files[0]);
+        MediaFile mediaFile = MediaServices.CreateMediaFile(fullRequest.Files[0], fullRequest.Form);
 
-        return new SingleObjectModel(this.Request, mediaObject.ToResponse(),
-                                     typeof(MediaObject).FullName);
+        return new SingleObjectModel(this.Request, mediaFile.ToResponse(),
+                                     typeof(MediaFile).FullName);
 
       } catch (Exception e) {
         throw base.CreateHttpException(e);

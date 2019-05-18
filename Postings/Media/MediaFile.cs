@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Media Management                             Component : Media Domain Types                    *
 *  Assembly : Empiria.Postings.dll                         Pattern   : Information Holder                    *
-*  Type     : MediaObject                                  License   : Please read LICENSE.txt file          *
+*  Type     : MediaFile                                    License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : Represents a stored media object treated as a value type, so it must be related to             *
 *             other objects like metadata information holders or document entities.                          *
@@ -19,27 +19,29 @@ namespace Empiria.Postings.Media {
 
   /// <summary>Represents a stored media object treated as a value type, so it must be related to
   /// other objects like metadata information holders or document entities.</summary>
-  public class MediaObject : BaseObject, IProtected {
+  public class MediaFile : BaseObject, IProtected {
 
     #region Constructors and parsers
 
 
-    private MediaObject() {
+    private MediaFile() {
       // Required by Empiria Framework
     }
 
 
-    internal MediaObject(JsonObject data) {
-      this.LoadData(data);
+    internal MediaFile(JsonObject fileData, Metadata metadata) {
+      this.LoadData(fileData);
+      this.Metadata = metadata;
     }
 
 
-    static public MediaObject Parse(string uid) {
-      return BaseObject.ParseKey<MediaObject>(uid);
+    static public MediaFile Parse(string uid) {
+      return BaseObject.ParseKey<MediaFile>(uid);
     }
 
 
     #endregion Constructors and parsers
+
 
     #region Properties
 
@@ -65,7 +67,6 @@ namespace Empiria.Postings.Media {
     }
 
 
-
     [DataField("StorageId", Default = "Empiria.Postings.Media.MediaStorage.Default")]
     public MediaStorage Storage {
       get;
@@ -80,8 +81,15 @@ namespace Empiria.Postings.Media {
     }
 
 
-    [DataField("MediaHashCode")]
+    [DataField("FileHashCode")]
     public string HashCode {
+      get;
+      private set;
+    }
+
+
+    [DataObject]
+    public Metadata Metadata {
       get;
       private set;
     }
@@ -97,21 +105,21 @@ namespace Empiria.Postings.Media {
     [DataField("PostingTime")]
     public DateTime PostingTime {
       get;
-      protected set;
+      private set;
     } = ExecutionServer.DateMaxValue;
 
 
     [DataField("PostedById")]
     public Contact PostedBy {
       get;
-      protected set;
+      private set;
     }
 
 
     [DataField("MediaStatus", Default = EntityStatus.Active)]
     public EntityStatus Status {
       get;
-      protected set;
+      private set;
     }
 
 
@@ -191,13 +199,13 @@ namespace Empiria.Postings.Media {
         this.PostedBy = EmpiriaUser.Current.AsContact();
         this.PostingTime = DateTime.Now;
       }
-      MediaData.WriteMediaObject(this);
+      MediaData.WriteMediaFile(this);
     }
 
 
     #endregion Methods
 
 
-  }  // class MediaObject
+  }  // class MediaFile
 
 } // namespace Empiria.Postings.Media

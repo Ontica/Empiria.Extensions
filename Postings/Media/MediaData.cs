@@ -17,13 +17,17 @@ namespace Empiria.Postings.Media {
   static internal class MediaData {
 
 
-    static internal void WriteMediaObject(MediaObject o) {
+    static internal void WriteMediaFile(MediaFile o) {
+      var meta = o.Metadata;
+
       var op = DataOperation.Parse("writeEXFMedia",
                                     o.Id, o.UID, o.MediaType, o.Length,
-                                    o.OriginalFileName, o.Storage.Id, o.FileName,
-                                    o.HashCode, o.ExtensionData.ToString(),
-                                    o.PostingTime, o.PostedBy.Id,
-                                    (char) o.Status, o.Integrity.GetUpdatedHashCode());
+                                    o.OriginalFileName, o.Storage.Id, o.FileName, o.HashCode,
+                                    meta.Title, meta.Type, meta.Summary,
+                                    meta.Topics, meta.Tags, meta.Authors,
+                                    meta.Keywords, o.ExtensionData.ToString(),
+                                    o.PostingTime, o.PostedBy.Id, (char) o.Status,
+                                    o.Integrity.GetUpdatedHashCode());
 
       DataWriter.Execute(op);
     }

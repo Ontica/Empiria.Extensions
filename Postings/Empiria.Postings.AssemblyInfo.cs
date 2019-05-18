@@ -4,7 +4,8 @@
 *  Assembly : Empiria.Postings.dll                         Pattern   : Assembly Attributes File              *
 *                                                          License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Application services and domain types used to manage annotations, bookmarks, blogs, chats and posts of other kind.      *
+*  Summary  : Application services and domain types used to manage media, annotations, bookmarks, blogs,     *
+*             chats or posts of any kind.                                                                    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
