@@ -1,24 +1,29 @@
 ﻿/* Empiria Postings ******************************************************************************************
 *                                                                                                            *
-*  Module   : Media Management                             Component : Media Domain Types                    *
+*  Module   : Empiria Postings                             Component : Domain services                       *
 *  Assembly : Empiria.Postings.dll                         Pattern   : Information Holder                    *
-*  Type     : MediaPosting                                 License   : Please read LICENSE.txt file          *
+*  Type     : Posting                                      License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Abstract type that represents a media posting attached to a source object.                     *
+*  Summary  : Holds information about a posting, a qualified pair tuple of related base objects.             *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 using Empiria.Contacts;
 using Empiria.Json;
+using Empiria.Security;
 using Empiria.StateEnums;
 
 namespace Empiria.Postings {
 
-  /// <summary>Abstract type that represents a media-based metadata posting attached to a source object.</summary>
+  /// <summary>Holds information about a posting, a qualified pair tuple of related base objects.</summary>
   public class Posting : BaseObject {
 
     #region Constructors and parsers
+
+    private Posting() {
+      // Required by Empiria Framework.
+    }
 
 
     public Posting(string postingType, BaseObject nodeObject, BaseObject postedItem) {
@@ -40,16 +45,6 @@ namespace Empiria.Postings {
     static public Posting Parse(string uid) {
       return BaseObject.ParseKey<Posting>(uid);
     }
-
-
-    static public FixedList<T> GetList<T>(BaseObject nodeObject,
-                                          string postingType) where T: BaseObject {
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postingType, "postingType");
-
-      return PostingsData.GetPostingsList<T>(nodeObject, postingType);
-    }
-
 
     #endregion Constructors and parsers
 
@@ -134,7 +129,11 @@ namespace Empiria.Postings {
       return BaseObject.ParseKey<T>(this.PostedItemUID);
     }
 
+
     protected override void OnSave() {
+      this.PostingTime = DateTime.Now;
+      this.PostedBy = EmpiriaUser.Current.AsContact();
+
       PostingsData.WritePosting(this);
     }
 

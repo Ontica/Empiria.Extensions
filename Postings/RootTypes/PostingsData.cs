@@ -19,8 +19,61 @@ namespace Empiria.Postings {
   static internal class PostingsData {
 
 
-    static internal FixedList<T> GetPostingsList<T>(BaseObject nodeObject,
-                                                    string postingType) where T : BaseObject {
+    static internal FixedList<T> GetNodeObjectsList<T>(string postingType) where T : BaseObject {
+      var typeInfo = ObjectTypeInfo.Parse<T>();
+
+      var dataSource = typeInfo.DataSource;
+      var dataSourceUIDFieldName = typeInfo.NamedIdFieldName;
+
+      string sql = $"SELECT DISTINCT {dataSource}.* FROM {dataSource} INNER JOIN EXFPostings " +
+                   $"ON {dataSource}.{dataSourceUIDFieldName} = EXFPostings.NodeObjectUID " +
+                   $"WHERE (EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingTime";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<T>(op);
+    }
+
+
+    static internal FixedList<T> GetNodeObjectsList<T>(BaseObject postedItem,
+                                                       string postingType) where T : BaseObject {
+      var typeInfo = ObjectTypeInfo.Parse<T>();
+
+      var dataSource = typeInfo.DataSource;
+      var dataSourceUIDFieldName = typeInfo.NamedIdFieldName;
+
+      string sql = $"SELECT DISTINCT {dataSource}.* FROM {dataSource} INNER JOIN EXFPostings " +
+                   $"ON {dataSource}.{dataSourceUIDFieldName} = EXFPostings.NodeObjectUID " +
+                   $"WHERE (EXFPostings.PostedItemUID = '{postedItem.UID}' AND " +
+                   $"EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingTime";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<T>(op);
+    }
+
+
+    static internal FixedList<T> GetPostedItemsList<T>(string postingType) where T : BaseObject {
+      var typeInfo = ObjectTypeInfo.Parse<T>();
+
+      var dataSource = typeInfo.DataSource;
+      var dataSourceUIDFieldName = typeInfo.NamedIdFieldName;
+
+      string sql = $"SELECT DISTINCT {dataSource}.* FROM {dataSource} INNER JOIN EXFPostings " +
+                   $"ON {dataSource}.{dataSourceUIDFieldName} = EXFPostings.PostedItemUID " +
+                   $"WHERE (EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingTime";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<T>(op);
+    }
+
+
+    static internal FixedList<T> GetPostedItemsList<T>(BaseObject nodeObject,
+                                                       string postingType) where T : BaseObject {
       var typeInfo = ObjectTypeInfo.Parse<T>();
 
       var dataSource = typeInfo.DataSource;
@@ -37,6 +90,55 @@ namespace Empiria.Postings {
       return DataReader.GetFixedList<T>(op);
     }
 
+
+    static internal FixedList<Posting> GetPostingsList(string postingType) {
+      string sql = $"SELECT EXFPostings.* FROM EXFPostings " +
+                   $"WHERE (EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingTime";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<Posting>(op);
+    }
+
+
+    static internal FixedList<Posting> GetPostingsList(BaseObject nodeObject, string postingType) {
+      string sql = $"SELECT EXFPostings.* FROM EXFPostings " +
+                   $"WHERE (EXFPostings.NodeObjectUID = '{nodeObject.UID}' AND " +
+                   $"EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingTime";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<Posting>(op);
+    }
+
+
+    static internal FixedList<Posting> GetPostingsForPostedItemList(BaseObject postedItem, string postingType) {
+      string sql = $"SELECT EXFPostings.* FROM EXFPostings " +
+                   $"WHERE (EXFPostings.PostedItemUID = '{postedItem.UID}' AND " +
+                   $"EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingTime";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<Posting>(op);
+    }
+
+
+
+    static internal void WritePosting(Posting o) {
+      var op = DataOperation.Parse("writeEXFPosting",
+                                    o.Id, o.UID, o.PostingType,
+                                    o.NodeObjectUID, o.PostedItemUID,
+                                    o.Index, o.ExtensionData.ToString(),
+                                    o.PostingTime, o.PostedBy.Id, (char) o.Status);
+
+      DataWriter.Execute(op);
+    }
+
+
+    // To be deprecated (ObjectPosting)
 
     static internal FixedList<ObjectPosting> GetObjectPostingsList(string objectUID, string keywords = "") {
       string filter = $"(ObjectUID = '{objectUID}' AND Status <> 'X')";
@@ -63,16 +165,6 @@ namespace Empiria.Postings {
       DataWriter.Execute(op);
     }
 
-
-    static internal void WritePosting(Posting o) {
-      var op = DataOperation.Parse("writeEXFPosting",
-                                    o.Id, o.UID, o.PostingType,
-                                    o.NodeObjectUID, o.PostedItemUID,
-                                    o.Index, o.ExtensionData.ToString(),
-                                    o.PostingTime, o.PostedBy.Id, (char) o.Status);
-
-      DataWriter.Execute(op);
-    }
 
   }  // class PostingsData
 
