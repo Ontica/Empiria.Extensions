@@ -94,37 +94,23 @@ namespace Empiria.WebApi.Client {
 
 
     /// <summary>Sends a json POST request as an asynchronous operation
-    /// discarding the response.</summary>
-    public Task PostAsync<T>(T body, string path, params object[] pars) {
-      return this.SendRequestAsync(HttpMethod.Post, body, path, pars);
-    }
-
-
-    /// <summary>Sends a json POST request of type T as an asynchronous operation
-    /// returning a response of type R.</summary>
-    public async Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
+    /// returning a response of type T.</summary>
+    public async Task<T> PostAsync<T>(object body, string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars)
                                .ConfigureAwait(false);
 
-      return await this.ConvertHttpContentAsync<R>(response, path)
+      return await this.ConvertHttpContentAsync<T>(response, path)
                        .ConfigureAwait(false);
     }
 
 
     /// <summary>Sends a json PUT request as an asynchronous operation
-    /// discarding the response.</summary>
-    public Task PutAsync<T>(T body, string path, params object[] pars) {
-      return this.SendRequestAsync(HttpMethod.Put, body, path, pars);
-    }
-
-
-    /// <summary>Sends a json PUT request of type T as an asynchronous operation
-    /// returning a response of type R.</summary>
-    public async Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
+    /// returning a response of type T.</summary>
+    public async Task<T> PutAsync<T>(object body, string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Put, body, path, pars)
                                .ConfigureAwait(false);
 
-      return await this.ConvertHttpContentAsync<R>(response, path)
+      return await this.ConvertHttpContentAsync<T>(response, path)
                        .ConfigureAwait(false);
     }
 
@@ -222,8 +208,8 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    private Task<HttpResponseMessage> SendRequestAsync<T>(HttpMethod method, T body,
-                                                          string path, object[] pars) {
+    private Task<HttpResponseMessage> SendRequestAsync(HttpMethod method,  object body,
+                                                       string path, object[] pars) {
       Assertion.AssertObject(path, "path");
 
       string fullPath = EmpiriaString.Format(path, pars);

@@ -71,44 +71,34 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    public Task PostAsync<T>(T body, string path, params object[] pars) {
+    public Task PostAsync<T>(string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      return handler.PostAsync(body, service.Endpoint.Path, pars);
+      return handler.PostAsync<T>(service.Endpoint.Path, pars);
     }
 
 
-    public Task<R> PostAsync<T, R>(T body, string path, params object[] pars) {
+    public Task<T> PostAsync<T>(object body, string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
-      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
-
-      return handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
+      return handler.PostAsync<T>(body, service.Endpoint.Path, pars);
     }
 
 
-    public Task PutAsync<T>(T body, string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Put, path);
-
-      HttpApiClient handler = this.GetApiClientHandler(service);
-
-      return handler.PostAsync(body, service.Endpoint.Path, pars);
-    }
-
-
-    public Task<R> PutAsync<T, R>(T body, string path, params object[] pars) {
+    public Task<T> PutAsync<T>(object body, string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Put, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
 
       string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
 
-      return handler.PostAsync<T, R>(body, service.Endpoint.Path + dataScopeParameter, pars);
+      return handler.PutAsync<T>(body, service.Endpoint.Path + dataScopeParameter, pars);
     }
+
 
     #endregion Public methods
 
