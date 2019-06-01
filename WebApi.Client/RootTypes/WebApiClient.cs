@@ -71,7 +71,7 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    public Task PostAsync<T>(string path, params object[] pars) {
+    public Task<T> PostAsync<T>(string path, params object[] pars) {
       ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
       HttpApiClient handler = this.GetApiClientHandler(service);
