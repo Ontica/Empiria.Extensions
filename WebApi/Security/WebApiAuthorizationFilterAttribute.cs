@@ -56,7 +56,7 @@ namespace Empiria.WebApi {
           ClaimsService.EnsureClaim(ClientApplication.Current,
                                     Security.Claims.ClaimType.WebApiController,
                                     this.ClaimValue,
-                                    "The API key doesn't have execution permissions over this controller.");
+                                    $"The API key doesn't have execution permissions '{this.ClaimValue}' over this controller. {ClientApplication.Current.Key}");
           return;
 
         case WebApiClaimType.ClientApp_Method:
@@ -70,7 +70,7 @@ namespace Empiria.WebApi {
           ClaimsService.EnsureClaim(EmpiriaUser.Current,
                                     Security.Claims.ClaimType.UserRole,
                                     this.ClaimValue,
-                    $"This functionality can be executed only by users playing the role '{this.ClaimValue}'.");
+                    $"This functionality can be executed only by users playing the role '{this.ClaimValue}' not ${((IClaimsSubject)EmpiriaUser.Current).ClaimsToken} = {EmpiriaUser.Current.Id}");
           return;
 
         default:
