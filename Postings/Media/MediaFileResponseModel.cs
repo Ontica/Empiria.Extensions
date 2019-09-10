@@ -36,6 +36,7 @@ namespace Empiria.Postings.Media {
 
       return new {
         uid = mediaFile.UID,
+        name = metadata.Title.Length != 0 ? metadata.Title : mediaFile.OriginalFileName,
         mediaType = mediaFile.MediaType,
         length = mediaFile.Length,
         originalFileName = mediaFile.OriginalFileName,
