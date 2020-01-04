@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : General utility methods for use inside the WebApi.Client component.                           *
 *                                                                                                            *
-********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net.Http;
 

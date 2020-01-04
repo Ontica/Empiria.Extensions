@@ -9,7 +9,7 @@
 *              like  'NY - Philadelphia' or 'Ciudad de México - Cuernavaca'. A HighwaySection could also be  *
 *              used to name a highway. Some highways are described only with their destination or end place. *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Linq;
 

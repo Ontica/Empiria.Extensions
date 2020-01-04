@@ -8,7 +8,7 @@
 *  Summary   : Defines the methods, properties, and events common to all application objects used by         *
 *              Empiria ASP.NET Web Services platform.                                                        *
 *                                                                                                            *
-********************************* Copyright (c) 2003-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web;
 using System.Web.Caching;

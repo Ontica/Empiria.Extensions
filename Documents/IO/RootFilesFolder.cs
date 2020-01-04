@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Describes a root folder or directory that serves as a start point of documents storage.       *
 *                                                                                                            *
-********************************* Copyright (c) 2004-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 using Empiria.Ontology;

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a problem occurs in Empiria Expressions Runtime Library.    *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Reflection;
 

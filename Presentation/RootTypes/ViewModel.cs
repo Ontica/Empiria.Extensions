@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Abstract class that stores information in a model-view-controller pattern.                    *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Presentation {

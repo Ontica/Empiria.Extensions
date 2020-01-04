@@ -8,7 +8,7 @@
 *  Summary   : Represents a compound user interface container of user interface controls (UIControl) or      *
 *              other user interface containers.                                                              *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Data;
 

@@ -8,7 +8,7 @@
 *  Summary   : Abstract type that represents an ASP user control (ascx). All Empiria user controls           *
 *              must be derived from this type.                                                               *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.UI;
 using System.Collections.Specialized;

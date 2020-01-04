@@ -38,7 +38,7 @@ namespace Empiria.WebApi.Internals {
     [DataMember(Name = "top")]
     public int Top {
       get {
-        int top = base.GetQueryStringValue<int>("$top", 100);
+        int top = base.GetQueryStringValue<int>("$top", 50);
 
         Assertion.Assert(top >= 1, "$top query parameter should be greater or equal to one.");
 

@@ -8,7 +8,7 @@
 *  Summary   : Sealed class that represents the XHTML contents of a master view used as a canvas for a       *
 *              specific WebPage object.                                                                      *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
 namespace Empiria.Presentation.Web.Content {
 

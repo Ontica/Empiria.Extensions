@@ -76,6 +76,7 @@ namespace Empiria.Documents {
       protected set;
     }
 
+
     [DataField("ImagingItemStatus", Default = EntityStatus.Active)]
     public EntityStatus Status {
       get;

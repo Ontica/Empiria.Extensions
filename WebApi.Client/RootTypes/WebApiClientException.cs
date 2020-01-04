@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a web api client call fails.                                *
 *                                                                                                            *
-********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net.Http;
 using System.Reflection;

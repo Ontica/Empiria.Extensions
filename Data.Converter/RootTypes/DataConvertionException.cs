@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : The exception that is thrown when a data access operation fails.                              *
 *                                                                                                            *
-********************************* Copyright (c) 2007-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;

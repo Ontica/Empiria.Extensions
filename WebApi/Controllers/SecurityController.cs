@@ -91,9 +91,11 @@ namespace Empiria.WebApi.Controllers {
 
         EmpiriaPrincipal principal = this.GetPrincipal(login);
 
-        ClaimsService.EnsureClaim(principal.Identity.User, ClaimType.UserAppAccess,
-                                  ((IClaimsSubject) clientApp).ClaimsToken,
-            $"{principal.Identity.User.UserName} does not have access permissions to this application {((IClaimsSubject) clientApp).ClaimsToken}.");
+        string claimsToken = ((IClaimsSubject) clientApp).ClaimsToken;
+
+        ClaimsService.EnsureClaim(principal.Identity.User, ClaimType.UserAppAccess, claimsToken,
+                                  $"{principal.Identity.User.UserName} does not have access permissions " +
+                                  $"to this application {claimsToken}.");
 
         return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");

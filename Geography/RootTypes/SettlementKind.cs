@@ -9,7 +9,7 @@
 *              GeographicItemType powertype but settlement instances can also be qualified within it using   *
 *              a SettlementKind like 'borough' or 'township', or 'colonia' or 'barrio' in Spanish.           *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Linq;
 

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Defines a list of functions used in an evaluation context.                                    *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
 

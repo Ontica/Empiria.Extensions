@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Performs data convertion from MySQL to SQLServer database tables rows.                        *
 *                                                                                                            *
-********************************* Copyright (c) 2007-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Data;
 using System.Runtime.Remoting.Messaging;

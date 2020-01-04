@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides methods to manipulate WebView objects.                                               *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Presentation.Web {
@@ -26,11 +26,13 @@ namespace Empiria.Presentation.Web {
     #region Public methods
 
     public void ActivateView(ViewModel viewModel) {
-      lock (WebContext.Response) {
+      try {
         if (WebContext.Response.IsClientConnected) {
           WebContext.Response.Redirect(viewModel.Source, true);
         }
-      } // lock
+      } catch {
+        // no-op
+      }
     }
 
     public void ActivateView(ViewModel viewModel, string queryString) {
@@ -63,10 +65,6 @@ namespace Empiria.Presentation.Web {
           }
         }
       } // lock
-    }
-
-    public void Dispose() {
-
     }
 
     #endregion Public methods

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides the methods from the current MVC web application.                                    *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web;
 using System.Web.Security;

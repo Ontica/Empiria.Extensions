@@ -8,7 +8,7 @@
 *  Summary   : Defines the methods, properties, and events common to all Web API controller types            *
 *              used by Empiria ASP.NET Web API platform.                                                     *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;

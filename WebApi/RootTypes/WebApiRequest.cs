@@ -8,7 +8,7 @@
 *  Summary   : Contains data about a web api request that can be used by audit trails or in the web api      *
 *              request-response pipline.                                                                     *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web;
 

@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides data read and write methods for the Empiria Geographic Information Services.         *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
 

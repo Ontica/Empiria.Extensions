@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Represents a leaf user interface control that can not contains other controls.                *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Presentation {

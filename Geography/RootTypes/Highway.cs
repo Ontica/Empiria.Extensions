@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Partitioned type that represents a federal, state, municipal or rural highway.                *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
 using System.Data;

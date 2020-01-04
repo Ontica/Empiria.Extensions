@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Defines an arithmetical, logical, string or datetime expression.                              *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections;
 using System.Collections.Generic;

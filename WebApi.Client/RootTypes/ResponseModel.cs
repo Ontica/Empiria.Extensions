@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Contains the payload model of Empiria web service reponses.                                   *
 *                                                                                                            *
-********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.WebApi.Client {

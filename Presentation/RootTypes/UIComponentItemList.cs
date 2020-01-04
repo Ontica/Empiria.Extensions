@@ -8,7 +8,7 @@
 *  Summary   : Represents an ordered named list of storage Item instances. Implements the IList interface    *
 *              again because needs convert DataRow items to Item items in the IList indexer.                 *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
 

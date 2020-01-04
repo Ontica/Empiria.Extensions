@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Contains general methods on arithmetical and logical functions.                               *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Expressions {

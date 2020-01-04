@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Represents an abstract place: region, city, country, world zone, zip code region, street, ... *
 *                                                                                                            *
-********************************* Copyright (c) 2009-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 using Empiria.Json;

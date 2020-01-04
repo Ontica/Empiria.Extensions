@@ -70,7 +70,8 @@ namespace Empiria.WebApi {
           ClaimsService.EnsureClaim(EmpiriaUser.Current,
                                     Security.Claims.ClaimType.UserRole,
                                     this.ClaimValue,
-                    $"This functionality can be executed only by users playing the role '{this.ClaimValue}' not ${((IClaimsSubject)EmpiriaUser.Current).ClaimsToken} = {EmpiriaUser.Current.Id}");
+                                    $"This functionality can be executed only by users playing the role " +
+                                    $"'{this.ClaimValue}' not ${((IClaimsSubject)EmpiriaUser.Current).ClaimsToken} = {EmpiriaUser.Current.Id}");
           return;
 
         default:

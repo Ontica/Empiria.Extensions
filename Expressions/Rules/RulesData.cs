@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides data read methods for Empiria Foundation Ontology objects.                           *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System.Data;
 
 using Empiria.Data;

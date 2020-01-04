@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Defines an ordered list of expression type objects.                                           *
 *                                                                                                            *
-********************************* Copyright (c) 2008-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 using Empiria.Collections;

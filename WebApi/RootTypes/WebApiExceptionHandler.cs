@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Message handler that controls the output of all exceptions throwed by the web api.            *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Threading;
 using System.Threading.Tasks;

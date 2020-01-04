@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Provides methods to inkove web services using Empiria Web API infrastructure.                 *
 *                                                                                                            *
-********************************* Copyright (c) 2016-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;

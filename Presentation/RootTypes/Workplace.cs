@@ -8,7 +8,7 @@
 *  Summary   : Contains the information of running instance of Empiria Workplace. Workplaces are the main    *
 *              objects of the user interface process model.                                                  *
 *                                                                                                            *
-********************************* Copyright (c) 2002-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Presentation {

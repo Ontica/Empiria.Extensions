@@ -7,7 +7,7 @@
 *                                                                                                            *
 *  Summary   : Restricts the Http error status codes to a minimal set for use as Empiria web api responses.  *
 *                                                                                                            *
-********************************* Copyright (c) 2014-2017. La Vía Óntica SC, Ontica LLC and contributors.  **/
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Net;
 

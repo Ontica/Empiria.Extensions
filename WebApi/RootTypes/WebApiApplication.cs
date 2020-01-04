@@ -79,7 +79,6 @@ namespace Empiria.WebApi {
 
       settings.DateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
       settings.Converters.Add(new DateTimeConverter());
-
       settings.Converters.Add(new ValueObjectConverter());
       settings.Converters.Add(new DataViewConverter());
       settings.Converters.Add(new DataRowConverter());
