@@ -134,8 +134,7 @@ namespace Empiria.Presentation.Web {
 
     private void WriteContent() {
       Response.ContentType = "text/xml";
-      Response.Charset = "iso-8859-1";
-      //base.Response.Charset = "utf-8";
+      Response.Charset = "utf-8";
       Response.AddHeader("Cache-Control", "no-cache");
       Response.Write(xmlResponse);
     }
