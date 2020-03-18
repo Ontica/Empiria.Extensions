@@ -3,7 +3,7 @@
     <Company>Ontica</Company>
     <Product>Empiria XML/SOAP Web Services</Product>
     <Description>Empiria web services library for XML/SOAP requests.</Description>
-    <Copyright>(c) 2003-2019. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Copyright>(c) 2003-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>7.0.0</Version>
     <AssemblyVersion>7.0.0</AssemblyVersion>
     <FileVersion>7.0.0.0</FileVersion>
