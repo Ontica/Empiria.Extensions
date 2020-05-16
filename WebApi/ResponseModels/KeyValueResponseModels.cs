@@ -16,7 +16,18 @@ namespace Empiria.WebApi {
   /// <summary>Response static methods for contact entities.</summary>
   static public class KeyValueResponseModels {
 
-    
+
+    static public ICollection ToIdResponse<T>(this ICollection<T> list,
+                                              Func<T, string> getNameFunction) where T : IIdentifiable {
+      ArrayList array = new ArrayList(list.Count);
+
+      foreach (var item in list) {
+        array.Add(ToIdentifiableResponse(item.Id.ToString(), getNameFunction.Invoke(item)));
+      }
+      return array;
+    }
+
+
     static public ICollection ToIdentifiableResponse<T>(this ICollection<T> list,
                                                         Func<T, string> getNameFunction) where T : IIdentifiable {
       ArrayList array = new ArrayList(list.Count);

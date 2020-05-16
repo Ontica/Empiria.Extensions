@@ -22,8 +22,10 @@ namespace Empiria.WebApi {
       // To enable attribute routing
       config.MapHttpAttributeRoutes();
 
+
       // To configure convention-based routing
       WebApiConfig.RegisterWebApiRoutes(config);
+
     }
 
     #endregion Public methods
@@ -58,6 +60,7 @@ namespace Empiria.WebApi {
       RegisterFormatters(GlobalConfiguration.Configuration);
 
       RegisterGlobalFilters(GlobalConfiguration.Configuration);
+
     }
 
 
