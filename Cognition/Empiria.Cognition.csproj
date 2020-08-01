@@ -51,7 +51,4 @@
     <NoWarn />
     <WarningsAsErrors />
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="RootTypes\" />
-  </ItemGroup>
 </Project>
