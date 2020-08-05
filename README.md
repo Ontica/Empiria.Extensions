@@ -2,6 +2,7 @@
 
 Empiria Extensions Framework contains the following software components:
 
+- Empiria Cognition
 - Empiria Data Converter
 - Empiria Data Modeler
 - Empiria MySql Data Handler
@@ -11,6 +12,7 @@ Empiria Extensions Framework contains the following software components:
 - Empiria Expressions
 - Empiria Geography
 - Empiria Messaging
+- Empiria Office
 - Empiria Presentation
 - Empiria Presentation.Web
 - Empiria Web Api
