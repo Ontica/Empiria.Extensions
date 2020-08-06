@@ -8,6 +8,9 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Threading.Tasks;
+
+using Empiria.Cognition.Providers;
 
 namespace Empiria.Cognition {
 
@@ -16,29 +19,23 @@ namespace Empiria.Cognition {
 
     #region Public services
 
+    static public Task<string> Translate(string text, Language translateTo) {
+      Assertion.AssertObject(translateTo, "translateTo");
 
-    static public string Translate(string text, Language translateTo = Language.English) {
       if (String.IsNullOrWhiteSpace(text)) {
-        return text;
-      }
-      if (translateTo != Language.English) {
-        new NotImplementedException($"TranslateTo language has not been implemented {translateTo.ToString()}.");
+        return Task.FromResult(text);
       }
 
-      return TranslateText(text, translateTo);
+      string subscriptionKey = ConfigurationData.GetString("TranslatorProvider.SubcriptionKey");
+
+      var translator = new TranslatorProvider(subscriptionKey);
+
+      return translator.TranslateToText(text, translateTo.Code);
     }
-
 
     #endregion Public services
-
-    #region Private methods
-
-    static private string TranslateText(string text, Language translateTo) {
-      throw new NotImplementedException("TranslateText");
-    }
-
-    #endregion Private methods
 
   } // class TextTranslator
 
 }
+
