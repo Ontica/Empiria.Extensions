@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="DocumentFormat.OpenXml" version="2.11.3" />
+    <PackageReference Include="System.IO.FileSystem.Primitives" version="4.3.0" />
+    <PackageReference Include="System.IO.Packaging" version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />
