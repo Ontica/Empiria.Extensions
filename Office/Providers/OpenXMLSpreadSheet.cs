@@ -1,216 +1,210 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : OpenXML Services                           Component : Service provider                        *
-*  Assembly : Empiria.Cognition.dll                      Pattern   : SpreadSheet                             *
+*  Module   : Office Integration servuices               Component : Service provider                        *
+*  Assembly : Empiria.Cognition.dll                      Pattern   : Provider                                *
 *  Type     : OpenXMLSpreadSheet                         License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Define data types for Microsoft Azure Cognition Translator Services.                           *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
-namespace OpenXMLProvider {
+namespace Empiria.Office.Providers {
   /// <summary>Provides basic SpreadSheet services usign OpenXML</summary>
-  internal class SpreadSheet {
+  internal class OpenXMLSpreadSheet : IDisposable {
+
+    private SpreadsheetDocument spreadsheetDocument;
+
 
     #region Constructors and parsers
-        
-    public SpreadSheet(string workBookFilePath) {
-      fileName = workBookFilePath;
+
+    private OpenXMLSpreadSheet(string path) {
+      spreadsheetDocument = SpreadsheetDocument.Open(path, true);
     }
 
-    private string fileName = "";
+
+    private OpenXMLSpreadSheet(SpreadsheetDocument spreadsheetDocument) {
+      this.spreadsheetDocument = spreadsheetDocument;
+    }
+
+
+    static public OpenXMLSpreadSheet Create() {
+      string defaultTemplatePath = Empiria.ConfigurationData.GetString("Spreadsheet.NewFileTemplate");
+
+      return CreateFromTemplate(defaultTemplatePath);
+    }
+
+
+    static public OpenXMLSpreadSheet CreateFromTemplate(string templatePath) {
+      try {
+        var spreadsheetDocument = SpreadsheetDocument.CreateFromTemplate(templatePath);
+
+        return new OpenXMLSpreadSheet(spreadsheetDocument);
+
+      } catch (Exception ex) {
+        throw new Exception("I can´t create from template file: " + templatePath + " ", ex);
+      }
+    }
+
+
+    static public OpenXMLSpreadSheet Open(string path) {
+      return new OpenXMLSpreadSheet(path);
+    }
 
 
     #endregion Constructors and parsers
 
     #region Public Methods
 
-    internal void CreateSpreadsheetWorkbook(string sheetName) {
+    public void Close() {
+      spreadsheetDocument.Close();
+    }
+
+
+    public void Save() {
+      this.SaveDOM();
+
+      spreadsheetDocument.Save();
+    }
+
+
+    public void SaveAs(string fileName) {
+      this.SaveDOM();
+
+      OpenXmlPackage package = spreadsheetDocument.SaveAs(fileName);
+
+      package.Close();
+    }
+
+
+    private void SaveDOM() {
+      Worksheet worksheet = GetDefaultWorksheet();
+
+      worksheet.Save();
+    }
+
+
+    public void SetCell<T>(string cellName, T value) {
+      Tuple<string, int> cellNameParts = this.GetCellNameParts(cellName);
+
+      this.SetCell<T>(cellNameParts.Item1, cellNameParts.Item2, value);
+    }
+
+
+    public void SetCell<T>(string columnName, int rowIndex, T value) {
       try {
-        using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook)) {
-          WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
-          workbookpart.Workbook = new Workbook();
+        Worksheet worksheet = GetDefaultWorksheet();
 
-          WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-          worksheetPart.Worksheet = new Worksheet(new SheetData());
+        Cell cell = GetOrCreateCell(worksheet, columnName, rowIndex);
 
-          Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
-
-          Sheet sheet = new Sheet() {
-            Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
-            SheetId = 1,
-            Name = sheetName
-          };
-          sheets.Append(sheet);
-          workbookpart.Workbook.Save();
-        } //using
+        SetCellValue<T>(cell, value);
 
       } catch (Exception ex) {
-        throw new Exception("I can´t create this file: " + fileName + " ", ex);
+        throw new Exception("I can not set cell value.", ex);
       }
     }
 
-
-    internal void InsertWorksheet(string sheetName) {
-      try {
-        using (SpreadsheetDocument spreadSheet = SpreadsheetDocument.Open(fileName, true)) {
-          WorksheetPart newWorksheetPart = spreadSheet.WorkbookPart.AddNewPart<WorksheetPart>();
-          newWorksheetPart.Worksheet = new Worksheet(new SheetData());
-
-          Sheets sheets = spreadSheet.WorkbookPart.Workbook.GetFirstChild<Sheets>();
-          string relationshipId = spreadSheet.WorkbookPart.GetIdOfPart(newWorksheetPart);
-
-          uint sheetId = 1;
-          if (sheets.Elements<Sheet>().Count() > 0) {
-            sheetId = sheets.Elements<Sheet>().Select(s => s.SheetId.Value).Max() + 1;
-          }
-
-          Sheet sheet = new Sheet() { Id = relationshipId, SheetId = sheetId, Name = sheetName };
-          sheets.Append(sheet);
-        } // using
-
-      } catch (Exception ex) {
-        throw new Exception("I can´t open this file: " + fileName + " ", ex);
-      }
-    }
-
-
-    internal void InsertCellValue(string sheetName, string columnName, int rowIndex, string cellValue) {
-      AddCellValue(sheetName, columnName, rowIndex, cellValue, new EnumValue<CellValues>(CellValues.String));
-    }
-
-    internal void InsertCellNumericValue(string sheetName, string columnName, int rowIndex, double cellValue) {
-      AddCellValue(sheetName, columnName, rowIndex, cellValue.ToString(), new EnumValue<CellValues>(CellValues.Number));
-    }
-
-    internal void InsertCellBooleanValue(string sheetName, string columnName, int rowIndex, bool cellValue) {
-      AddCellValue(sheetName, columnName, rowIndex, cellValue.ToString(), new EnumValue<CellValues>(CellValues.Boolean));
-    }
-
-    internal void InsertCellDateValue(string sheetName, string columnName, int rowIndex, DateTime cellValue) {
-      AddCellValue(sheetName, columnName, rowIndex, cellValue.ToString(), new EnumValue<CellValues>(CellValues.Date));
-    }
-
-    internal void ReplaceCellValue(string sheetName, string valueToSearch, string newValue) {
-      try {
-        using (SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, true)) {
-          WorkbookPart workbookPart = document.WorkbookPart;
-          WorksheetPart worksheetPart = GetSheet(workbookPart, sheetName);
-
-          if (worksheetPart == null) {
-            throw new Exception("I cant find sheet: " + sheetName);
-          }
-
-          ReplaceCellValue(workbookPart, worksheetPart, valueToSearch, newValue);
-        } //using
-
-      } catch (Exception ex) {
-        throw new Exception("I can´t open this file: " + fileName + " ", ex);
-      }
-    }
 
     #endregion Public Methods
 
     #region Private Methods
-    private void AddCellValue(string sheetName, string columnName, int rowIndex, string cellValue, EnumValue<CellValues> cellDataType) {
-      try {
-        using (SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, true)) {
-          WorkbookPart workbookPart = document.WorkbookPart;
-          WorksheetPart worksheetPart = GetSheet(workbookPart, sheetName);
 
-          if (worksheetPart == null) {
-            throw new Exception("I cant find sheet: " + sheetName);
-          }
+    private void AddNewWorkSheet(string sheetName) {
+      WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
 
-          Row row = GetRow(worksheetPart.Worksheet, rowIndex);
-          Cell cell = InsertCell(worksheetPart.Worksheet, row, columnName, rowIndex);
+      WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+      worksheetPart.Worksheet = new Worksheet(new SheetData());
 
-          cell.CellValue = new CellValue(cellValue);
-          cell.DataType = cellDataType;
+      Sheets sheets = new Sheets();
 
-          worksheetPart.Worksheet.Save();
-        } //usign
-
-      } catch (Exception ex) {
-        throw new Exception("I can´t open this file: " + fileName + " ", ex);
+      if (isEmptyWorkbook(workbookPart.Workbook)) {
+        sheets = workbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+      } else {
+        sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
       }
-    }
-        
 
-    private void ReplaceCellValue(WorkbookPart workbookPart, WorksheetPart worksheetPart, string valueToSearch, string newValue) {
-      SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
-
-      foreach (Row row in sheetData.Elements<Row>()) {
-        foreach (Cell cell in row.Elements<Cell>()) {
-          if (GetCellValue(workbookPart, cell) == valueToSearch) {
-            cell.CellValue = new CellValue(newValue);
-            cell.DataType = new EnumValue<CellValues>(CellValues.String);
-
-            worksheetPart.Worksheet.Save();
-          } // if
-        } //foreach Cell
-
-      }//foreach Cell Row
+      Sheet sheet = CreateWorkSheet(sheetName);
+      sheets.Append(sheet);
     }
 
 
-    private string GetCellValue(WorkbookPart workbookPart, Cell cell) {
-      string value = "";
-      if (cell.InnerText.Length > 0) {
-        value = cell.InnerText;
-        if (cell.DataType != null) {
+    private Sheet CreateWorkSheet(string sheetName) {
+      WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
+      Sheets sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
+      string relationshipId = workbookPart.GetIdOfPart(spreadsheetDocument.WorkbookPart.WorksheetParts.FirstOrDefault());
 
-          switch (cell.DataType.Value) {
-            case CellValues.SharedString:
-              var stringTable = workbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
-              if (stringTable != null) {
-                value = stringTable.SharedStringTable.ElementAt(int.Parse(value)).InnerText;
-              }
-              break;
-
-            case CellValues.Boolean:
-              switch (value) {
-                case "0":
-                  value = "FALSE";
-                  break;
-                default:
-                  value = "TRUE";
-                  break;
-              }
-              break;
-          } // switch
-        } //if cell.DataType != null
+      uint sheetId = 1;
+      if (sheets.Elements<Sheet>().Count() > 0) {
+        sheetId = sheets.Elements<Sheet>().Select(s => s.SheetId.Value).Max() + 1;
       }
 
-      return value;
-    }
+      Sheet sheet = new Sheet() {
+        Id = relationshipId,
+        SheetId = sheetId,
+        Name = sheetName
+      };
 
-
-    private WorksheetPart GetSheet(WorkbookPart workbookPart, string sheetName) {
-      Sheet sheet = workbookPart.Workbook.Descendants<Sheet>().Where(s => s.Name == sheetName).FirstOrDefault();
-
-      if (sheet == null) {
-        throw new ArgumentException("I cant find sheet: " + sheetName);
-      }
-
-      return (WorksheetPart) (workbookPart.GetPartById(sheet.Id));
+      return sheet;
     }
 
 
     private bool ExistRow(Worksheet worksheet, int rowIndex) {
-      int count = worksheet.GetFirstChild<SheetData>().Elements<Row>().Where(r => r.RowIndex == rowIndex).Count();
+      return this.GetRows(worksheet).Count(r => r.RowIndex == rowIndex) > 0;
+    }
 
-      if (count == 0) {
-        return false;
+
+    private Tuple<string, int> GetCellNameParts(string cellName) {
+      string digits = "123456789";
+
+      char firstDigit = cellName.First(x => digits.Contains(x));
+
+      string columnNamePart = cellName.Substring(0, cellName.IndexOf(firstDigit));
+
+      string rowIndexPart = cellName.Substring(cellName.IndexOf(firstDigit));
+
+      return new Tuple<string, int>(columnNamePart, int.Parse(rowIndexPart));
+    }
+
+
+    private Cell GetOrCreateCell(Worksheet worksheet, string columnName, int rowIndex) {
+      Row row = GetRow(worksheet, rowIndex);
+
+      string cellName = columnName + rowIndex;
+
+      Cell refCell = row.Elements<Cell>().FirstOrDefault(c => c.CellReference.Value == cellName);
+
+      if (refCell != null) {
+        return refCell;
       }
 
-      return true;
+      foreach (Cell cell in row.Elements<Cell>()) {
+        if (cell.CellReference.Value.Length == cellName.Length) {
+          if (string.Compare(cell.CellReference.Value, cellName, true) > 0) {
+            refCell = cell;
+            break;
+          }
+        } // if cell.CellReference
+      } // foreach
+
+      Cell newCell = new Cell() {
+        CellReference = cellName
+      };
+      row.InsertBefore(newCell, refCell);
+
+      worksheet.Save();
+
+      return newCell;
+    }
+
+
+    private IEnumerable<Row> GetRows(Worksheet worksheet) {
+      return worksheet.GetFirstChild<SheetData>().Elements<Row>();
     }
 
 
@@ -223,35 +217,80 @@ namespace OpenXMLProvider {
         sheetData.Append(row);
       }
 
-      return worksheet.GetFirstChild<SheetData>().Elements<Row>().Where(r => r.RowIndex == rowIndex).First();
+      return worksheet.GetFirstChild<SheetData>().Elements<Row>().First(r => r.RowIndex == rowIndex);
     }
 
 
-    private Cell InsertCell(Worksheet worksheet, Row row, string columnName, int rowIndex) {
-      string cellReference = columnName + rowIndex;
+    private bool isEmptyWorkbook(Workbook workbook) {
+      if (workbook.Sheets == null) {
+        return true;
+      }
+      return false;
+    }
 
-      if (row.Elements<Cell>().Where(c => c.CellReference.Value == columnName + rowIndex).Count() > 0) {
-        return row.Elements<Cell>().Where(c => c.CellReference.Value == cellReference).First();
-      } else {
-        Cell refCell = null;
 
-      foreach (Cell cell in row.Elements<Cell>()) {
-        if (string.Compare(cell.CellReference.Value, cellReference, true) > 0) {
-          refCell = cell;
-          break;
-        }
-       }
+    private void SetCellValue<T>(Cell cell, T value) {
+      cell.CellValue = new CellValue(System.Convert.ToString(value));
 
-        Cell newCell = new Cell() { CellReference = cellReference };
-        row.InsertBefore(newCell, refCell);
+      if (typeof(T) == typeof(int)) {
+        cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+      }
 
-        worksheet.Save();
-        return newCell;
-      } // else
+      if (typeof(T) == typeof(string)) {
+        cell.DataType = new EnumValue<CellValues>(CellValues.String);
+      }
+
+      if (typeof(T) == typeof(double)) {
+        cell.DataType = new EnumValue<CellValues>(CellValues.Number);
+      }
+
+      if (typeof(T) == typeof(DateTime)) {
+        cell.DataType = new EnumValue<CellValues>(CellValues.Date);
+      }
+
+      if (typeof(T) == typeof(bool)) {
+        cell.DataType = new EnumValue<CellValues>(CellValues.Boolean);
+      }
+    }
+
+
+    private Worksheet defaultWorksheet = null;
+    private Worksheet GetDefaultWorksheet() {
+      if (defaultWorksheet == null) {
+        WorksheetPart worksheetPart = spreadsheetDocument.WorkbookPart.WorksheetParts.FirstOrDefault();
+
+        defaultWorksheet = worksheetPart.Worksheet;
+      }
+
+      return defaultWorksheet;
     }
 
 
     #endregion Private Methods
+
+    #region IDisposable Support
+
+    private bool disposedValue = false; // Para detectar llamadas redundantes
+
+    protected virtual void Dispose(bool disposing) {
+      if (!disposedValue) {
+        if (disposing) {
+          // TODO
+        }
+        this.Close();
+        this.spreadsheetDocument.Dispose();
+
+        disposedValue = true;
+      }
+    }
+
+
+    public void Dispose() {
+      Dispose(true);
+    }
+
+
+    #endregion
 
   }
 }
