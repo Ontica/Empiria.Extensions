@@ -35,8 +35,19 @@ namespace Empiria.Postings.Media {
     }
 
 
+    static public MediaFile Parse(int id) {
+      return BaseObject.ParseId<MediaFile>(id);
+    }
+
+
     static public MediaFile Parse(string uid) {
       return BaseObject.ParseKey<MediaFile>(uid);
+    }
+
+    static public MediaFile Empty {
+      get {
+        return BaseObject.ParseEmpty<MediaFile>();
+      }
     }
 
 
