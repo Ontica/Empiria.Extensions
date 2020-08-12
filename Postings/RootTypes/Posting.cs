@@ -81,9 +81,9 @@ namespace Empiria.Postings {
 
 
     [DataField("ExtData")]
-    protected internal JsonObject ExtensionData {
+    public JsonObject ExtensionData {
       get;
-      private set;
+      set;
     }
 
 

@@ -25,7 +25,6 @@ namespace Empiria.Postings.Media {
 
     #region Public services
 
-
     public static MediaFile CreateMediaFile(HttpPostedFile file, NameValueCollection metadata) {
       MediaStorage storage = MediaStorage.Default;
 
@@ -34,7 +33,6 @@ namespace Empiria.Postings.Media {
       string fullPath = Path.Combine(storage.Path, fileData.Get<string>("fileName"));
 
       file.SaveAs(fullPath);
-
 
       Metadata metadataObject = BuildMetadataFromNameValueCollection(metadata);
 

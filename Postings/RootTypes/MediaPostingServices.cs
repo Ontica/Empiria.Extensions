@@ -8,8 +8,10 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Linq;
 using System.Web;
 
+using Empiria.Json;
 using Empiria.Postings.Media;
 
 namespace Empiria.Postings {
@@ -32,6 +34,10 @@ namespace Empiria.Postings {
       MediaFile mediaFile = MediaServices.CreateMediaFile(request.Files[0], form);
 
       var posting = new Posting(postingType, nodeObject, mediaFile);
+
+      if (form.AllKeys.Contains("extensionData")) {
+        posting.ExtensionData = JsonObject.Parse(form["extensionData"]);
+      }
 
       posting.Save();
 

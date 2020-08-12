@@ -56,6 +56,7 @@ namespace Empiria.Postings.Media {
           tags = metadata.Tags,
           authors = metadata.Authors,
         }
+
       };
     }
 
