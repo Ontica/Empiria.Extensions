@@ -9,6 +9,7 @@ Empiria Extensions Framework contains the following software components:
 - Empiria Oracle Data Handler
 - Empiria PostgreSql Data Handler
 - Empiria Documents (to be discontinued, replaced by Empiria Storage)
+- Empiria Entities
 - Empiria Expressions
 - Empiria Geography
 - Empiria Messaging
