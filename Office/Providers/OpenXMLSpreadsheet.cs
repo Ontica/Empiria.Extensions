@@ -1,10 +1,10 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Office Integration servuices               Component : Service provider                        *
-*  Assembly : Empiria.Cognition.dll                      Pattern   : Provider                                *
-*  Type     : OpenXMLSpreadSheet                         License   : Please read LICENSE.txt file            *
+*  Module   : Office Integration Services                Component : Spreadsheet service provider            *
+*  Assembly : Empiria.Office.dll                         Pattern   : Provider                                *
+*  Type     : OpenXMLSpreadsheet                         License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Define data types for Microsoft Azure Cognition Translator Services.                           *
+*  Summary  : Provides basic services to interact with Office spreadsheets through OpenXML.                  *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -16,36 +16,37 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Empiria.Office.Providers {
-  /// <summary>Provides basic SpreadSheet services usign OpenXML</summary>
-  internal class OpenXMLSpreadSheet : IDisposable {
+
+  /// <summary>Provides basic services to interact with Office spreadsheets through OpenXML.</summary>
+  internal class OpenXMLSpreadsheet : IDisposable {
 
     private SpreadsheetDocument spreadsheetDocument;
 
 
     #region Constructors and parsers
 
-    private OpenXMLSpreadSheet(string path) {
+    private OpenXMLSpreadsheet(string path) {
       spreadsheetDocument = SpreadsheetDocument.Open(path, true);
     }
 
 
-    private OpenXMLSpreadSheet(SpreadsheetDocument spreadsheetDocument) {
+    private OpenXMLSpreadsheet(SpreadsheetDocument spreadsheetDocument) {
       this.spreadsheetDocument = spreadsheetDocument;
     }
 
 
-    static public OpenXMLSpreadSheet Create() {
+    static public OpenXMLSpreadsheet Create() {
       string defaultTemplatePath = Empiria.ConfigurationData.GetString("Spreadsheet.NewFileTemplate");
 
       return CreateFromTemplate(defaultTemplatePath);
     }
 
 
-    static public OpenXMLSpreadSheet CreateFromTemplate(string templatePath) {
+    static public OpenXMLSpreadsheet CreateFromTemplate(string templatePath) {
       try {
         var spreadsheetDocument = SpreadsheetDocument.CreateFromTemplate(templatePath);
 
-        return new OpenXMLSpreadSheet(spreadsheetDocument);
+        return new OpenXMLSpreadsheet(spreadsheetDocument);
 
       } catch (Exception ex) {
         throw new Exception("I can´t create from template file: " + templatePath + " ", ex);
@@ -53,8 +54,8 @@ namespace Empiria.Office.Providers {
     }
 
 
-    static public OpenXMLSpreadSheet Open(string path) {
-      return new OpenXMLSpreadSheet(path);
+    static public OpenXMLSpreadsheet Open(string path) {
+      return new OpenXMLSpreadsheet(path);
     }
 
 
@@ -115,7 +116,7 @@ namespace Empiria.Office.Providers {
 
     #region Private Methods
 
-    private void AddNewWorkSheet(string sheetName) {
+    private void AddNewWorksheet(string sheetName) {
       WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
 
       WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
@@ -123,18 +124,18 @@ namespace Empiria.Office.Providers {
 
       Sheets sheets = new Sheets();
 
-      if (isEmptyWorkbook(workbookPart.Workbook)) {
+      if (IsWorkbookEmpty(workbookPart.Workbook)) {
         sheets = workbookPart.Workbook.AppendChild<Sheets>(new Sheets());
       } else {
         sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
       }
 
-      Sheet sheet = CreateWorkSheet(sheetName);
+      Sheet sheet = CreateWorksheet(sheetName);
       sheets.Append(sheet);
     }
 
 
-    private Sheet CreateWorkSheet(string sheetName) {
+    private Sheet CreateWorksheet(string sheetName) {
       WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
       Sheets sheets = workbookPart.Workbook.GetFirstChild<Sheets>();
       string relationshipId = workbookPart.GetIdOfPart(spreadsheetDocument.WorkbookPart.WorksheetParts.FirstOrDefault());
@@ -221,7 +222,7 @@ namespace Empiria.Office.Providers {
     }
 
 
-    private bool isEmptyWorkbook(Workbook workbook) {
+    private bool IsWorkbookEmpty(Workbook workbook) {
       if (workbook.Sheets == null) {
         return true;
       }
@@ -270,7 +271,7 @@ namespace Empiria.Office.Providers {
 
     #region IDisposable Support
 
-    private bool disposedValue = false; // Para detectar llamadas redundantes
+    private bool disposedValue = false;
 
     protected virtual void Dispose(bool disposing) {
       if (!disposedValue) {
@@ -290,7 +291,9 @@ namespace Empiria.Office.Providers {
     }
 
 
-    #endregion
+    #endregion IDisposable Support
 
-  }
-}
+  }  // class OpenXMLSpreadsheet
+
+}  // namespace Empiria.Office.Providers
+
