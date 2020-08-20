@@ -1,36 +1,37 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Office                         Component : Service provider                            *
-*  Assembly : Empiria.Office.dll                     Pattern   : Data Transfer Objects                       *
-*  Type     : PdfFormFieldDTO                        License   : Please read LICENSE.txt file                *
+*  Module   : Office Integration Services                Component : PDF service provider                    *
+*  Assembly : Empiria.Office.dll                         Pattern   : Data Transfer Object                    *
+*  Type     : PdfFieldDTO                                License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Define data types for Pdf Form Field Services.                                                 *
+*  Summary  : Properties of a PDF form field.                                                                *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
-
 namespace Empiria.Office.Providers {
-  /// <summary>Define data types for Pdf Form Field Services.</summary>
-  internal class PdfFormFieldDTO {
+
+  /// <summary>Properties of a PDF form field.</summary>
+  internal class PdfFieldDTO {
+
     public string Key {
       get; set;
-    }
+    } = String.Empty;
 
 
     public string Name {
       get; set;
-    }
+    } = String.Empty;
 
 
     public string Value {
       get; set;
-    }
+    } = String.Empty;
 
 
     public string Type {
       get; set;
-    }
+    } = String.Empty;
 
 
     public bool IsReadOnly {
@@ -47,6 +48,6 @@ namespace Empiria.Office.Providers {
       get; set;
     }
 
+  }  // class PdfFieldDTO
 
-  }
-}
+} // namespace Empiria.Office.Providers
