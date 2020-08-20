@@ -5,6 +5,7 @@ Empiria Extensions Framework contains the following software components:
 - Empiria Cognition
 - Empiria Data Converter
 - Empiria Data Modeler
+- Empiria Data Objects
 - Empiria MySql Data Handler
 - Empiria Oracle Data Handler
 - Empiria PostgreSql Data Handler
