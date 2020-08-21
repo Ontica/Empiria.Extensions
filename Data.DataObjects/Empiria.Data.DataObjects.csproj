@@ -9,8 +9,8 @@
     <FileVersion>1.0.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/Data.Objects/LICENSE.txt</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Ontica/Empiria.Extensions/tree/master/Data.Objects</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/Data.DataObjects/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Ontica/Empiria.Extensions/tree/master/Data.DataObjects</PackageProjectUrl>
     <PackageIconUrl>http://www.ontica.org/logo.ontica.png</PackageIconUrl>
     <PackageTags>logical data model, entities, data structure, data model, persistance</PackageTags>
     <RepositoryUrl>https://github.com/Ontica/Empiria.Extensions</RepositoryUrl>
@@ -20,6 +20,8 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NeutralLanguage></NeutralLanguage>
     <Configurations>Debug;Release;Multisolutions</Configurations>
+    <AssemblyName>Empiria.Data.DataObjects</AssemblyName>
+    <RootNamespace>Empiria.Data.DataObjects</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Multisolutions|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
