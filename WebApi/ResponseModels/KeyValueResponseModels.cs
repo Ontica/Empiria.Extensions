@@ -28,6 +28,12 @@ namespace Empiria.WebApi {
     }
 
 
+    static public object ToIdentifiableResponse<T>(this T instance,
+                                                   Func<T, string> getNameFunction) where T : IIdentifiable {
+      return ToIdentifiableResponse(instance.UID.ToString(), getNameFunction.Invoke(instance));
+    }
+
+
     static public ICollection ToIdentifiableResponse<T>(this ICollection<T> list,
                                                         Func<T, string> getNameFunction) where T : IIdentifiable {
       ArrayList array = new ArrayList(list.Count);
