@@ -2,27 +2,27 @@
 *                                                                                                            *
 *  Module   : Empiria Data Objects                       Component : Service Provider                        *
 *  Assembly : Empiria.Data.DataObjects.dll               Pattern   : Data Services                           *
-*  Type     : DataObjectsRepository                      License   : Please read LICENSE.txt file            *
+*  Type     : DataItemsRepository                        License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Provides data access services for DataObjects instances.                                       *
+*  Summary  : Provides data access services for DataItem instances.                                          *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Data.DataObjects {
 
-  /// <summary>Provides data access services for DataObjects instances.</summary>
-  static internal class DataObjectsRepository {
+  /// <summary>Provides data access services for DataItem instances.</summary>
+  static internal class DataItemsRepository {
 
-    static internal FixedList<DataSource> GetDataSources() {
-      var sql = "SELECT * FROM EXFDataObjects " +
-                "WHERE (DataObjectType LIKE 'DataSource.%') AND (DataObjectStatus <> 'X')";
+    static internal FixedList<DataStore> GetDataStores() {
+      var sql = "SELECT * FROM EXFDataItems " +
+                "WHERE (DataItemNamedKey LIKE 'DataStore.%') AND (DataItemStatus <> 'X')";
 
       DataOperation operation = DataOperation.Parse(sql);
 
-      return DataReader.GetFixedList<DataSource>(operation);
+      return DataReader.GetFixedList<DataStore>(operation);
     }
 
-  }  // class DataObjectsRepository
+  }  // class DataItemsRepository
 
 }  // namespace Empiria.Data.DataObjects
