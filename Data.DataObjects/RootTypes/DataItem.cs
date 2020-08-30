@@ -11,9 +11,11 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
+using Empiria.Json;
 using Empiria.StateEnums;
 
 using Empiria.Ontology;
+
 
 namespace Empiria.Data.DataObjects {
 
@@ -67,7 +69,7 @@ namespace Empiria.Data.DataObjects {
     }
 
 
-    [DataField("DataItemFamily")]
+    [DataField("DataItemFamilies")]
     public string Family {
       get;
       internal protected set;
@@ -83,6 +85,13 @@ namespace Empiria.Data.DataObjects {
 
     [DataField("DataItemDescription")]
     public string Description {
+      get;
+      internal protected set;
+    }
+
+
+    [DataField("DataItemDataType")]
+    public string DataType {
       get;
       internal protected set;
     }
@@ -114,6 +123,13 @@ namespace Empiria.Data.DataObjects {
     }
 
 
+    [DataField("DataItemStorageFormat")]
+    public string StorageFormat {
+      get;
+      internal protected set;
+    }
+
+
     [DataField("DataItemStorage")]
     public string Storage {
       get;
@@ -122,7 +138,7 @@ namespace Empiria.Data.DataObjects {
 
 
     [DataField("DataItemExtData")]
-    protected string ExtensionData {
+    protected JsonObject ExtensionData {
       get;
       set;
     }

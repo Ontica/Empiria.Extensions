@@ -16,7 +16,8 @@ namespace Empiria.Data.DataObjects {
 
     static internal FixedList<DataStore> GetDataStores() {
       var sql = "SELECT * FROM EXFDataItems " +
-                "WHERE (DataItemNamedKey LIKE 'DataStore.%') AND (DataItemStatus <> 'X')";
+                "WHERE (DataItemNamedKey LIKE 'DataStore.%') AND (DataItemStatus <> 'X') " +
+                "ORDER BY DataItemName";
 
       DataOperation operation = DataOperation.Parse(sql);
 

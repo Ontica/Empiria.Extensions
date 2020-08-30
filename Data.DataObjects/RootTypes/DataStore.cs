@@ -4,19 +4,23 @@
 *  Assembly : Empiria.Data.DataObjects.dll               Pattern   : Information Holder                      *
 *  Type     : DataStore                                  License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Data stores are elements responsible of store and persist data.                                *
-*             Typically they allow read or write access using special protocols and secure connections.      *
-*             Can be databases, e-mail storages, file systems or simple spreedsheet or PDF files.            *
+*  Summary  : Data stores describe elements responsible of store and persist data, like databases, file      *
+*             systems, e-mail storages, spreedsheets, or PDF files. Typically they allow read or write       *
+*             access using special protocols and secure connections.                                         *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.IO;
+using Empiria.Json;
 
 namespace Empiria.Data.DataObjects {
 
-  /// <summary>Data stores are elements responsible of store and persist data.
-  /// Typically they allow read or write access using special protocols and secure connections.
-  /// Can be databases, e-mail storages, file systems or simple spreedsheet or PDF files.</summary>
+  /// <summary>Data stores describe elements responsible of store and persist data, like databases, file
+  /// systems, e-mail storages, spreedsheets, or PDF files. Typically they allow read or write
+  /// access using special protocols and secure connections.</summary>
   public class DataStore : DataItem {
+
+    static private string TEMPLATES_FOLDER = ConfigurationData.Get<string>("DataStoreTemplates.FolderPath");
 
     #region Constructors and parsers
 
@@ -47,15 +51,62 @@ namespace Empiria.Data.DataObjects {
 
     #region Properties
 
-    private string libraryBaseAddress = ConfigurationData.GetString("Empiria.Governance", "DocumentsLibrary.BaseAddress");
-    public string TemplateUrl {
+    [DataField("DataItemActions")]
+    public string Actions {
+      get;
+      private set;
+    }
+
+
+    [DataField("DataItemKnowledgeBases")]
+    public string KnowledgeBases {
+      get;
+      private set;
+    }
+
+
+    [DataField("DataItemTemplate")]
+    public string Template {
+      get;
+      private set;
+    }
+
+
+    public FileInfo TemplateFileInfo {
       get {
-        return ExtensionData.Replace("~", libraryBaseAddress);
+        var filePath = GetFilePath();
+
+        return new FileInfo(filePath);
+      }
+    }
+
+    public DirectoryInfo TemplateFolderInfo {
+      get {
+        var filePath = GetFilePath();
+
+        return new DirectoryInfo(filePath);
       }
     }
 
 
     #endregion Properties
+
+    private string GetFilePath() {
+      var path = Template.Replace("~", TEMPLATES_FOLDER);
+
+      path = path.Replace("/", @"\");
+
+      return path;
+    }
+
+    public FixedList<DataFormField> GetFormFields() {
+      return base.ExtensionData.GetList<DataFormField>("fields").ToFixedList();
+    }
+
+    public JsonObject GetPDFFormFields() {
+      return base.ExtensionData.Slice("autofillFields", false);
+    }
+
 
   }  // class DataStore
 
