@@ -18,7 +18,7 @@ using iText.Kernel.Pdf;
 namespace Empiria.Office.Providers {
 
   /// <summary>Writes fields values inside of a PDF form.</summary>
-  internal class PdfFieldsWriter {
+  public class PdfFieldsWriter {
 
     private PdfAcroForm form;
 
@@ -28,7 +28,7 @@ namespace Empiria.Office.Providers {
     }
 
 
-    static internal MemoryStream WriteFields(Stream stream, IEnumerable<PdfFieldDTO> newFields) {
+    static public MemoryStream WriteFields(Stream stream, IEnumerable<PdfFieldDTO> newFields) {
       Assertion.AssertObject(stream, "stream");
       Assertion.AssertObject(newFields, "newFields");
 
@@ -38,7 +38,7 @@ namespace Empiria.Office.Providers {
         var writer = new PdfFieldsWriter(document);
 
         foreach (var newField in newFields.ToList()) {
-          writer.SetFieldValue(newField.Key, "NTVC");
+          writer.SetFieldValue(newField.Key, newField.Value);
         }
       }
 

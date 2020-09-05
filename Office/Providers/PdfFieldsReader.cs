@@ -18,11 +18,11 @@ using iText.Kernel.Pdf;
 namespace Empiria.Office.Providers {
 
   /// <summary>Reads the fields of a PDF form.</summary>
-  internal class PdfFieldsReader {
+  public class PdfFieldsReader {
 
     #region Internal Methods
 
-    static internal IEnumerable<PdfFieldDTO> GetFields(string path) {
+    static public IEnumerable<PdfFieldDTO> GetFields(string path) {
       Assertion.AssertObject(path, "path");
 
       using (PdfDocument pdfDoc = new PdfDocument(new PdfReader(path))) {
@@ -37,7 +37,7 @@ namespace Empiria.Office.Providers {
     }
 
 
-    static internal IEnumerable<PdfFieldDTO> GetFields(Stream stream) {
+    static public IEnumerable<PdfFieldDTO> GetFields(Stream stream) {
       Assertion.AssertObject(stream, "stream");
 
       using (PdfDocument pdfDoc = new PdfDocument(new PdfReader(stream))) {

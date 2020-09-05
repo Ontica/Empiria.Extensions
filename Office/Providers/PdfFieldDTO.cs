@@ -12,7 +12,7 @@ using System;
 namespace Empiria.Office.Providers {
 
   /// <summary>Properties of a PDF form field.</summary>
-  internal class PdfFieldDTO {
+  public class PdfFieldDTO {
 
     public string Key {
       get; set;

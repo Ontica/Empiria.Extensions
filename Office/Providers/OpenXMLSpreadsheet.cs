@@ -18,7 +18,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 namespace Empiria.Office.Providers {
 
   /// <summary>Provides basic services to interact with Office spreadsheets through OpenXML.</summary>
-  internal class OpenXMLSpreadsheet : IDisposable {
+  public class OpenXMLSpreadsheet : IDisposable {
 
     private SpreadsheetDocument spreadsheetDocument;
 
