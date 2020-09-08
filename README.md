@@ -18,6 +18,7 @@ Empiria Extensions Framework contains the following software components:
 - Empiria Presentation
 - Empiria Presentation.Web
 - Empiria Storage
+- Empiria User Management
 - Empiria Web Api
 - Empiria Web Api Client
 - Empiria Web Services
