@@ -26,16 +26,28 @@ namespace Empiria.WebApi {
 
     #region Constructors and parsers
 
-    protected BaseResponseModel(HttpRequestMessage request, T data, string typeName = "") {
+    protected BaseResponseModel(HttpRequestMessage request, T data) {
+      this.Initialize(request, data, typeof(T).FullName);
+    }
+
+
+    protected BaseResponseModel(HttpRequestMessage request, T data, string typeName) {
       this.Initialize(request, data, typeName);
+    }
+
+
+    protected BaseResponseModel(HttpRequestMessage request, ResponseStatus status, T data) {
+      this.Initialize(request, data, typeof(T).FullName);
+      this.Status = status.ToString().ToLowerInvariant();
     }
 
 
     protected BaseResponseModel(HttpRequestMessage request, ResponseStatus status,
-                                T data, string typeName = "") {
+                                T data, string typeName) {
       this.Initialize(request, data, typeName);
       this.Status = status.ToString().ToLowerInvariant();
     }
+
 
     #endregion Constructors and parsers
 
