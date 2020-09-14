@@ -11,7 +11,7 @@ using System;
 
 using Empiria.Json;
 
-namespace Empiria.Messaging {
+namespace Empiria.Messaging.EMailDelivery {
 
   /// <summary>Configuration data for email SMTP clients.</summary>
   internal class EMailConfig {
@@ -99,4 +99,4 @@ namespace Empiria.Messaging {
 
   } //class EMailConfig
 
-} //namespace Empiria.Messaging
+} //namespace Empiria.Messaging.EMailDelivery

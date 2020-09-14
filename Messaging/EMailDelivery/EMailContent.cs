@@ -12,7 +12,7 @@ using System.IO;
 
 using System.Collections.Generic;
 
-namespace Empiria.Messaging {
+namespace Empiria.Messaging.EMailDelivery {
 
   /// <summary>Holds the contents of an email message.</summary>
   public class EMailContent {
@@ -83,4 +83,4 @@ namespace Empiria.Messaging {
 
   }  // class EMailContent
 
-}  // namespace Empiria.Messaging
+}  // namespace Empiria.Messaging.EMailDelivery

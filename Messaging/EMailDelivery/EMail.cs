@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 using Empiria.StateEnums;
 
-namespace Empiria.Messaging {
+namespace Empiria.Messaging.EMailDelivery {
 
   /// <summary>Provides email delivery services.</summary>
   static public class EMail {
@@ -193,4 +193,4 @@ namespace Empiria.Messaging {
 
   } //class EMail
 
-} //namespace Empiria.Messaging
+} //namespace Empiria.Messaging.EMailDelivery

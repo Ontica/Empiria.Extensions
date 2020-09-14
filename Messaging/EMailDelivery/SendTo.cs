@@ -12,7 +12,7 @@ using System;
 using Empiria.Json;
 using Empiria.StateEnums;
 
-namespace Empiria.Messaging {
+namespace Empiria.Messaging.EMailDelivery {
 
   /// <summary>Data holder used to describe message's receivers rules, typically e-mail addresses.</summary>
   public class SendTo {
@@ -144,4 +144,4 @@ namespace Empiria.Messaging {
 
   } // class SendTo
 
-} // namespace Empiria.Messaging
+} // namespace Empiria.Messaging.EMailDelivery
