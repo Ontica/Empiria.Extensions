@@ -23,7 +23,7 @@ namespace Empiria.Messaging {
 
     #region Fields
 
-    private Lazy<List<Message>> messages = new Lazy<List<Message>>(() => new List<Message>());
+    private Lazy<List<FormerMessage>> messages = new Lazy<List<FormerMessage>>(() => new List<FormerMessage>());
 
     #endregion Fields
 
@@ -52,7 +52,7 @@ namespace Empiria.Messaging {
 
 
     protected override void OnLoadObjectData(System.Data.DataRow row) {
-      messages = new Lazy<List<Message>>(() => MessageQueueData.GetQueueMessages(this));
+      messages = new Lazy<List<FormerMessage>>(() => MessageQueueData.GetQueueMessages(this));
     }
 
 
@@ -61,14 +61,14 @@ namespace Empiria.Messaging {
     #region Read properties and methods
 
 
-    public FixedList<Message> Messages {
+    public FixedList<FormerMessage> Messages {
       get {
         return messages.Value.ToFixedList();
       }
     }
 
 
-    public FixedList<Message> GetNextMessages() {
+    public FixedList<FormerMessage> GetNextMessages() {
       var messages = this.Messages.FindAll(x => x.IsInProcessStatus);
 
       messages.Sort((x, y) => x.PostingTime.CompareTo(y.PostingTime));
@@ -77,7 +77,7 @@ namespace Empiria.Messaging {
     }
 
 
-    public FixedList<Message> GetUnitOfWorkMessages(string unitOfWorkUID) {
+    public FixedList<FormerMessage> GetUnitOfWorkMessages(string unitOfWorkUID) {
       Assertion.AssertObject(unitOfWorkUID, "unitOfWorkUID");
 
       return this.Messages.FindAll(x => x.UnitOfWorkUID == unitOfWorkUID &&
@@ -85,7 +85,7 @@ namespace Empiria.Messaging {
     }
 
 
-    public Message TryGetNextMessage() {
+    public FormerMessage TryGetNextMessage() {
       return this.Messages.Find(x => x.IsInProcessStatus);
     }
 
@@ -106,7 +106,7 @@ namespace Empiria.Messaging {
 
     #region Update methods
 
-    public void AddMessage(Message message) {
+    public void AddMessage(FormerMessage message) {
       Assertion.AssertObject(message, "message");
 
       message.Enqueue(this);
@@ -115,7 +115,7 @@ namespace Empiria.Messaging {
     }
 
 
-    public void AddMessage(Message message, string unitOfWorkUID) {
+    public void AddMessage(FormerMessage message, string unitOfWorkUID) {
       Assertion.AssertObject(message, "message");
       Assertion.AssertObject(unitOfWorkUID, "unitOfWorkUID");
 
@@ -125,7 +125,7 @@ namespace Empiria.Messaging {
     }
 
 
-    public void MarkAsProcessed(Message message, JsonObject processingData = null,
+    public void MarkAsProcessed(FormerMessage message, JsonObject processingData = null,
                                 ExecutionStatus status = ExecutionStatus.Completed) {
       Assertion.AssertObject(message, "message");
       Assertion.Assert(status != ExecutionStatus.Pending,

@@ -19,16 +19,16 @@ namespace Empiria.Messaging {
 
     #region Public methods
 
-    static internal List<Message> GetQueueMessages(MessageQueue queue) {
+    static internal List<FormerMessage> GetQueueMessages(MessageQueue queue) {
       var sql = $"SELECT * FROM QueuedMessages " +
                 $"WHERE QueueId = {queue.Id} AND ProcessingStatus <> 'X' " +
                 $"ORDER BY PostingTime, MessageId";
 
-      return DataReader.GetList<Message>(DataOperation.Parse(sql));
+      return DataReader.GetList<FormerMessage>(DataOperation.Parse(sql));
     }
 
 
-    static internal void WriteMessage(Message o) {
+    static internal void WriteMessage(FormerMessage o) {
       var op = DataOperation.Parse("writeQueuedMessage", o.Id, o.MessageType.Id,
                                     o.Queue.Id, o.UID, o.UnitOfWorkUID,
                                     o.PostingTime, o.MessageData.ToString(),

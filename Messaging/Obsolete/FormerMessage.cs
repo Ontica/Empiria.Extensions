@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Message Queue Services                       Component : Message Queue                         *
 *  Assembly : Empiria.Messaging.dll                        Pattern   : Information Holder                    *
-*  Type     : Message                                      License   : Please read LICENSE.txt file          *
+*  Type     : FormerMessage                                License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : Describes a message.                                                                           *
 *                                                                                                            *
@@ -17,29 +17,29 @@ namespace Empiria.Messaging {
 
   /// <summary>Describes a message.</summary>
   [PartitionedType(typeof(MessageType))]
-  public class Message : BaseObject {
+  public class FormerMessage : BaseObject {
 
     #region Constructors and parsers
 
-    protected Message(MessageType messageType): base(messageType) {
+    protected FormerMessage(MessageType messageType): base(messageType) {
       // Required by Empiria Framework.
     }
 
 
-    public Message(JsonObject data) : this(MessageType.Default, data) {
+    public FormerMessage(JsonObject data) : this(MessageType.Default, data) {
       // no-op
     }
 
 
-    protected Message(MessageType messageType, JsonObject data): base(messageType) {
+    protected FormerMessage(MessageType messageType, JsonObject data): base(messageType) {
       Assertion.AssertObject(data, "data");
 
       this.MessageData = data;
     }
 
 
-    static internal Message Parse(int id) {
-      return BaseObject.ParseId<Message>(id);
+    static internal FormerMessage Parse(int id) {
+      return BaseObject.ParseId<FormerMessage>(id);
     }
 
 
@@ -51,14 +51,14 @@ namespace Empiria.Messaging {
     }
 
 
-    static internal Message Parse(string uid) {
-      return BaseObject.ParseKey<Message>(uid);
+    static internal FormerMessage Parse(string uid) {
+      return BaseObject.ParseKey<FormerMessage>(uid);
     }
 
 
-    static public Message Empty {
+    static public FormerMessage Empty {
       get {
-        return BaseObject.ParseEmpty<Message>();
+        return BaseObject.ParseEmpty<FormerMessage>();
       }
     }
 
@@ -159,6 +159,6 @@ namespace Empiria.Messaging {
 
     #endregion Methods
 
-  } // class Message
+  } // class FormerMessage
 
 } //namespace Empiria.Messaging

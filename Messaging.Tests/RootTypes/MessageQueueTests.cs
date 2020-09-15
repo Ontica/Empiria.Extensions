@@ -42,7 +42,7 @@ namespace Empiria.Tests {
 
       string unitOfWorkUID = Guid.NewGuid().ToString();
 
-      Message newMessage = CreateMessage();
+      FormerMessage newMessage = CreateMessage();
       queue.AddMessage(newMessage, unitOfWorkUID);
 
       newMessage = CreateMessage();
@@ -65,7 +65,7 @@ namespace Empiria.Tests {
         return;
       }
 
-      FixedList<Message> messages = queue.GetUnitOfWorkMessages(unitOfWorkUID);
+      FixedList<FormerMessage> messages = queue.GetUnitOfWorkMessages(unitOfWorkUID);
 
       int counter = 1;
       foreach (var message in messages) {
@@ -86,7 +86,7 @@ namespace Empiria.Tests {
     public void Should_Mark_The_First_Message_As_Processed() {
       MessageQueue queue = GetTestingMessageQueue();
 
-      Message nextMessage = queue.TryGetNextMessage();
+      FormerMessage nextMessage = queue.TryGetNextMessage();
 
       if (nextMessage == null) {
         nextMessage = CreateMessage();
@@ -114,13 +114,13 @@ namespace Empiria.Tests {
     }
 
 
-    private Message CreateMessage() {
+    private FormerMessage CreateMessage() {
       var data = new JsonObject();
 
       data.Add("subject", "Subject del mensaje");
       data.Add("value", DateTime.Now.Ticks);
 
-      return new Message(data);
+      return new FormerMessage(data);
     }
 
 

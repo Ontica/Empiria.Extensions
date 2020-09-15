@@ -1,8 +1,8 @@
 ﻿/* Empiria Extensions Framework ******************************************************************************
 *                                                                                                            *
-*  Module   : Message Queue Services                       Component : Message Queue                         *
-*  Assembly : Empiria.Messaging.dll                        Pattern   : Power type                            *
-*  Type     : MessageType                                  License   : Please read LICENSE.txt file          *
+*  Module   : Empiria Messaging                          Component : Domain Layer                            *
+*  Assembly : Empiria.Messaging.dll                      Pattern   : Power type                              *
+*  Type     : MessageType                                License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Power type that defines the type of a queued message.                                          *
 *                                                                                                            *
@@ -14,7 +14,7 @@ using Empiria.Ontology;
 namespace Empiria.Messaging {
 
   /// <summary>Power type that defines the type of a queued message.</summary>
-  [Powertype(typeof(Message))]
+  [Powertype(typeof(FormerMessage))]
   public sealed class MessageType : Powertype {
 
     #region Constructors and parsers
@@ -39,6 +39,11 @@ namespace Empiria.Messaging {
       get {
         return ObjectTypeInfo.Parse<MessageType>("ObjectType.Message");
       }
+    }
+
+    public static object Event {
+      get;
+      internal set;
     }
 
     #endregion Types constants
