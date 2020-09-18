@@ -1,6 +1,6 @@
 ﻿# Empiria Posting Services
 
-Provides data and content posting services to manage media, annotations, bookmarks, blogs, chats and posts, that can be attached to objects of any kind.
+Provides services to manage media, annotations, bookmarks, blogs, chats and posts, that can be attached to objects of any kind.
 
 # License
 
