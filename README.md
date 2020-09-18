@@ -15,6 +15,7 @@ Empiria Extensions Framework contains the following software components:
 - Empiria Geography
 - Empiria Messaging
 - Empiria Office
+- Empiria Postings
 - Empiria Presentation
 - Empiria Presentation.Web
 - Empiria Storage
