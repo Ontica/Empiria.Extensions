@@ -114,6 +114,21 @@ namespace Empiria.Postings {
     }
 
 
+    static internal FixedList<Posting> GetPostingsList(BaseObject nodeObject,
+                                                       BaseObject postedItem,
+                                                       string postingType) {
+      string sql = $"SELECT EXFPostings.* FROM EXFPostings " +
+                   $"WHERE (EXFPostings.NodeObjectUID = '{nodeObject.UID}' AND " +
+                   $"EXFPostings.PostedItemUID = '{postedItem.UID}' AND " +
+                   $"EXFPostings.PostingType = '{postingType}' AND EXFPostings.PostingStatus <> 'X') " +
+                   $"ORDER BY EXFPostings.PostingIndex, EXFPostings.PostingId";
+
+      var op = DataOperation.Parse(sql);
+
+      return DataReader.GetFixedList<Posting>(op);
+    }
+
+
     static internal FixedList<Posting> GetPostingsForPostedItemList(BaseObject postedItem, string postingType) {
       string sql = $"SELECT EXFPostings.* FROM EXFPostings " +
                    $"WHERE (EXFPostings.PostedItemUID = '{postedItem.UID}' AND " +
@@ -124,7 +139,6 @@ namespace Empiria.Postings {
 
       return DataReader.GetFixedList<Posting>(op);
     }
-
 
 
     static internal void WritePosting(Posting o) {
@@ -161,7 +175,6 @@ namespace Empiria.Postings {
                                     o.FilePath, o.Keywords, o.Updated,
                                     (char) o.AccessMode, o.Owner.Id,
                                     o.ParentId, o.Date, (char) o.Status);
-
       DataWriter.Execute(op);
     }
 
