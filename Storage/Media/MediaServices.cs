@@ -8,16 +8,15 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Web;
 
 using Empiria.Json;
 using Empiria.Security;
 
-using Empiria.Documents.IO;
-using System.Collections.Specialized;
 
-namespace Empiria.Postings.Media {
+namespace Empiria.Storage {
 
 /// <summary>Application service used to handle media files operations.</summary>
   static public class MediaServices {
@@ -74,7 +73,7 @@ namespace Empiria.Postings.Media {
 
 
     static private string GetFileContentHashCode(Stream stream) {
-      byte[] array = FileServices.StreamToArray(stream);
+      byte[] array = UtilityMethods.StreamToArray(stream);
 
       string hash = Cryptographer.CreateHashCode(array);
 
@@ -111,4 +110,4 @@ namespace Empiria.Postings.Media {
 
   }  // class MediaServices
 
-} // namespace Empiria.Postings.Media
+} // namespace Empiria.Storage

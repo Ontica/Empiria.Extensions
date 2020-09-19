@@ -12,9 +12,10 @@ using System.Linq;
 using System.Web;
 
 using Empiria.Json;
-using Empiria.Postings.Media;
 
-namespace Empiria.Postings {
+using Empiria.Postings;
+
+namespace Empiria.Storage {
 
   /// <summary>Invokes methods on ProjectItemFile objects according to the current Http Request.</summary>
   public class MediaPostingServices {

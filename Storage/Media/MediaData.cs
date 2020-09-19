@@ -11,7 +11,7 @@ using System;
 
 using Empiria.Data;
 
-namespace Empiria.Postings.Media {
+namespace Empiria.Storage {
 
   /// <summary>Data read and write methods for media domain objects.</summary>
   static internal class MediaData {
@@ -35,4 +35,4 @@ namespace Empiria.Postings.Media {
 
   }  // class MediaData
 
-}  // namespace Empiria.Postings.Media
+}  // namespace Empiria.Storage

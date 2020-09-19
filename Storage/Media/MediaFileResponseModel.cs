@@ -13,7 +13,7 @@ using System.Web;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Empiria.Postings.Media {
+namespace Empiria.Storage {
 
   /// <summary>Response static methods for MediaObject instances.</summary>
   static public class MediaFileResponseModel {
@@ -63,4 +63,4 @@ namespace Empiria.Postings.Media {
 
   }  // class MediaFileResponseModel
 
-}  // namespace Empiria.Postings.Media
+}  // namespace Empiria.Storge

@@ -11,7 +11,7 @@ using System;
 
 using Empiria.Json;
 
-namespace Empiria.Postings.Media {
+namespace Empiria.Storage {
 
   /// <summary>Holds media metadata information.</summary>
   public class Metadata  {
@@ -107,4 +107,4 @@ namespace Empiria.Postings.Media {
 
   } // class Metadata
 
-}  // namespace Empiria.Postings.Media
+}  // namespace Empiria.Storage

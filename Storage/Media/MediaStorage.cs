@@ -11,7 +11,7 @@ using System;
 
 using Empiria.StateEnums;
 
-namespace Empiria.Postings.Media {
+namespace Empiria.Storage {
 
   /// <summary>Represents a media storage unit that contain media objects.</summary>
   public class MediaStorage : BaseObject {
@@ -103,4 +103,4 @@ namespace Empiria.Postings.Media {
 
   }  // class MediaStorage
 
-} // namespace Empiria.Postings.Media
+} // namespace Empiria.Storage

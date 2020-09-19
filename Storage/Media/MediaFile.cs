@@ -15,7 +15,7 @@ using Empiria.Json;
 using Empiria.Security;
 using Empiria.StateEnums;
 
-namespace Empiria.Postings.Media {
+namespace Empiria.Storage {
 
   /// <summary>Represents a stored media object treated as a value type, so it must be related to
   /// other objects like metadata information holders or document entities.</summary>
@@ -23,8 +23,7 @@ namespace Empiria.Postings.Media {
 
     #region Constructors and parsers
 
-
-    private MediaFile() {
+    protected MediaFile() {
       // Required by Empiria Framework
     }
 
@@ -78,7 +77,7 @@ namespace Empiria.Postings.Media {
     }
 
 
-    [DataField("StorageId", Default = "Empiria.Postings.Media.MediaStorage.Default")]
+    [DataField("StorageId", Default = "Empiria.Storage.MediaStorage.Default")]
     public MediaStorage Storage {
       get;
       private set;
@@ -89,6 +88,13 @@ namespace Empiria.Postings.Media {
     public string FileName {
       get;
       private set;
+    }
+
+
+    public string FullName {
+      get {
+        return $"{this.Storage.Path}\\{this.FileName}";
+      }
     }
 
 
@@ -216,7 +222,7 @@ namespace Empiria.Postings.Media {
 
     #endregion Methods
 
-
   }  // class MediaFile
 
-} // namespace Empiria.Postings.Media
+} // namespace Empiria.Storage
+
