@@ -60,10 +60,6 @@
     <ProjectReference Include="..\Postings\Postings\Empiria.Postings.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Providers\" />
-    <Folder Include="RootTypes\" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
 </Project>

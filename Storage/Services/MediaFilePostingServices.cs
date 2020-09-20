@@ -1,8 +1,8 @@
-﻿/* Empiria Postings ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Posting services                             Component : Web services interface                *
-*  Assembly : Empiria.Postings.dll                         Pattern   : Application Service                   *
-*  Type     : MediaPostingServices                         License   : Please read LICENSE.txt file          *
+*  Module   : Media Management                           Component : Services Layer                          *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Component services                      *
+*  Type     : MediaFilePostingServices                   License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Invokes methods on ProjectItemFile objects according to the current Http Request.              *
 *                                                                                                            *
@@ -17,13 +17,14 @@ using Empiria.Postings;
 
 namespace Empiria.Storage {
 
-  /// <summary>Invokes methods on ProjectItemFile objects according to the current Http Request.</summary>
-  public class MediaPostingServices {
+  /// <summary>Invokes methods on objects according to the current Http Request.</summary>
+  public class MediaFilePostingServices {
 
     #region Public methods
 
-
-    static public Posting CreateMediaPost(HttpRequest request, BaseObject nodeObject, string postingType) {
+    static public Posting CreateMediaFilePosting(HttpRequest request,
+                                                 BaseObject nodeObject,
+                                                 string postingType) {
       Assertion.AssertObject(request, "request");
       Assertion.AssertObject(nodeObject, "nodeObject");
       Assertion.AssertObject(postingType, "postingType");
@@ -32,7 +33,9 @@ namespace Empiria.Storage {
 
       var form = HttpContext.Current.Request.Form;
 
-      MediaFile mediaFile = MediaServices.CreateMediaFile(request.Files[0], form);
+      var mediaFileCreator = new MediaFileCreator(request.Files[0], form);
+
+      MediaFile mediaFile = mediaFileCreator.CreateMediaFile();
 
       var posting = new Posting(postingType, nodeObject, mediaFile);
 
@@ -46,16 +49,15 @@ namespace Empiria.Storage {
     }
 
 
-    static public Posting UpdateMediaPost(HttpRequest request, Posting posting) {
+    static public Posting UpdateMediaFilePosting(HttpRequest request,
+                                                 Posting posting) {
       throw new NotImplementedException();
     }
 
 
     #endregion Public methods
 
-
     #region Private methods
-
 
     static private void EnsureIsValidRequest(HttpRequest request) {
       Assertion.Assert(request.ContentType.StartsWith("multipart/form-data"),
@@ -69,6 +71,6 @@ namespace Empiria.Storage {
 
     #endregion Private methods
 
-  }  // class MediaPostingServices
+  }  // class MediaFilePostingServices
 
-}  // namespace Empiria.Postings
+}  // namespace Empiria.Storage

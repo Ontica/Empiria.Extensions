@@ -1,8 +1,8 @@
-﻿/* Empiria Postings ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Media Management                             Component : Media Domain Types                    *
-*  Assembly : Empiria.Postings.dll                         Pattern   : Information Holder                    *
-*  Type     : MediaFile                                    License   : Please read LICENSE.txt file          *
+*  Module   : Media Management                           Component : Domain Layer                            *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Information holder                      *
+*  Type     : MediaFile                                  License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Represents a stored media object treated as a value type, so it must be related to             *
 *             other objects like metadata information holders or document entities.                          *
@@ -52,9 +52,7 @@ namespace Empiria.Storage {
 
     #endregion Constructors and parsers
 
-
     #region Properties
-
 
     [DataField("MediaType")]
     public string MediaType {
@@ -106,7 +104,7 @@ namespace Empiria.Storage {
 
 
     [DataObject]
-    public Metadata Metadata {
+    internal Metadata Metadata {
       get;
       private set;
     }
@@ -148,9 +146,7 @@ namespace Empiria.Storage {
 
     #endregion Properties
 
-
     #region Integrity protection members
-
 
     int IProtected.CurrentDataIntegrityVersion {
       get {
@@ -187,9 +183,7 @@ namespace Empiria.Storage {
 
     #endregion Integrity protection members
 
-
     #region Methods
-
 
     internal void Delete() {
       Assertion.Assert(this.Status == EntityStatus.Active,
@@ -216,7 +210,7 @@ namespace Empiria.Storage {
         this.PostedBy = EmpiriaUser.Current.AsContact();
         this.PostingTime = DateTime.Now;
       }
-      MediaData.WriteMediaFile(this);
+      MediaRepository.WriteMediaFile(this);
     }
 
 
@@ -225,4 +219,3 @@ namespace Empiria.Storage {
   }  // class MediaFile
 
 } // namespace Empiria.Storage
-

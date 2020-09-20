@@ -1,10 +1,10 @@
-﻿/* Empiria Postings ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Media Management                             Component : Media Domain Types                    *
-*  Assembly : Empiria.Postings.dll                         Pattern   : Information Holder                    *
-*  Type     : MediaStorage                                 License   : Please read LICENSE.txt file          *
+*  Module   : Media Management                           Component : Domain Layer                            *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Information holder                      *
+*  Type     : MediaStorage                               License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Represents a media storage unit that contain media objects.                                    *
+*  Summary  : Represents a media storage unit that contain media files.                                      *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -13,7 +13,7 @@ using Empiria.StateEnums;
 
 namespace Empiria.Storage {
 
-  /// <summary>Represents a media storage unit that contain media objects.</summary>
+  /// <summary>Represents a media storage unit that contain media files.</summary>
   public class MediaStorage : BaseObject {
 
     #region Fields

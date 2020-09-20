@@ -1,8 +1,8 @@
-﻿/* Empiria Postings ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Media Management                             Component : Media Domain Types                    *
-*  Assembly : Empiria.Postings.dll                         Pattern   : Information Holder                    *
-*  Type     : Metadata                                     License   : Please read LICENSE.txt file          *
+*  Module   : Media Management                           Component : Domain Layer                            *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Information holder                      *
+*  Type     : Metadata                                   License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Holds media metadata information.                                                              *
 *                                                                                                            *
@@ -14,17 +14,16 @@ using Empiria.Json;
 namespace Empiria.Storage {
 
   /// <summary>Holds media metadata information.</summary>
-  public class Metadata  {
+  internal class Metadata  {
 
     #region Constructors and parsers
-
 
     private Metadata() {
       // Required by Empiria Framework.
     }
 
 
-    static public Metadata Parse(JsonObject data) {
+    static internal Metadata Parse(JsonObject data) {
       Assertion.AssertObject(data, "data");
 
       var metadata = new Metadata();
@@ -49,9 +48,7 @@ namespace Empiria.Storage {
 
     #endregion Constructors and parsers
 
-
     #region Properties
-
 
     [DataField("Title")]
     public string Title {

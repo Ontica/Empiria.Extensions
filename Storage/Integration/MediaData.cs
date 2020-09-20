@@ -1,10 +1,10 @@
-﻿/* Empiria Postings ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Postings                             Component : Domain services                       *
-*  Assembly : Empiria.Postings.dll                         Pattern   : Data Service                          *
-*  Type     : MediaData                                    License   : Please read LICENSE.txt file          *
+*  Module   : Media Management                           Component : Integration Layer                       *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Data service                            *
+*  Type     : MediaRepository                            License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Data read and write methods for media domain objects.                                          *
+*  Summary  : Data read and write methods for media objects.                                                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -14,7 +14,7 @@ using Empiria.Data;
 namespace Empiria.Storage {
 
   /// <summary>Data read and write methods for media domain objects.</summary>
-  static internal class MediaData {
+  static internal class MediaRepository {
 
 
     static internal void WriteMediaFile(MediaFile o) {
@@ -33,6 +33,6 @@ namespace Empiria.Storage {
     }
 
 
-  }  // class MediaData
+  }  // class MediaRepository
 
 }  // namespace Empiria.Storage

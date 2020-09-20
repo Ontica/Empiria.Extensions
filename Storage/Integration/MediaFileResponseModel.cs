@@ -1,8 +1,8 @@
-﻿/* Empiria Postings ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Media Management                             Component : Media Management Services             *
-*  Assembly : Empiria.Postings.dll                         Pattern   : Interfacer                            *
-*  Type     : MediaFileResponseModel                       License   : Please read LICENSE.txt file          *
+*  Module   : Media Management                           Component : Integration Layer                       *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Response methods                        *
+*  Type     : MediaFileResponseModel                     License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Response static methods for MediaFile instances.                                               *
 *                                                                                                            *
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace Empiria.Storage {
 
-  /// <summary>Response static methods for MediaObject instances.</summary>
+  /// <summary>Response static methods for MediaFile instances.</summary>
   static public class MediaFileResponseModel {
 
 
@@ -59,7 +59,6 @@ namespace Empiria.Storage {
 
       };
     }
-
 
   }  // class MediaFileResponseModel
 
