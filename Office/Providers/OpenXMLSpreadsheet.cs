@@ -36,7 +36,7 @@ namespace Empiria.Office.Providers {
 
 
     static public OpenXMLSpreadsheet Create() {
-      string defaultTemplatePath = Empiria.ConfigurationData.GetString("Spreadsheet.NewFileTemplate");
+      string defaultTemplatePath = ConfigurationData.GetString("Spreadsheet.NewFileTemplate");
 
       return CreateFromTemplate(defaultTemplatePath);
     }
@@ -69,25 +69,18 @@ namespace Empiria.Office.Providers {
 
 
     public void Save() {
-      this.SaveDOM();
+      this.UpdateDOM();
 
       spreadsheetDocument.Save();
     }
 
 
     public void SaveAs(string fileName) {
-      this.SaveDOM();
+      this.UpdateDOM();
 
       OpenXmlPackage package = spreadsheetDocument.SaveAs(fileName);
 
       package.Close();
-    }
-
-
-    private void SaveDOM() {
-      Worksheet worksheet = GetDefaultWorksheet();
-
-      worksheet.Save();
     }
 
 
@@ -173,6 +166,18 @@ namespace Empiria.Office.Providers {
     }
 
 
+    private Worksheet defaultWorksheet = null;
+    private Worksheet GetDefaultWorksheet() {
+      if (defaultWorksheet == null) {
+        WorksheetPart worksheetPart = spreadsheetDocument.WorkbookPart.WorksheetParts.FirstOrDefault();
+
+        defaultWorksheet = worksheetPart.Worksheet;
+      }
+
+      return defaultWorksheet;
+    }
+
+
     private Cell GetOrCreateCell(Worksheet worksheet, string columnName, int rowIndex) {
       Row row = GetRow(worksheet, rowIndex);
 
@@ -198,7 +203,7 @@ namespace Empiria.Office.Providers {
       };
       row.InsertBefore(newCell, refCell);
 
-      worksheet.Save();
+      // worksheet.Save();
 
       return newCell;
     }
@@ -255,15 +260,10 @@ namespace Empiria.Office.Providers {
     }
 
 
-    private Worksheet defaultWorksheet = null;
-    private Worksheet GetDefaultWorksheet() {
-      if (defaultWorksheet == null) {
-        WorksheetPart worksheetPart = spreadsheetDocument.WorkbookPart.WorksheetParts.FirstOrDefault();
+    private void UpdateDOM() {
+      Worksheet worksheet = GetDefaultWorksheet();
 
-        defaultWorksheet = worksheetPart.Worksheet;
-      }
-
-      return defaultWorksheet;
+      worksheet.Save();
     }
 
 
