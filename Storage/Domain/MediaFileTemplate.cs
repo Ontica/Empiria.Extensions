@@ -31,13 +31,14 @@ namespace Empiria.Storage {
     #region Methods
 
     public FileInfo CreateDerivedCopy() {
-      var derivedCopyFileName = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss--") + base.OriginalFileName;
+      var derivedCopyFileName = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss-") + base.OriginalFileName;
 
       MediaStorage copiesStorage = MediaStorage.Default;
 
       string derivedCopyFullName = Path.Combine(copiesStorage.Path, derivedCopyFileName);
 
       File.Copy(this.FullName, derivedCopyFullName, true);
+
 
       return new FileInfo(derivedCopyFullName);
     }

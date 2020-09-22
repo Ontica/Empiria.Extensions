@@ -17,10 +17,17 @@ namespace Empiria.Storage {
 
     #region Public services
 
-    static public FileInfo CreateDerivedCopy(string mediaTemplateUID) {
+    static public FileInfo CreateFileFromTemplate(string mediaTemplateUID) {
       var templateFile = MediaFileTemplate.Parse(mediaTemplateUID);
 
       return templateFile.CreateDerivedCopy();
+    }
+
+
+    static public string GeFileUrl(FileInfo fileInfo) {
+      MediaStorage copiesStorage = MediaStorage.Default;
+
+      return $"{copiesStorage.Url}/{fileInfo.Name}";
     }
 
 
