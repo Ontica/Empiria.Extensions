@@ -57,6 +57,8 @@ namespace Empiria.UserManagement.Services {
       };
 
       EventNotifier.Notify(MessagingEvents.UserPasswordChanged, eventPayload);
+
+      EMailServices.SendPasswordChangedWarningEMail();
     }
 
 
