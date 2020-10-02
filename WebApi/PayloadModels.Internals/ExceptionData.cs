@@ -154,6 +154,9 @@ namespace Empiria.WebApi.Internals {
       } else if (e is ResourceNotFoundException) {
         return HttpErrorCode.NotFound;
 
+      } else if (e is ServiceException) {
+        return HttpErrorCode.ServiceUnavailable;
+
       } else if (e is Ontology.OntologyException) {
         return HttpErrorCode.NotFound;
 
