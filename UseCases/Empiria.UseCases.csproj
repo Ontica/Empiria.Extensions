@@ -53,6 +53,9 @@ running on a secured and transactionable infrastructure.</Description>
     <WarningsAsErrors />
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aspects\Empiria.Aspects.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">

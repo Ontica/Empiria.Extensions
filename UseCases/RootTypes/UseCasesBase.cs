@@ -10,11 +10,25 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
+using Empiria.Aspects;
+
 namespace Empiria.UseCases {
 
   /// <summary>Abstract type that provides an infrastructure to build flexible and configurable use cases,
   /// running on a secured and transactionable infrastructure.</summary>
-  abstract public class UseCasesBase : IDisposable {
+  abstract public class UseCasesBase : MarshalByRefObject, IDisposable {
+
+    #region Constructors and parsers
+
+    static public T CreateInstance<T>() where T: UseCasesBase, new() {
+      var usecase = new T();
+
+      /// Returns the use case instance decorated with the configurated aspects.</summary>
+      return Aspect.Decorate(usecase);
+    }
+
+    #endregion Constructors and parsers
+
 
     #region IDisposable interface
 
@@ -26,6 +40,7 @@ namespace Empiria.UseCases {
     protected virtual void Dispose(bool disposing) {
       // no-op
     }
+
 
     ~UseCasesBase() {
       Dispose(false);
