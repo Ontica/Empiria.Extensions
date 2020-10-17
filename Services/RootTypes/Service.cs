@@ -1,10 +1,10 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Use Cases Framework                        Component : Infrastructure provider                 *
-*  Assembly : Empiria.UseCases.dll                       Pattern   : Abstract type                           *
-*  Type     : UseCasesBase                               License   : Please read LICENSE.txt file            *
+*  Module   : Service Framework                          Component : Infrastructure provider                 *
+*  Assembly : Empiria.Services.dll                       Pattern   : Abstract type                           *
+*  Type     : Service                                    License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Abstract type that provides an infrastructure to build flexible and configurable use cases,    *
+*  Summary  : Abstract type that provides an infrastructure to build flexible and configurable services,     *
 *             running on a secured and transactionable infrastructure.                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
@@ -12,19 +12,19 @@ using System;
 
 using Empiria.Aspects;
 
-namespace Empiria.UseCases {
+namespace Empiria.Services {
 
-  /// <summary>Abstract type that provides an infrastructure to build flexible and configurable use cases,
+  /// <summary>Abstract type that provides an infrastructure to build flexible and configurable services,
   /// running on a secured and transactionable infrastructure.</summary>
-  abstract public class UseCasesBase : MarshalByRefObject, IDisposable {
+  abstract public class Service : MarshalByRefObject, IDisposable {
 
     #region Constructors and parsers
 
-    static public T CreateInstance<T>() where T: UseCasesBase, new() {
-      var usecase = new T();
+    static public T CreateInstance<T>() where T: Service, new() {
+      var service = new T();
 
-      /// Returns the use case instance decorated with the configurated aspects.</summary>
-      return Aspect.Decorate(usecase);
+      /// Returns the service instance decorated with the configurated aspects.</summary>
+      return Aspect.Decorate(service);
     }
 
     #endregion Constructors and parsers
@@ -42,12 +42,12 @@ namespace Empiria.UseCases {
     }
 
 
-    ~UseCasesBase() {
+    ~Service() {
       Dispose(false);
     }
 
     #endregion IDisposable interface
 
-  }   // class UseCasesBase
+  }   // class Service
 
-}  // namespace Empiria.OnePoint.EFiling.UseCases
+}  // namespace Empiria.Services

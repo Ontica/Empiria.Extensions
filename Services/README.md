@@ -1,6 +1,6 @@
-﻿# Empiria Use Cases Framework
+﻿# Empiria Services Framework
 
-Provides types to build flexible and configurable use cases (a.k.a. application services or business cases),
+Provides types to build flexible and configurable services like use cases (a.k.a. application services or business cases),
 running on a secured and transactionable infrastructure.
 
 ## License

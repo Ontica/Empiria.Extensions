@@ -1,19 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Company>Ontica</Company>
-    <Product>Empiria Use Cases Framework</Product>
-    <Description>Provides types to build flexible and configurable use cases (a.k.a. application services or business cases),
-running on a secured and transactionable infrastructure.</Description>
+    <Product>Empiria Services Framework</Product>
+    <Description>Provides types to build flexible and configurable services like use cases (a.k.a. application services or business cases), running on a secured and transactionable infrastructure.</Description>
     <Copyright>(c) 2020-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/UseCases/LICENSE.txt</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Ontica/Empiria.Extensions/tree/master/UseCases</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/Services/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Ontica/Empiria.Extensions/tree/master/Services</PackageProjectUrl>
     <PackageIconUrl>http://www.ontica.org/logo.ontica.png</PackageIconUrl>
-    <PackageTags>use cases, business cases, business processes, business rules</PackageTags>
+    <PackageTags>services, use cases, service oriented architecture, business cases, business processes, business rules</PackageTags>
     <RepositoryUrl>https://github.com/Ontica/Empiria.Extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Authors>Ontica</Authors>
