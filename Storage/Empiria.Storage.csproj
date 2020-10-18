@@ -4,9 +4,9 @@
     <Product>Empiria Storage</Product>
     <Description>Provides services for file and document storage and management.</Description>
     <Copyright>(c) 2020-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/Storage/LICENSE.txt</PackageLicenseUrl>
@@ -16,7 +16,7 @@
     <RepositoryUrl>https://github.com/Ontica/Empiria.Extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Authors>Ontica</Authors>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NeutralLanguage></NeutralLanguage>
     <Configurations>Debug;Release;Multisolutions</Configurations>
@@ -53,10 +53,12 @@
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
     <PackageReference Include="Empiria.Core" Version="7.0.0" />
+    <PackageReference Include="Empiria.Services" Version="1.0.0" />
     <PackageReference Include="Empiria.Postings" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
     <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
+    <ProjectReference Include="..\Services\Empiria.Services.csproj" />
     <ProjectReference Include="..\Postings\Postings\Empiria.Postings.csproj" />
   </ItemGroup>
   <ItemGroup>
