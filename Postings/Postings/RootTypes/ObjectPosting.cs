@@ -176,6 +176,17 @@ namespace Empiria.Postings {
       private set;
     }
 
+    public JsonObject SendTo {
+      get {
+        if (this.Tags.Contains("registered")) {
+          return JsonObject.Parse(this.Tags);
+        } else {
+          return JsonObject.Empty;
+        }
+      }
+    }
+
+
     #endregion Public properties
 
     #region Public methods
@@ -221,6 +232,9 @@ namespace Empiria.Postings {
       this.Tags = data.Get<string>("tags", this.Tags);
       this.Authors = data.Get<string>("authors", this.Authors);
       this.FilePath = data.Get<string> ("filePath", this.FilePath);
+      if (data.Contains("sendTo")) {
+        this.Tags = data.Slice("sendTo").ToString();
+      }
     }
 
     #endregion Private methods

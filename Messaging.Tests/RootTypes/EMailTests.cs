@@ -14,7 +14,7 @@ using Xunit;
 
 using Empiria.Security;
 
-using Empiria.Messaging;
+using Empiria.Messaging.EMailDelivery;
 
 namespace Empiria.Tests {
 

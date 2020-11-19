@@ -28,8 +28,8 @@ namespace Empiria.Presentation.Controllers {
 
     #region Constructors and parsers
 
-    public LogonController() {
-      OnSignOut();
+    protected LogonController() {
+      // TODO Check if this code call is ok -> OnSignOut();
     }
 
     #endregion Constructors and parsers

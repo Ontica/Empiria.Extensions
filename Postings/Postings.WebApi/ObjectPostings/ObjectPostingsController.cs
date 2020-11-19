@@ -78,26 +78,26 @@ namespace Empiria.Postings.WebApi {
 
 
 
-    [HttpPost]
-    [Route("v1/postings/{objectUID}")]
-    public SingleObjectModel CreateObjectPosting(string objectUID,
-                                                 [FromBody] object body) {
-      try {
-        base.RequireBody(body);
+    //[HttpPost]
+    //[Route("v1/postings/{objectUID}")]
+    //public SingleObjectModel CreateObjectPosting(string objectUID,
+    //                                             [FromBody] object body) {
+    //  try {
+    //    base.RequireBody(body);
 
-        var bodyAsJson = JsonObject.Parse(body);
+    //    var bodyAsJson = JsonObject.Parse(body);
 
-        var posting = new ObjectPosting(objectUID, bodyAsJson);
+    //    var posting = new ObjectPosting(objectUID, bodyAsJson);
 
-        posting.Save();
+    //    posting.Save();
 
-        return new SingleObjectModel(this.Request, posting.ToResponse(),
-                                     typeof(ObjectPosting).FullName);
+    //    return new SingleObjectModel(this.Request, posting.ToResponse(),
+    //                                 typeof(ObjectPosting).FullName);
 
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
+    //  } catch (Exception e) {
+    //    throw base.CreateHttpException(e);
+    //  }
+    //}
 
 
     [HttpPut, HttpPatch]

@@ -70,6 +70,13 @@ namespace Empiria.WebApi {
     }
 
 
+    protected JsonObject GetJsonFromBody(object body) {
+      this.RequireBody(body);
+
+      return JsonObject.Parse(body);
+    }
+
+
     protected List<string> GetModelStateErrorList() {
       List<string> exceptionList = new List<string>();
 

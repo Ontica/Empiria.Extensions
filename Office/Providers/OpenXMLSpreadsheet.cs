@@ -203,8 +203,6 @@ namespace Empiria.Office.Providers {
       };
       row.InsertBefore(newCell, refCell);
 
-      // worksheet.Save();
-
       return newCell;
     }
 

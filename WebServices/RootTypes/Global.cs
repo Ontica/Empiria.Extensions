@@ -23,8 +23,6 @@ namespace Empiria.WebServices {
     #region Fields
 
     static private readonly string lastExceptionTag = "empiriaLastException";
-    //static private int sessionTimeout = 0;
-    //static private string rootPath = String.Empty;
 
     #endregion Fields
 

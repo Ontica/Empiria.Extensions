@@ -37,6 +37,7 @@ namespace Empiria.Postings.WebApi {
         fileUrl = posting.FileUrl,
         authors = posting.Authors,
         tags = posting.Tags,
+        sendTo = posting.SendTo.ToObject(),
         date = posting.Date,
         accessMode = posting.AccessMode,
         owner = posting.Owner.Nickname,

@@ -12,13 +12,12 @@ using System.Linq;
 using System.Web;
 
 using Empiria.Json;
-
 using Empiria.Postings;
 
 namespace Empiria.Storage {
 
   /// <summary>Invokes methods on objects according to the current Http Request.</summary>
-  public class MediaFilePostingServices {
+  static public class MediaFilePostingServices {
 
     #region Public methods
 

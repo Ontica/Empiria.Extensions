@@ -9,6 +9,8 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
+using System.IO;
+
 using Empiria.Contacts;
 using Empiria.Security;
 
@@ -42,9 +44,9 @@ namespace Empiria.UserManagement.Integration {
     static private string GetTemplate(string templateName) {
       string templatesPath = ConfigurationData.GetString("Templates.Path");
 
-      string fileName = System.IO.Path.Combine(templatesPath, $"email.template.{templateName}.html");
+      string fileName = Path.Combine(templatesPath, $"email.template.{templateName}.html");
 
-      return System.IO.File.ReadAllText(fileName);
+      return File.ReadAllText(fileName);
     }
 
 

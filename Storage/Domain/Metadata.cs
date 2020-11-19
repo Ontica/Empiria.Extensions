@@ -99,7 +99,6 @@ namespace Empiria.Storage {
       }
     }
 
-
     #endregion Properties
 
   } // class Metadata
