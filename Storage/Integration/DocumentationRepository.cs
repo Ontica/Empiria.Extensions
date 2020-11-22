@@ -15,11 +15,11 @@ namespace Empiria.Storage.Documents {
   static internal class DocumentationRepository {
 
     internal static List<DocumentationRule> GetDocumentationRules(IIdentifiable definer) {
-      throw new NotImplementedException();
+      return new List<DocumentationRule>();
     }
 
     internal static List<Document> GetDocuments(IIdentifiable target) {
-      throw new NotImplementedException();
+      return new List<Document>();
     }
 
   }  // class DocumentationRepository
