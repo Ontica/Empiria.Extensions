@@ -17,9 +17,11 @@ namespace Empiria.Services {
 
     #region Constructors and parsers
 
+    protected UseCase() {
+      // no-op
+    }
 
     #endregion Constructors and parsers
-
 
   }   // class UseCase
 

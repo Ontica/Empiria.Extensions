@@ -11,6 +11,7 @@
 using System;
 
 using Empiria.Aspects;
+using Empiria.Reflection;
 
 namespace Empiria.Services {
 
@@ -20,10 +21,14 @@ namespace Empiria.Services {
 
     #region Constructors and parsers
 
-    static public T CreateInstance<T>() where T: Service, new() {
-      var service = new T();
+    protected Service() {
+      // no-op
+    }
 
-      /// Returns the service instance decorated with the configurated aspects.</summary>
+    /// <summary>Returns a service instance decorated with its configurated aspects.</summary>
+    static protected T CreateInstance<T>() where T: Service {
+      var service = ObjectFactory.CreateObject<T>();
+
       return Aspect.Decorate(service);
     }
 
