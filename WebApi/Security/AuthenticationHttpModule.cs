@@ -24,30 +24,35 @@ namespace Empiria.WebApi {
 
     #region Public methods
 
-    static public EmpiriaPrincipal Authenticate(string apiClientKey, string userName, string password,
-                                                string entropy = "") {
+
+    static internal EmpiriaPrincipal AuthenticateFormer(string apiClientKey, string userName, string password) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
       Assertion.AssertObject(userName, "userName");
       Assertion.AssertObject(password, "password");
 
       EmpiriaPrincipal principal = AuthenticationService.Authenticate(apiClientKey,
                                                                       userName, password,
-                                                                      entropy);
+                                                                      String.Empty, false, null);
       Assertion.AssertObject(principal, "principal");
+      AuthenticationHttpModule.SetPrincipalImplementation(principal);
+
+      return principal;
+    }
+
+    static internal EmpiriaPrincipal AuthenticateGuest(string apiClientKey) {
+      Assertion.AssertObject(apiClientKey, "apiClientKey");
+
+      EmpiriaPrincipal principal = AuthenticationService.AuthenticateAnonymous(apiClientKey,
+                                                                               AnonymousUser.Guest);
       AuthenticationHttpModule.SetPrincipal(principal);
 
       return principal;
     }
 
-    static public EmpiriaPrincipal AuthenticateGuest(string apiClientKey) {
-      Assertion.AssertObject(apiClientKey, "apiClientKey");
-
-      EmpiriaPrincipal principal = AuthenticationService.AuthenticateAnonymous(apiClientKey,
-                                                                               AnonymousUser.Guest);
+    static internal void SetPrincipal(EmpiriaPrincipal principal) {
       Assertion.AssertObject(principal, "principal");
-      AuthenticationHttpModule.SetPrincipal(principal);
 
-      return principal;
+      SetPrincipalImplementation(principal);
     }
 
     public void Init(HttpApplication httpApplication) {
@@ -100,7 +105,7 @@ namespace Empiria.WebApi {
       response.End();
     }
 
-    static private void SetPrincipal(EmpiriaPrincipal principal) {
+    static private void SetPrincipalImplementation(EmpiriaPrincipal principal) {
       Thread.CurrentPrincipal = principal;
       if (HttpContext.Current != null) {
         HttpContext.Current.User = principal;

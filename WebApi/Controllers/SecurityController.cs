@@ -8,12 +8,14 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Net.Http;
+using System.ServiceModel.Channels;
+using System.Web;
 using System.Web.Http;
 
 using Empiria.Json;
 
 using Empiria.Security;
-using Empiria.Security.Claims;
 
 using Empiria.UserManagement.Services;
 
@@ -25,23 +27,8 @@ namespace Empiria.WebApi.Controllers {
     #region Public APIs
 
     [HttpPost]
-    [Route("v1/security/change-password/{userEmail}")]
-    public void ChangePasswordV1([FromBody] LoginModel login, [FromUri] string userEmail) {
-      try {
-        base.RequireBody(login);
-
-        UpdateUserCredentialsService.CreateUserPassword(login.api_key, login.user_name,
-                                                        userEmail, login.password);
-
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    [HttpPost]
-    [Route("v2/security/change-password")]
-    public void ChangePasswordV2([FromBody] object body) {
+    [Route("v3/security/change-password")]
+    public void ChangePassword([FromBody] object body) {
       try {
         base.RequireBody(body);
 
@@ -53,100 +40,8 @@ namespace Empiria.WebApi.Controllers {
         var newPassword = formData.Get<string>("new");
 
         UpdateUserCredentialsService.ChangeUserPassword(currentPassword,
-                                                        newPassword);
+                                                        newPassword, true);
 
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    #region Login Controllers
-
-    [HttpPost, AllowAnonymous]
-    [Route("v1/security/login")]
-    public SingleObjectModel LoginVersion1([FromBody] LoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    [HttpPost, AllowAnonymous]
-    [Route("v1.5/security/login")]
-    public SingleObjectModel LoginVersion1_5([FromBody] LoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        ClientApplication clientApp = base.GetClientApplication();
-        login.api_key = clientApp.Key;
-
-        login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
-        login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
-
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
-
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    [HttpPost, AllowAnonymous]
-    [Route("v1.6/security/login")]
-    public SingleObjectModel LoginVersion1_6([FromBody] LoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        ClientApplication clientApp = base.GetClientApplication();
-        login.api_key = clientApp.Key;
-
-        login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
-        login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
-
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        string claimsToken = ((IClaimsSubject) clientApp).ClaimsToken;
-
-        ClaimsService.EnsureClaim(principal.Identity.User, ClaimType.UserAppAccess, claimsToken,
-                                  $"{principal.Identity.User.UserName} does not have access permissions " +
-                                  $"to this application {claimsToken}.");
-
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    [HttpPost, AllowAnonymous]
-    [Route("v2/security/login")]
-    public SingleObjectModel LoginVersion2([FromBody] LoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        ClientApplication clientApp = base.GetClientApplication();
-        login.api_key = clientApp.Key;
-
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
       } catch (Exception e) {
         throw base.CreateHttpException(e);
       }
@@ -154,32 +49,132 @@ namespace Empiria.WebApi.Controllers {
 
 
     [HttpPost]
-    [Route("v1/security/logout")]
-    public void Logout() {
+    [Route("v3/security/change-password/{userEmail}")]
+    public void ChangePassword([FromBody] LoginModel login, [FromUri] string userEmail) {
       try {
-        return;
+        base.RequireBody(login);
+
+        UpdateUserCredentialsService.CreateUserPassword(login.api_key, login.user_name,
+                                                        userEmail, login.password, true);
+
       } catch (Exception e) {
         throw base.CreateHttpException(e);
       }
     }
 
 
-    #endregion Login Controllers
+    [HttpPost, AllowAnonymous]
+    [Route("v3/security/login-token")]
+    public SingleObjectModel GetLoginToken([FromBody] LoginModel login) {
+      try {
+        base.RequireHeader("User-Agent");
+
+        string token = GenerateLoginToken(login.user_name);
+
+        return new SingleObjectModel(base.Request, token);
+
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
+
+    [HttpPost, AllowAnonymous]
+    [Route("v3/security/login")]
+    public SingleObjectModel Login([FromBody] LoginModel login) {
+      try {
+        base.RequireBody(login);
+        base.RequireHeader("User-Agent");
+
+        ClientApplication clientApp = base.GetClientApplication();
+
+        login.api_key = clientApp.Key;
+
+        string token = TryGetLoginToken(login.user_name);
+
+        Assertion.AssertObject(token, "token");
+
+        EmpiriaPrincipal principal = this.GetPrincipal(login, token);
+
+        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+                                     "Empiria.Security.OAuthObject");
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
 
     #endregion Public APIs
 
-
     #region Private methods
 
-    private EmpiriaPrincipal GetPrincipal(LoginModel login) {
+    private string GenerateLoginToken(string userID) {
+      string rawToken = GetRawToken(userID);
+
+      var salt = RequestTokenSalt(rawToken);
+
+      return Cryptographer.CreateHashCode(rawToken, salt);
+    }
+
+    private string TryGetLoginToken(string userID) {
+      string rawToken = GetRawToken(userID);
+
+      if (!tokens.ContainsKey(rawToken)) {
+        return null;
+      }
+
+      var salt = tokens[rawToken];
+
+      tokens.Remove(rawToken);
+
+      return Cryptographer.CreateHashCode(rawToken, salt);
+    }
+
+
+    private string GetRawToken(string userID) {
+      ClientApplication clientApp = base.GetClientApplication();
+
+      var ipAddress = GetClientIpAddress();
+
+      return $"/{userID}/{clientApp.Key}/{ipAddress}/";
+    }
+
+    private static Empiria.Collections.EmpiriaDictionary<string, string> tokens = new Collections.EmpiriaDictionary<string, string>(32);
+
+
+    private string RequestTokenSalt(string rawToken) {
+      var salt = Guid.NewGuid().ToString();
+
+      tokens.Insert(rawToken, salt);
+
+      return salt;
+    }
+
+    private EmpiriaPrincipal GetPrincipal(LoginModel login, string entropy) {
       login.AssertValid();
 
-      EmpiriaPrincipal principal = AuthenticationHttpModule.Authenticate(login.api_key,
-                                                                         login.user_name,
-                                                                         login.password);
+      EmpiriaPrincipal principal = AuthenticationService.Authenticate(login.api_key, login.user_name,
+                                                                      login.password, entropy, true);
+
       Assertion.AssertObject(principal, "principal");
 
+      AuthenticationHttpModule.SetPrincipal(principal);
+
       return principal;
+    }
+
+    private string GetClientIpAddress() {
+      var request = this.Request;
+
+      if (request.Properties.ContainsKey("MS_HttpContext")) {
+        return ((HttpContextWrapper) request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+      } else if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name)) {
+        RemoteEndpointMessageProperty prop = (RemoteEndpointMessageProperty) request.Properties[RemoteEndpointMessageProperty.Name];
+        return prop.Address;
+      } else if (HttpContext.Current != null) {
+        return HttpContext.Current.Request.UserHostAddress;
+      } else {
+        return null;
+      }
     }
 
     #endregion Private methods

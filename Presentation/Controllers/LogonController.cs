@@ -42,7 +42,7 @@ namespace Empiria.Presentation.Controllers {
       EmpiriaPrincipal principal = null;
       try {
         principal = AuthenticationService.Authenticate(clientAppKey, userName, password,
-                                                       entropy, contextData);
+                                                       entropy, false, contextData);
       } catch {
         // no-op
       }
