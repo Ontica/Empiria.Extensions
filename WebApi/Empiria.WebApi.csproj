@@ -53,6 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,8 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
     <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
-    <ProjectReference Include="..\UserManagement\Empiria.UserManagement.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Core.Services\Empiria.Core.Services.csproj" />
   </ItemGroup>
 </Project>
