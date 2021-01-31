@@ -2,9 +2,9 @@
 *                                                                                                            *
 *  Module   : Empiria Web Api                              Component : Base controllers                      *
 *  Assembly : Empiria.WebApi.dll                           Pattern   : Web Api Controller                    *
-*  Type     : FormerSecurityController                     License   : Please read LICENSE.txt file          *
+*  Type     : FormerLoginController                        License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Former web api methods for login and logout users and for change credentials.                  *
+*  Summary  : Former web api methods for authenticate users.                                                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -15,23 +15,21 @@ using Empiria.Security.Claims;
 
 namespace Empiria.WebApi.Controllers {
 
-  /// <summary>Former web api methods for login and logout users and for change credentials.</summary>
-  public class FormerSecurityController : WebApiController {
+  /// <summary>Former web api methods for authenticate users.</summary>
+  public class FormerLoginController : WebApiController {
 
-    #region Public APIs
-
-    #region Login Controllers
+    #region Former Login Controllers
 
     [HttpPost, AllowAnonymous]
     [Route("v1/security/login")]
-    public SingleObjectModel LoginVersion1([FromBody] LoginModel login) {
+    public SingleObjectModel LoginVersion1([FromBody] FormerLoginModel login) {
       try {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
 
         EmpiriaPrincipal principal = this.GetPrincipal(login);
 
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
       } catch (Exception e) {
         throw base.CreateHttpException(e);
@@ -41,7 +39,7 @@ namespace Empiria.WebApi.Controllers {
 
     [HttpPost, AllowAnonymous]
     [Route("v1.5/security/login")]
-    public SingleObjectModel LoginVersion1_5([FromBody] LoginModel login) {
+    public SingleObjectModel LoginVersion1_5([FromBody] FormerLoginModel login) {
       try {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
@@ -54,7 +52,7 @@ namespace Empiria.WebApi.Controllers {
 
         EmpiriaPrincipal principal = this.GetPrincipal(login);
 
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
 
       } catch (Exception e) {
@@ -65,7 +63,7 @@ namespace Empiria.WebApi.Controllers {
 
     [HttpPost, AllowAnonymous]
     [Route("v1.6/security/login")]
-    public SingleObjectModel LoginVersion1_6([FromBody] LoginModel login) {
+    public SingleObjectModel LoginVersion1_6([FromBody] FormerLoginModel login) {
       try {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
@@ -84,7 +82,7 @@ namespace Empiria.WebApi.Controllers {
                                   $"{principal.Identity.User.UserName} does not have access permissions " +
                                   $"to this application {claimsToken}.");
 
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
       } catch (Exception e) {
         throw base.CreateHttpException(e);
@@ -94,7 +92,7 @@ namespace Empiria.WebApi.Controllers {
 
     [HttpPost, AllowAnonymous]
     [Route("v2/security/login")]
-    public SingleObjectModel LoginVersion2([FromBody] LoginModel login) {
+    public SingleObjectModel LoginVersion2([FromBody] FormerLoginModel login) {
       try {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
@@ -104,33 +102,18 @@ namespace Empiria.WebApi.Controllers {
 
         EmpiriaPrincipal principal = this.GetPrincipal(login);
 
-        return new SingleObjectModel(base.Request, LoginModel.ToOAuth(principal),
+        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
       } catch (Exception e) {
         throw base.CreateHttpException(e);
       }
     }
 
-
-    [HttpPost]
-    [Route("v1/security/logout")]
-    public void Logout() {
-      try {
-        return;
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    #endregion Login Controllers
-
-    #endregion Public APIs
-
+    #endregion Former Login Controllers
 
     #region Private methods
 
-    private EmpiriaPrincipal GetPrincipal(LoginModel login) {
+    private EmpiriaPrincipal GetPrincipal(FormerLoginModel login) {
       login.AssertValid();
 
       EmpiriaPrincipal principal = AuthenticationHttpModule.AuthenticateFormer(login.api_key,
@@ -143,6 +126,6 @@ namespace Empiria.WebApi.Controllers {
 
     #endregion Private methods
 
-  }  // class FormerSecurityController
+  }  // class FormerLoginController
 
 }  // namespace Empiria.WebApi.Controllers

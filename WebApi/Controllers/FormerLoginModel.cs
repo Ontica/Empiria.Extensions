@@ -2,19 +2,18 @@
 *                                                                                                            *
 *  Module   : Empiria Web Api                              Component : Base controllers                      *
 *  Assembly : Empiria.WebApi.dll                           Pattern   : Model                                 *
-*  Type     : LoginModel                                   License   : Please read LICENSE.txt file          *
+*  Type     : FormerLoginModel                             License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Holds information to log in a user into the web api system.                                    *
+*  Summary  : Former data to authenticate a user.                                                            *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 using Empiria.Security;
 
 namespace Empiria.WebApi.Controllers {
 
-  /// <summary>Holds information to log in a user into the web api system.</summary>
-  public class LoginModel {
+  /// <summary>Former data to authenticate a user.</summary>
+  public class FormerLoginModel {
 
     #region Properties
 
@@ -60,6 +59,6 @@ namespace Empiria.WebApi.Controllers {
 
     #endregion Methods
 
-  }  // class LoginModel
+  }  // class FormerLoginModel
 
 } // namespace Empiria.WebApi.Controllers
