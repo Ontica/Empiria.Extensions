@@ -32,7 +32,7 @@ namespace Empiria.WebApi {
 
       EmpiriaPrincipal principal = AuthenticationService.Authenticate(apiClientKey,
                                                                       userName, password,
-                                                                      String.Empty, false, null);
+                                                                      String.Empty, null);
       Assertion.AssertObject(principal, "principal");
       AuthenticationHttpModule.SetPrincipalImplementation(principal);
 

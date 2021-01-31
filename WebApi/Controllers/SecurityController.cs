@@ -8,16 +8,14 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Net.Http;
 using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.Http;
 
 using Empiria.Json;
-
 using Empiria.Security;
 
-using Empiria.UserManagement.Services;
+using Empiria.Services.UserManagement;
 
 namespace Empiria.WebApi.Controllers {
 
@@ -27,38 +25,36 @@ namespace Empiria.WebApi.Controllers {
     #region Public APIs
 
     [HttpPost]
+    [Route("v2/security/change-password")]
     [Route("v3/security/change-password")]
-    public void ChangePassword([FromBody] object body) {
-      try {
-        base.RequireBody(body);
+    public NoDataModel ChangePassword([FromBody] object body) {
+      base.RequireBody(body);
 
-        var json = JsonObject.Parse(body);
+      var json = JsonObject.Parse(body);
 
-        var formData = JsonObject.Parse(json.Get<string>("payload/formData"));
+      var formData = JsonObject.Parse(json.Get<string>("payload/formData"));
+      var currentPassword = formData.Get<string>("current");
+      var newPassword = formData.Get<string>("new");
 
-        var currentPassword = formData.Get<string>("current");
-        var newPassword = formData.Get<string>("new");
+      using (var usecases = UserCredentialsUseCases.UseCaseInteractor()) {
+        usecases.ChangeUserPassword(currentPassword, newPassword);
 
-        UpdateUserCredentialsService.ChangeUserPassword(currentPassword,
-                                                        newPassword, true);
-
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
+        return new NoDataModel(this.Request);
       }
     }
 
 
     [HttpPost]
+    [Route("v1/security/change-password/{userEmail}")]
     [Route("v3/security/change-password/{userEmail}")]
-    public void ChangePassword([FromBody] LoginModel login, [FromUri] string userEmail) {
-      try {
-        base.RequireBody(login);
+    public NoDataModel ChangePassword([FromBody] LoginModel login, [FromUri] string userEmail) {
+      base.RequireBody(login);
 
-        UpdateUserCredentialsService.CreateUserPassword(login.api_key, login.user_name,
-                                                        userEmail, login.password, true);
+      using (var usecases = UserCredentialsUseCases.UseCaseInteractor()) {
+        usecases.CreateUserPassword(login.api_key, login.user_name,
+                                    userEmail, login.password);
 
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
+        return new NoDataModel(this.Request);
       }
     }
 
@@ -115,6 +111,7 @@ namespace Empiria.WebApi.Controllers {
       return Cryptographer.CreateHashCode(rawToken, salt);
     }
 
+
     private string TryGetLoginToken(string userID) {
       string rawToken = GetRawToken(userID);
 
@@ -153,7 +150,7 @@ namespace Empiria.WebApi.Controllers {
       login.AssertValid();
 
       EmpiriaPrincipal principal = AuthenticationService.Authenticate(login.api_key, login.user_name,
-                                                                      login.password, entropy, true);
+                                                                      login.password, entropy);
 
       Assertion.AssertObject(principal, "principal");
 
