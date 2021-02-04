@@ -32,6 +32,12 @@ namespace Empiria.Postings {
     }
 
 
+    static public FixedList<T> GetPostedItems<T>(BaseObject nodeObject) where T : BaseObject {
+      Assertion.AssertObject(nodeObject, "nodeObject");
+
+      return PostingsData.GetPostedItemsList<T>(nodeObject);
+    }
+
     static public FixedList<T> GetPostedItems<T>(string postingType) where T : BaseObject {
       Assertion.AssertObject(postingType, "postingType");
 
@@ -63,6 +69,13 @@ namespace Empiria.Postings {
       return PostingsData.GetPostingsList(nodeObject, postingType);
     }
 
+
+    static public Posting GetPosting(BaseObject nodeObject, BaseObject postedItem) {
+      Assertion.AssertObject(nodeObject, "nodeObject");
+      Assertion.AssertObject(postedItem, "postedItem");
+
+      return PostingsData.GetPosting(nodeObject, postedItem);
+    }
 
     static public FixedList<Posting> GetPostings(BaseObject nodeObject,
                                                  BaseObject postedItem,

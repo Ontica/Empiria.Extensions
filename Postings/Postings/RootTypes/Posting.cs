@@ -80,6 +80,13 @@ namespace Empiria.Postings {
     } = 0;
 
 
+    [DataField("Keywords")]
+    public string Keywords {
+      get;
+      private set;
+    }
+
+
     [DataField("ExtData")]
     public JsonObject ExtensionData {
       get;
