@@ -19,7 +19,11 @@ namespace Empiria.Storage {
 
 
     static internal string CalculateStreamHashCode(Stream stream) {
+      stream.Position = 0;
+
       byte[] array = UtilityMethods.StreamToArray(stream);
+
+      stream.Position = 0;
 
       string hash = Cryptographer.CreateHashCode(array);
 
