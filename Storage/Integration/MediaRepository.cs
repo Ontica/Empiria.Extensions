@@ -17,7 +17,7 @@ namespace Empiria.Storage {
   static internal class MediaRepository {
 
 
-    static internal void WriteMediaFile(MediaFile o) {
+    static internal void WriteFormerMediaFile(FormerMediaFile o) {
       var meta = o.Metadata;
 
       var op = DataOperation.Parse("writeEXFMedia",
@@ -32,6 +32,17 @@ namespace Empiria.Storage {
       DataWriter.Execute(op);
     }
 
+
+    static internal void WriteMediaFile(MediaFile o) {
+      var op = DataOperation.Parse("writeEXFMediaFile",
+                                    o.Id, o.UID, o.GetEmpiriaType().Id, o.MediaContent, o.MediaType, o.Length,
+                                    o.Storage.Id, o.FolderPath, o.FileName, o.HashCode, o.OriginalFileName,
+                                    string.Empty, o.ExtensionData.ToString(),
+                                    o.PostingTime, o.PostedBy.Id, (char) o.Status,
+                                    o.Integrity.GetUpdatedHashCode());
+
+      DataWriter.Execute(op);
+    }
 
   }  // class MediaRepository
 

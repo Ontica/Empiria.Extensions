@@ -53,14 +53,14 @@ namespace Empiria.Storage {
     #region Public methods
 
 
-    public MediaFile CreateMediaFile() {
+    public FormerMediaFile CreateMediaFile() {
       JsonObject fileData = GetFileDataAsJson();
 
       string fileFullName = UtilityMethods.GetFileFullName(this.Storage, fileData.Get<string>("fileName"));
 
       this.PostedFile.SaveAs(fileFullName);
 
-      var mediaFile = new MediaFile(fileData, this.Metadata);
+      var mediaFile = new FormerMediaFile(fileData, this.Metadata);
 
       mediaFile.Save();
 
@@ -73,8 +73,6 @@ namespace Empiria.Storage {
     #region Private methods
 
     static private Metadata BuildMetadataFromNameValueCollection(NameValueCollection data) {
-      var form = HttpContext.Current.Request.Form;
-
       var json = new JsonObject();
 
       json.AddIfValue("title", data["title"]);

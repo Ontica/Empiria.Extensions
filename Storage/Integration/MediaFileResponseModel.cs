@@ -19,7 +19,7 @@ namespace Empiria.Storage {
   static public class MediaFileResponseModel {
 
 
-    static public ICollection ToResponse(this IList<MediaFile> list) {
+    static public ICollection ToResponse(this IList<FormerMediaFile> list) {
       ArrayList array = new ArrayList(list.Count);
 
       foreach (var item in list) {
@@ -31,7 +31,7 @@ namespace Empiria.Storage {
     }
 
 
-    static public object ToResponse(this MediaFile mediaFile) {
+    static public object ToResponse(this FormerMediaFile mediaFile) {
       var metadata = mediaFile.Metadata;
 
       return new {

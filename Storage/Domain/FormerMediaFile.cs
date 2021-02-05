@@ -19,33 +19,33 @@ namespace Empiria.Storage {
 
   /// <summary>Represents a stored media object treated as a value type, so it must be related to
   /// other objects like metadata information holders or document entities.</summary>
-  public class MediaFile : BaseObject, IProtected {
+  public class FormerMediaFile : BaseObject, IProtected {
 
     #region Constructors and parsers
 
-    protected MediaFile() {
+    protected FormerMediaFile() {
       // Required by Empiria Framework
     }
 
 
-    internal MediaFile(JsonObject fileData, Metadata metadata) {
+    internal FormerMediaFile(JsonObject fileData, Metadata metadata) {
       this.LoadData(fileData);
       this.Metadata = metadata;
     }
 
 
-    static public MediaFile Parse(int id) {
-      return BaseObject.ParseId<MediaFile>(id);
+    static public FormerMediaFile Parse(int id) {
+      return BaseObject.ParseId<FormerMediaFile>(id);
     }
 
 
-    static public MediaFile Parse(string uid) {
-      return BaseObject.ParseKey<MediaFile>(uid);
+    static public FormerMediaFile Parse(string uid) {
+      return BaseObject.ParseKey<FormerMediaFile>(uid);
     }
 
-    static public MediaFile Empty {
+    static public FormerMediaFile Empty {
       get {
-        return BaseObject.ParseEmpty<MediaFile>();
+        return BaseObject.ParseEmpty<FormerMediaFile>();
       }
     }
 
@@ -210,7 +210,7 @@ namespace Empiria.Storage {
         this.PostedBy = EmpiriaUser.Current.AsContact();
         this.PostingTime = DateTime.Now;
       }
-      MediaRepository.WriteMediaFile(this);
+      MediaRepository.WriteFormerMediaFile(this);
     }
 
 

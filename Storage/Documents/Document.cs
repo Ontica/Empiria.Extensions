@@ -10,7 +10,7 @@
 
 namespace Empiria.Storage.Documents {
 
-  public class Document : MediaFile {
+  public class Document : FormerMediaFile {
 
     #region Constructors and parsers
 

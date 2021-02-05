@@ -34,7 +34,7 @@ namespace Empiria.Storage {
 
       var mediaFileCreator = new MediaFileCreator(request.Files[0], form);
 
-      MediaFile mediaFile = mediaFileCreator.CreateMediaFile();
+      FormerMediaFile mediaFile = mediaFileCreator.CreateMediaFile();
 
       var posting = new Posting(postingType, nodeObject, mediaFile);
 

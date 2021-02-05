@@ -13,7 +13,7 @@ using System.IO;
 namespace Empiria.Storage {
 
   /// <summary>A media file that is used as a template to get derived copies of the same file type.</summary>
-  internal class MediaFileTemplate : MediaFile {
+  internal class MediaFileTemplate : FormerMediaFile {
 
     #region Constructors and parsers
 
