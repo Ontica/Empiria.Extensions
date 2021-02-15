@@ -37,7 +37,7 @@ namespace Empiria.Presentation.Web.Controllers {
       System.Web.HttpCookie cookie = WebContext.Request.Cookies["empiriaLastUserName_" + ExecutionServer.LicenseName];
 
       if (cookie != null) {
-        return cookie.Value; //WebContext.Server.HtmlDecode(cookie.Value);
+        return cookie.Value;
       } else {
         return String.Empty;
       }

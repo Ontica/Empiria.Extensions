@@ -152,11 +152,11 @@ namespace Empiria.Presentation.Web {
 
     private void Initialize() {
       try {
-        maxLogonAttempts = ConfigurationData.GetInteger("Session.MaxLogonAttempts");
+        maxLogonAttempts = ConfigurationData.Get("Session.MaxLogonAttempts", 5);
         if (!(1 <= maxLogonAttempts && maxLogonAttempts <= 10)) {
           throw new WebPresentationException(WebPresentationException.Msg.InvalidMaxLogAttempts);
         }
-        sessionTimeout = ConfigurationData.GetInteger("Session.Timeout");
+        sessionTimeout = ConfigurationData.Get("Session.Timeout", 120);
         if (!(5 <= sessionTimeout && sessionTimeout <= 120)) {
           throw new WebPresentationException(WebPresentationException.Msg.InvalidSessionTimeout);
         }

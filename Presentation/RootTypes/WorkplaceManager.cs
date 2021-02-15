@@ -17,7 +17,9 @@ namespace Empiria.Presentation {
 
     #region Fields
 
-    static private readonly string defaultViewModel = ConfigurationData.GetString("Session.DefaultViewModel");
+    static private readonly string defaultViewModel =
+                  ConfigurationData.Get("Session.DefaultViewModel",
+                                        "WebUI.Dashboard.MainWorkDashboard");
 
     private IViewManager viewManager = null;
     private WorkplaceCollection workplaceCollection = new WorkplaceCollection();
