@@ -51,11 +51,11 @@ namespace Empiria.Aspects {
     IMessage Decorate(IMethodCallMessage methodCall) {
       try {
 
-        EmpiriaLog.Info($"Aspect.Decorate() code executed BEFORE {methodCall.MethodName}.");
+        // EmpiriaLog.Info($"Aspect.Decorate() code executed BEFORE {methodCall.MethodName}.");
 
         var result = methodCall.MethodBase.Invoke(_instance, methodCall.InArgs);
 
-        EmpiriaLog.Info($"Aspect.Decorate() code executed AFTER {methodCall.MethodName}.");
+        // EmpiriaLog.Info($"Aspect.Decorate() code executed AFTER {methodCall.MethodName}.");
 
         // Return message supposes that methodCall hasn't out arguments
         return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);

@@ -78,8 +78,8 @@ namespace Empiria.Storage {
     }
 
 
-    public Task ReplaceMediaFile(MediaFile mediaFile, MediaFileFields fields,
-                                 Stream fileStream) {
+    public Task<T> ReplaceMediaFile<T>(MediaFile mediaFile, MediaFileFields fields,
+                                       Stream fileStream) where T : MediaFile {
       throw new NotImplementedException();
     }
 

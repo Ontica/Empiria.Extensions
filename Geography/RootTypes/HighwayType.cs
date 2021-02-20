@@ -8,7 +8,6 @@
 *  Summary   : Power type used to define highways types like federal, state or rural highways types.         *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 using Empiria.Ontology;
 
@@ -66,14 +65,19 @@ namespace Empiria.Geography {
 
       if (this.Equals(HighwayType.FederalHighwayType)) {
         return FederalHighwayKind.Parse(highwayKindName);
+
       } else if (this.Equals(HighwayType.StateHighwayType)) {
         return StateHighwayKind.Parse(highwayKindName);
+
       } else if (this.Equals(HighwayType.MunicipalHighwayType)) {
         return MunicipalHighwayKind.Parse(highwayKindName);
+
       } else if (this.Equals(HighwayType.RuralHighwayType)) {
         return RuralHighwayKind.Parse(highwayKindName);
+
       } else {
         throw Assertion.AssertNoReachThisCode();
+
       }
     }
 
