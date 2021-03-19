@@ -80,7 +80,7 @@ namespace Empiria.Postings {
     } = 0;
 
 
-    [DataField("Keywords")]
+    //[DataField("Keywords")]
     public string Keywords {
       get;
       private set;

@@ -184,7 +184,7 @@ namespace Empiria.Postings {
       var op = DataOperation.Parse("writeEXFPosting",
                                     o.Id, o.UID, o.PostingType,
                                     o.NodeObjectUID, o.PostedItemUID,
-                                    o.Index, o.Keywords, o.ExtensionData.ToString(),
+                                    o.Index, o.ExtensionData.ToString(),
                                     o.PostingTime, o.PostedBy.Id, (char) o.Status);
 
       DataWriter.Execute(op);
