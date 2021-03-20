@@ -89,6 +89,35 @@ namespace Empiria.Data.DataObjects {
     }
 
 
+   public string GetMediaFormat() {
+      string template = this.Template;
+      string namedKey = this.NamedKey;
+
+      if (template.EndsWith("pdf") || namedKey.Contains("PDF")) {
+        return "PDF";
+
+      } else if (template.EndsWith("xlsx") || namedKey.Contains("Excel")) {
+        return "Excel";
+
+      } else if (namedKey.Contains("WebForm")) {
+        return "WebForm";
+
+      } else if (namedKey.Contains("WebGrid")) {
+        return "WebGrid";
+
+      } else if (namedKey.Contains("DataFile")) {
+        return "DataFile";
+
+      } else if (namedKey.Contains("Folder")) {
+        return "Folder";
+
+      } else if (namedKey.Contains("Database")) {
+        return "Database";
+
+      }
+      return "Unknown";
+    }
+
     #endregion Properties
 
     private string GetFilePath() {
