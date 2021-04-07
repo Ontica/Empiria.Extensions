@@ -10,7 +10,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 
 namespace Empiria.Data.Handlers {
 
@@ -79,27 +80,36 @@ namespace Empiria.Data.Handlers {
     }
 
     static private OracleParameter[] DiscoverParameters(string connectionString, string sourceName) {
-      OracleCommand command = null;
-
+      OracleParameter[] discoveredParameters = null;
       using (OracleConnection connection = new OracleConnection(connectionString)) {
-        command = new OracleCommand(sourceName, connection);
-        command.CommandType = CommandType.StoredProcedure;
-        connection.Open();
-        OracleCommandBuilder.DeriveParameters(command);
-      }
 
-      int discoveredCount = command.Parameters.Count;
-      if (discoveredCount != 0) {
-        OracleParameter[] discoveredParameters = new OracleParameter[discoveredCount];
-        command.Parameters.CopyTo(discoveredParameters, 0);
-        command.Parameters.Clear();
-        for (int i = 0; i < discoveredCount; i++) {
-          discoveredParameters[i].Value = DBNull.Value;
+        OracleCommand command = new OracleCommand("qryDbQueryParameters", connection);
+        command.CommandType = CommandType.StoredProcedure;
+        command.Parameters.Add("QueryName", OracleDbType.Varchar2, 64, ParameterDirection.Input);
+        command.Parameters["QueryName"].Value = sourceName;
+        OracleParameter output = command.Parameters.Add("getParameters", OracleDbType.RefCursor);
+        connection.Open();
+        command.ExecuteNonQuery();
+        output.Direction = ParameterDirection.ReturnValue;
+
+        OracleDataReader reader = ((OracleRefCursor) output.Value).GetDataReader();
+        OracleParameter parameter;
+        int i = 0;
+        while (reader.Read()) {
+          if (discoveredParameters == null) {
+            discoveredParameters = new OracleParameter[(int)reader["ParameterCount"]];
+          }
+          parameter = new OracleParameter((string) reader["Name"], (int) reader["ParameterDbType"]);
+          parameter.Direction = (ParameterDirection) reader["ParameterDirection"];
+          if (reader["ParameterDefaultValue"] == DBNull.Value) {
+            parameter.Value = reader["ParameterDefaultValue"];
+          }
+          discoveredParameters[i] = parameter;
+          i++;
         }
-        return discoveredParameters;
-      } else {
-        return null;
+        reader.Close();
       }
+      return discoveredParameters;
     }
 
     #endregion Private methods

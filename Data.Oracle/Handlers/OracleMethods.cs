@@ -9,7 +9,8 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System.EnterpriseServices;
 
 namespace Empiria.Data.Handlers {
@@ -137,8 +138,7 @@ namespace Empiria.Data.Handlers {
 
     public int Execute(IDbTransaction transaction, DataOperation operation) {
       var command = new OracleCommand(operation.SourceName,
-                                      (OracleConnection) transaction.Connection,
-                                      (OracleTransaction) transaction);
+                                      (OracleConnection) transaction.Connection);
       try {
         operation.PrepareCommand(command);
 
