@@ -47,6 +47,10 @@ namespace Empiria.Geography {
       return BaseObject.ParseId<Municipality>(id);
     }
 
+    static public Municipality Parse(string uid) {
+      return BaseObject.ParseKey<Municipality>(uid);
+    }
+
     static private readonly Municipality _empty = BaseObject.ParseEmpty<Municipality>();
     static public new Municipality Empty {
       get {
