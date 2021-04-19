@@ -69,8 +69,8 @@
     <PackageReference Include="Empiria.Core" Version="7.0.0" />
     <PackageReference Include="Empiria.UserManagement" Version="1.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\core\Empiria.Core\Core.Services\Empiria.Core.Services.csproj" />
-    <ProjectReference Include="..\..\..\core\Empiria.Core\Core\Empiria.Core.csproj" />
+  <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
+    <ProjectReference Include="..\..\core\Core.Services\Empiria.Core.Services.csproj" />
+    <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
   </ItemGroup>
 </Project>

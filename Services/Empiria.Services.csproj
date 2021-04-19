@@ -51,8 +51,8 @@
     <NoWarn />
     <WarningsAsErrors />
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\core\Empiria.Core\Core\Empiria.Core.csproj" />
+  <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
+    <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
     <ProjectReference Include="..\Aspects\Empiria.Aspects.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -56,10 +56,10 @@ In general, provides types that changes or adds new behavior to existing code in
     <WarningsAsErrors />
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\core\Empiria.Core\Core\Empiria.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
+    <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
     <PackageReference Include="Empiria.Core" Version="7.0.0" />
