@@ -155,10 +155,8 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public IDataParameter[] GetParameters(string connectionString,
-                                          string sourceName,
-                                          object[] parameterValues) {
-      return OracleParameterCache.GetParameters(connectionString, sourceName, parameterValues);
+    public IDataParameter[] GetParameters(string source, string name, object[] values) {
+      return OracleParameterCache.GetParameters(source, name, values);
     }
 
 
@@ -171,8 +169,7 @@ namespace Empiria.Data.Handlers {
         return blob.Value;
 
       } else {
-        return null;
-
+        return new byte[0];
       }
     }
 

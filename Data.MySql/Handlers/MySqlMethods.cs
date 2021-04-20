@@ -146,10 +146,8 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public IDataParameter[] GetParameters(string connectionString,
-                                          string sourceName,
-                                          object[] parameterValues) {
-      return MySqlParameterCache.GetParameters(connectionString, sourceName, parameterValues);
+    public IDataParameter[] GetParameters(string source, string name, object[] values) {
+      return MySqlParameterCache.GetParameters(source, name, values);
     }
 
 
