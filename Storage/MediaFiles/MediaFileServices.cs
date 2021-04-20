@@ -40,7 +40,7 @@ namespace Empiria.Storage {
       Assertion.AssertObject(fields, "fields");
       Assertion.AssertObject(inputStream, "inputStream");
 
-      fields.FileHashCode = UtilityMethods.CalculateStreamHashCode(inputStream);
+      fields.FileHashCode = StorageUtilityMethods.CalculateStreamHashCode(inputStream);
 
       T mediaFile = MediaFile.Create<T>(storage, fields);
 

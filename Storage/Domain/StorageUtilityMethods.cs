@@ -15,13 +15,13 @@ using Empiria.Security;
 namespace Empiria.Storage {
 
   /// <summary>Utility methods library to manipulate streams and files.</summary>
-  static internal class UtilityMethods {
+  static public class StorageUtilityMethods {
 
 
-    static internal string CalculateStreamHashCode(Stream stream) {
+    static public string CalculateStreamHashCode(Stream stream) {
       stream.Position = 0;
 
-      byte[] array = UtilityMethods.StreamToArray(stream);
+      byte[] array = StreamToArray(stream);
 
       stream.Position = 0;
 
@@ -35,19 +35,24 @@ namespace Empiria.Storage {
     }
 
 
-    static internal string GenerateUniqueFileNameForStorage(string originalFileName) {
+    static public string CombinePaths(string path1, string path2) {
+      return Path.Combine(path1, path2);
+    }
+
+
+    static public string GenerateUniqueFileNameForStorage(string originalFileName) {
       string extension = Path.GetExtension(originalFileName);
 
       return $"{Guid.NewGuid()}{extension}";
     }
 
 
-    static internal string GetFileFullName(MediaStorage storage, string fileName) {
+    static public string GetFileFullName(MediaStorage storage, string fileName) {
       return Path.Combine(storage.Path, fileName);
     }
 
 
-    static internal byte[] StreamToArray(Stream stream) {
+    static public byte[] StreamToArray(Stream stream) {
       byte[] array = new byte[stream.Length];
 
       stream.Read(array, 0, (int) stream.Length);

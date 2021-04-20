@@ -56,7 +56,7 @@ namespace Empiria.Storage {
     public FormerMediaFile CreateMediaFile() {
       JsonObject fileData = GetFileDataAsJson();
 
-      string fileFullName = UtilityMethods.GetFileFullName(this.Storage, fileData.Get<string>("fileName"));
+      string fileFullName = StorageUtilityMethods.GetFileFullName(this.Storage, fileData.Get<string>("fileName"));
 
       this.PostedFile.SaveAs(fileFullName);
 
@@ -87,8 +87,8 @@ namespace Empiria.Storage {
 
 
     private JsonObject GetFileDataAsJson() {
-      string fileName = UtilityMethods.GenerateUniqueFileNameForStorage(this.PostedFile.FileName);
-      string hashCode = UtilityMethods.CalculateStreamHashCode(this.PostedFile.InputStream);
+      string fileName = StorageUtilityMethods.GenerateUniqueFileNameForStorage(this.PostedFile.FileName);
+      string hashCode = StorageUtilityMethods.CalculateStreamHashCode(this.PostedFile.InputStream);
 
       var json = new JsonObject();
 

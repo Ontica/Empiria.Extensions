@@ -37,7 +37,7 @@ namespace Empiria.Storage {
 
       mediaFile.Storage = storage;
       mediaFile.LoadFields(fields);
-      mediaFile.FileName = UtilityMethods.GenerateUniqueFileNameForStorage(mediaFile.OriginalFileName);
+      mediaFile.FileName = StorageUtilityMethods.GenerateUniqueFileNameForStorage(mediaFile.OriginalFileName);
 
       return mediaFile;
     }
@@ -110,7 +110,7 @@ namespace Empiria.Storage {
 
     public string FullPath {
       get {
-        return UtilityMethods.GetFileFullName(this.Storage, this.FileName);
+        return StorageUtilityMethods.GetFileFullName(this.Storage, this.FileName);
       }
     }
 
