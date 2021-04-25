@@ -9,14 +9,16 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Data;
+
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
+
 using System.EnterpriseServices;
 
 namespace Empiria.Data.Handlers {
 
   /// <summary>Empiria data handler to connect solutions to Oracle databases.</summary>
-  internal class OracleMethods : IDataHandler {
+  public class OracleMethods : IDataHandler {
 
     #region Internal methods
 
