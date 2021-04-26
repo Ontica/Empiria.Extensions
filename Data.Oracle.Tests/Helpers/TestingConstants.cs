@@ -18,13 +18,17 @@ namespace Empiria.Data.Handlers.Tests {
     static readonly internal string GET_INT_SCALAR_SQL = ConfigurationData.GetString("GET_INT_SCALAR_SQL");
 
     static readonly internal string GET_INT_SCALAR_FIELD_NAME =
-                                                  ConfigurationData.GetString("GET_INT_SCALAR_FIELD_NAME");
+                                          ConfigurationData.GetString("GET_INT_SCALAR_FIELD_NAME");
 
     static readonly internal long SCALAR_VALUE = ConfigurationData.GetInteger("SCALAR_VALUE");
 
     static readonly internal int DATA_SET_MINIMAL_ROWS_COUNT =
-                                              ConfigurationData.GetInteger("DATA_SET_MINIMAL_ROWS_COUNT");
+                                          ConfigurationData.GetInteger("DATA_SET_MINIMAL_ROWS_COUNT");
 
+    static readonly internal string DATA_READER_TABLE_NAME =
+                                          ConfigurationData.GetString("DATA_READER_TABLE_NAME");
+
+    static readonly internal string SESSION_TOKEN = ConfigurationData.GetString("SESSION_TOKEN");
 
   }  // class TestingConstants
 

@@ -4,14 +4,15 @@
 *  Assembly : Empiria.Data.Oracle.Tests.dll              Pattern   : Unit tests                              *
 *  Type     : OracleReadDataTests                        License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Test cases for data reading operations using Empiria Oracle Data Handler.                      *
+*  Summary  : Unit tests for data reading operations using Empiria Oracle Data Handler.                      *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+using System;
 using Xunit;
 
 namespace Empiria.Data.Handlers.Tests {
 
-  /// <summary>Test cases for data reading operations using Empiria Oracle Data Handler.</summary>
+  /// <summary>Unit tests for data reading operations using Empiria Oracle Data Handler.</summary>
   public class OracleReadDataTests {
 
     #region Facts
@@ -42,6 +43,18 @@ namespace Empiria.Data.Handlers.Tests {
 
 
     [Fact]
+    public void Should_GetDataRow() {
+      var dataOperation = DataOperation.Parse(TestingConstants.GET_INT_SCALAR_SQL);
+
+      var oracleMethods = new OracleMethods();
+
+      var dataRow = oracleMethods.GetDataRow(dataOperation);
+
+      Assert.Equal(TestingConstants.SCALAR_VALUE, (long) dataRow[0]);
+    }
+
+
+    [Fact]
     public void Should_GetDataTable() {
       var dataOperation = DataOperation.Parse(TestingConstants.DATA_READER_SQL);
 
@@ -66,18 +79,6 @@ namespace Empiria.Data.Handlers.Tests {
 
 
     [Fact]
-    public void Should_GetDataRow() {
-      var dataOperation = DataOperation.Parse(TestingConstants.GET_INT_SCALAR_SQL);
-
-      var oracleMethods = new OracleMethods();
-
-      var dataRow = oracleMethods.GetDataRow(dataOperation);
-
-      Assert.Equal(TestingConstants.SCALAR_VALUE, (long) dataRow[0]);
-    }
-
-
-    [Fact]
     public void Should_GetFieldValue() {
       var dataOperation = DataOperation.Parse(TestingConstants.GET_INT_SCALAR_SQL);
 
@@ -97,9 +98,24 @@ namespace Empiria.Data.Handlers.Tests {
 
       var scalar = oracleMethods.GetScalar(dataOperation);
 
-      Assert.Equal(TestingConstants.SCALAR_VALUE, (long) scalar);
+      Assert.Equal(TestingConstants.SCALAR_VALUE, scalar);
     }
 
+
+    [Fact]
+    public void Should_InvokeSelectCount() {
+      var sql = $"SELECT COUNT(*) FROM {TestingConstants.DATA_READER_TABLE_NAME}";
+
+      var dataOperation = DataOperation.Parse(sql);
+
+      var oracleMethods = new OracleMethods();
+
+      var dataRow = oracleMethods.GetDataRow(dataOperation);
+
+      Assert.NotNull(dataRow);
+
+      Assert.True(Convert.ToInt32(dataRow[0]) >= TestingConstants.DATA_SET_MINIMAL_ROWS_COUNT);
+    }
 
     #endregion Facts
 

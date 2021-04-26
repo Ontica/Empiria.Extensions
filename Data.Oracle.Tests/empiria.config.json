@@ -31,6 +31,11 @@
     },
     {
       "type": "Data.Handlers.Tests",
+      "key": "DATA_READER_TABLE_NAME",
+      "value": "{{DATA_READER_TABLE_NAME}}"
+    },
+    {
+      "type": "Data.Handlers.Tests",
       "key": "DATA_SET_MINIMAL_ROWS_COUNT",
       "value": "{{DATA_SET_MINIMAL_ROWS_COUNT}}"
     },
