@@ -1,23 +1,23 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution : Empiria Extensions Framework                     System  : Data Access Library                 *
-*  Assembly : Empiria.Data.Oracle.dll                          Pattern : Provider                            *
-*  Type     : OracleMethods                                    License : Please read LICENSE.txt file        *
+*  Module   : Oracle Data Handler                        Component : Data Access Library                     *
+*  Assembly : Empiria.Data.Oracle.dll                    Pattern   : Data Handler                            *
+*  Type     : OracleMethods                              License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Empiria data handler to connect solutions to Oracle databases.                                 *
+*  Summary  : Data handler used to connect Empiria-based solutions to Oracle databases.                      *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Data;
 
+using System.EnterpriseServices;
+
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
-using System.EnterpriseServices;
-
 namespace Empiria.Data.Handlers {
 
-  /// <summary>Empiria data handler to connect solutions to Oracle databases.</summary>
+  /// <summary>Data handler used to connect Empiria-based solutions to Oracle databases.</summary>
   public class OracleMethods : IDataHandler {
 
     #region Internal methods
@@ -29,32 +29,9 @@ namespace Empiria.Data.Handlers {
 
 
     public int CountRows(DataOperation operation) {
-      var connection = new OracleConnection(operation.DataSource.Source);
-      var command = new OracleCommand(operation.SourceName, connection);
+      var dataTable = GetDataTable(operation, String.Empty);
 
-      try {
-        operation.PrepareCommand(command);
-
-        var dataAdapter = new OracleDataAdapter(command);
-
-        var dataTable = new DataTable();
-
-        dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-        dataAdapter.Fill(dataTable);
-        dataAdapter.Dispose();
-
-        return dataTable.Rows.Count;
-
-      } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
-
-      } finally {
-        command.Parameters.Clear();
-        connection.Dispose();
-      }
+      return dataTable.Rows.Count;
     }
 
 
@@ -75,8 +52,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();
@@ -109,8 +85,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();
@@ -129,8 +104,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();
@@ -148,8 +122,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();
@@ -200,8 +173,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataReader,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();
@@ -211,35 +183,12 @@ namespace Empiria.Data.Handlers {
 
 
     public DataRow GetDataRow(DataOperation operation) {
-      var connection = new OracleConnection(operation.DataSource.Source);
-      var command = new OracleCommand(operation.SourceName, connection);
+      DataTable dataTable = GetDataTable(operation, operation.SourceName);
 
-      try {
-        operation.PrepareCommand(command);
-
-        var dataAdapter = new OracleDataAdapter(command);
-
-        var dataTable = new DataTable(operation.SourceName);
-
-        dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-        dataAdapter.Fill(dataTable);
-        dataAdapter.Dispose();
-
-        if (dataTable.Rows.Count != 0) {
-          return dataTable.Rows[0];
-        } else {
-          return null;
-        }
-
-      } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
-
-      } finally {
-        command.Parameters.Clear();
-        connection.Dispose();
+      if (dataTable.Rows.Count != 0) {
+        return dataTable.Rows[0];
+      } else {
+        return null;
       }
     }
 
@@ -258,14 +207,14 @@ namespace Empiria.Data.Handlers {
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
         dataAdapter.Fill(dataTable);
+
         dataAdapter.Dispose();
 
         return dataTable;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();
@@ -275,33 +224,9 @@ namespace Empiria.Data.Handlers {
 
 
     public DataView GetDataView(DataOperation operation, string filter, string sort) {
-      var connection = new OracleConnection(operation.DataSource.Source);
-      var command = new OracleCommand(operation.SourceName, connection);
+      DataTable dataTable = GetDataTable(operation, operation.SourceName);
 
-      try {
-        operation.PrepareCommand(command);
-
-        var dataAdapter = new OracleDataAdapter(command);
-
-        var dataTable = new DataTable(operation.SourceName);
-
-        dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-        dataAdapter.Fill(dataTable);
-        dataAdapter.Dispose();
-
-        return new DataView(dataTable, filter, sort,
-                            DataViewRowState.CurrentRows);
-
-      } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataView,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
-
-      } finally {
-        command.Parameters.Clear();
-        connection.Dispose();
-      }
+      return new DataView(dataTable, filter, sort, DataViewRowState.CurrentRows);
     }
 
 
@@ -324,8 +249,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetFieldValue,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString(),
+                                       exception, operation.SourceName, operation.ParametersToString(),
                                        fieldName);
 
       } finally {
@@ -348,8 +272,7 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetScalar,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
+                                       exception, operation.SourceName, operation.ParametersToString());
 
       } finally {
         command.Parameters.Clear();

@@ -1,8 +1,8 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution : Empiria Extensions Framework                     System  : Data Access Library                 *
-*  Assembly : Empiria.Data.Oracle.dll                          Pattern : Information Holder (with cache)     *
-*  Type     : OracleParameterCache                             License : Please read LICENSE.txt file        *
+*  Module   : Oracle Data Handler                        Component : Data Access Library                     *
+*  Assembly : Empiria.Data.Oracle.dll                    Pattern   : Stored procedures parameters cache      *
+*  Type     : OracleParameterCache                       License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Wrapper of a static hash table that contains loaded Oracle stored-procedure parameters.        *
 *                                                                                                            *
@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
@@ -29,7 +30,7 @@ namespace Empiria.Data.Handlers {
     static internal OracleParameter[] GetParameters(string connectionString, string sourceName) {
       string hashKey = BuildHashKey(connectionString, sourceName);
 
-      OracleParameter[] cachedParameters = null;
+      OracleParameter[] cachedParameters;
       if (!parametersCache.TryGetValue(hashKey, out cachedParameters)) {
         OracleParameter[] spParameters = DiscoverParameters(connectionString, sourceName);
         parametersCache[hashKey] = spParameters;
@@ -38,11 +39,12 @@ namespace Empiria.Data.Handlers {
       return CloneParameters(cachedParameters);
     }
 
+
     static internal OracleParameter[] GetParameters(string connectionString, string sourceName,
                                                     object[] parameterValues) {
       string hashKey = BuildHashKey(connectionString, sourceName);
 
-      OracleParameter[] cachedParameters = null;
+      OracleParameter[] cachedParameters;
       if (!parametersCache.TryGetValue(hashKey, out cachedParameters)) {
         OracleParameter[] spParameters = DiscoverParameters(connectionString, sourceName);
         parametersCache[hashKey] = spParameters;
@@ -51,6 +53,7 @@ namespace Empiria.Data.Handlers {
       return CloneParameters(cachedParameters, parameterValues);
     }
 
+
     #endregion Internal methods
 
     #region Private methods
@@ -58,6 +61,7 @@ namespace Empiria.Data.Handlers {
     static private string BuildHashKey(string connectionString, string sourceName) {
       return connectionString + ":" + sourceName;
     }
+
 
     static private OracleParameter[] CloneParameters(OracleParameter[] sourceParameters) {
       OracleParameter[] clonedParameters = new OracleParameter[sourceParameters.Length];
@@ -68,43 +72,49 @@ namespace Empiria.Data.Handlers {
       return clonedParameters;
     }
 
+
     static private OracleParameter[] CloneParameters(OracleParameter[] sourceParameters,
                                                      object[] parameterValues) {
       OracleParameter[] clonedParameters = new OracleParameter[sourceParameters.Length];
 
       for (int i = 0, j = sourceParameters.Length; i < j; i++) {
         clonedParameters[i] = (OracleParameter) ((ICloneable) sourceParameters[i]).Clone();
-        clonedParameters[i].Value = parameterValues[i];
+        if (sourceParameters[i].ParameterName != "ReturnedRefCursor") {
+          clonedParameters[i].Value = parameterValues[i];
+        }
       }
       return clonedParameters;
     }
 
+
     static private OracleParameter[] DiscoverParameters(string connectionString, string sourceName) {
       OracleParameter[] discoveredParameters = null;
+
       using (OracleConnection connection = new OracleConnection(connectionString)) {
 
         OracleCommand command = new OracleCommand("qryDbQueryParameters", connection);
         command.CommandType = CommandType.StoredProcedure;
         command.Parameters.Add("QueryName", OracleDbType.Varchar2, 64, ParameterDirection.Input);
         command.Parameters["QueryName"].Value = sourceName;
-        OracleParameter output = command.Parameters.Add("getParameters", OracleDbType.RefCursor);
-        connection.Open();
-        command.ExecuteNonQuery();
-        output.Direction = ParameterDirection.ReturnValue;
 
-        OracleDataReader reader = ((OracleRefCursor) output.Value).GetDataReader();
-        OracleParameter parameter;
+        command.Parameters.Add("ReturnedRefCursor", OracleDbType.RefCursor);
+        command.Parameters["ReturnedRefCursor"].Direction = ParameterDirection.Output;
+
+        connection.Open();
+
+        command.ExecuteNonQuery();
+
+        OracleDataReader reader = ((OracleRefCursor) command.Parameters["ReturnedRefCursor"].Value).GetDataReader();
+
         int i = 0;
+
         while (reader.Read()) {
           if (discoveredParameters == null) {
-            discoveredParameters = new OracleParameter[(int)reader["ParameterCount"]];
+            discoveredParameters = new OracleParameter[(int) reader["ParameterCount"]];
           }
-          parameter = new OracleParameter((string) reader["Name"], (int) reader["ParameterDbType"]);
-          parameter.Direction = (ParameterDirection) reader["ParameterDirection"];
-          if (reader["ParameterDefaultValue"] == DBNull.Value) {
-            parameter.Value = reader["ParameterDefaultValue"];
-          }
-          discoveredParameters[i] = parameter;
+          discoveredParameters[i] = new OracleParameter((string) reader["Name"],
+                                                        (OracleDbType) reader["ParameterDbType"],
+                                                        (ParameterDirection) reader["ParameterDirection"]);
           i++;
         }
         reader.Close();

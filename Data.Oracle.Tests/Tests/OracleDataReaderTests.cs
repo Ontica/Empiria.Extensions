@@ -8,6 +8,7 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+
 using Xunit;
 
 namespace Empiria.Data.Handlers.Tests {
@@ -63,6 +64,19 @@ namespace Empiria.Data.Handlers.Tests {
       var dataTable = oracleMethods.GetDataTable(dataOperation, "TestsTable");
 
       Assert.True(dataTable.Rows.Count >= TestingConstants.DATA_SET_MINIMAL_ROWS_COUNT);
+    }
+
+    [Fact]
+    public void Should_GetDataTableMultipleTimes() {
+      for (int i = 0; i < 10; i++) {
+        var dataOperation = DataOperation.Parse(TestingConstants.DATA_READER_SQL);
+
+        var oracleMethods = new OracleMethods();
+
+        var dataTable = oracleMethods.GetDataTable(dataOperation, "TestsTable");
+
+        Assert.True(dataTable.Rows.Count >= TestingConstants.DATA_SET_MINIMAL_ROWS_COUNT);
+      }
     }
 
 
