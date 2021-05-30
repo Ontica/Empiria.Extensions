@@ -74,6 +74,9 @@
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\core\Core.Services\Empiria.Core.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Transactions" />
   </ItemGroup>

@@ -37,7 +37,7 @@ namespace Empiria.Data.Handlers.Tests {
 
       Assert.NotNull(session);
 
-      Assert.Equal(long.Parse("123456789012345678"), session.Id);
+      Assert.Equal(long.Parse("1"), session.Id);
       Assert.Equal(TestingConstants.SESSION_TOKEN, session.SessionToken);
       Assert.Equal(3600, session.ExpiresIn);
       Assert.NotNull(session.ExtData);
