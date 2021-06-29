@@ -63,7 +63,13 @@ namespace Empiria.Aspects {
       } catch (TargetInvocationException invocationException) {
         var e = invocationException.InnerException;
 
-        EmpiriaLog.Error(new ServiceException("Aspect.Execution", "Aspect execution failed.", e));
+        EmpiriaLog.Error(e);
+
+        return new ReturnMessage(e, methodCall);
+
+      } catch (Exception e) {
+
+        EmpiriaLog.Error(e);
 
         return new ReturnMessage(e, methodCall);
       }
