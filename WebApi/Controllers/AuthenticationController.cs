@@ -36,6 +36,17 @@ namespace Empiria.WebApi.Controllers {
     }
 
 
+    [HttpGet]
+    [Route("v3/security/principal")]
+    public SingleObjectModel GetPrincipalData() {
+      using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
+        PrincipalDto principal = usecases.PrincipalData();
+
+        return new SingleObjectModel(base.Request, principal);
+      }
+    }
+
+
     [HttpPost, AllowAnonymous]
     [Route("v3/security/login")]
     public SingleObjectModel Login([FromBody] AuthenticationFields fields) {
@@ -50,6 +61,18 @@ namespace Empiria.WebApi.Controllers {
                                      "Empiria.Security.OAuthObject");
       }
     }
+
+
+    [HttpPost]
+    [Route("v3/security/logout")]
+    public NoDataModel Logout() {
+      using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
+        usecases.Logout();
+
+        return new NoDataModel(base.Request);
+      }
+    }
+
 
     #endregion Web Apis
 
