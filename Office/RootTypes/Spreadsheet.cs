@@ -72,6 +72,9 @@ namespace Empiria.Office {
     }
 
     public void SetCell(string cellName, string value) {
+      if (value.StartsWith("=")) {
+        value = "'" + value;
+      }
       _spreadsheet.SetCellValue(cellName, value);
     }
 
