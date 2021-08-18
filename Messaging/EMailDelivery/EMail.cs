@@ -59,13 +59,12 @@ namespace Empiria.Messaging.EMailDelivery {
 
       MailMessage message = EMail.GetMailMessage(sendTo, content);
 
-      Action<Task> disposeMessage = (task) => task = Task.Run(() => DisposeMessage(message));
+      Action<Task> disposeMessage = (task) => Task.Run(() => DisposeMessage(message));
 
       using (SmtpClient smtp = EMail.GetSmptClient()) {
         await smtp.SendMailAsync(message)
                   .ContinueWith(disposeMessage);
       }
-
     }
 
 

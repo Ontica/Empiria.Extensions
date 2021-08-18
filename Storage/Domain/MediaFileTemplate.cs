@@ -39,7 +39,6 @@ namespace Empiria.Storage {
 
       File.Copy(this.FullName, derivedCopyFullName, true);
 
-
       return new FileInfo(derivedCopyFullName);
     }
 

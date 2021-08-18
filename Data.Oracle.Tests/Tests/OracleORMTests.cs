@@ -42,7 +42,7 @@ namespace Empiria.Data.Handlers.Tests {
       Assert.Equal(3600, session.ExpiresIn);
       Assert.NotNull(session.ExtData);
       Assert.Equal(string.Empty, session.ExtData);
-      Assert.Equal(new DateTime(2021, 03, 28), session.StartTime);
+      Assert.Equal(new DateTime(2021, 06, 17).Date, session.StartTime.Date);
     }
 
 

@@ -29,7 +29,7 @@ namespace Empiria.WebApi.Controllers {
       fields = PrepareAuthenticationFields(fields);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        var token = usecases.GenerateAuthenticationToken(fields);
+        string token = usecases.GenerateAuthenticationToken(fields);
 
         return new SingleObjectModel(base.Request, token);
       }

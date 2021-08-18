@@ -23,7 +23,7 @@ namespace Empiria.Storage {
     }
 
 
-    static public string GeFileUrl(FileInfo fileInfo) {
+    static public string GetFileUrl(FileInfo fileInfo) {
       MediaStorage copiesStorage = MediaStorage.Default;
 
       return $"{copiesStorage.Url}/{fileInfo.Name}";

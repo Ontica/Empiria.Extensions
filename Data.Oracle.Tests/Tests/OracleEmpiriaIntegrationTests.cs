@@ -33,12 +33,6 @@ namespace Empiria.Data.Handlers.Tests {
     #region Facts
 
     [Fact]
-    public void Should_Call_A_WebApi() {
-      Assert.True(2 == 1 + 2);
-    }
-
-
-    [Fact]
     public void Should_Create_A_User_Session() {
       var fields = new AuthenticationFields {
         AppKey = "dev_SICOFIN_Backend_JEcz5AaKxuST8KG8zYQgQFJEtQehjCssHZBJ4Jws",
@@ -61,12 +55,6 @@ namespace Empiria.Data.Handlers.Tests {
 
         Assert.NotNull(principal);
       }
-    }
-
-
-    [Fact]
-    public void Should_Close_A_User_Session() {
-      Assert.True(2 == 1 + 2);
     }
 
 
