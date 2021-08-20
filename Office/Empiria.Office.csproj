@@ -60,7 +60,6 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="DocumentFormat.OpenXml" version="2.11.3" />
-    <PackageReference Include="itext7" version="7.1.12" />
     <PackageReference Include="SpreadsheetLight" Version="3.5.0" />
     <PackageReference Include="System.IO.FileSystem.Primitives" version="4.3.0" />
     <PackageReference Include="System.IO.Packaging" version="4.7.0" />
