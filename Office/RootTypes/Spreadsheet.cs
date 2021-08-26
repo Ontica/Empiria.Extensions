@@ -15,7 +15,8 @@ using SpreadsheetLight;
 namespace Empiria.Office {
 
   public enum Style {
-    Bold
+    Bold,
+    LineThrough
   }
 
   /// <summary>Provides services to interact with Office spreadsheets through SpreadsheetLight.</summary>
@@ -90,6 +91,12 @@ namespace Empiria.Office {
       _spreadsheet.SetCellValue(cellName, value);
     }
 
+    public void SetCellStyle(Style styleType, string cellName) {
+      SLStyle style = GetSLStyle(styleType);
+
+      _spreadsheet.SetCellStyle(cellName, style);
+    }
+
     public void SetRowStyle(Style styleType, int row) {
       SLStyle style = GetSLStyle(styleType);
 
@@ -102,8 +109,14 @@ namespace Empiria.Office {
 
     private SLStyle GetSLStyle(Style styleType) {
       SLStyle style = new SLStyle();
-      style.Font.Bold = true;
-      style.Font.FontName = "Courier New";
+
+      if (styleType == Style.Bold) {
+        style.Font.Bold = true;
+        style.Font.FontName = "Courier New";
+      } else if (styleType == Style.LineThrough) {
+        style.Font.Strike = true;
+        style.Font.FontName = "Courier New";
+      }
       return style;
     }
 
