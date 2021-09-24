@@ -34,7 +34,6 @@ namespace Empiria.Office {
       _spreadsheet = new SLDocument(path);
     }
 
-
     static public Spreadsheet Create() {
       return new Spreadsheet();
     }
@@ -58,14 +57,63 @@ namespace Empiria.Office {
       this.Dispose();
     }
 
+    public bool HasCellValue(string cellName) {
+      return _spreadsheet.HasCellValue(cellName);
+    }
+
+    public bool HasNotCellValue(string cellName) {
+      return !HasCellValue(cellName);
+    }
+
+    public void IndentCell(string cellName, int value) {
+      SLStyle style = new SLStyle();
+
+      style.Alignment.Indent = (uint) value;
+
+      _spreadsheet.SetCellStyle(cellName, style);
+    }
+
+    public T ReadCellValue<T>(string cellName) {
+      if (typeof(T) == typeof(Decimal)) {
+        return (T) (object) _spreadsheet.GetCellValueAsDecimal(cellName);
+      } else if (typeof(T) == typeof(string)) {
+        return (T) (object) _spreadsheet.GetCellValueAsString(cellName);
+      } else if (typeof(T) == typeof(DateTime)) {
+        return (T) (object) _spreadsheet.GetCellValueAsDateTime(cellName);
+      } else if (typeof(T) == typeof(Int32)) {
+        return (T) (object) _spreadsheet.GetCellValueAsInt32(cellName);
+      } else if (typeof(T) == typeof(Int64)) {
+        return (T) (object) _spreadsheet.GetCellValueAsInt64(cellName);
+      } else if (typeof(T) == typeof(Boolean)) {
+        return (T) (object) _spreadsheet.GetCellValueAsBoolean(cellName);
+      } else {
+        return (T) (object) _spreadsheet.GetCellValueAsString(cellName);
+      }
+    }
+
+
+    public T ReadCellValue<T>(string cellName, T defaultValue) {
+      if (HasNotCellValue(cellName)) {
+        return defaultValue;
+      }
+      return ReadCellValue<T>(cellName);
+    }
+
 
     public void Save() {
       _spreadsheet.Save();
     }
 
-
     public void SaveAs(string fileName) {
       _spreadsheet.SaveAs(fileName);
+    }
+
+    public void SelectWorksheet(string worksheetName) {
+      Assertion.AssertObject(worksheetName, "worksheetName");
+
+      if (!_spreadsheet.SelectWorksheet(worksheetName)) {
+        Assertion.AssertFail($"A worksheet with name {worksheetName} does not exists in the Excel file.");
+      }
     }
 
     public void RemoveColumn(string column) {
@@ -101,6 +149,11 @@ namespace Empiria.Office {
       SLStyle style = GetSLStyle(styleType);
 
       _spreadsheet.SetRowStyle(row, style);
+    }
+
+    public string[] Worksheets() {
+      return _spreadsheet.GetWorksheetNames()
+                         .ToArray();
     }
 
     #endregion Public Methods
