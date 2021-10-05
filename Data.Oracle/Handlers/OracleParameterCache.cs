@@ -79,7 +79,8 @@ namespace Empiria.Data.Handlers {
 
       for (int i = 0, j = sourceParameters.Length; i < j; i++) {
         clonedParameters[i] = (OracleParameter) ((ICloneable) sourceParameters[i]).Clone();
-        if (sourceParameters[i].ParameterName != "ReturnedRefCursor") {
+        if (sourceParameters[i].Direction != ParameterDirection.Output &&
+            sourceParameters[i].Direction != ParameterDirection.ReturnValue) {
           clonedParameters[i].Value = parameterValues[i];
         }
       }
