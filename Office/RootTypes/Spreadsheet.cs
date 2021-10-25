@@ -9,7 +9,6 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
-using DocumentFormat.OpenXml.Spreadsheet;
 using SpreadsheetLight;
 
 namespace Empiria.Office {
@@ -53,17 +52,31 @@ namespace Empiria.Office {
 
     #region Public Methods
 
+    public string SelectedWorksheet {
+      get; private set;
+    } = "Hoja 1";
+
+
     public void Close() {
       this.Dispose();
     }
 
-    public bool HasCellValue(string cellName) {
-      return _spreadsheet.HasCellValue(cellName);
+
+    public bool IsNotEmpty(string cellName, bool includeFormulas = false) {
+      return _spreadsheet.HasCellValue(cellName, includeFormulas);
     }
 
-    public bool HasNotCellValue(string cellName) {
-      return !HasCellValue(cellName);
+
+    public bool IsEmpty(string cellName, bool includeFormulas = false) {
+      return !IsNotEmpty(cellName, includeFormulas);
     }
+
+
+    public bool HasFormula(string cellName) {
+      return !_spreadsheet.HasCellValue(cellName) &&
+             _spreadsheet.HasCellValue(cellName, true);
+    }
+
 
     public void IndentCell(string cellName, int value) {
       SLStyle style = new SLStyle();
@@ -73,7 +86,13 @@ namespace Empiria.Office {
       _spreadsheet.SetCellStyle(cellName, style);
     }
 
+
     public T ReadCellValue<T>(string cellName) {
+      if (HasFormula(cellName)) {
+        Assertion.AssertNoReachThisCode(
+          $"Hubo un problema para leer la fórmula contenida en la celda {cellName} en [{SelectedWorksheet}]");
+      }
+
       if (typeof(T) == typeof(Decimal)) {
         return (T) (object) _spreadsheet.GetCellValueAsDecimal(cellName);
       } else if (typeof(T) == typeof(string)) {
@@ -93,7 +112,7 @@ namespace Empiria.Office {
 
 
     public T ReadCellValue<T>(string cellName, T defaultValue) {
-      if (HasNotCellValue(cellName)) {
+      if (IsEmpty(cellName)) {
         return defaultValue;
       }
       return ReadCellValue<T>(cellName);
@@ -114,6 +133,7 @@ namespace Empiria.Office {
       if (!_spreadsheet.SelectWorksheet(worksheetName)) {
         Assertion.AssertFail($"A worksheet with name {worksheetName} does not exists in the Excel file.");
       }
+      this.SelectedWorksheet = worksheetName;
     }
 
     public void RemoveColumn(string column) {
