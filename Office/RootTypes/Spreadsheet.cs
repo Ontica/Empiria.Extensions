@@ -44,7 +44,13 @@ namespace Empiria.Office {
 
 
     static public Spreadsheet Open(string path) {
-      return new Spreadsheet(path);
+      try {
+        return new Spreadsheet(path);
+      } catch {
+        throw Assertion.AssertNoReachThisCode(
+          "La versión del archivo es anterior a Excel 2007, " +
+          "o tiene celdas con referencias o valores incorrectos.");
+      }
     }
 
 
@@ -90,7 +96,7 @@ namespace Empiria.Office {
     public T ReadCellValue<T>(string cellName) {
       if (HasFormula(cellName)) {
         Assertion.AssertNoReachThisCode(
-          $"Hubo un problema para leer la fórmula contenida en la celda {cellName} en [{SelectedWorksheet}]");
+          $"Hubo un problema al intentar leer la fórmula de la celda {cellName} en [{SelectedWorksheet}]");
       }
 
       if (typeof(T) == typeof(Decimal)) {
