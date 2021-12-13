@@ -142,6 +142,10 @@ namespace Empiria.Office {
       this.SelectedWorksheet = worksheetName;
     }
 
+    public bool IsWorksheetHidden(string worksheetName) {
+      return _spreadsheet.IsWorksheetHidden(worksheetName);
+    }
+
     public void RemoveColumn(string column) {
       _spreadsheet.DeleteColumn(column, 1);
     }
