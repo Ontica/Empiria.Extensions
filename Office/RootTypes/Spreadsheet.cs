@@ -107,6 +107,11 @@ namespace Empiria.Office {
     }
 
 
+    public bool HasValue(string cellName) {
+      return _spreadsheet.HasCellValue(cellName);
+    }
+
+
     public void IndentCell(string cellName, int value) {
       SLStyle style = new SLStyle();
 
@@ -218,10 +223,8 @@ namespace Empiria.Office {
 
       if (styleType == Style.Bold) {
         style.Font.Bold = true;
-        style.Font.FontName = "Courier New";
       } else if (styleType == Style.LineThrough) {
         style.Font.Strike = true;
-        style.Font.FontName = "Courier New";
       }
       return style;
     }
