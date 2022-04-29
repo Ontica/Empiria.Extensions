@@ -21,6 +21,8 @@ namespace Empiria.Office {
   /// <summary>Provides services to interact with Office spreadsheets through SpreadsheetLight.</summary>
   public class Spreadsheet : IDisposable {
 
+    private const string DEFAULT_WORKSHEET_NAME = "Hoja 1";
+
     private readonly SLDocument _spreadsheet;
 
     #region Constructors and parsers
@@ -33,6 +35,10 @@ namespace Empiria.Office {
       _spreadsheet = new SLDocument(path);
     }
 
+    private Spreadsheet(SLDocument document) {
+      _spreadsheet = document;
+    }
+
     static public Spreadsheet Create() {
       return new Spreadsheet();
     }
@@ -40,6 +46,23 @@ namespace Empiria.Office {
 
     static public Spreadsheet CreateFromTemplate(string templatePath) {
       return new Spreadsheet(templatePath);
+    }
+
+
+    static public Spreadsheet CreateFromCSVFile(string csvFilePath) {
+      var document = new SLDocument();
+
+      document.RenameWorksheet(SLDocument.DefaultFirstSheetName, DEFAULT_WORKSHEET_NAME);
+
+      var options = new SLTextImportOptions();
+
+      options.UseCommaDelimiter = true;
+
+      document.ImportText(csvFilePath, "A1", options);
+
+      document.SelectWorksheet(DEFAULT_WORKSHEET_NAME);
+
+      return new Spreadsheet(document);
     }
 
 
@@ -60,7 +83,7 @@ namespace Empiria.Office {
 
     public string SelectedWorksheet {
       get; private set;
-    } = "Hoja 1";
+    } = DEFAULT_WORKSHEET_NAME;
 
 
     public void Close() {
