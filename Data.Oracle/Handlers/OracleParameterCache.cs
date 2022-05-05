@@ -4,7 +4,7 @@
 *  Assembly : Empiria.Data.Oracle.dll                    Pattern   : Stored procedures parameters cache      *
 *  Type     : OracleParameterCache                       License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Wrapper of a static hash table that contains loaded Oracle stored-procedure parameters.        *
+*  Summary  : Wrapper of a static hash table that contains loaded Oracle stored procedure parameters.        *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -16,7 +16,7 @@ using Oracle.ManagedDataAccess.Types;
 
 namespace Empiria.Data.Handlers {
 
-  /// <summary>Wrapper of a static hash table that contains loaded Oracle stored-procedure parameters.</summary>
+  /// <summary>Wrapper of a static hash table that contains loaded Oracle stored procedure parameters.</summary>
   static internal class OracleParameterCache {
 
     #region Fields
@@ -31,11 +31,13 @@ namespace Empiria.Data.Handlers {
       string hashKey = BuildHashKey(connectionString, sourceName);
 
       OracleParameter[] cachedParameters;
+
       if (!parametersCache.TryGetValue(hashKey, out cachedParameters)) {
         OracleParameter[] spParameters = DiscoverParameters(connectionString, sourceName);
         parametersCache[hashKey] = spParameters;
         cachedParameters = spParameters;
       }
+
       return CloneParameters(cachedParameters);
     }
 
@@ -50,6 +52,7 @@ namespace Empiria.Data.Handlers {
         parametersCache[hashKey] = spParameters;
         cachedParameters = spParameters;
       }
+
       return CloneParameters(cachedParameters, parameterValues);
     }
 
@@ -69,6 +72,7 @@ namespace Empiria.Data.Handlers {
       for (int i = 0, j = sourceParameters.Length; i < j; i++) {
         clonedParameters[i] = (OracleParameter) ((ICloneable) sourceParameters[i]).Clone();
       }
+
       return clonedParameters;
     }
 
@@ -79,6 +83,7 @@ namespace Empiria.Data.Handlers {
 
       for (int i = 0, j = sourceParameters.Length; i < j; i++) {
         clonedParameters[i] = (OracleParameter) ((ICloneable) sourceParameters[i]).Clone();
+
         if (sourceParameters[i].Direction != ParameterDirection.Output &&
             sourceParameters[i].Direction != ParameterDirection.ReturnValue) {
           clonedParameters[i].Value = parameterValues[i];
@@ -110,9 +115,11 @@ namespace Empiria.Data.Handlers {
         int i = 0;
 
         while (reader.Read()) {
+
           if (discoveredParameters == null) {
             discoveredParameters = new OracleParameter[(int) reader["ParameterCount"]];
           }
+
           discoveredParameters[i] = new OracleParameter((string) reader["Name"],
                                                         (OracleDbType) reader["ParameterDbType"],
                                                         (ParameterDirection) reader["ParameterDirection"]);

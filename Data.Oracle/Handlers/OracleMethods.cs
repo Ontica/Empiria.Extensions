@@ -126,6 +126,7 @@ namespace Empiria.Data.Handlers {
     public int Execute(IDbTransaction transaction, DataOperation operation) {
       var command = new OracleCommand(operation.SourceName,
                                       (OracleConnection) transaction.Connection);
+
       try {
         operation.PrepareCommand(command);
 
@@ -146,22 +147,20 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public IDataParameter[] GetParameters(string source, string name, object[] values) {
-      return OracleParameterCache.GetParameters(source, name, values);
-    }
-
-
     public byte[] GetBinaryFieldValue(DataOperation operation, string fieldName) {
+      byte[] value = new byte[0];
+
       var reader = (OracleDataReader) this.GetDataReader(operation);
 
       if (reader.Read()) {
         OracleBinary blob = reader.GetOracleBinary(reader.GetOrdinal(fieldName));
 
-        return blob.Value;
-
-      } else {
-        return new byte[0];
+        value = blob.Value;
       }
+
+      reader.Close();
+
+      return value;
     }
 
 
@@ -196,7 +195,7 @@ namespace Empiria.Data.Handlers {
 
       } finally {
         command.Parameters.Clear();
-        //Don't dipose the connection because this method returns a DataReader.
+        // Do not dipose the connection because this method returns a DataReader.
       }
     }
 
@@ -283,6 +282,11 @@ namespace Empiria.Data.Handlers {
         command.Parameters.Clear();
         connection.Dispose();
       }
+    }
+
+
+    public IDataParameter[] GetParameters(string source, string name, object[] values) {
+      return OracleParameterCache.GetParameters(source, name, values);
     }
 
 
