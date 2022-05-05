@@ -1,10 +1,10 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Security                                     Component : Web Api Security Services             *
+*  Module   : Web Api Core Services                        Component : Security services                     *
 *  Assembly : Empiria.WebApi.dll                           Pattern   : Http Filter Attribute                 *
 *  Type     : WebApiAuthorizationFilterAttribute           License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : ASP .NET Web API filter to handle authorization using Empiria security claims.                 *
+*  Summary  : ASP .NET Web Api filter to handle authorization using Empiria security claims.                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -16,7 +16,7 @@ using Empiria.Security.Claims;
 
 namespace Empiria.WebApi {
 
-  /// <summary>ASP .NET Web API filter to handle authorization using Empiria security claims.</summary>
+  /// <summary>ASP .NET Web Api filter to handle authorization using Empiria security claims.</summary>
   [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
   public class WebApiAuthorizationFilterAttribute : AuthorizationFilterAttribute {
 

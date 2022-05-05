@@ -1,11 +1,10 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
-*  Type      : WebApiException                                  Pattern  : Exception Class                   *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Web Api Core Services                        Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Exception Class                       *
+*  Type     : WebApiException                              License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : The exception that is thrown when a web api call fails.                                       *
+*  Summary  : Exceptions that can be thrown inside web api methods.                                          *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -13,7 +12,7 @@ using System.Reflection;
 
 namespace Empiria.WebApi {
 
-  /// <summary>The exception that is thrown when a web api call fails.</summary>
+  /// <summary>Exceptions that can be thrown inside web api methods.</summary>
   public sealed class WebApiException : EmpiriaException {
 
     public enum Msg {
@@ -34,7 +33,7 @@ namespace Empiria.WebApi {
 
     static private string resourceBaseName = "Empiria.WebApi.RootTypes.WebApiExceptionMsg";
 
-    private Msg message = Msg.BadRequest;
+    private readonly Msg message;
 
     #region Constructors and parsers
 
@@ -153,7 +152,7 @@ namespace Empiria.WebApi {
 
 
           default:
-            throw Assertion.AssertNoReachThisCode();
+            throw Assertion.AssertNoReachThisCode($"Unhandled message '{message}'.");
         }
       }
     }

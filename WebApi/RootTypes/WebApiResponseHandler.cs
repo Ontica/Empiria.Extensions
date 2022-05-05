@@ -1,18 +1,19 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
-*  Type      : WebApiResponseHandler                            Pattern  : Http Message Handler              *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Web Api Core Services                        Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Http Message Handler                  *
+*  Type     : WebApiResponseHandler                        License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Message handler used to control Web API authentication.                                       *
+*  Summary  : Message handler used to control Web API authentication.                                        *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections;
 using System.Data;
+
 using System.Net;
 using System.Net.Http;
+
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,22 +22,22 @@ namespace Empiria.WebApi {
   /// <summary>Message handler used to control Web API authentication.</summary>
   public class WebApiResponseHandler : DelegatingHandler {
 
-    #region Public methods
+    #region Override
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                                                                  CancellationToken cancellationToken) {
       var response = await base.SendAsync(request, cancellationToken);
 
-      if (!response.IsSuccessStatusCode) {
-        return this.WrapResponseException(request, response);
-      } else {
+      if (response.IsSuccessStatusCode) {
         return this.WrapResponse(request, response);
+      } else {
+        return this.WrapResponseException(request, response);
       }
     }
 
-    #endregion Public methods
+    #endregion Override
 
-    #region Private methods
+    #region Helpers
 
     private HttpResponseMessage BadRequest400Handler(HttpRequestMessage request) {
       var e = new WebApiException(WebApiException.Msg.BadRequest,
@@ -139,7 +140,7 @@ namespace Empiria.WebApi {
       }
     }
 
-    #endregion Private methods
+    #endregion Helpers
 
   }  // class WebApiResponseHandler
 

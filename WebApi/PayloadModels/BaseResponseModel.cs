@@ -1,13 +1,14 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Web Api                              Component : Payload Models                        *
-*  Assembly : Empiria.WebApi.dll                           Pattern   : Response Model                        *
-*  Type     : BaseResponseModel                            License   : Please read LICENSE.txt file          *
+*  Module   : Web Api Core Services                        Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Base Response Model                   *
+*  Type     : BaseResponseModel<T>                         License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : Abstract class that handles a uniform and consistent web api response. Special responses       *
 *             should be implemented through derived types of this generic type.                              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Collections;
 using System.Data;
@@ -53,7 +54,7 @@ namespace Empiria.WebApi {
 
     #region Public properties
 
-    [DataMember(Name = "status", Order=0)]
+    [DataMember(Name = "status", Order = 0)]
     public string Status {
       get;
       private set;
@@ -143,21 +144,29 @@ namespace Empiria.WebApi {
 
     private string GetTypeName(object data, string typeName) {
       string temp = String.Empty;
+
       if (typeName.Length != 0) {
         temp = typeName;
+
       } else if (data is IIdentifiable) {
         temp = data.GetType().FullName;
+
       } else if (data is DataView) {
         temp = ((DataView) data).Table.TableName;
+
       } else if (data.GetType().IsGenericType &&
                  data.GetType().GetGenericTypeDefinition() == typeof(FixedList<>)) {
         temp = data.GetType().GenericTypeArguments[0].FullName;
+
       } else {
         temp = data.GetType().FullName;
+
       }
+
       if (ExecutionServer.IsSpecialLicense) {
         temp = temp.Replace("Empiria", ExecutionServer.LicenseName);
       }
+
       return temp;
     }
 

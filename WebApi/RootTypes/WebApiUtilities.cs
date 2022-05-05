@@ -1,11 +1,10 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
-*  Type      : WebApiUtilities                                  Pattern  : Static library                    *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Web Api Core Services                        Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Static Library                        *
+*  Type     : WebApiUtilities                              License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Static class with general purpose methods used by the web api framework.                      *
+*  Summary  : Internal static class with general purpose methods used by web api core services.              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -16,7 +15,7 @@ using Empiria.Json;
 
 namespace Empiria.WebApi {
 
-  /// <summary>Static class with general purpose methods used by the web api framework.</summary>
+  /// <summary>Internal static class with general purpose methods used by web api core services.</summary>
   static internal class WebApiUtilities {
 
     #region Public methods
@@ -29,16 +28,18 @@ namespace Empiria.WebApi {
       return new HttpRequestMessage(httpMethod, request.Url);
     }
 
+
     /// <summary>Returns a standard Json object representation of an exception.</summary>
     /// <param name="exception">The exception to return in the standarized Json object.</param>
     /// <param name="request">The request where the exception was generated.</param>
     static internal JsonObject GetExceptionAsJsonObject(Exception exception, HttpRequest request) {
-      var requestMessage = WebApiUtilities.CreateHttpRequestMessage(request);
+      HttpRequestMessage requestMessage = WebApiUtilities.CreateHttpRequestMessage(request);
 
       var model = new ExceptionModel(requestMessage, exception);
 
       return JsonObject.Parse(model);
     }
+
 
     static internal string GetUserHostAddress() {
       if (HttpContext.Current != null && HttpContext.Current.Request != null) {
@@ -47,6 +48,7 @@ namespace Empiria.WebApi {
         return "0.0.0.0";
       }
     }
+
 
     static internal string TryGetRequestHeader(string headerName) {
       var request = HttpContext.Current.Request;
