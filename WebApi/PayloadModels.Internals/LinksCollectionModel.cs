@@ -1,10 +1,10 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Web Api                              Component : Payload Models                        *
-*  Assembly : Empiria.WebApi.dll                           Pattern   : Information Holder                    *
+*  Module   : Web Api Core Services                        Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Materialized List                     *
 *  Type     : LinksCollectionModel                         License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Holds a collection of web links objects.                                                       *
+*  Summary  : List of LinkModel instances.                                                                   *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Empiria.WebApi.Internals {
 
-  /// <summary>Holds a collection of web links objects.</summary>
+  /// <summary>List of LinkModel instances.</summary>
   public class LinksCollectionModel : List<LinkModel> {
 
     #region Constructors and parsers
@@ -20,7 +20,11 @@ namespace Empiria.WebApi.Internals {
     internal LinksCollectionModel(IBaseResponseModel responseModel) {
       Assertion.AssertObject(responseModel, "responseModel");
 
-      this.Add(responseModel.Request.RequestUri.AbsoluteUri, LinkRelation.Self);
+      // ToDo:
+      // Move these default links to some caller
+      //
+      this.Add(responseModel.Request.RequestUri.AbsoluteUri, LinkRelation.Self,
+               responseModel.Request.Method.Method);
 
       this.Add(responseModel.Request.RequestUri.GetLeftPart(UriPartial.Authority) +
                "/api/v1/metadata/types/" + responseModel.TypeName, LinkRelation.Metadata);
@@ -30,14 +34,16 @@ namespace Empiria.WebApi.Internals {
 
     #region Methods
 
-    internal void Add(string url, LinkRelation relation) {
-      var link = new LinkModel(url, relation);
+    internal void Add(string url, LinkRelation relation, string method = "GET") {
+      var link = new LinkModel(url, relation, method);
+
       this.Add(link);
     }
 
 
     internal void Add(string url, string relation, string method = "GET") {
       var link = new LinkModel(url, relation, method);
+
       this.Add(link);
     }
 
