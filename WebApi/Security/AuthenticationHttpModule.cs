@@ -1,16 +1,17 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                     System   : Empiria Web API Services          *
-*  Namespace : Empiria.WebApi                                   Assembly : Empiria.WebApi.dll                *
-*  Type      : AuthenticationHttpModule                         Pattern  : IHttpModule                       *
-*  Version   : 1.1                                              License  : Please read license.txt file      *
+*  Module   : Web Api Core Services                        Component : Security services                     *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Http Module                           *
+*  Type     : AuthenticationHttpModule                     License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary   : Http module for Empiria web api authentication services.                                      *
+*  Summary  : Http module for Empiria Web Api authentication services.                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+
 using System.Net;
 using System.Net.Http.Headers;
+
 using System.Threading;
 using System.Web;
 
@@ -18,21 +19,22 @@ using Empiria.Security;
 
 namespace Empiria.WebApi {
 
-  /// <summary>Http module for Empiria web api authentication services.</summary>
+  /// <summary>Http module for Empiria Web Api authentication services.</summary>
   [Serializable]
   public sealed class AuthenticationHttpModule : IHttpModule {
 
     #region Public methods
 
-
-    static internal EmpiriaPrincipal AuthenticateFormer(string apiClientKey, string userName, string password) {
+    static internal EmpiriaPrincipal AuthenticateFormer(string apiClientKey,
+                                                        string userName,
+                                                        string password) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
       Assertion.AssertObject(userName, "userName");
       Assertion.AssertObject(password, "password");
 
-      EmpiriaPrincipal principal = AuthenticationService.Authenticate(apiClientKey,
-                                                                      userName, password,
-                                                                      String.Empty, null);
+      EmpiriaPrincipal principal =
+              AuthenticationService.Authenticate(apiClientKey, userName, password, String.Empty, null);
+
       SetPrincipal(principal);
 
       return principal;
@@ -41,8 +43,9 @@ namespace Empiria.WebApi {
     static internal EmpiriaPrincipal AuthenticateGuest(string apiClientKey) {
       Assertion.AssertObject(apiClientKey, "apiClientKey");
 
-      EmpiriaPrincipal principal = AuthenticationService.AuthenticateAnonymous(apiClientKey,
-                                                                               AnonymousUser.Guest);
+      EmpiriaPrincipal principal =
+              AuthenticationService.AuthenticateAnonymous(apiClientKey, AnonymousUser.Guest);
+
       SetPrincipal(principal);
 
       return principal;
@@ -54,12 +57,12 @@ namespace Empiria.WebApi {
       SetPrincipalImplementation(principal);
     }
 
-    public void Init(HttpApplication httpApplication) {
-      httpApplication.AuthenticateRequest += OnApplicationAuthenticateRequest;
+    public void Init(HttpApplication context) {
+      context.AuthenticateRequest += OnApplicationAuthenticateRequest;
     }
 
     public void Dispose() {
-
+      // no-op
     }
 
     #endregion Constructors and parsers
@@ -72,20 +75,23 @@ namespace Empiria.WebApi {
       if (String.IsNullOrWhiteSpace(authenticationHeader)) {
         return String.Empty;
       }
+
       var headerValue = AuthenticationHeaderValue.Parse(authenticationHeader);
       // RFC 2617 sec 1.2
       if (headerValue.Scheme.ToLowerInvariant() == "bearer" &&
           headerValue.Parameter != null) {
         return headerValue.Parameter;
+
       } else {
         throw new WebApiException(WebApiException.Msg.BadAuthenticationHeaderFormat);
+
       }
     }
 
     static private void LogAndThrowExceptionAsResponse(HttpStatusCode httpStatusCode,
                                                        Exception exception, WebApiAuditTrail auditLog) {
       // 1) Publish the exception in the eventlog
-      //Messaging.Publisher.Publish(exception);
+      //    Messaging.Publisher.Publish(exception);
 
       // 2) Clear the current response and set their status code
       var response = HttpContext.Current.Response;
@@ -114,24 +120,36 @@ namespace Empiria.WebApi {
 
     static private void OnApplicationAuthenticateRequest(object sender, EventArgs e) {
       var auditLog = new WebApiAuditTrail();
+
       try {
+
         string sessionToken = GetAuthenticationHeaderValue();
+
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
           EmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
 
           SetPrincipal(principal);
+
         } else {
           // no-op
-          // There isn't an authentication header so probably is an AllowAnonymous method call
+          // There isn't an authentication header, so probably is an AllowAnonymous method call
         }
+
       } catch (WebApiException innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx, auditLog);
+
       } catch (SecurityException innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.Unauthorized, innerEx, auditLog);
+
       } catch (AssertionFailsException innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.BadRequest, innerEx, auditLog);
+
+      } catch (ServiceException innerEx) {
+        LogAndThrowExceptionAsResponse(HttpStatusCode.ServiceUnavailable, innerEx, auditLog);
+
       } catch (Exception innerEx) {
         LogAndThrowExceptionAsResponse(HttpStatusCode.InternalServerError, innerEx, auditLog);
+
       }
     }
 

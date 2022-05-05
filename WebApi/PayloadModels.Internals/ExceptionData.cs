@@ -1,10 +1,10 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Web Api                              Component : Payload Models                        *
-*  Assembly : Empiria.WebApi.dll                           Pattern   : Information Holder                    *
+*  Module   : Web Api Core Services                        Component : Payload Models                        *
+*  Assembly : Empiria.WebApi.dll                           Pattern   : Immutable data holder                 *
 *  Type     : ExceptionData                                License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Contains the data for an exception response.                                                   *
+*  Summary  : Contains the Data part used to build an ExceptionResponseModel.                                *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -13,76 +13,74 @@ using System.Runtime.Serialization;
 
 namespace Empiria.WebApi.Internals {
 
-  /// <summary>Contains the data for an exception response.</summary>
+  /// <summary>Contains the Data part used to build an ExceptionResponseModel.</summary>
   [DataContract]
   internal class ExceptionData {
 
-    #region Constructors and parsers
+    #region Constructor
 
     internal ExceptionData(Exception exception) {
       Assertion.AssertObject(exception, "exception");
 
-      this.HttpStatusCode = (HttpStatusCode) ExceptionData.GetHttpStatusCode(exception);
-      this.ErrorCode = this.GetErrorCode(exception);
-      this.Source = this.GetErrorSource(exception);
-      this.Message = this.GetErrorMessage(exception);
-      this.Hint = this.GetHint(exception);
-      if (exception is WebApiException) {
-        this.Issues = ((WebApiException) exception).RequestIssues;
-      } else {
-        this.Issues = new string[0];
-      }
+      this.HttpStatusCode = (HttpStatusCode) GetHttpStatusCode(exception);
+      this.ErrorCode = GetErrorCode(exception);
+      this.Source = GetErrorSource(exception);
+      this.Message = GetErrorMessage(exception);
+      this.Hint = GetHint(exception);
+      this.Issues = GetIssues(exception);
     }
 
-    #endregion Constructors and parsers
+    #endregion Constructor
 
     #region Properties
 
-    [DataMember(Name = "statusCode")]
     public HttpStatusCode HttpStatusCode {
       get;
-      private set;
+    }
+
+
+    [DataMember(Name = "statusCode")]
+    public int StatusCode {
+      get {
+        return (int) this.HttpStatusCode;
+      }
     }
 
 
     [DataMember(Name = "errorCode")]
     public string ErrorCode {
       get;
-      private set;
     }
 
 
     [DataMember(Name = "errorSource")]
     public string Source {
-      get;
-      internal set;
+      get; internal set;
     }
 
 
     [DataMember(Name = "errorMessage")]
     public string Message {
       get;
-      private set;
     }
 
 
     [DataMember(Name = "errorHint")]
     public string Hint {
       get;
-      internal set;
     }
 
 
     [DataMember(Name = "requestIssues")]
     public string[] Issues {
       get;
-      internal set;
     }
 
 
     public bool IsInternalServerError {
       get {
-        return (this.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError);
+        return (this.HttpStatusCode == HttpStatusCode.InternalServerError ||
+                this.HttpStatusCode == HttpStatusCode.ServiceUnavailable);
       }
     }
 
@@ -123,11 +121,15 @@ namespace Empiria.WebApi.Internals {
       if (e is WebApiException) {
         return ((WebApiException) e).Hint;
 
+      } else if (e is ResourceNotFoundException) {
+        return "Please check each of the url parameters to point to valid resources.";
+
+      } else if (e is ServiceException) {
+        return "Please contact the system administrator to check all connections and services.";
+
       } else if (this.IsInternalServerError) {
         return "Please contact technical support with the requestId Guid on " +
                "hand in order to help them track the issue.";
-      } else if (e is ResourceNotFoundException) {
-        return "Please check each of the url parameters to point to valid resources.";
 
       } else {
         return "There is not hint defined for this kind of error.";
@@ -171,9 +173,17 @@ namespace Empiria.WebApi.Internals {
       }
     }
 
+
+    static private string[] GetIssues(Exception exception) {
+      if (exception is WebApiException) {
+        return ((WebApiException) exception).RequestIssues;
+      } else {
+        return new string[0];
+      }
+    }
+
     #endregion Methods
 
   }  // class ExceptionData
 
 } // namespace Empiria.WebApi.Internals
-
