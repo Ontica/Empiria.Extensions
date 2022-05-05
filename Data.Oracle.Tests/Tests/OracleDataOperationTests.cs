@@ -51,9 +51,7 @@ namespace Empiria.Data.Handlers.Tests {
     public void Should_Call_StoredProc_Using_DataOp_and_GetDataRow() {
       var dataOperation = DataOperation.Parse("getUserSession", TestingConstants.SESSION_TOKEN);
 
-      var oracleMethods = new OracleMethods();
-
-      var dataRow = oracleMethods.GetDataRow(dataOperation);
+      var dataRow = DataReader.GetDataRow(dataOperation);
 
       Assert.NotNull(dataRow);
       Assert.Equal(TestingConstants.SESSION_TOKEN, dataRow["SessionToken"]);
@@ -78,9 +76,7 @@ namespace Empiria.Data.Handlers.Tests {
     public void Should_Call_StoredProc_Using_DataOp_and_GetDataView() {
       var dataOperation = DataOperation.Parse("getUserSession", TestingConstants.SESSION_TOKEN);
 
-      var oracleMethods = new OracleMethods();
-
-      var dataView = oracleMethods.GetDataView(dataOperation, string.Empty, string.Empty);
+      var dataView = DataReader.GetDataView(dataOperation);
 
       Assert.NotEmpty(dataView);
       Assert.True(dataView.Count == 1);

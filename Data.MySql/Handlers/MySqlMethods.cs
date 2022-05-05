@@ -24,36 +24,6 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public int CountRows(DataOperation operation) {
-      var connection = new MySqlConnection(operation.DataSource.Source);
-      var command = new MySqlCommand(operation.SourceName, connection);
-
-      try {
-        operation.PrepareCommand(command);
-
-        var dataAdapter = new MySqlDataAdapter(command);
-
-        var dataTable = new DataTable();
-
-        dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-        dataAdapter.Fill(dataTable);
-        dataAdapter.Dispose();
-
-        return dataTable.Rows.Count;
-
-      } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
-
-      } finally {
-        command.Parameters.Clear();
-        connection.Dispose();
-      }
-    }
-
-
     public int Execute(DataOperation operation) {
       var connection = new MySqlConnection(operation.DataSource.Source);
       var command = new MySqlCommand(operation.SourceName, connection);
@@ -183,40 +153,6 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public DataRow GetDataRow(DataOperation operation) {
-      var connection = new MySqlConnection(operation.DataSource.Source);
-      var command = new MySqlCommand(operation.SourceName, connection);
-
-      try {
-        operation.PrepareCommand(command);
-
-        var dataAdapter = new MySqlDataAdapter(command);
-
-        var dataTable = new DataTable(operation.SourceName);
-
-        dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-        dataAdapter.Fill(dataTable);
-        dataAdapter.Dispose();
-
-        if (dataTable.Rows.Count != 0) {
-          return dataTable.Rows[0];
-        } else {
-          return null;
-        }
-
-      } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
-
-      } finally {
-        command.Parameters.Clear();
-        connection.Dispose();
-      }
-    }
-
-
     public DataTable GetDataTable(DataOperation operation, string dataTableName) {
       var connection = new MySqlConnection(operation.DataSource.Source);
       var command = new MySqlCommand(operation.SourceName, connection);
@@ -237,37 +173,6 @@ namespace Empiria.Data.Handlers {
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
-                                       exception,
-                                       operation.SourceName, operation.ParametersToString());
-
-      } finally {
-        command.Parameters.Clear();
-        connection.Dispose();
-      }
-    }
-
-
-    public DataView GetDataView(DataOperation operation, string filter, string sort) {
-      var connection = new MySqlConnection(operation.DataSource.Source);
-      var command = new MySqlCommand(operation.SourceName, connection);
-
-      try {
-        operation.PrepareCommand(command);
-
-        var dataAdapter = new MySqlDataAdapter(command);
-
-        var dataTable = new DataTable(operation.SourceName);
-
-        dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-        dataAdapter.Fill(dataTable);
-        dataAdapter.Dispose();
-
-        return new DataView(dataTable, filter, sort,
-                            DataViewRowState.CurrentRows);
-
-      } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataView,
                                        exception,
                                        operation.SourceName, operation.ParametersToString());
 

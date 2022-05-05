@@ -27,9 +27,7 @@ namespace Empiria.Data.Handlers.Tests {
 
       var rules = DataMappingRules.Parse(typeof(SessionTest));
 
-      var oracleMethods = new OracleMethods();
-
-      var dataRow = oracleMethods.GetDataRow(dataOperation);
+      var dataRow = DataReader.GetDataRow(dataOperation);
 
       SessionTest session = ObjectFactory.CreateObject<SessionTest>();
 

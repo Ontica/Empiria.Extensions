@@ -22,9 +22,7 @@ namespace Empiria.Data.Handlers.Tests {
     public void Should_CountRows() {
       var dataOperation = DataOperation.Parse(TestingConstants.DATA_READER_SQL);
 
-      var oracleMethods = new OracleMethods();
-
-      int value = oracleMethods.CountRows(dataOperation);
+      int value = DataReader.Count(dataOperation);
 
       Assert.True(value >= TestingConstants.DATA_SET_MINIMAL_ROWS_COUNT);
     }
@@ -47,9 +45,7 @@ namespace Empiria.Data.Handlers.Tests {
     public void Should_GetDataRow() {
       var dataOperation = DataOperation.Parse(TestingConstants.GET_INT_SCALAR_SQL);
 
-      var oracleMethods = new OracleMethods();
-
-      var dataRow = oracleMethods.GetDataRow(dataOperation);
+      var dataRow = DataReader.GetDataRow(dataOperation);
 
       Assert.Equal(TestingConstants.SCALAR_VALUE, (long) dataRow[0]);
     }
@@ -85,9 +81,7 @@ namespace Empiria.Data.Handlers.Tests {
     public void Should_GetDataView() {
       var dataOperation = DataOperation.Parse(TestingConstants.DATA_READER_SQL);
 
-      var oracleMethods = new OracleMethods();
-
-      var dataView = oracleMethods.GetDataView(dataOperation, string.Empty, string.Empty);
+      var dataView = DataReader.GetDataView(dataOperation);
 
       Assert.True(dataView.Count >= TestingConstants.DATA_SET_MINIMAL_ROWS_COUNT);
     }
@@ -123,9 +117,7 @@ namespace Empiria.Data.Handlers.Tests {
 
       var dataOperation = DataOperation.Parse(sql);
 
-      var oracleMethods = new OracleMethods();
-
-      var dataRow = oracleMethods.GetDataRow(dataOperation);
+      var dataRow = DataReader.GetDataRow(dataOperation);
 
       Assert.NotNull(dataRow);
 

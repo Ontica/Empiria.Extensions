@@ -28,13 +28,6 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public int CountRows(DataOperation operation) {
-      var dataTable = GetDataTable(operation, String.Empty);
-
-      return dataTable.Rows.Count;
-    }
-
-
     public int Execute(DataOperation operation) {
       var connection = new OracleConnection(operation.DataSource.Source);
       var command = new OracleCommand(operation.SourceName, connection);
@@ -200,17 +193,6 @@ namespace Empiria.Data.Handlers {
     }
 
 
-    public DataRow GetDataRow(DataOperation operation) {
-      DataTable dataTable = GetDataTable(operation, operation.SourceName);
-
-      if (dataTable.Rows.Count != 0) {
-        return dataTable.Rows[0];
-      } else {
-        return null;
-      }
-    }
-
-
     public DataTable GetDataTable(DataOperation operation, string dataTableName) {
       var connection = new OracleConnection(operation.DataSource.Source);
       var command = new OracleCommand(operation.SourceName, connection);
@@ -243,13 +225,6 @@ namespace Empiria.Data.Handlers {
         command.Parameters.Clear();
         connection.Dispose();
       }
-    }
-
-
-    public DataView GetDataView(DataOperation operation, string filter, string sort) {
-      DataTable dataTable = GetDataTable(operation, operation.SourceName);
-
-      return new DataView(dataTable, filter, sort, DataViewRowState.CurrentRows);
     }
 
 
