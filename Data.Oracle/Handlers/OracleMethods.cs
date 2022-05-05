@@ -42,13 +42,16 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
-        connection.Open();
+        TryOpenConnection(connection);
 
         if (ContextUtil.IsInTransaction) {
           connection.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction) ContextUtil.Transaction);
         }
 
         return command.ExecuteNonQuery();
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
@@ -68,7 +71,7 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
-        connection.Open();
+        TryOpenConnection(connection);
 
         if (ContextUtil.IsInTransaction) {
           connection.EnlistDistributedTransaction((System.EnterpriseServices.ITransaction) ContextUtil.Transaction);
@@ -82,6 +85,9 @@ namespace Empiria.Data.Handlers {
           throw new EmpiriaDataException(EmpiriaDataException.Msg.ActionQueryDoesntReturnAValue,
                                          operation.SourceName);
         }
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
@@ -100,7 +106,12 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
+        TryOpenConnection((OracleConnection) connection);
+
         return command.ExecuteNonQuery();
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
@@ -118,7 +129,12 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
+        TryOpenConnection((OracleConnection) transaction.Connection);
+
         return command.ExecuteNonQuery();
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
@@ -167,9 +183,12 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
-        connection.Open();
+        TryOpenConnection(connection);
 
         return command.ExecuteReader(CommandBehavior.CloseConnection);
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataReader,
@@ -206,11 +225,16 @@ namespace Empiria.Data.Handlers {
 
         dataTable.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
+        TryOpenConnection(connection);
+
         dataAdapter.Fill(dataTable);
 
         dataAdapter.Dispose();
 
         return dataTable;
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetDataTable,
@@ -237,7 +261,7 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
-        connection.Open();
+        TryOpenConnection(connection);
 
         OracleDataReader dataReader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
@@ -246,6 +270,9 @@ namespace Empiria.Data.Handlers {
         } else {
           return null;
         }
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetFieldValue,
@@ -266,9 +293,12 @@ namespace Empiria.Data.Handlers {
       try {
         operation.PrepareCommand(command);
 
-        connection.Open();
+        TryOpenConnection(connection);
 
         return command.ExecuteScalar();
+
+      } catch (ServiceException) {
+        throw;
 
       } catch (Exception exception) {
         throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotGetScalar,
@@ -277,6 +307,21 @@ namespace Empiria.Data.Handlers {
       } finally {
         command.Parameters.Clear();
         connection.Dispose();
+      }
+    }
+
+
+    static internal void TryOpenConnection(OracleConnection connection) {
+      try {
+        connection.Open();
+
+      } catch (Exception innerException) {
+        throw new ServiceException("DATABASE_SERVER_CONNECTION_FAILED",
+          "No se pudo hacer una conexión del sistema con la base de datos. " +
+          "Puede ser que el servidor de base de datos no esté disponible, " +
+          "o que la conexión entre el servidor de base de datos " +
+          "y el servidor de aplicaciones se haya perdido.",
+          innerException);
       }
     }
 

@@ -101,7 +101,7 @@ namespace Empiria.Data.Handlers {
         command.Parameters.Add("ReturnedRefCursor", OracleDbType.RefCursor);
         command.Parameters["ReturnedRefCursor"].Direction = ParameterDirection.Output;
 
-        connection.Open();
+        OracleMethods.TryOpenConnection(connection);
 
         command.ExecuteNonQuery();
 
@@ -120,6 +120,7 @@ namespace Empiria.Data.Handlers {
         }
         reader.Close();
       }
+
       return discoveredParameters;
     }
 
