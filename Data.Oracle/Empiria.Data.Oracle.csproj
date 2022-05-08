@@ -55,7 +55,6 @@
     <PackageReference Include="Oracle.ManagedDataAccess" Version="19.11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
