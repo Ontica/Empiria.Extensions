@@ -21,10 +21,10 @@ namespace Empiria.WebApi.Client {
 
     #region Fields
 
-    private static readonly int HTTP_CALL_TIMEOUT_MILLISECONDS =
-                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 5000);
+    private static readonly int DEFAULT_HTTP_CALL_TIMEOUT_SECONDS =
+                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 5);
 
-    private HttpClient httpClient = new HttpClient();
+    private readonly HttpClient httpClient = new HttpClient();
 
     #endregion Fields
 
@@ -32,14 +32,23 @@ namespace Empiria.WebApi.Client {
 
     /// <summary>Initializes a Web API connector to a fixed server.</summary>
     /// <param name="baseAddress">The server's base address.</param>
-    public HttpApiClient(string baseAddress) {
-      try {
-        Assertion.AssertObject(baseAddress, "baseAddress");
+    public HttpApiClient(string baseAddress): this(baseAddress,
+                                              TimeSpan.FromSeconds(DEFAULT_HTTP_CALL_TIMEOUT_SECONDS)) {
+      // no-op
+    }
 
+
+    /// <summary>Initializes a Web API connector to a fixed server.</summary>
+    /// <param name="baseAddress">The server's base address.</param>
+    public HttpApiClient(string baseAddress, TimeSpan timeout) {
+      Assertion.AssertObject(baseAddress, nameof(baseAddress));
+      Assertion.AssertObject(timeout, nameof(timeout));
+
+      try {
         baseAddress = baseAddress.EndsWith("/") ? baseAddress : baseAddress + "/";
 
         httpClient.BaseAddress = new Uri(baseAddress);
-        httpClient.Timeout = new TimeSpan(TimeSpan.TicksPerMillisecond * HTTP_CALL_TIMEOUT_MILLISECONDS);
+        httpClient.Timeout = timeout;
 
         this.LoadDefaultHeaders();
 
@@ -47,6 +56,7 @@ namespace Empiria.WebApi.Client {
         throw new WebApiClientException(WebApiClientException.Msg.UriParsingIssue, e, baseAddress);
       }
     }
+
 
     #endregion Constructors and parsers
 
@@ -56,6 +66,14 @@ namespace Empiria.WebApi.Client {
       get;
       set;
     } = true;
+
+
+
+    public void SetTimeout(TimeSpan timeSpan) {
+      Assertion.AssertObject(timeSpan, nameof(timeSpan));
+
+      httpClient.Timeout = timeSpan;
+    }
 
 
     public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
