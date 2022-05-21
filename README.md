@@ -19,6 +19,7 @@ Empiria Extensions contains the following software components:
   - Empiria Presentation Web
   - Empiria Services Framework
   - Empiria Storage
+  - Empiria Tests
   - Empiria Web Api
   - Empiria Web Api Client
   - Empiria Web Services
@@ -29,4 +30,4 @@ All software components are distributed by the GNU AFFERO GENERAL PUBLIC LICENSE
 
 ## Copyright
 
-Copyright © 2002-2021. La Vía Óntica SC, Ontica LLC and colaborators.
+Copyright © 2002-2022. La Vía Óntica SC, Ontica LLC and colaborators.
