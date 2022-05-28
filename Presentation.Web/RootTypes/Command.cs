@@ -22,7 +22,7 @@ namespace Empiria.Presentation.Web {
     #region Constructors and parsers
 
     public Command(HttpRequest request) {
-      Assertion.AssertObject(request, "request");
+      Assertion.Require(request, "request");
 
       this.Request = request;
     }

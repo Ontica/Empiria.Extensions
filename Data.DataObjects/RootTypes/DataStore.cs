@@ -129,7 +129,7 @@ namespace Empiria.Data.DataObjects {
     }
 
     public FixedList<DataFormField> GetFormFields() {
-      return base.ExtensionData.GetList<DataFormField>("fields").ToFixedList();
+      return base.ExtensionData.GetFixedList<DataFormField>("fields");
     }
 
     public JsonObject GetPDFFormFields() {

@@ -26,7 +26,7 @@ namespace Empiria.WebApi.Client {
     #region Constructors and parsers
 
     internal ServiceHandler(EndpointConfig endpoint) {
-      Assertion.AssertObject(endpoint, "endpoint");
+      Assertion.Require(endpoint, "endpoint");
 
       this.Endpoint = endpoint;
     }
@@ -60,7 +60,7 @@ namespace Empiria.WebApi.Client {
 
 
     internal HttpApiClient PrepareHandler(HttpApiClient handler) {
-      Assertion.AssertObject(handler, "handler");
+      Assertion.Require(handler, "handler");
 
       handler.IncludeAuthorizationHeader = this.Endpoint.IsProtected;
 

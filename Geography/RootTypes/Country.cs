@@ -32,8 +32,8 @@ namespace Empiria.Geography {
     }
 
     public Country(string countryName, string countryCode) : base(countryName) {
-      Assertion.AssertObject(countryName, "countryName");
-      Assertion.Assert(countryCode != null, "countryCode");
+      Assertion.Require(countryName, "countryName");
+      Assertion.Require(countryCode != null, "countryCode");
 
       this.Code = countryCode;
     }
@@ -95,9 +95,9 @@ namespace Empiria.Geography {
 
     public Highway AddHighway(FederalHighwayKind highwayKind, string number,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayKind, "highwayKind");
-      Assertion.AssertObject(number, "number");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(highwayKind, "highwayKind");
+      Assertion.Require(number, "number");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
 
       var highway = new Highway(this, highwayKind, number, fromOriginToDestination);
       highwaysList.Value.Add(highway);
@@ -106,8 +106,8 @@ namespace Empiria.Geography {
     }
 
     public State AddState(string stateName, string stateCode) {
-      Assertion.AssertObject(stateName, "stateName");
-      Assertion.Assert(stateCode != null, "stateCode can't be null.");
+      Assertion.Require(stateName, "stateName");
+      Assertion.Require(stateCode != null, "stateCode can't be null.");
 
       var state = new State(this, stateName, stateCode);
       statesList.Value.Add(state);
@@ -116,7 +116,7 @@ namespace Empiria.Geography {
     }
 
     public void RemoveHighway(Highway highway) {
-      Assertion.AssertObject(highway, "highway");
+      Assertion.Require(highway, "highway");
 
       highway.Remove();
       highwaysList.Value.Remove(highway);

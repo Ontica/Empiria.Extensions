@@ -36,8 +36,8 @@ namespace Empiria.WebApi {
     #region Public methods
 
     public void Write(HttpRequestMessage request, HttpResponseMessage response) {
-      Assertion.AssertObject(request, "request");
-      Assertion.AssertObject(response, "response");
+      Assertion.Require(request, "request");
+      Assertion.Require(response, "response");
 
       this.SetRequest(request);
       this.SetResponse(response);
@@ -46,10 +46,10 @@ namespace Empiria.WebApi {
 
     internal void Write(HttpRequest request, string operationName,
                         HttpResponse response, Exception exception) {
-      Assertion.AssertObject(request, "request");
-      Assertion.AssertObject(operationName, "operationName");
-      Assertion.AssertObject(response, "response");
-      Assertion.AssertObject(exception, "exception");
+      Assertion.Require(request, "request");
+      Assertion.Require(operationName, "operationName");
+      Assertion.Require(response, "response");
+      Assertion.Require(exception, "exception");
 
       this.SetRequest(request, operationName);
       this.SetResponse(response, exception);

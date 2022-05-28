@@ -90,8 +90,8 @@ namespace Empiria.Geography {
     #region Public methods
 
     public Roadway AddRoadway(RoadwayKind roadwayKind, string name) {
-      Assertion.AssertObject(roadwayKind, "roadwayKind");
-      Assertion.AssertObject(name, "name");
+      Assertion.Require(roadwayKind, "roadwayKind");
+      Assertion.Require(name, "name");
 
       var roadway = new Roadway(this, roadwayKind, name);
       roadwaysList.Value.Add(roadway);
@@ -100,8 +100,8 @@ namespace Empiria.Geography {
     }
 
     public Settlement AddSettlement(SettlementKind settlementKind, string settlementName) {
-      Assertion.AssertObject(settlementKind, "settlementKind");
-      Assertion.AssertObject(settlementName, "settlementName");
+      Assertion.Require(settlementKind, "settlementKind");
+      Assertion.Require(settlementName, "settlementName");
 
       var settlement = new Settlement(this, settlementKind, settlementName);
 
@@ -111,7 +111,7 @@ namespace Empiria.Geography {
     }
 
     public void RemoveRoadway(Roadway roadway) {
-      Assertion.AssertObject(roadway, "roadway");
+      Assertion.Require(roadway, "roadway");
 
       roadway.Remove();
       roadwaysList.Value.Remove(roadway);

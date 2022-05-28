@@ -45,7 +45,7 @@ namespace Empiria.Postings.WebApi {
 
         var posting = ObjectPosting.Parse(postingUID);
 
-        Assertion.Assert(posting.ObjectUID == objectUID,
+        Assertion.Require(posting.ObjectUID == objectUID,
                          $"posting.UID '{postingUID}' is not related with object.UID = '{objectUID}'.");
 
         return new SingleObjectModel(this.Request, posting.ToResponse(),

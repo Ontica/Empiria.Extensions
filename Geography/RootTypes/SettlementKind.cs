@@ -37,7 +37,7 @@ namespace Empiria.Geography {
     }
 
     static public SettlementKind Parse(string value) {
-      Assertion.AssertObject(value, "value");
+      Assertion.Require(value, "value");
       if (value == SettlementKind.Empty.Value) {
         return SettlementKind.Empty;
       }

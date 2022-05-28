@@ -18,7 +18,7 @@ namespace Empiria.WebApi.Internals {
     #region Constructors and parsers
 
     internal LinksCollectionModel(IBaseResponseModel responseModel) {
-      Assertion.AssertObject(responseModel, "responseModel");
+      Assertion.Require(responseModel, "responseModel");
 
       // ToDo:
       // Move these default links to some caller

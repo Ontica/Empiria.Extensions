@@ -76,9 +76,10 @@ namespace Empiria.WebApi.Controllers {
 
         EmpiriaPrincipal principal = this.GetPrincipal(login);
 
-        string claimsToken = ((IClaimsSubject) clientApp).ClaimsToken;
+        string claimsToken = clientApp.ClaimsToken;
 
-        ClaimsService.EnsureClaim(principal.Identity.User, ClaimType.UserAppAccess, claimsToken,
+        ClaimsService.EnsureClaim(principal.Identity.User,
+                                  ClaimType.UserClientApplication, claimsToken,
                                   $"{principal.Identity.User.UserName} does not have access permissions " +
                                   $"to this application {claimsToken}.");
 
@@ -119,7 +120,7 @@ namespace Empiria.WebApi.Controllers {
       EmpiriaPrincipal principal = AuthenticationHttpModule.AuthenticateFormer(login.api_key,
                                                                                login.user_name,
                                                                                login.password);
-      Assertion.AssertObject(principal, "principal");
+      Assertion.Ensure(principal, nameof(principal));
 
       return principal;
     }

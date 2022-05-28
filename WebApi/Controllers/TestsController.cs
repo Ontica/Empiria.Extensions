@@ -72,7 +72,7 @@ namespace Empiria.WebApi.Controllers {
     [Route("v1/tests/post-with-body")]
     public SingleObjectModel TestPostWithBody([FromBody] object body) {
       try {
-        Assertion.AssertObject(body, "Body can't be null or empty.");
+        Assertion.Require(body, "Body can't be null or empty.");
 
         return new SingleObjectModel(base.Request, body);
       } catch (Exception e) {

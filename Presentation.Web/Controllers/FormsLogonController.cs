@@ -55,7 +55,7 @@ namespace Empiria.Presentation.Web.Controllers {
     }
 
     protected override void OnAuthenticate(EmpiriaPrincipal principal) {
-      Assertion.AssertObject(principal, "principal");
+      Assertion.Require(principal, "principal");
 
       EmpiriaIdentity identity = principal.Identity;
 
@@ -65,7 +65,7 @@ namespace Empiria.Presentation.Web.Controllers {
       HttpContext.Current.User = principal;
       AttemptsCount = 0;
 
-      Assertion.AssertObject(WebContext.WorkplaceManager, "WebContext.WorkplaceManager");
+      Assertion.Ensure(WebContext.WorkplaceManager, "WebContext.WorkplaceManager");
 
       WebContext.WorkplaceManager.Start(true);
     }

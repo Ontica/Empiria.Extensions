@@ -172,9 +172,9 @@ namespace Empiria.WebApi {
 
 
     private void Initialize(HttpRequestMessage request, T data, string typeName) {
-      Assertion.AssertObject(request, "request");
-      Assertion.AssertObject(data, "data");
-      Assertion.Assert(typeName != null, "typeName can't be null");
+      Assertion.Require(request, "request");
+      Assertion.Require(data, "data");
+      Assertion.Require(typeName, "typeName can't be null");
 
       this.Request = request;
       this.TypeName = this.GetTypeName(data, typeName);
@@ -183,7 +183,7 @@ namespace Empiria.WebApi {
 
 
     internal void RefreshData(T newData) {
-      Assertion.AssertObject(newData, "newData");
+      Assertion.Require(newData, "newData");
 
       this.Data = newData;
       this.DataItemsCount = this.GetReturnedItems(newData);

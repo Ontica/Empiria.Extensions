@@ -61,8 +61,8 @@ namespace Empiria.WebApi {
 
 
     public T GetFromBody<T>(object body, string itemPath) {
-      Assertion.AssertObject(body, "body");
-      Assertion.AssertObject(itemPath, "itemPath");
+      Assertion.Require(body, "body");
+      Assertion.Require(itemPath, "itemPath");
 
       var json = JsonObject.Parse(body);
 
@@ -136,7 +136,7 @@ namespace Empiria.WebApi {
     }
 
     protected void RequireHeader(string headerName) {
-      Assertion.AssertObject(headerName, "headerName");
+      Assertion.Require(headerName, "headerName");
 
       if (!base.Request.Headers.Contains(headerName)) {
         throw new WebApiException(WebApiException.Msg.RequestHeaderMissed, headerName);

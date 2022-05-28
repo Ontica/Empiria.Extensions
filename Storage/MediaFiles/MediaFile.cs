@@ -29,8 +29,8 @@ namespace Empiria.Storage {
 
 
     static internal T Create<T>(MediaStorage storage, MediaFileFields fields) where T : MediaFile {
-      Assertion.AssertObject(storage, "storage");
-      Assertion.AssertObject(fields, "fields");
+      Assertion.Require(storage, "storage");
+      Assertion.Require(fields, "fields");
 
       T mediaFile = Empiria.Reflection.ObjectFactory.CreateObject<T>();
 
@@ -198,7 +198,7 @@ namespace Empiria.Storage {
     #region Methods
 
     internal void Delete() {
-      Assertion.Assert(this.Status == EntityStatus.Active,
+      Assertion.Ensure(this.Status == EntityStatus.Active,
                        "MediaObject must be in 'Active' status.");
 
       this.Status = EntityStatus.Deleted;

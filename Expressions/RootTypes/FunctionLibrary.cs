@@ -43,7 +43,7 @@ namespace Empiria.Expressions {
     }
 
     public Function GetFunction(string itemName) {
-      Assertion.AssertObject(itemName, "itemName");
+      Assertion.Require(itemName, "itemName");
 
       return collection[itemName];
     }

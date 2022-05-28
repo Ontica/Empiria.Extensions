@@ -27,9 +27,9 @@ namespace Empiria.Postings {
 
 
     public Posting(string postingType, BaseObject nodeObject, BaseObject postedItem) {
-      Assertion.AssertObject(postingType, "postingType");
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postedItem, "postedItem");
+      Assertion.Require(postingType, "postingType");
+      Assertion.Require(nodeObject, "nodeObject");
+      Assertion.Require(postedItem, "postedItem");
 
       this.PostingType = postingType;
       this.NodeObjectUID = nodeObject.UID;

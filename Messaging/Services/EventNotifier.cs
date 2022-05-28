@@ -52,7 +52,7 @@ namespace Empiria.Messaging {
     #region Private methods
 
     static private void NotifyImplementation(string eventName) {
-      Assertion.AssertObject(eventName, "eventName");
+      Assertion.Require(eventName, "eventName");
 
       //var message = new EventMessage(eventName);
 
@@ -61,8 +61,8 @@ namespace Empiria.Messaging {
 
 
     static private void NotifyImplementation(string eventName, JsonObject payload) {
-      Assertion.AssertObject(eventName, "eventName");
-      Assertion.AssertObject(payload, "payload");
+      Assertion.Require(eventName, "eventName");
+      Assertion.Require(payload, "payload");
 
       //var message = new EventMessage(eventName, payload);
 

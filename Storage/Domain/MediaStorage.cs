@@ -85,7 +85,7 @@ namespace Empiria.Storage {
 
 
     internal void Delete() {
-      Assertion.Assert(this.Status == EntityStatus.Active,
+      Assertion.Ensure(this.Status == EntityStatus.Active,
                        "MediaStorage must be in 'Active' status.");
 
       this.Status = EntityStatus.Deleted;

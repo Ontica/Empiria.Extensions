@@ -28,9 +28,9 @@ namespace Empiria.WebApi {
     static internal EmpiriaPrincipal AuthenticateFormer(string apiClientKey,
                                                         string userName,
                                                         string password) {
-      Assertion.AssertObject(apiClientKey, "apiClientKey");
-      Assertion.AssertObject(userName, "userName");
-      Assertion.AssertObject(password, "password");
+      Assertion.Require(apiClientKey, "apiClientKey");
+      Assertion.Require(userName, "userName");
+      Assertion.Require(password, "password");
 
       EmpiriaPrincipal principal =
               AuthenticationService.Authenticate(apiClientKey, userName, password, String.Empty, null);
@@ -41,7 +41,7 @@ namespace Empiria.WebApi {
     }
 
     static internal EmpiriaPrincipal AuthenticateGuest(string apiClientKey) {
-      Assertion.AssertObject(apiClientKey, "apiClientKey");
+      Assertion.Require(apiClientKey, "apiClientKey");
 
       EmpiriaPrincipal principal =
               AuthenticationService.AuthenticateAnonymous(apiClientKey, AnonymousUser.Guest);
@@ -52,7 +52,7 @@ namespace Empiria.WebApi {
     }
 
     static internal void SetPrincipal(EmpiriaPrincipal principal) {
-      Assertion.AssertObject(principal, "principal");
+      Assertion.Require(principal, "principal");
 
       SetPrincipalImplementation(principal);
     }

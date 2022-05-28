@@ -24,11 +24,11 @@ namespace Empiria.Storage {
     static public Posting CreateMediaFilePosting(HttpRequest request,
                                                  BaseObject nodeObject,
                                                  string postingType) {
-      Assertion.AssertObject(request, "request");
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(request, "request");
+      Assertion.Require(nodeObject, "nodeObject");
+      Assertion.Require(postingType, "postingType");
 
-      EnsureIsValidRequest(request);
+      EnsureValidRequest(request);
 
       var form = HttpContext.Current.Request.Form;
 
@@ -58,12 +58,12 @@ namespace Empiria.Storage {
 
     #region Private methods
 
-    static private void EnsureIsValidRequest(HttpRequest request) {
-      Assertion.Assert(request.ContentType.StartsWith("multipart/form-data"),
+    static private void EnsureValidRequest(HttpRequest request) {
+      Assertion.Ensure(request.ContentType.StartsWith("multipart/form-data"),
                        $"Invalid request content type '{request.ContentType}'.");
 
       if (request.Files == null || request.Files.Count != 1) {
-        Assertion.AssertFail($"Invalid request. There are no files and one was expected.");
+        Assertion.EnsureFailed("Invalid request. There are no files and one was expected.");
       }
     }
 

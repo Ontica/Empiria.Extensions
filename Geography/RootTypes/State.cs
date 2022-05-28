@@ -106,7 +106,7 @@ namespace Empiria.Geography {
 
     /// <summary>Adds a municipality to the state.</summary>
     public Municipality AddMunicipality(string municipalityName) {
-      Assertion.AssertObject(municipalityName, "municipalityName");
+      Assertion.Require(municipalityName, "municipalityName");
 
       var municipality = new Municipality(this, municipalityName);
       municipalitiesList.Value.Add(municipality);
@@ -117,8 +117,8 @@ namespace Empiria.Geography {
     /// <summary>Adds a new state highway without an offical highway number.</summary>
     public Highway AddHighway(StateHighwayKind highwayKind,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayKind, "highwayKind");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(highwayKind, "highwayKind");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
 
       var highway = new Highway(this, highwayKind, fromOriginToDestination);
       highwaysList.Value.Add(highway);
@@ -129,9 +129,9 @@ namespace Empiria.Geography {
     /// <summary>Adds a new state highway with a designated official highway number.</summary>
     public Highway AddHighway(StateHighwayKind highwayKind, string highwayNumber,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayKind, "highwayKind");
-      Assertion.AssertObject(highwayNumber, "highwayNumber");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(highwayKind, "highwayKind");
+      Assertion.Require(highwayNumber, "highwayNumber");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
 
       var highway = new Highway(this, highwayKind, highwayNumber, fromOriginToDestination);
       highwaysList.Value.Add(highway);
@@ -142,8 +142,8 @@ namespace Empiria.Geography {
     /// <summary>Adds a new rural highway to the state.</summary>
     public Highway AddHighway(RuralHighwayKind ruralHighwayKind,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(ruralHighwayKind, "ruralHighwayKind");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(ruralHighwayKind, "ruralHighwayKind");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
 
       var highway = new Highway(this, ruralHighwayKind, fromOriginToDestination);
       highwaysList.Value.Add(highway);
@@ -154,7 +154,7 @@ namespace Empiria.Geography {
     /// <summary>Throws an exception if the given postal code is not valid for
     /// the state postal code rules.</summary>
     internal void AssertPostalCodeIsValid(string value) {
-      Assertion.Assert(value != null, "value can't be null");
+      Assertion.Require(value != null, "value can't be null");
       if (value.Length == 0 || this.PostalCodesPattern.Length == 0) {
         return;
       }
@@ -165,7 +165,7 @@ namespace Empiria.Geography {
 
     /// <summary>Remove a highway from the state.</summary>
     public void RemoveHighway(Highway highway) {
-      Assertion.AssertObject(highway, "highway");
+      Assertion.Require(highway, "highway");
 
       highway.Remove();
       highwaysList.Value.Remove(highway);

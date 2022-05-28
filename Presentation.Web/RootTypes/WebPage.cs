@@ -164,7 +164,7 @@ namespace Empiria.Presentation.Web {
     }
 
     protected string GetCommandParameter(string parameterName, bool required, object defaultValue) {
-      Assertion.AssertObject(parameterName, "parameterName");
+      Assertion.Require(parameterName, "parameterName");
 
       string value = String.IsNullOrEmpty(this.CommandParameters[parameterName]) ?
                                           String.Empty : this.CommandParameters[parameterName];

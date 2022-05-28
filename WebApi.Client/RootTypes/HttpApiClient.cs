@@ -41,8 +41,8 @@ namespace Empiria.WebApi.Client {
     /// <summary>Initializes a Web API connector to a fixed server.</summary>
     /// <param name="baseAddress">The server's base address.</param>
     public HttpApiClient(string baseAddress, TimeSpan timeout) {
-      Assertion.AssertObject(baseAddress, nameof(baseAddress));
-      Assertion.AssertObject(timeout, nameof(timeout));
+      Assertion.Require(baseAddress, nameof(baseAddress));
+      Assertion.Require(timeout, nameof(timeout));
 
       try {
         baseAddress = baseAddress.EndsWith("/") ? baseAddress : baseAddress + "/";
@@ -70,7 +70,7 @@ namespace Empiria.WebApi.Client {
 
 
     public void SetTimeout(TimeSpan timeSpan) {
-      Assertion.AssertObject(timeSpan, nameof(timeSpan));
+      Assertion.Require(timeSpan, nameof(timeSpan));
 
       httpClient.Timeout = timeSpan;
     }
@@ -203,8 +203,7 @@ namespace Empiria.WebApi.Client {
         return httpClient.DeleteAsync(fullPath);
 
       } else {
-        throw Assertion.AssertNoReachThisCode("Http method handler not defined for '{0}'.",
-                                              method.Method);
+        throw Assertion.EnsureNoReachThisCode($"Http method handler not defined for '{method.Method}'.");
       }
     }
 
@@ -228,7 +227,7 @@ namespace Empiria.WebApi.Client {
 
     private Task<HttpResponseMessage> SendRequestAsync(HttpMethod method,  object body,
                                                        string path, object[] pars) {
-      Assertion.AssertObject(path, "path");
+      Assertion.Require(path, "path");
 
       string fullPath = EmpiriaString.Format(path, pars);
       fullPath = UtilityMethods.RemoveDataScopeFromPath(fullPath);

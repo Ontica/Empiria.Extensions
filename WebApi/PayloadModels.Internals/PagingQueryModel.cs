@@ -28,7 +28,7 @@ namespace Empiria.WebApi.Internals {
       get {
         int skip = base.GetQueryStringValue<int>("$skip", 0);
 
-        Assertion.Assert(skip >= 0, "$skip query parameter should be greater or equal to zero.");
+        Assertion.Require(skip >= 0, "$skip query parameter should be greater or equal to zero.");
 
         return skip;
       }
@@ -40,7 +40,7 @@ namespace Empiria.WebApi.Internals {
       get {
         int top = base.GetQueryStringValue<int>("$top", 50);
 
-        Assertion.Assert(top >= 1, "$top query parameter should be greater or equal to one.");
+        Assertion.Require(top >= 1, "$top query parameter should be greater or equal to one.");
 
         return top;
       }

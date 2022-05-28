@@ -17,7 +17,7 @@ namespace Empiria.Postings {
 
 
     static public FixedList<T> GetNodeObjects<T>(string postingType) where T : BaseObject {
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetNodeObjectsList<T>(postingType);
     }
@@ -25,21 +25,21 @@ namespace Empiria.Postings {
 
     static public FixedList<T> GetNodeObjects<T>(BaseObject postedItem,
                                                  string postingType) where T : BaseObject {
-      Assertion.AssertObject(postedItem, "postedItem");
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(postedItem, "postedItem");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetNodeObjectsList<T>(postedItem, postingType);
     }
 
 
     static public FixedList<T> GetPostedItems<T>(BaseObject nodeObject) where T : BaseObject {
-      Assertion.AssertObject(nodeObject, "nodeObject");
+      Assertion.Require(nodeObject, "nodeObject");
 
       return PostingsData.GetPostedItemsList<T>(nodeObject);
     }
 
     static public FixedList<T> GetPostedItems<T>(string postingType) where T : BaseObject {
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetPostedItemsList<T>(postingType);
     }
@@ -47,15 +47,15 @@ namespace Empiria.Postings {
 
     static public FixedList<T> GetPostedItems<T>(BaseObject nodeObject,
                                                  string postingType) where T: BaseObject {
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(nodeObject, "nodeObject");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetPostedItemsList<T>(nodeObject, postingType);
     }
 
 
     static public FixedList<Posting> GetPostings(string postingType) {
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetPostingsList(postingType);
 
@@ -63,16 +63,16 @@ namespace Empiria.Postings {
 
 
     static public FixedList<Posting> GetPostings(BaseObject nodeObject, string postingType) {
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(nodeObject, "nodeObject");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetPostingsList(nodeObject, postingType);
     }
 
 
     static public Posting GetPosting(BaseObject nodeObject, BaseObject postedItem) {
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postedItem, "postedItem");
+      Assertion.Require(nodeObject, "nodeObject");
+      Assertion.Require(postedItem, "postedItem");
 
       return PostingsData.GetPosting(nodeObject, postedItem);
     }
@@ -80,17 +80,17 @@ namespace Empiria.Postings {
     static public FixedList<Posting> GetPostings(BaseObject nodeObject,
                                                  BaseObject postedItem,
                                                  string postingType) {
-      Assertion.AssertObject(nodeObject, "nodeObject");
-      Assertion.AssertObject(postedItem, "postedItem");
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(nodeObject, "nodeObject");
+      Assertion.Require(postedItem, "postedItem");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetPostingsList(nodeObject, postedItem, postingType);
     }
 
 
     static public FixedList<Posting> GetPostingsForPostedItem(BaseObject postedItem, string postingType) {
-      Assertion.AssertObject(postedItem, "postedItem");
-      Assertion.AssertObject(postingType, "postingType");
+      Assertion.Require(postedItem, "postedItem");
+      Assertion.Require(postingType, "postingType");
 
       return PostingsData.GetPostingsForPostedItemList(postedItem, postingType);
     }

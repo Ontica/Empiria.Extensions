@@ -25,7 +25,7 @@ namespace Empiria.Messaging.EMailDelivery {
 
 
     public SendTo(string address) {
-      Assertion.AssertObject(address, "address");
+      Assertion.Require(address, "address");
 
       this.Address = address;
     }
@@ -33,7 +33,7 @@ namespace Empiria.Messaging.EMailDelivery {
 
     public SendTo(string address, string displayName = null,
                   string sendWhen = null, string ruleName = "Default") {
-      Assertion.AssertObject(address, "address");
+      Assertion.Require(address, "address");
 
       this.Address = address;
       this.Name = displayName ?? String.Empty;

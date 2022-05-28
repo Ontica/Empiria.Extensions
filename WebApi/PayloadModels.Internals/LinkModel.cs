@@ -26,9 +26,9 @@ namespace Empiria.WebApi.Internals {
 
 
     internal LinkModel(string url, string relation, string method = "GET") {
-      Assertion.AssertObject(url, "url");
-      Assertion.AssertObject(relation, "relation");
-      Assertion.AssertObject(method, "method");
+      Assertion.Require(url, "url");
+      Assertion.Require(relation, "relation");
+      Assertion.Require(method, "method");
 
       this.Url = url;
       this.Relation = relation;

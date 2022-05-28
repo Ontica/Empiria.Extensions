@@ -70,7 +70,7 @@ namespace Empiria.Office {
       try {
         return new Spreadsheet(path);
       } catch {
-        throw Assertion.AssertNoReachThisCode(
+        throw Assertion.EnsureNoReachThisCode(
           "La versión del archivo es anterior a Excel 2007, " +
           "o tiene celdas con referencias o valores incorrectos.");
       }
@@ -123,7 +123,7 @@ namespace Empiria.Office {
 
     public T ReadCellValue<T>(string cellName) {
       if (HasFormula(cellName)) {
-        Assertion.AssertNoReachThisCode(
+        Assertion.EnsureNoReachThisCode(
           $"Hubo un problema al intentar leer la fórmula de la celda {cellName} en [{SelectedWorksheet}]");
       }
 
@@ -162,10 +162,10 @@ namespace Empiria.Office {
     }
 
     public void SelectWorksheet(string worksheetName) {
-      Assertion.AssertObject(worksheetName, "worksheetName");
+      Assertion.Require(worksheetName, "worksheetName");
 
       if (!_spreadsheet.SelectWorksheet(worksheetName)) {
-        Assertion.AssertFail($"A worksheet with name {worksheetName} does not exists in the Excel file.");
+        Assertion.RequireFail($"A worksheet with name {worksheetName} does not exists in the Excel file.");
       }
       this.SelectedWorksheet = worksheetName;
     }

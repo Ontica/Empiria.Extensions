@@ -20,7 +20,7 @@ namespace Empiria.WebApi.Internals {
     #region Constructor
 
     internal ExceptionData(Exception exception) {
-      Assertion.AssertObject(exception, "exception");
+      Assertion.Require(exception, "exception");
 
       this.HttpStatusCode = (HttpStatusCode) GetHttpStatusCode(exception);
       this.ErrorCode = GetErrorCode(exception);

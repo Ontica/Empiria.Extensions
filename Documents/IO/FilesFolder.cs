@@ -398,7 +398,7 @@ namespace Empiria.Documents.IO {
     }
 
     protected override void OnSave() {
-      Assertion.AssertObject(this.Reference, "FilesFolder.Reference can't be null.");
+      Assertion.Require(this.Reference, "FilesFolder.Reference can't be null.");
       DocumentsData.WriteFilesFolder(this);
     }
 

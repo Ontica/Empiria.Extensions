@@ -20,7 +20,7 @@ namespace Empiria.Cognition {
     #region Public services
 
     static public Task<string> Translate(string text, Language translateTo) {
-      Assertion.AssertObject(translateTo, "translateTo");
+      Assertion.Require(translateTo, "translateTo");
 
       if (String.IsNullOrWhiteSpace(text)) {
         return Task.FromResult(text);

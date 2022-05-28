@@ -52,7 +52,7 @@ namespace Empiria.Geography {
     }
 
     static public HighwaySection Parse(string section) {
-      Assertion.AssertObject(section, "section");
+      Assertion.Require(section, "section");
 
       return new HighwaySection(true, section);
     }
@@ -77,14 +77,14 @@ namespace Empiria.Geography {
     #region Private methods
 
     static private string BuildName(string destinationPlace) {
-      Assertion.AssertObject(destinationPlace, "destinationPlace");
+      Assertion.Require(destinationPlace, "destinationPlace");
 
       return "a " + EmpiriaString.ToProperNoun(destinationPlace);
     }
 
     static private string BuildName(string originPlace, string destinationPlace) {
-      Assertion.AssertObject(originPlace, "originPlace");
-      Assertion.AssertObject(destinationPlace, "destinationPlace");
+      Assertion.Require(originPlace, "originPlace");
+      Assertion.Require(destinationPlace, "destinationPlace");
 
       return EmpiriaString.ToProperNoun(originPlace) + " - " +
              EmpiriaString.ToProperNoun(destinationPlace);

@@ -36,9 +36,9 @@ namespace Empiria.Storage {
     public async Task<T> CreateMediaFile<T>(MediaStorage storage,
                                             MediaFileFields fields,
                                             Stream inputStream) where T: MediaFile {
-      Assertion.AssertObject(storage, "storage");
-      Assertion.AssertObject(fields, "fields");
-      Assertion.AssertObject(inputStream, "inputStream");
+      Assertion.Require(storage, "storage");
+      Assertion.Require(fields, "fields");
+      Assertion.Require(inputStream, "inputStream");
 
       fields.FileHashCode = StorageUtilityMethods.CalculateStreamHashCode(inputStream);
 

@@ -30,8 +30,8 @@ namespace Empiria.Expressions {
     }
 
     static public Functor Parse(string functionName, int functionArity) {
-      Assertion.AssertObject(functionName, "functionName");
-      Assertion.Assert(functionArity >= 0, "Function arity less than zero");
+      Assertion.Require(functionName, "functionName");
+      Assertion.Require(functionArity >= 0, "Function arity less than zero");
 
       return new Functor(functionName, functionArity);
     }

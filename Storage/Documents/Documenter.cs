@@ -45,21 +45,21 @@ namespace Empiria.Storage.Documents {
     #region Definer documentation rules
 
     public void AddDocumentationRule(DocumentationRule rule) {
-      Assertion.AssertObject(rule, "rule");
+      Assertion.Require(rule, "rule");
 
       _documentationRules.Add(rule);
     }
 
 
     public void RemoveDocumentationRule(DocumentationRule rule) {
-      Assertion.AssertObject(rule, "rule");
+      Assertion.Require(rule, "rule");
 
       _documentationRules.Remove(rule);
     }
 
 
     public void UpdateDocumentationRule(DocumentationRule rule) {
-      Assertion.AssertObject(rule, "rule");
+      Assertion.Require(rule, "rule");
 
       int index = _documentationRules.IndexOf(rule);
 

@@ -31,7 +31,7 @@ namespace Empiria.Tests {
 
 
     static public void Authenticate(string sessionToken) {
-      Assertion.AssertObject(sessionToken, nameof(sessionToken));
+      Assertion.Require(sessionToken, nameof(sessionToken));
 
       Thread.CurrentPrincipal = AuthenticationService.Authenticate(sessionToken);
     }

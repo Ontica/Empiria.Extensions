@@ -30,7 +30,7 @@ namespace Empiria.Postings {
 
 
     public ObjectPosting(string objectUID, JsonObject data) {
-      Assertion.AssertObject(objectUID, "objectUID");
+      Assertion.Require(objectUID, "objectUID");
       this.AssertIsValid(data);
 
       this.ObjectUID = objectUID;
@@ -50,7 +50,7 @@ namespace Empiria.Postings {
 
 
     static public FixedList<ObjectPosting> GetList(string objectUID, string keywords = "") {
-      Assertion.AssertObject(objectUID, "objectUID");
+      Assertion.Require(objectUID, "objectUID");
 
       return PostingsData.GetObjectPostingsList(objectUID, keywords);
     }
@@ -207,7 +207,7 @@ namespace Empiria.Postings {
 
 
     public void Update(JsonObject data) {
-      Assertion.AssertObject(data, "data");
+      Assertion.Require(data, "data");
 
       this.AssertIsValid(data);
 
@@ -221,7 +221,7 @@ namespace Empiria.Postings {
     #region Private methods
 
     private void AssertIsValid(JsonObject data) {
-      Assertion.AssertObject(data, "data");
+      Assertion.Require(data, "data");
 
     }
 

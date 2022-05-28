@@ -32,7 +32,7 @@ namespace Empiria.Messaging {
 
 
     protected FormerMessage(MessageType messageType, JsonObject data): base(messageType) {
-      Assertion.AssertObject(data, "data");
+      Assertion.Require(data, "data");
 
       this.MessageData = data;
     }
@@ -137,7 +137,7 @@ namespace Empiria.Messaging {
 
 
     internal void Enqueue(MessageQueue queue, string unitOfWorkUID = null) {
-      Assertion.AssertObject(queue, "queue");
+      Assertion.Require(queue, "queue");
 
       this.Queue = queue;
       this.UnitOfWorkUID = unitOfWorkUID ?? String.Empty;
@@ -147,7 +147,7 @@ namespace Empiria.Messaging {
 
 
     protected override void OnSave() {
-      Assertion.AssertObject(this.Queue, "Message's queue can't be null.");
+      Assertion.Require(this.Queue, "Message's queue can't be null.");
 
       if (base.IsNew) {
         this.PostingTime = DateTime.Now;

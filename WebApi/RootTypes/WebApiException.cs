@@ -152,7 +152,7 @@ namespace Empiria.WebApi {
 
 
           default:
-            throw Assertion.AssertNoReachThisCode($"Unhandled message '{message}'.");
+            throw Assertion.EnsureNoReachThisCode($"Unhandled message '{message}'.");
         }
       }
     }

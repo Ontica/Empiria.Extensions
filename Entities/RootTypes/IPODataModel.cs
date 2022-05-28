@@ -17,7 +17,7 @@ namespace Empiria.Entities {
     #region Constructors and parsers
 
     public IPODataModel(IIdentifiable modelFor) {
-      Assertion.AssertObject(modelFor, "modelFor");
+      Assertion.Require(modelFor, "modelFor");
 
       this.ModelFor = modelFor;
     }

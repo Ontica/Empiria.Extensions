@@ -22,7 +22,7 @@ namespace Empiria.WebApi.Client {
 
     #region Fields
 
-    private Dictionary<string, ServiceHandler> services = new Dictionary<string, ServiceHandler>();
+    private readonly Dictionary<string, ServiceHandler> services = new Dictionary<string, ServiceHandler>();
 
     #endregion Fields
 
@@ -53,7 +53,7 @@ namespace Empiria.WebApi.Client {
     #region Public methods
 
     public ServiceHandler GetService(HttpMethod method, string serviceUID) {
-      Assertion.AssertObject(serviceUID, "serviceUID");
+      Assertion.Require(serviceUID, "serviceUID");
 
       string searchKey = String.Empty;
 

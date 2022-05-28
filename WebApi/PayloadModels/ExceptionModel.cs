@@ -83,7 +83,7 @@ namespace Empiria.WebApi {
     #region Helpers
 
     static private string GetErrorSource(HttpRequestMessage request) {
-      Assertion.AssertObject(request, "request");
+      Assertion.Require(request, "request");
 
       var actionDescriptor = request.GetActionDescriptor();
 
@@ -97,8 +97,8 @@ namespace Empiria.WebApi {
 
 
     static private ExceptionData GetExceptionData(Exception exception, HttpRequestMessage request) {
-      Assertion.AssertObject(exception, "exception");
-      Assertion.AssertObject(request, "request");
+      Assertion.Require(exception, "exception");
+      Assertion.Require(request, "request");
 
       ExceptionData exceptionData;
 
@@ -116,7 +116,7 @@ namespace Empiria.WebApi {
 
 
     static private ResponseStatus GetResponseModelStatus(Exception exception) {
-      Assertion.AssertObject(exception, "exception");
+      Assertion.Require(exception, "exception");
 
       if (exception is WebApiException) {
         return ResponseStatus.Invalid_Request;

@@ -34,7 +34,7 @@ namespace Empiria.Geography {
     }
 
     static public StateHighwayKind Parse(string value) {
-      Assertion.AssertObject(value, "value");
+      Assertion.Require(value, "value");
 
       if (value == StateHighwayKind.Empty.Value) {
         return StateHighwayKind.Empty;

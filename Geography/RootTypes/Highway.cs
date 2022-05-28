@@ -126,8 +126,8 @@ namespace Empiria.Geography {
 
     /// <summary>Adds a highway stretch or section as a named segment of this highway.</summary>
     public HighwaySection AddSection(string originPlace, string destinationPlace) {
-      Assertion.AssertObject(originPlace, "originPlace");
-      Assertion.AssertObject(destinationPlace, "destinationPlace");
+      Assertion.Require(originPlace, "originPlace");
+      Assertion.Require(destinationPlace, "destinationPlace");
 
       var section = new HighwaySection(originPlace, destinationPlace);
       highwaySectionsList.Add(section);
@@ -148,10 +148,10 @@ namespace Empiria.Geography {
 
     static private string BuildName(IHighwayKind highwayKind, string highwayNumber,
                                     HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(highwayKind, "highwayKind");
-      Assertion.Assert(highwayNumber != null, "highwayNumber can't be null.");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
-      Assertion.Assert(highwayNumber.Length != 0 || !fromOriginToDestination.IsEmptyValue,
+      Assertion.Require(highwayKind, "highwayKind");
+      Assertion.Require(highwayNumber != null, "highwayNumber can't be null.");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(highwayNumber.Length != 0 || !fromOriginToDestination.IsEmptyValue,
                        "To build the highway name I need at least its number or its main section.");
 
       if (highwayNumber.Length != 0 && !fromOriginToDestination.IsEmptyValue) {
@@ -161,7 +161,7 @@ namespace Empiria.Geography {
       } else if (highwayNumber.Length == 0 && !fromOriginToDestination.IsEmptyValue) {
         return highwayKind + " " + fromOriginToDestination;
       } else {    //highwayNumber.Length == 0 && fromOriginToDestination.IsEmptyValue
-        throw Assertion.AssertNoReachThisCode();
+        throw Assertion.EnsureNoReachThisCode();
       }
     }
 

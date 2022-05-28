@@ -88,7 +88,7 @@ namespace Empiria.Geography {
         } else if (!this.Municipality.IsEmptyInstance) {
           return this.Municipality;
         } else {
-          throw Assertion.AssertNoReachThisCode();
+          throw Assertion.EnsureNoReachThisCode();
         }
       }
     }
@@ -133,7 +133,7 @@ namespace Empiria.Geography {
         this.Location = Location.Empty;
         this.Municipality = (Municipality) parent;
       } else {
-        throw Assertion.AssertNoReachThisCode();
+        throw Assertion.EnsureNoReachThisCode();
       }
     }
 

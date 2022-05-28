@@ -29,7 +29,7 @@ namespace Empiria.Messaging.EMailDelivery {
     }
 
     static public EMailConfig Parse(string serverName) {
-      Assertion.AssertObject(serverName, "serverName");
+      Assertion.Require(serverName, "serverName");
 
       var jsonObject = ConfigurationData.Get<JsonObject>(serverName + ".Email.ConfigData");
 

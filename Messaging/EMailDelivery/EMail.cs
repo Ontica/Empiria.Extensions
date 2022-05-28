@@ -36,8 +36,8 @@ namespace Empiria.Messaging.EMailDelivery {
 
 
     static public void Send(SendTo sendTo, EMailContent content) {
-      Assertion.AssertObject(sendTo, "sendTo");
-      Assertion.AssertObject(content, "content");
+      Assertion.Require(sendTo, "sendTo");
+      Assertion.Require(content, "content");
 
       MailMessage message = EMail.GetMailMessage(sendTo, content);
 
@@ -54,8 +54,8 @@ namespace Empiria.Messaging.EMailDelivery {
 
 
     static public async Task SendAsync(SendTo sendTo, EMailContent content) {
-      Assertion.AssertObject(sendTo, "sendTo");
-      Assertion.AssertObject(content, "content");
+      Assertion.Require(sendTo, "sendTo");
+      Assertion.Require(content, "content");
 
       MailMessage message = EMail.GetMailMessage(sendTo, content);
 
@@ -72,9 +72,9 @@ namespace Empiria.Messaging.EMailDelivery {
     static public void Send(string address, string subject, string body,
                             bool isBodyHtml = false, bool highPriority = false,
                             FileInfo[] attachments = null) {
-      Assertion.AssertObject(address, "address");
-      Assertion.AssertObject(subject, "subject");
-      Assertion.AssertObject(body, "body");
+      Assertion.Require(address, "address");
+      Assertion.Require(subject, "subject");
+      Assertion.Require(body, "body");
       attachments = attachments ?? new FileInfo[0];
 
       var content = new EMailContent(subject, body, isBodyHtml);

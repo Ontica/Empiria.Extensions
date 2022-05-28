@@ -24,7 +24,7 @@ namespace Empiria.Storage {
 
 
     static internal Metadata Parse(JsonObject data) {
-      Assertion.AssertObject(data, "data");
+      Assertion.Require(data, "data");
 
       var metadata = new Metadata();
 

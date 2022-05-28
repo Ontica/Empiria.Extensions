@@ -58,7 +58,7 @@ namespace Empiria.Expressions {
     #region Internal methods
 
     internal new void Add(T statement) {
-      Assertion.AssertObject(statement, "statement");
+      Assertion.Require(statement, "statement");
 
       base.Add(statement);
     }

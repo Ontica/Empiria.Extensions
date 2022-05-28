@@ -27,8 +27,8 @@ namespace Empiria.Messaging.EMailDelivery {
 
 
     public EMailContent(string subject, string body, bool isBodyHtml = false) {
-      Assertion.AssertObject(subject, "subject");
-      Assertion.AssertObject(body, "body");
+      Assertion.Require(subject, "subject");
+      Assertion.Require(body, "body");
 
       this.Subject = subject;
       this.Body = body;
@@ -66,15 +66,15 @@ namespace Empiria.Messaging.EMailDelivery {
     #region Methods
 
     public void AddAttachment(FileInfo fileInfo) {
-      Assertion.AssertObject(fileInfo, "fileInfo");
-      Assertion.Assert(fileInfo.Exists, $"The file {fileInfo.FullName} does not exist.");
+      Assertion.Require(fileInfo, "fileInfo");
+      Assertion.Require(fileInfo.Exists, $"The file {fileInfo.FullName} does not exist.");
 
       this._attachments.Add(fileInfo);
     }
 
 
     public bool RemoveAttachment(FileInfo fileInfo) {
-      Assertion.AssertObject(fileInfo, "fileInfo");
+      Assertion.Require(fileInfo, "fileInfo");
 
       return this._attachments.Remove(fileInfo);
     }

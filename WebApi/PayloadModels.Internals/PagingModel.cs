@@ -21,8 +21,8 @@ namespace Empiria.WebApi.Internals {
     private PagingQueryModel query;
 
     internal PagingModel(PagingQueryModel query, ICollection data) {
-      Assertion.AssertObject(query, "query");
-      Assertion.AssertObject(data, "data");
+      Assertion.Require(query, "query");
+      Assertion.Require(data, "data");
 
       this.query = query;
       this.data = data;
@@ -31,7 +31,7 @@ namespace Empiria.WebApi.Internals {
 
 
     private void AssertIsValid() {
-      Assertion.Assert(0 <= query.Skip && query.Skip <= this.data.Count,
+      Assertion.Require(0 <= query.Skip && query.Skip <= this.data.Count,
                        "$skip value is out of range for the data set.");
     }
 

@@ -61,7 +61,7 @@ namespace Empiria.Geography {
 
     /// <summary>Factory method for this type HighwayKind.</summary>
     internal IHighwayKind ParseHighwayKind(string highwayKindName) {
-      Assertion.AssertObject(highwayKindName, "highwayName");
+      Assertion.Require(highwayKindName, "highwayName");
 
       if (this.Equals(HighwayType.FederalHighwayType)) {
         return FederalHighwayKind.Parse(highwayKindName);
@@ -76,7 +76,7 @@ namespace Empiria.Geography {
         return RuralHighwayKind.Parse(highwayKindName);
 
       } else {
-        throw Assertion.AssertNoReachThisCode();
+        throw Assertion.EnsureNoReachThisCode();
 
       }
     }

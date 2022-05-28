@@ -122,8 +122,8 @@ namespace Empiria.Geography {
     /// <summary>Adds a new rural highway to this municipality instance.</summary>
     public Highway AddHighway(RuralHighwayKind ruralHighwayKind,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(ruralHighwayKind, "ruralHighwayKind");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(ruralHighwayKind, "ruralHighwayKind");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
 
       var highway = new Highway(this, ruralHighwayKind, fromOriginToDestination);
       highwaysList.Value.Add(highway);
@@ -134,8 +134,8 @@ namespace Empiria.Geography {
     /// <summary>Adds a new highway managed by this municipality instance.</summary>
     public Highway AddHighway(MunicipalHighwayKind municipalHighwayKind,
                               HighwaySection fromOriginToDestination) {
-      Assertion.AssertObject(municipalHighwayKind, "municipalHighwayKind");
-      Assertion.AssertObject(fromOriginToDestination, "fromOriginToDestination");
+      Assertion.Require(municipalHighwayKind, "municipalHighwayKind");
+      Assertion.Require(fromOriginToDestination, "fromOriginToDestination");
 
       var highway = new Highway(this, municipalHighwayKind, fromOriginToDestination);
       highwaysList.Value.Add(highway);
@@ -146,7 +146,7 @@ namespace Empiria.Geography {
     /// <summary>Adds a new location within this municipality. Locations are typically small
     /// isolated towns or villages within large municipalities with rural areas.</summary>
     public Location AddLocation(string locationName) {
-      Assertion.AssertObject(locationName, "locationName");
+      Assertion.Require(locationName, "locationName");
 
       var location = new Location(this, locationName);
 
@@ -158,8 +158,8 @@ namespace Empiria.Geography {
     /// <summary>Adds a new roadway that belongs to this municipality. Roadways attached directly to
     /// municipalities are common in urban or metropolitan municipalities.</summary>
     public Roadway AddRoadway(RoadwayKind roadwayKind, string name) {
-      Assertion.AssertObject(roadwayKind, "roadwayKind");
-      Assertion.AssertObject(name, "name");
+      Assertion.Require(roadwayKind, "roadwayKind");
+      Assertion.Require(name, "name");
 
       var roadway = new Roadway(this, roadwayKind, name);
       roadwaysList.Value.Add(roadway);
@@ -170,8 +170,8 @@ namespace Empiria.Geography {
     /// <summary>Adds a new settlement within this municipality. Settlements attached to municipalities
     /// are common in densely populated municipalities without isolated locations.</summary>
     public Settlement AddSettlement(SettlementKind settlementKind, string settlementName) {
-      Assertion.AssertObject(settlementKind, "settlementKind");
-      Assertion.AssertObject(settlementName, "settlementName");
+      Assertion.Require(settlementKind, "settlementKind");
+      Assertion.Require(settlementName, "settlementName");
 
       var settlement = new Settlement(this, settlementKind, settlementName);
 
@@ -184,7 +184,7 @@ namespace Empiria.Geography {
     /// municipalities are common in densely populated municipalities without isolated locations.</summary>
     public Settlement AddSettlement(SettlementKind settlementKind, string settlementName,
                                     string postalCode) {
-      Assertion.AssertObject(postalCode, "postalCode");
+      Assertion.Require(postalCode, "postalCode");
 
       var settlement = this.AddSettlement(settlementKind, settlementName);
       settlement.PostalCode = postalCode;
@@ -194,7 +194,7 @@ namespace Empiria.Geography {
 
     /// <summary>Removes a roadway from this municipality.</summary>
     public void RemoveRoadway(Roadway roadway) {
-      Assertion.AssertObject(roadway, "roadway");
+      Assertion.Require(roadway, "roadway");
 
       roadway.Remove();
       roadwaysList.Value.Remove(roadway);

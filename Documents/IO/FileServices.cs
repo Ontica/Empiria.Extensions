@@ -52,14 +52,16 @@ namespace Empiria.Documents.IO {
 
 
     static public bool DirectoryIsEmpty(string folderPath) {
-      return (Directory.EnumerateFileSystemEntries(folderPath).Any() == false);
+      return (!Directory.EnumerateFileSystemEntries(folderPath).Any());
     }
 
 
     static public FileInfo[] GetFiles(string rootPath) {
-      Assertion.AssertObject(rootPath, "rootPath");
-      Assertion.Assert(Directory.Exists(rootPath),
-                       new IOServicesException(IOServicesException.Msg.DirectoryNotFound, rootPath));
+      Assertion.Require(rootPath, "rootPath");
+
+      if (!Directory.Exists(rootPath)) {
+        throw new IOServicesException(IOServicesException.Msg.DirectoryNotFound, rootPath);
+      }
 
       var directory = new DirectoryInfo(rootPath);
 
@@ -68,10 +70,12 @@ namespace Empiria.Documents.IO {
 
 
     static public FileInfo[] GetFiles(string rootPath, string fileNameFilter) {
-      Assertion.AssertObject(rootPath, "rootPath");
-      Assertion.AssertObject(fileNameFilter, "fileNameFilter");
-      Assertion.Assert(Directory.Exists(rootPath),
-                       new IOServicesException(IOServicesException.Msg.DirectoryNotFound, rootPath));
+      Assertion.Require(rootPath, "rootPath");
+      Assertion.Require(fileNameFilter, "fileNameFilter");
+
+      if (!Directory.Exists(rootPath)) {
+        throw new IOServicesException(IOServicesException.Msg.DirectoryNotFound, rootPath);
+      }
 
       fileNameFilter = fileNameFilter.Replace(';', '|');
       fileNameFilter = fileNameFilter.Replace(',', '|');

@@ -78,7 +78,7 @@ namespace Empiria.Messaging {
 
 
     public FixedList<FormerMessage> GetUnitOfWorkMessages(string unitOfWorkUID) {
-      Assertion.AssertObject(unitOfWorkUID, "unitOfWorkUID");
+      Assertion.Require(unitOfWorkUID, "unitOfWorkUID");
 
       return this.Messages.FindAll(x => x.UnitOfWorkUID == unitOfWorkUID &&
                                         x.IsInProcessStatus);
@@ -107,7 +107,7 @@ namespace Empiria.Messaging {
     #region Update methods
 
     public void AddMessage(FormerMessage message) {
-      Assertion.AssertObject(message, "message");
+      Assertion.Require(message, "message");
 
       message.Enqueue(this);
 
@@ -116,8 +116,8 @@ namespace Empiria.Messaging {
 
 
     public void AddMessage(FormerMessage message, string unitOfWorkUID) {
-      Assertion.AssertObject(message, "message");
-      Assertion.AssertObject(unitOfWorkUID, "unitOfWorkUID");
+      Assertion.Require(message, "message");
+      Assertion.Require(unitOfWorkUID, "unitOfWorkUID");
 
       message.Enqueue(this, unitOfWorkUID);
 
@@ -127,8 +127,8 @@ namespace Empiria.Messaging {
 
     public void MarkAsProcessed(FormerMessage message, JsonObject processingData = null,
                                 ExecutionStatus status = ExecutionStatus.Completed) {
-      Assertion.AssertObject(message, "message");
-      Assertion.Assert(status != ExecutionStatus.Pending,
+      Assertion.Require(message, "message");
+      Assertion.Require(status != ExecutionStatus.Pending,
                        "Can't set processing status as Pending.");
 
       processingData = processingData ?? new JsonObject();

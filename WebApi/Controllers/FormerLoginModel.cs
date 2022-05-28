@@ -37,9 +37,9 @@ namespace Empiria.WebApi.Controllers {
     #region Methods
 
     public void AssertValid() {
-      Assertion.AssertObject(api_key, "api_key");
-      Assertion.AssertObject(user_name, "user_name");
-      Assertion.AssertObject(password, "password");
+      Assertion.Require(api_key, "api_key");
+      Assertion.Require(user_name, "user_name");
+      Assertion.Require(password, "password");
     }
 
     static public object ToOAuth(EmpiriaPrincipal principal) {
