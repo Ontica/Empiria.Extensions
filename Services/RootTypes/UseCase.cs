@@ -8,6 +8,7 @@
 *             running on a secured and transactionable infrastructure.                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+using System;
 
 namespace Empiria.Services {
 
@@ -19,6 +20,24 @@ namespace Empiria.Services {
 
     protected UseCase() {
       // no-op
+    }
+
+
+    protected void EnsureUserHasDataAccessTo<T>(T entity, string failMsg = "") where T: IIdentifiable {
+      if (ExecutionServer.CurrentPrincipal.HasDataAccessTo<T>(entity)) {
+        return;
+      }
+
+      var msg = String.IsNullOrWhiteSpace(failMsg) ?
+                        "Invalid user permissions for protected data object." : failMsg;
+
+      throw new InvalidOperationException(msg);
+    }
+
+
+    protected FixedList<T> RestrictUserDataAccessTo<T>(FixedList<T> entityList) where T : IIdentifiable {
+      return entityList.FindAll(entity => ExecutionServer.CurrentPrincipal
+                                                         .HasDataAccessTo<T>(entity));
     }
 
     #endregion Constructors and parsers
