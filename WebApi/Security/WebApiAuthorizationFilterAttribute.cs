@@ -23,7 +23,7 @@ namespace Empiria.WebApi {
     #region Constructors and parsers
 
     public WebApiAuthorizationFilterAttribute(WebApiClaimType claimType, string claimValue) {
-      Assertion.AssertObject(claimValue, "claimValue");
+      Assertion.Require(claimValue, "claimValue");
 
       this.ClaimType = claimType;
       this.ClaimValue = claimValue;
@@ -52,30 +52,32 @@ namespace Empiria.WebApi {
 
       switch (this.ClaimType) {
 
-        case WebApiClaimType.ClientApp_Controller:
+        case WebApiClaimType.ClientAppHasControllerAccess:
           ClaimsService.EnsureClaim(ClientApplication.Current,
                                     Security.Claims.ClaimType.WebApiController,
                                     this.ClaimValue,
-                                    $"The API key doesn't have execution permissions '{this.ClaimValue}' over this controller. {ClientApplication.Current.Key}");
+                                    "The client application does not have execution permissions " +
+                                    "over this web api controller.");
           return;
 
-        case WebApiClaimType.ClientApp_Method:
+        case WebApiClaimType.ClientAppCanExecuteMethod:
           ClaimsService.EnsureClaim(ClientApplication.Current,
                                     Security.Claims.ClaimType.WebApiMethod,
                                     this.ClaimValue,
-                                    "The API key doesn't have execution permissions over this method.");
+                                    "The client application does not have execution permissions " +
+                                    "over this web api method.");
           return;
 
-        case WebApiClaimType.User_Role:
+        case WebApiClaimType.AuthenticatedUserIsInRole:
           ClaimsService.EnsureClaim(EmpiriaUser.Current,
                                     Security.Claims.ClaimType.UserRole,
                                     this.ClaimValue,
-                                    $"This functionality can be executed only by users playing the role " +
-                                    $"'{this.ClaimValue}' not ${((IClaimsSubject)EmpiriaUser.Current).ClaimsToken} = {EmpiriaUser.Current.Id}");
+                                    $"This functionality can be executed only " +
+                                    $"by users playing the role {this.ClaimValue}'.");
           return;
 
         default:
-          throw Assertion.AssertNoReachThisCode();
+          throw Assertion.EnsureNoReachThisCode();
       }
 
     }

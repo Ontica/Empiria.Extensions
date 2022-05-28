@@ -14,11 +14,11 @@ namespace Empiria.WebApi {
   // Defines Web API security claims for client applications and users.
   public enum WebApiClaimType {
 
-    ClientApp_Controller,
+    AuthenticatedUserIsInRole,
 
-    ClientApp_Method,
+    ClientAppCanExecuteMethod,
 
-    User_Role,
+    ClientAppHasControllerAccess
 
   }  // enum WebApiClaimType
 
