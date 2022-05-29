@@ -186,7 +186,7 @@ namespace Empiria.Storage {
     #region Methods
 
     internal void Delete() {
-      Assertion.Ensure(this.Status == EntityStatus.Active,
+      Assertion.Require(this.Status == EntityStatus.Active,
                        "MediaObject must be in 'Active' status.");
 
       this.Status = EntityStatus.Deleted;

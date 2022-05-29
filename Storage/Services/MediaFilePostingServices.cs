@@ -28,7 +28,7 @@ namespace Empiria.Storage {
       Assertion.Require(nodeObject, "nodeObject");
       Assertion.Require(postingType, "postingType");
 
-      EnsureValidRequest(request);
+      RequireValidRequest(request);
 
       var form = HttpContext.Current.Request.Form;
 
@@ -58,12 +58,12 @@ namespace Empiria.Storage {
 
     #region Private methods
 
-    static private void EnsureValidRequest(HttpRequest request) {
-      Assertion.Ensure(request.ContentType.StartsWith("multipart/form-data"),
+    static private void RequireValidRequest(HttpRequest request) {
+      Assertion.Require(request.ContentType.StartsWith("multipart/form-data"),
                        $"Invalid request content type '{request.ContentType}'.");
 
       if (request.Files == null || request.Files.Count != 1) {
-        Assertion.EnsureFailed("Invalid request. There are no files and one was expected.");
+        Assertion.RequireFail("Invalid request. There are no files and one was expected.");
       }
     }
 
