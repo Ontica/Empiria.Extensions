@@ -174,7 +174,7 @@ namespace Empiria.WebApi {
     private void Initialize(HttpRequestMessage request, T data, string typeName) {
       Assertion.Require(request, "request");
       Assertion.Require(data, "data");
-      Assertion.Require(typeName, "typeName can't be null");
+      Assertion.Require(typeName != null, "typeName can't be null");
 
       this.Request = request;
       this.TypeName = this.GetTypeName(data, typeName);
