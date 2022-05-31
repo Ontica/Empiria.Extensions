@@ -145,21 +145,26 @@ namespace Empiria.WebApi {
     private string GetTypeName(object data, string typeName) {
       string temp = String.Empty;
 
+      Type type = data.GetType();
+
       if (typeName.Length != 0) {
         temp = typeName;
 
       } else if (data is IIdentifiable) {
-        temp = data.GetType().FullName;
+        temp = type.FullName;
 
-      } else if (data is DataView) {
-        temp = ((DataView) data).Table.TableName;
+      } else if (data is DataView dataView) {
+        temp = dataView.Table.TableName;
 
-      } else if (data.GetType().IsGenericType &&
-                 data.GetType().GetGenericTypeDefinition() == typeof(FixedList<>)) {
-        temp = data.GetType().GenericTypeArguments[0].FullName;
+      } else if (type.IsGenericType &&
+                 type.GetGenericTypeDefinition() == typeof(FixedList<>)) {
+        temp = type.GenericTypeArguments[0].FullName;
+
+      } else if (type.IsGenericType) {
+        temp = type.Name.Replace("`1", string.Empty) + $"<{type.GenericTypeArguments[0].Name}>";
 
       } else {
-        temp = data.GetType().FullName;
+        temp = type.FullName;
 
       }
 
