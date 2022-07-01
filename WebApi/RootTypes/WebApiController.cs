@@ -13,10 +13,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 using Empiria.Json;
 using Empiria.Security;
+using Empiria.Storage;
 
 namespace Empiria.WebApi {
 
@@ -35,12 +37,12 @@ namespace Empiria.WebApi {
 
 
     protected HttpResponseException CreateHttpException(Exception exception) {
-      if (exception is HttpResponseException) {
-        return (HttpResponseException) exception;
+      if (exception is HttpResponseException ex1) {
+        return ex1;
       }
 
-      if (exception is IWebApiResponse) {
-        return new HttpResponseException(((IWebApiResponse) exception).Response);
+      if (exception is IWebApiResponse ex2) {
+        return new HttpResponseException(ex2.Response);
       }
 
       ExceptionModel model = new ExceptionModel(base.Request, exception);
@@ -74,6 +76,23 @@ namespace Empiria.WebApi {
       this.RequireBody(body);
 
       return JsonObject.Parse(body);
+    }
+
+
+    protected InputFile GetInputFileFromHttpRequest() {
+      var httpRequest = HttpContext.Current.Request;
+
+      Assertion.Require(httpRequest, "httpRequest");
+      Assertion.Require(httpRequest.Files.Count == 1, "The request does not have the file to be imported.");
+
+
+      HttpPostedFile file = httpRequest.Files[0];
+
+      return new InputFile(
+        file.InputStream,
+        file.ContentType,
+        file.FileName
+      );
     }
 
 
