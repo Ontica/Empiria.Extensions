@@ -62,7 +62,26 @@ namespace Empiria.WebApi {
     }
 
 
-    public T GetFromBody<T>(object body, string itemPath) {
+    protected T GetFormDataFromHttpRequest<T>(string fieldName) where T : new() {
+      Assertion.Require(fieldName, nameof(fieldName));
+
+      var httpRequest = HttpContext.Current.Request;
+
+      Assertion.Require(httpRequest, "httpRequest");
+
+      var form = httpRequest.Form;
+
+      Assertion.Require(form, "The request must be of type 'multipart/form-data'.");
+
+      Assertion.Require(form[fieldName], $"'{fieldName}' form field is required");
+
+      var instance = new T();
+
+      return JsonConverter.Merge<T>(form[fieldName], instance);
+    }
+
+
+    protected T GetFromBody<T>(object body, string itemPath) {
       Assertion.Require(body, "body");
       Assertion.Require(itemPath, "itemPath");
 
