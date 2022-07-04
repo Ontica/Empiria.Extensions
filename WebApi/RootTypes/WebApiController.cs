@@ -104,17 +104,20 @@ namespace Empiria.WebApi {
     }
 
 
-    protected InputFile GetInputFileFromHttpRequest() {
+    protected InputFile GetInputFileFromHttpRequest(string applicationContentType) {
+      Assertion.Require(applicationContentType, nameof(applicationContentType));
+
       var httpRequest = HttpContext.Current.Request;
 
       Assertion.Require(httpRequest, "httpRequest");
-      Assertion.Require(httpRequest.Files.Count == 1, "The request does not have the file to be imported.");
-
+      Assertion.Require(httpRequest.Files.Count == 1,
+                        "The request does not have the file to be imported.");
 
       HttpPostedFile file = httpRequest.Files[0];
 
       return new InputFile(
         file.InputStream,
+        applicationContentType,
         file.ContentType,
         file.FileName
       );
