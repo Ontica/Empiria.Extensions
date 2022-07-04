@@ -61,8 +61,7 @@ namespace Empiria.WebApi {
       }
     }
 
-
-    protected T GetFormDataFromHttpRequest<T>(string fieldName) where T : new() {
+    protected string GetFormDataFromHttpRequest(string fieldName) {
       Assertion.Require(fieldName, nameof(fieldName));
 
       var httpRequest = HttpContext.Current.Request;
@@ -75,9 +74,16 @@ namespace Empiria.WebApi {
 
       Assertion.Require(form[fieldName], $"'{fieldName}' form field is required");
 
+      return form[fieldName];
+    }
+
+
+    protected T GetFormDataFromHttpRequest<T>(string fieldName) where T : new() {
+      string json = GetFormDataFromHttpRequest(fieldName);
+
       var instance = new T();
 
-      return JsonConverter.Merge<T>(form[fieldName], instance);
+      return JsonConverter.Merge<T>(json, instance);
     }
 
 
