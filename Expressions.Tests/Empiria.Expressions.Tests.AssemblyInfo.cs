@@ -1,10 +1,10 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
 *  System   : Empiria Framework                            Module  : Empiria Expressions                     *
-*  Assembly : Empiria.Expressions.dll                      Pattern : Assembly Attributes File                *
+*  Assembly : Empiria.Expressions.Tests.dll                Pattern : Assembly Attributes File                *
 *                                                          License : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Empiria runtime expression evaluation services.                                                *
+*  Summary  : Tests suite for Empiria Expressions Module.                                                    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;

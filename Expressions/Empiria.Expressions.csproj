@@ -2,8 +2,8 @@
   <PropertyGroup>
     <Company>Ontica</Company>
     <Product>Empiria Expressions</Product>
-    <Description>Empiria runtime expression evaluation and dynamic code execution services.</Description>
-    <Copyright>(c) 2008-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Description>Empiria runtime expression evaluation services.</Description>
+    <Copyright>(c) 2008-2022. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>7.0.0</Version>
     <AssemblyVersion>7.0.0</AssemblyVersion>
     <FileVersion>7.0.0.0</FileVersion>
@@ -12,7 +12,7 @@
     <PackageLicenseUrl>https://github.com/Ontica/Empiria.Extensions/blob/master/Expressions/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Ontica/Empiria.Extensions/tree/master/Expressions</PackageProjectUrl>
     <PackageIconUrl>http://www.ontica.org/logo.ontica.png</PackageIconUrl>
-    <PackageTags />
+    <PackageTags>empiria expressions evaluation parser lexical analyzer domain specific language</PackageTags>
     <RepositoryUrl>https://github.com/Ontica/Empiria.Extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Authors>Ontica</Authors>
@@ -20,6 +20,8 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NeutralLanguage></NeutralLanguage>
     <Configurations>Debug;Release;Multisolutions</Configurations>
+    <AssemblyName>Empiria.Expressions</AssemblyName>
+    <RootNamespace>Empiria.Expressions</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Multisolutions|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
