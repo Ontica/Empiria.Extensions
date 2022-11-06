@@ -28,9 +28,7 @@ namespace Empiria.Expressions {
 
       var scanner = new Scanner();
 
-      //FixedList<string> lexemes = scanner.Scan(expression);
-
-      FixedList<string> lexemes = new FixedList<string>();
+      FixedList<string> lexemes = scanner.Scan(expression);
 
       FixedList<IExpressionToken> tokens = Evaluate(lexemes);
 
