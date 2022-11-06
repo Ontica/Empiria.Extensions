@@ -16,17 +16,25 @@ namespace Empiria.Expressions {
   /// lexical tokens (aka. scanner or lexer).</summary>
   internal class Tokenizer {
 
+    private readonly LexicalGrammar _lexicalGrammar;
+
     #region Public
 
-    internal Tokenizer() {
+    internal Tokenizer() : this(LexicalGrammar.Default) {
       // no-op
+    }
+
+    internal Tokenizer(LexicalGrammar lexicalGrammar) {
+      Assertion.Require(lexicalGrammar, nameof(lexicalGrammar));
+
+      _lexicalGrammar = lexicalGrammar;
     }
 
 
     internal FixedList<IExpressionToken> Tokenize(string expression) {
       Assertion.Require(expression, nameof(expression));
 
-      var scanner = new Scanner();
+      var scanner = new Scanner(_lexicalGrammar);
 
       FixedList<string> lexemes = scanner.Scan(expression);
 

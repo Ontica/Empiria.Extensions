@@ -15,23 +15,19 @@ namespace Empiria.Expressions {
   /// <summary>Scans an expression generating a stream of lexemes to be used by the tokenizer.</summary>
   internal class Scanner {
 
-    const string _arithmeticalOperators  = @"+ - * / \ %";
-    const string _logicalOperators       = @"&& || !";
-    const string _relationalOperators    = @"== != <> <= >= < >";
-    const string _groupingOperators      = @"( [ { } ] ) , ;";
-
-    const string _reservedWords          = @"true false if then else";
-
-    const string _functionIdentifiers    = @"SI SUM SUMAR ABS VALORIZAR";
-
-    const string _stroppableSymbols      = @"== != <> <= >=";
-
-    const string _constantSeparators     = @"' """;
+    private readonly LexicalGrammar _lexicalGrammar;
 
     #region Public
 
-    internal Scanner() {
+    internal Scanner() : this(LexicalGrammar.Default) {
       // no-op
+    }
+
+
+    internal Scanner(LexicalGrammar lexicalGrammar) {
+      Assertion.Require(lexicalGrammar, nameof(lexicalGrammar));
+
+      _lexicalGrammar = lexicalGrammar;
     }
 
 
@@ -136,7 +132,7 @@ namespace Empiria.Expressions {
 
 
     private bool IsStringOrDateConstant(string candidate) {
-      string[] separators = CommonMethods.ConvertToArray(_constantSeparators);
+      string[] separators = CommonMethods.ConvertToArray(_lexicalGrammar.ConstantSeparators);
 
       foreach (var separator in separators) {
         if (candidate.StartsWith(separator) && candidate.EndsWith(separator)) {
@@ -167,22 +163,22 @@ namespace Empiria.Expressions {
 
 
     private string[] GetFunctions() {
-      string allFunctions = $"{_functionIdentifiers}";
+      string allFunctions = $"{_lexicalGrammar.FunctionIdentifiers}";
 
       return CommonMethods.ConvertToArray(allFunctions);
     }
 
 
     private string[] GetKeywords() {
-      string allKeywords = $"{_reservedWords}";
+      string allKeywords = $"{_lexicalGrammar.ReservedWords}";
 
       return CommonMethods.ConvertToArray(allKeywords);
     }
 
 
     private string[] GetOperators() {
-      string allOperators = $"{_arithmeticalOperators} {_logicalOperators} " +
-                            $"{_relationalOperators} {_groupingOperators}";
+      string allOperators = $"{_lexicalGrammar.ArithmeticalOperators} {_lexicalGrammar.LogicalOperators} " +
+                            $"{_lexicalGrammar.RelationalOperators} {_lexicalGrammar.GroupingOperators}";
 
       return CommonMethods.ConvertToArray(allOperators);
     }
@@ -194,7 +190,7 @@ namespace Empiria.Expressions {
 
 
     private string[] GetStroppableSymbols() {
-      string allStroppableSymbols = $"{_stroppableSymbols}";
+      string allStroppableSymbols = $"{_lexicalGrammar.StroppableSymbols}";
 
       return CommonMethods.ConvertToArray(allStroppableSymbols);
     }
