@@ -34,11 +34,7 @@ namespace Empiria.Expressions {
     internal FixedList<string> Scan(string expression) {
       Assertion.Require(expression, nameof(expression));
 
-      string[] reconstructableSymbols = GetReconstructableSymbols();
-      string[] stroppableSymbols      = GetStroppableSymbols();
-
-      var lineReconstructor = new LineReconstructor(reconstructableSymbols,
-                                                    stroppableSymbols);
+      var lineReconstructor = new LineReconstructor(_lexicalGrammar);
 
       string[] lexemeCandidates = lineReconstructor.LexemeCandidates(expression);
 
@@ -68,133 +64,28 @@ namespace Empiria.Expressions {
 
       Assertion.Require(candidate, nameof(candidate));
 
-      if (IsKeyword(candidate)) {
+      if (_lexicalGrammar.IsKeyword(candidate)) {
         return candidate;
       }
 
-      if (IsOperator(candidate)) {
+      if (_lexicalGrammar.IsOperator(candidate)) {
         return candidate;
       }
 
-      if (IsLiteral(candidate)) {
+      if (_lexicalGrammar.IsLiteral(candidate)) {
         return candidate;
       }
 
-      if (IsFunction(candidate)) {
+      if (_lexicalGrammar.IsFunction(candidate)) {
         return candidate;
       }
 
-      if (IsVariable(candidate)) {
+      if (_lexicalGrammar.IsVariable(candidate)) {
         return candidate;
       }
 
       return null;
     }
-
-
-    private bool IsFunction(string candidate) {
-      string[] functions = GetFunctions();
-
-      foreach (var @function in functions) {
-        if (candidate == function) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-
-    private bool IsKeyword(string candidate) {
-      string[] keywords = GetKeywords();
-
-      foreach (var keyword in keywords) {
-        if (candidate == keyword) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-
-    private bool IsLiteral(string candidate) {
-      if (EmpiriaString.IsQuantity(candidate)) {
-        return true;
-      }
-
-      if (IsStringOrDateConstant(candidate)) {
-        return true;
-      }
-
-      return false;
-    }
-
-
-    private bool IsStringOrDateConstant(string candidate) {
-      string[] separators = CommonMethods.ConvertToArray(_lexicalGrammar.ConstantSeparators);
-
-      foreach (var separator in separators) {
-        if (candidate.StartsWith(separator) && candidate.EndsWith(separator)) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-
-    private bool IsOperator(string candidate) {
-      string[] allOperators = GetOperators();
-
-      foreach (var @operator in allOperators) {
-        if (candidate == @operator) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-
-    private bool IsVariable(string candidate) {
-      return char.IsLetter(candidate[0]);
-    }
-
-
-    private string[] GetFunctions() {
-      string allFunctions = $"{_lexicalGrammar.FunctionIdentifiers}";
-
-      return CommonMethods.ConvertToArray(allFunctions);
-    }
-
-
-    private string[] GetKeywords() {
-      string allKeywords = $"{_lexicalGrammar.ReservedWords}";
-
-      return CommonMethods.ConvertToArray(allKeywords);
-    }
-
-
-    private string[] GetOperators() {
-      string allOperators = $"{_lexicalGrammar.ArithmeticalOperators} {_lexicalGrammar.LogicalOperators} " +
-                            $"{_lexicalGrammar.RelationalOperators} {_lexicalGrammar.GroupingOperators}";
-
-      return CommonMethods.ConvertToArray(allOperators);
-    }
-
-
-    private string[] GetReconstructableSymbols() {
-      return GetOperators();
-    }
-
-
-    private string[] GetStroppableSymbols() {
-      string allStroppableSymbols = $"{_lexicalGrammar.StroppableSymbols}";
-
-      return CommonMethods.ConvertToArray(allStroppableSymbols);
-    }
-
 
     #endregion Helpers
 

@@ -14,28 +14,24 @@ namespace Empiria.Expressions {
   /// <summary>Reconstructs an expression into a candidate lexemes stream to be used by the scanner.</summary>
   internal class LineReconstructor {
 
-    private readonly string[] _reconstructableSymbols;
-    private readonly string[] _stroppableSymbols;
+    private readonly LexicalGrammar _lexicalGrammar;
 
     const char stroppingChar = '§';
 
     #region Public
 
-    internal LineReconstructor(string[] reconstructableSymbols, string[] stroppableSymbols) {
-      Assertion.Require(reconstructableSymbols, nameof(reconstructableSymbols));
-      Assertion.Require(stroppableSymbols, nameof(stroppableSymbols));
+    public LineReconstructor(LexicalGrammar lexicalGrammar) {
+      Assertion.Require(lexicalGrammar, nameof(lexicalGrammar));
 
-      _reconstructableSymbols = reconstructableSymbols;
-      _stroppableSymbols = stroppableSymbols;
+      _lexicalGrammar = lexicalGrammar;
     }
-
 
     internal string[] LexemeCandidates(string expression) {
       var reconstructedExpression = EmpiriaString.TrimControl(expression);
 
       reconstructedExpression = Stropping(reconstructedExpression);
 
-      reconstructedExpression = Separate(reconstructedExpression);
+      reconstructedExpression = SeparateWords(reconstructedExpression);
 
       reconstructedExpression = Unstropping(reconstructedExpression);
 
@@ -48,40 +44,45 @@ namespace Empiria.Expressions {
 
     #region Line reconstruction helpers
 
-    private string Separate(string expression) {
-      var candidates = CommonMethods.ConvertToArray(expression);
+    private bool IsStropped(string part) {
+      return part.StartsWith($"{stroppingChar}") && part.EndsWith($"{stroppingChar}");
+    }
+
+
+    private string ReconstructSymbols(string word) {
+      var symbols = _lexicalGrammar.GetReconstructableSymbols();
+
+      foreach (var symbol in symbols) {
+        word = word.Replace(symbol, $" {symbol} ");
+      }
+
+      return EmpiriaString.TrimAll(word);
+    }
+
+
+    private string SeparateWords(string expression) {
+      var words = CommonMethods.ConvertToArray(expression);
 
       string temp = string.Empty;
 
-      foreach (var candidate in candidates) {
-        if (IsStropped(candidate)) {
-          temp += $" {candidate} ";
+      foreach (var word in words) {
+        if (IsStropped(word)) {
+          temp += $" {word} ";
         } else {
-          temp += $" {SeparateOperatorsAndFunctions(candidate)} ";
+          temp += $" {ReconstructSymbols(word)} ";
         }
       }
 
       return EmpiriaString.TrimAll(temp);
     }
 
-    private string SeparateOperatorsAndFunctions(string expression) {
-      foreach (var op in _reconstructableSymbols) {
-        expression = expression.Replace(op, $" {op} ");
-      }
-
-      return EmpiriaString.TrimAll(expression);
-    }
-
-
-    private bool IsStropped(string part) {
-      return part.StartsWith($"{stroppingChar}") && part.EndsWith($"{stroppingChar}");
-    }
-
 
     private string Stropping(string expression) {
       string temp = expression;
 
-      foreach (var symbol in _stroppableSymbols) {
+      var symbols = _lexicalGrammar.GetStroppableSymbols();
+
+      foreach (var symbol in symbols) {
         var stropped = $" {stroppingChar}{symbol}{stroppingChar} ";
 
         temp = temp.Replace(symbol, stropped);
@@ -89,6 +90,7 @@ namespace Empiria.Expressions {
 
       return temp;
     }
+
 
     private string Unstropping(string expression) {
       string temp = expression.Replace(stroppingChar, ' ');
