@@ -7,7 +7,9 @@
 *  Summary  : Converts a plain text expression into an Expression object.                                    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+using System;
 using System.Collections.Generic;
+
 
 namespace Empiria.Expressions {
 
@@ -18,12 +20,15 @@ namespace Empiria.Expressions {
   /// <summary>Converts a plain text expression into an Expression object.</summary>
   public class ExpressionParser {
 
-    private readonly FixedList<IExpressionToken> _tokenizedExpression;
+    private readonly FixedList<IExpressionToken> _tokens;
+
 
     public ExpressionParser(string textExpression) {
       Assertion.Require(textExpression, nameof(textExpression));
 
-      _tokenizedExpression = TokenizePlainTextExpression(textExpression);
+      var tokenizer = new Tokenizer();
+
+      _tokens = tokenizer.Tokenize(textExpression);
     }
 
 
@@ -50,57 +55,6 @@ namespace Empiria.Expressions {
 
     private FixedList<FunctionParameter> ParseFunctionParameters() {
       return new FixedList<FunctionParameter>();
-    }
-
-
-    static private FixedList<IExpressionToken> TokenizePlainTextExpression(string expression) {
-      string[] lexemeList = EmpiriaString.TrimAll(expression).Split(' ');
-
-      List<IExpressionToken> tokens = new List<IExpressionToken>(lexemeList.Length);
-
-      foreach (string lexeme in lexemeList) {
-        IExpressionToken token = TryToTokenize(lexeme);
-
-        Assertion.Require(token, $"Expression has an unrecognized part: '{lexeme}'");
-
-        tokens.Add(token);
-      }
-
-      return tokens.ToFixedList();
-    }
-
-
-    private static IExpressionToken TryToTokenize(string lexeme) {
-      lexeme = EmpiriaString.TrimAll(lexeme);
-
-      Assertion.Require(lexeme, nameof(lexeme));
-
-      IExpressionToken token = Keyword.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
-      }
-
-      token = Operator.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
-      }
-
-      token = Literal.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
-      }
-
-      token = Function.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
-      }
-
-      return Variable.TryToTokenize(lexeme);
-
     }
 
   }  // class ExpressionParser
