@@ -12,11 +12,7 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>Represents a variable in an expression.</summary>
-  internal class Variable : IExpressionToken {
-
-    static internal Variable TryToTokenize(string lexeme) {
-      return null;
-    }
+  internal class Variable {
 
   }  // class Variable
 

@@ -12,16 +12,8 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>Represents an operator in an expression.</summary>
-  internal class Operator : IExpressionToken {
+  internal class Operator {
 
-    private const string arithmeticalOperators = @" + - * / ÷ \ ^ Ω ";
-    private const string logicalOperators = @" ¬ ∧ ∨ ≡ ≢ ⇒ ";   // ∀∃
-    private const string relationalOperators = @" > < ≥ ≤ = ≠ ∈ ";    //∩∪⊂ ⊄ ⊆ ⊊ ∈ ∉ ∅
-    private const string groupingOperators = @" ( [ { ) ] } , ; ";
-
-    static internal Operator TryToTokenize(string lexeme) {
-      return null;
-    }
 
   }  // class Operator
 

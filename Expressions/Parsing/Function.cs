@@ -12,11 +12,8 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>Represents a user defined function or a library function in an expression.</summary>
-  internal class Function : IExpressionToken {
+  internal class Function {
 
-    static internal Function TryToTokenize(string lexeme) {
-      return null;
-    }
 
   }  // class Function
 

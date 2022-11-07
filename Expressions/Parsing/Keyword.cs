@@ -12,11 +12,8 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>A domain specific language keyword in an expression.</summary>
-  internal class Keyword : IExpressionToken {
+  internal class Keyword {
 
-    static internal Keyword TryToTokenize(string lexeme) {
-      return null;
-    }
 
   }  // class Keyword
 

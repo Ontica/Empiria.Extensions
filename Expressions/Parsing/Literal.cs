@@ -12,11 +12,7 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>A numerical, logical or string constant in an expression.</summary>
-  internal class Literal : IExpressionToken {
-
-    static internal Literal TryToTokenize(string lexeme) {
-      return null;
-    }
+  internal class Literal {
 
   }  // class Literal
 
