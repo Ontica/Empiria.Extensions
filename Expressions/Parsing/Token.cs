@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Empiria Expressions                        Component : Expressions Parsing                     *
 *  Assembly : Empiria.Extensions.dll                     Pattern   : Information holder                      *
-*  Type     : ExpressionToken                            License   : Please read LICENSE.txt file            *
+*  Type     : Token                                      License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Holds data about a token that classifies a lexeme.                                             *
 *                                                                                                            *
@@ -12,7 +12,7 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>Classifies a lexeme.</summary>
-  internal enum ExpressionTokenType {
+  internal enum TokenType {
 
     Keyword,
 
@@ -24,12 +24,19 @@ namespace Empiria.Expressions {
 
     Variable,
 
+  }  // enum TokenType
+
+
+
+  internal interface IToken {
+
   }
 
-  /// <summary>Holds data about a token that classifies a lexeme.</summary>
-  internal class ExpressionToken : IExpressionToken {
 
-    public ExpressionToken(ExpressionTokenType type, string lexeme) {
+  /// <summary>Holds data about a token that classifies a lexeme.</summary>
+  internal class Token : IToken {
+
+    public Token(TokenType type, string lexeme) {
       Assertion.Require(type, nameof(type));
       Assertion.Require(lexeme, nameof(lexeme));
 
@@ -38,7 +45,7 @@ namespace Empiria.Expressions {
     }
 
 
-    public ExpressionTokenType Type {
+    public TokenType Type {
       get;
     }
 
@@ -47,6 +54,6 @@ namespace Empiria.Expressions {
       get;
     }
 
-  } // class ExpressionToken
+  } // class Token
 
 }  // namespace Empiria.Expressions

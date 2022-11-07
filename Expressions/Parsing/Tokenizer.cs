@@ -31,14 +31,14 @@ namespace Empiria.Expressions {
     }
 
 
-    internal FixedList<IExpressionToken> Tokenize(string expression) {
+    internal FixedList<IToken> Tokenize(string expression) {
       Assertion.Require(expression, nameof(expression));
 
       var scanner = new Scanner(_lexicalGrammar);
 
       FixedList<string> lexemes = scanner.Scan(expression);
 
-      FixedList<IExpressionToken> tokens = Evaluate(lexemes);
+      FixedList<IToken> tokens = Evaluate(lexemes);
 
       return tokens;
     }
@@ -47,11 +47,11 @@ namespace Empiria.Expressions {
 
     #region Helpers
 
-    private FixedList<IExpressionToken> Evaluate(FixedList<string> lexemes) {
-      var tokens = new List<IExpressionToken>(lexemes.Count);
+    private FixedList<IToken> Evaluate(FixedList<string> lexemes) {
+      var tokens = new List<IToken>(lexemes.Count);
 
       foreach (var lexeme in lexemes) {
-        IExpressionToken token = TryToTokenize(lexeme);
+        IToken token = TryToTokenize(lexeme);
 
         Assertion.Require(token, $"Unrecognized token was found: {lexeme}.");
 
@@ -61,29 +61,30 @@ namespace Empiria.Expressions {
       return tokens.ToFixedList();
     }
 
-    private IExpressionToken TryToTokenize(string lexeme) {
+
+    private IToken TryToTokenize(string lexeme) {
       lexeme = EmpiriaString.TrimAll(lexeme);
 
       Assertion.Require(lexeme, nameof(lexeme));
 
       if (_lexicalGrammar.IsKeyword(lexeme)) {
-        return new ExpressionToken(ExpressionTokenType.Keyword, lexeme);
+        return new Token(TokenType.Keyword, lexeme);
       }
 
       if (_lexicalGrammar.IsOperator(lexeme)) {
-        return new ExpressionToken(ExpressionTokenType.Operator, lexeme);
+        return new Token(TokenType.Operator, lexeme);
       }
 
       if (_lexicalGrammar.IsLiteral(lexeme)) {
-        return new ExpressionToken(ExpressionTokenType.Literal, lexeme);
+        return new Token(TokenType.Literal, lexeme);
       }
 
       if (_lexicalGrammar.IsFunction(lexeme)) {
-        return new ExpressionToken(ExpressionTokenType.Function, lexeme);
+        return new Token(TokenType.Function, lexeme);
       }
 
       if (_lexicalGrammar.IsVariable(lexeme)) {
-        return new ExpressionToken(ExpressionTokenType.Variable, lexeme);
+        return new Token(TokenType.Variable, lexeme);
       }
 
       return null;

@@ -35,7 +35,7 @@ namespace Empiria.Tests.Expressions {
                                                               int tokensExpectedCount) {
       var tokenizer = new Tokenizer();
 
-      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+      FixedList<IToken> sut = tokenizer.Tokenize(expression);
 
       Assert.All(sut, x => Assert.NotNull(x));
       Assert.Equal(tokensExpectedCount, sut.Count);
@@ -52,7 +52,7 @@ namespace Empiria.Tests.Expressions {
                                                     int tokensExpectedCount) {
       var tokenizer = new Tokenizer();
 
-      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+      FixedList<IToken> sut = tokenizer.Tokenize(expression);
 
       Assert.All(sut, x => Assert.NotNull(x));
       Assert.Equal(tokensExpectedCount, sut.Count);
@@ -71,7 +71,7 @@ namespace Empiria.Tests.Expressions {
                                                        int tokensExpectedCount) {
       var tokenizer = new Tokenizer();
 
-      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+      FixedList<IToken> sut = tokenizer.Tokenize(expression);
 
       Assert.All(sut, x => Assert.NotNull(x));
       Assert.Equal(tokensExpectedCount, sut.Count);
@@ -92,7 +92,7 @@ namespace Empiria.Tests.Expressions {
                                                              int tokensExpectedCount) {
       var tokenizer = new Tokenizer();
 
-      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+      FixedList<IToken> sut = tokenizer.Tokenize(expression);
 
       Assert.All(sut, x => Assert.NotNull(x));
       Assert.Equal(tokensExpectedCount, sut.Count);
