@@ -8,18 +8,27 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Collections.Generic;
 
 namespace Empiria.Expressions {
 
   /// <summary>An abstract syntax tree data structure (AST).</summary>
   internal class SyntaxTree {
 
-    public int Count {
-      get;
-      private set;
+    private readonly SyntaxTreeNode _root;
+
+    internal SyntaxTree() {
+      IToken rootToken = new Token(TokenType.Function, "START");
+
+      _root = new SyntaxTreeNode(rootToken);
+    }
+
+    public SyntaxTreeNode Root {
+      get {
+        return _root;
+      }
     }
 
   }  // class SyntaxTree
 
 }  // namespace Empiria.Expressions
+
