@@ -1,35 +1,27 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
 *  Module   : Empiria Expressions                        Component : Domain Layer                            *
-*  Assembly : Empiria.Extensions.dll                     Pattern   : Information Holder                      *
-*  Type     : Expression                                 License   : Please read LICENSE.txt file            *
+*  Assembly : Empiria.Extensions.dll                     Pattern   : Service provider                        *
+*  Type     : SymbolTable                                License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Provides a service to evaluate an expression.                                                  *
+*  Summary  : Extracts the collection of symbols from a syntax tree.                                         *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Dynamic;
 
 namespace Empiria.Expressions {
 
-  /// <summary>Provides a service to evaluate an expression.</summary>
-  public class Expression {
+  /// <summary>Extracts the collection of symbols from a syntax tree.</summary>
+  internal class SymbolTable {
 
-    internal Expression(FunctionObject function) {
-      Assertion.Require(function, nameof(function));
+    private readonly SyntaxTree _syntaxTree;
 
-      Function = function;
+    public SymbolTable(SyntaxTree syntaxTree) {
+      Assertion.Require(syntaxTree, nameof(syntaxTree));
+
+      _syntaxTree = syntaxTree;
     }
 
-    internal FunctionObject Function {
-      get;
-    }
-
-
-    public T Evaluate<T>(DynamicObject data) {
-      return (T) (object) 1;
-    }
-
-  }  // class Expression
+  }  // class SymbolTable
 
 }  // namespace Empiria.Expressions
