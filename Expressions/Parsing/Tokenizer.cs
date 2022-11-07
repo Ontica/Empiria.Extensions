@@ -61,38 +61,32 @@ namespace Empiria.Expressions {
       return tokens.ToFixedList();
     }
 
-
     private IExpressionToken TryToTokenize(string lexeme) {
       lexeme = EmpiriaString.TrimAll(lexeme);
 
       Assertion.Require(lexeme, nameof(lexeme));
 
-      IExpressionToken token = Keyword.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
+      if (_lexicalGrammar.IsKeyword(lexeme)) {
+        return new ExpressionToken(ExpressionTokenType.Keyword, lexeme);
       }
 
-      token = Operator.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
+      if (_lexicalGrammar.IsOperator(lexeme)) {
+        return new ExpressionToken(ExpressionTokenType.Operator, lexeme);
       }
 
-      token = Literal.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
+      if (_lexicalGrammar.IsLiteral(lexeme)) {
+        return new ExpressionToken(ExpressionTokenType.Literal, lexeme);
       }
 
-      token = Function.TryToTokenize(lexeme);
-
-      if (token != null) {
-        return token;
+      if (_lexicalGrammar.IsFunction(lexeme)) {
+        return new ExpressionToken(ExpressionTokenType.Function, lexeme);
       }
 
-      return Variable.TryToTokenize(lexeme);
+      if (_lexicalGrammar.IsVariable(lexeme)) {
+        return new ExpressionToken(ExpressionTokenType.Variable, lexeme);
+      }
 
+      return null;
     }
 
     #endregion Helpers

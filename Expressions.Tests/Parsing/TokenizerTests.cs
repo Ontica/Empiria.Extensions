@@ -4,7 +4,7 @@
 *  Assembly : Empiria.Expressions.Tests.dll              Pattern   : Unit tests                              *
 *  Type     : TokenizerTests                             License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Test cases for the Tokenizer, our lexical analyzer (a.k.a scanner or lexer).                   *
+*  Summary  : Test cases for the Tokenizer that converts expression into streams of tokenized lexemes.       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -15,20 +15,87 @@ using Empiria.Expressions;
 
 namespace Empiria.Tests.Expressions {
 
-  /// <summary>Test cases for expression parsing.</summary>
+  /// <summary>Test cases for the Tokenizer that converts expression
+  /// into streams of tokenized lexemes.</summary>
   public class TokenizerTests {
 
     #region Theories
 
     [Theory]
     [InlineData("1 + 1", 3)]
-    public void ShouldS(string expression, int tokensCount) {
-
+    [InlineData("1+1", 3)]
+    [InlineData("+1", 2)]
+    [InlineData("-1", 2)]
+    [InlineData("-1 * 3", 4)]
+    [InlineData("6 / -10", 4)]
+    [InlineData("+1 - 1", 4)]
+    [InlineData("-1 + 2 - 1 / 5", 8)]
+    [InlineData("-143463.12 + 12.000 - 11.20 / 5", 8)]
+    public void Should_Tokenize_Simple_Arithmetic_Expressions(string expression,
+                                                              int tokensExpectedCount) {
       var tokenizer = new Tokenizer();
 
       FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
 
-      Assert.Equal(sut.Count, tokensCount);
+      Assert.All(sut, x => Assert.NotNull(x));
+      Assert.Equal(tokensExpectedCount, sut.Count);
+    }
+
+
+    [Theory]
+    [InlineData("!P", 2)]
+    [InlineData("!(P, Q)", 6)]
+    [InlineData("P && !Q", 4)]
+    [InlineData("(!P && !Q) || (P && Q)", 13)]
+    [InlineData("((P && !(!Q || !R)))", 14)]
+    public void Should_Tokenize_Logical_Expressions(string expression,
+                                                    int tokensExpectedCount) {
+      var tokenizer = new Tokenizer();
+
+      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+
+      Assert.All(sut, x => Assert.NotNull(x));
+      Assert.Equal(tokensExpectedCount, sut.Count);
+    }
+
+
+    [Theory]
+    [InlineData("X == Y", 3)]
+    [InlineData("X > Y", 3)]
+    [InlineData("x < Y", 3)]
+    [InlineData("x != Y", 3)]
+    [InlineData("x<=y && y<=z", 7)]
+    [InlineData("(valor_1==y||valor2!=z)&& x >=z", 13)]
+    [InlineData("(x ==y || x!= z)", 9)]
+    public void Should_Tokenize_Relational_Expressions(string expression,
+                                                       int tokensExpectedCount) {
+      var tokenizer = new Tokenizer();
+
+      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+
+      Assert.All(sut, x => Assert.NotNull(x));
+      Assert.Equal(tokensExpectedCount, sut.Count);
+    }
+
+
+    [Theory]
+    [InlineData("(1)", 3)]
+    [InlineData("-(+1)", 5)]
+    [InlineData("(3 + 5, VALOR)", 7)]
+    [InlineData("5 + (4 - 3 * (4 + 8) )", 13)]
+    [InlineData("SUM(VALOR_1,MONEDA_2,-456.12,MONEDA_2)   ", 11)]
+    [InlineData("   ABS(SUM( -456.12,VALOR_1 ,MONEDA_2 )", 11)]
+    [InlineData("AB(-SUM(0.98123,categoria_1,categoria_2)", 11)]
+    [InlineData("ABS   (-SUM (-x, 456.12,-y) ", 13)]
+    [InlineData(" (SUM(SUM( -456.12, (VALOR_1 + MONEDA_2))))", 16)]
+    public void Should_Tokenize_Expressions_With_Parenthesis(string expression,
+                                                             int tokensExpectedCount) {
+      var tokenizer = new Tokenizer();
+
+      FixedList<IExpressionToken> sut = tokenizer.Tokenize(expression);
+
+      Assert.All(sut, x => Assert.NotNull(x));
+      Assert.Equal(tokensExpectedCount, sut.Count);
     }
 
     #endregion Theories
