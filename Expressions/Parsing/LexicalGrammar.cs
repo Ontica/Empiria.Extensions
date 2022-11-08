@@ -4,14 +4,14 @@
 *  Assembly : Empiria.Extensions.dll                     Pattern   : Information Holder                      *
 *  Type     : LexicalGrammar                             License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Contains the elements of a lexical grammar.                                                    *
+*  Summary  : Contains the elements and rules of a lexical grammar.                                          *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Expressions {
 
-  /// <summary>Contains the elements of a lexical grammar.</summary>
+  /// <summary>Contains the elements and rules of a lexical grammar.</summary>
   public class LexicalGrammar {
 
     #region Constructors and parsers
@@ -22,7 +22,7 @@ namespace Empiria.Expressions {
       this.RelationalOperators = @"== != <> <= >= < >";
       this.GroupingOperators = @"( [ { } ] ) , ;";
       this.ReservedWords = @"true false if then else";
-      this.FunctionIdentifiers = @"SI SUM SUMAR ABS VALORIZAR";
+      this.FunctionIdentifiers = @"SI SUM ABS VALORIZAR";
       this.StroppableSymbols = @"== != <> <= >=";
       this.ConstantSeparators = @"' """;
     }
@@ -147,6 +147,54 @@ namespace Empiria.Expressions {
     }
 
     #endregion Methods
+
+    #region Temporal
+
+    internal bool IsListItemDelimiter(IToken token) {
+      return token.Type == TokenType.Operator && (token.Lexeme == "," || token.Lexeme == ";");
+    }
+
+    internal bool IsRightParenthesis(IToken token) {
+      return token.Type == TokenType.Operator && token.Lexeme == ")";
+    }
+
+
+    internal bool IsLeftParenthesis(IToken token) {
+      return token.Type == TokenType.Operator && token.Lexeme == "(";
+    }
+
+
+    internal bool IsOperand(IToken token) {
+      return token.Type == TokenType.Variable || token.Type == TokenType.Literal;
+    }
+
+
+    internal bool IsOperator(IToken token) {
+      return (token.Type == TokenType.Operator || token.Type == TokenType.Function);
+    }
+
+
+    internal int Precedence(IToken token) {
+      var precedenceTable = new string[] { " ( ",          // Evaluates later
+                                           " , ; ",
+                                           " OR ",         // Evaluates last
+                                           " AND ",
+                                           " = <> != ",
+                                           " > < ",
+                                           " + - ",
+                                          @" * / ÷ \ ",
+                                           " ) ",          // Evaluates inmediatly
+                                         };
+
+      for (int i = 0; i < precedenceTable.Length; i++) {
+        if (precedenceTable[i].Contains(token.Lexeme)) {
+          return i;
+        }
+      }
+      return 9999;
+    }
+
+    #endregion Temporal
 
     #region Helpers
 
