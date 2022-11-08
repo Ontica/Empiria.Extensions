@@ -30,6 +30,10 @@ namespace Empiria.Expressions {
 
   internal interface IToken {
 
+    TokenType Type { get; }
+
+    string Lexeme { get; }
+
   }
 
 
