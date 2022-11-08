@@ -8,15 +8,20 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Dynamic;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Empiria.Expressions {
 
   internal interface IExecutable {
 
-    object Execute(DynamicObject data);
+    object Execute();
 
-    T Execute<T>(DynamicObject data);
+    T Execute<T>();
+
+    object Execute(IDictionary<string, object> data);
+
+    T Execute<T>(IDictionary<string, object> data);
 
   }
 
@@ -24,24 +29,88 @@ namespace Empiria.Expressions {
   /// <summary>Converts a stream of tokens into an evaluatable Expression object.</summary>
   internal class ExpressionEvaluator : IExecutable {
 
-    private readonly SyntaxTree _syntaxTree;
+    // private readonly SyntaxTree _syntaxTree;
     private readonly SymbolTable _symbolTable;
 
-    internal ExpressionEvaluator(SyntaxTree syntaxTree, SymbolTable symbolTable) {
-      Assertion.Require(syntaxTree, nameof(syntaxTree));
-      Assertion.Require(symbolTable, nameof(symbolTable));
+    private FixedList<IToken> _postfixTokens;
 
-      _syntaxTree = syntaxTree;
+    public ExpressionEvaluator(FixedList<IToken> postfixTokens, SymbolTable symbolTable) {
+      _postfixTokens = postfixTokens;
       _symbolTable = symbolTable;
     }
 
+    //internal ExpressionEvaluator(SyntaxTree syntaxTree, SymbolTable symbolTable) {
+    //  Assertion.Require(syntaxTree, nameof(syntaxTree));
+    //  Assertion.Require(symbolTable, nameof(symbolTable));
 
-    public object Execute(DynamicObject data) {
-      return 1m;
+    //  _syntaxTree = syntaxTree;
+    //  _symbolTable = symbolTable;
+    //}
+
+
+    public object Execute() {
+      return Evaluate(null);
     }
 
-    public T Execute<T>(DynamicObject data) {
+
+    public T Execute<T>() {
+      return (T) this.Execute();
+    }
+
+
+    public object Execute(IDictionary<string, object> data) {
+      return this.Evaluate(data);
+    }
+
+
+    public T Execute<T>(IDictionary<string, object> data) {
       return (T) Execute(data);
+    }
+
+
+    public decimal Evaluate(IDictionary<string, object> data) {
+
+      var operandsStack = new Stack<IToken>();
+
+      var _grammar = LexicalGrammar.Default;
+
+      decimal returnValue = 0;
+
+      foreach (var token in _postfixTokens) {
+        if (_grammar.IsOperand(token)) {
+          operandsStack.Push(token);
+
+          continue;
+        }
+
+        if (_grammar.IsOperator(token)) {
+
+          var parameters = new List<IToken>();
+
+          if (token.Type == TokenType.Function && operandsStack.Count == 0) {
+
+            parameters.Add(new Token(TokenType.Literal, returnValue.ToString()));
+
+            returnValue += Calculator.Calculate(token,
+                                    parameters.ToFixedList(),
+                                    data);
+
+
+          } else {
+
+            while (operandsStack.Count > 0) {
+              parameters.Insert(0, operandsStack.Pop());
+            }
+
+            returnValue += Calculator.Calculate(token,
+                                                parameters.ToFixedList(),
+                                                data);
+          }
+        }
+
+      } // foreach
+
+      return returnValue;
     }
 
   }  // class ExpressionEvaluator
