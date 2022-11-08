@@ -22,15 +22,52 @@ namespace Empiria.Tests.Expressions {
 
     [Theory]
     [InlineData("1 + 1", 3)]
+    [InlineData("(1 + 1)", 3)]
     public void Should_Parse_A_Simple_Tree(string expression, int nodesExpectedCount) {
-      FixedList<IToken> tokens = new Tokenizer().Tokenize(expression);
+      var tokenizer = new Tokenizer();
+
+      FixedList<IToken> tokens = tokenizer.Tokenize(expression);
 
       var parser = new SyntaxTreeParser(tokens);
 
       SyntaxTree sut = parser.SyntaxTree();
 
       Assert.NotNull(sut);
-      Assert.Equal(nodesExpectedCount, sut.Count);
+      Assert.NotNull(sut.Root);
+      Assert.Equal(nodesExpectedCount, sut.Root.Children.Count);
+    }
+
+
+    [Theory]
+    [InlineData("1 + 1", "1 1 +")]
+    [InlineData("(1 + 1)", "1 1 +")]
+    [InlineData("(a + b) * (c - d)", "a b + c d - *")]
+    [InlineData("-3 + SUM (a + b, 5, 7) - 8", "3 - a b + 5 7 SUM + 8 -")]
+    [InlineData("VALORIZAR(a + b)", "a b + VALORIZAR")]
+    public void Should_Convert_To_Postfix_List(string expression, string expectedStream) {
+      var tokenizer = new Tokenizer();
+
+      FixedList<IToken> tokens = tokenizer.Tokenize(expression);
+
+      var parser = new SyntaxTreeParser(tokens);
+
+      FixedList<IToken> sut = parser.PostfixList();
+
+      string sutAsString = ConvertToLexemeStream(sut);
+
+      Assert.NotNull(sut);
+      Assert.Equal(expectedStream, sutAsString);
+    }
+
+
+    private string ConvertToLexemeStream(FixedList<IToken> sut) {
+      string temp = string.Empty;
+
+      foreach (var token in sut) {
+        temp += token.Lexeme + " ";
+      }
+
+      return temp.TrimEnd();
     }
 
     #endregion Theories

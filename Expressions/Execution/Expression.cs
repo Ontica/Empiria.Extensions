@@ -8,6 +8,7 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Collections.Generic;
 using System.Dynamic;
 
 namespace Empiria.Expressions {
@@ -28,7 +29,11 @@ namespace Empiria.Expressions {
     }
 
 
-    public T Evaluate<T>(DynamicObject data) {
+    public T Evaluate<T>() {
+      return _executable.Execute<T>();
+    }
+
+    public T Evaluate<T>(IDictionary<string, object> data) {
       return _executable.Execute<T>(data);
     }
 
@@ -40,11 +45,11 @@ namespace Empiria.Expressions {
 
       var parser = new SyntaxTreeParser(tokens);
 
-      SyntaxTree syntaxTree = parser.SyntaxTree();
+      FixedList<IToken> postfixTokens = parser.PostfixList();
 
-      SymbolTable symbolTable = new SymbolTable(syntaxTree);
+      SymbolTable symbolTable = new SymbolTable(postfixTokens);
 
-      return new ExpressionEvaluator(syntaxTree, symbolTable);
+      return new ExpressionEvaluator(postfixTokens, symbolTable);
     }
 
   }  // class Expression
