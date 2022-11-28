@@ -41,6 +41,7 @@ namespace Empiria.Tests.Expressions {
       Assert.All(sut, x => Assert.Contains(x, expression));
     }
 
+
     [Theory]
     [InlineData("!P", 2)]
     [InlineData("!(P, Q)", 6)]

@@ -8,11 +8,11 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-
 using Xunit;
 
-using Empiria.Expressions;
 using System.Collections.Generic;
+
+using Empiria.Expressions;
 
 namespace Empiria.Tests.Expressions {
 
@@ -36,8 +36,13 @@ namespace Empiria.Tests.Expressions {
     [Theory]
     [InlineData("a + b", 13)]
     [InlineData("(x + 3) - 5", 20)]
-    [InlineData("VALORIZAR(10 + 10)", 400)]
+    [InlineData("30 + VALORIZAR(10 + 10)", 430)]
     [InlineData("VALORIZAR(a + b)", 260)]
+    [InlineData("250 - VALORIZAR(b + a - 3) + VALORIZAR(10 - a)", 280)]
+    [InlineData("DEUDORAS_MENOS_ACREEDORAS(1000, a, b)", -1)]
+    [InlineData("DEUDORAS_MENOS_ACREEDORAS(2000, a, b)", 1)]
+    [InlineData("100 + DEUDORAS_MENOS_ACREEDORAS(1000, a, b) + DEUDORAS_MENOS_ACREEDORAS(2000, a, b) + 50", 150)]
+    [InlineData("x + DEUDORAS_MENOS_ACREEDORAS(3000, a, b) - a", 15)]
     public void Should_Evaluate_Variables(string textExpression, decimal result) {
       var expression = new Expression(textExpression);
 
