@@ -9,7 +9,6 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Empiria.Expressions {
 
@@ -83,30 +82,36 @@ namespace Empiria.Expressions {
           continue;
         }
 
-        if (_grammar.IsOperator(token)) {
-
-          var parameters = new List<IToken>();
-
-          if (token.Type == TokenType.Function && operandsStack.Count == 0) {
-
-            parameters.Add(new Token(TokenType.Literal, returnValue.ToString()));
-
-            returnValue += Calculator.Calculate(token,
-                                    parameters.ToFixedList(),
-                                    data);
-
-
-          } else {
-
-            while (operandsStack.Count > 0) {
-              parameters.Insert(0, operandsStack.Pop());
-            }
-
-            returnValue += Calculator.Calculate(token,
-                                                parameters.ToFixedList(),
-                                                data);
-          }
+        if (!_grammar.IsOperator(token)) {
+          continue;
         }
+
+        var parameters = new List<IToken>();
+
+
+        if (token.Type == TokenType.Function && operandsStack.Count == 0) {
+
+          parameters.Add(new Token(TokenType.Literal, returnValue.ToString()));
+
+
+        } else if (token.Type == TokenType.Function && operandsStack.Count > 0) {
+
+          for (int i = 0; i < _grammar.ArityOf(token); i++) {
+            parameters.Insert(0, operandsStack.Pop());
+          }
+
+        } else {
+
+          while (operandsStack.Count > 0) {
+            parameters.Insert(0, operandsStack.Pop());
+          }
+
+        }
+
+        returnValue += Calculator.Calculate(token,
+                                            parameters.ToFixedList(),
+                                            data);
+
 
       } // foreach
 
