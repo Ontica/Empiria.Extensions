@@ -32,20 +32,22 @@ namespace Empiria.Expressions {
 
     private void BuildTable(FixedList<IToken> tokens) {
       foreach (var token in tokens) {
-        if (IsSymbol(token.Type)) {
+        if (IsSymbol(token.Type) && !_symbolTable.ContainsKey(token.Lexeme)) {
           _symbolTable.Add(token.Lexeme, new SymbolTableEntry(token));
         }
-
       }
     }
+
 
     public decimal GetValue(IToken token) {
       return _symbolTable[token.Lexeme].Value;
     }
 
+
     public void SetValue(IToken token, decimal newValue) {
       _symbolTable[token.Lexeme].SetValue(newValue);
     }
+
 
     private bool IsSymbol(TokenType type) {
       return type == TokenType.Variable;
