@@ -90,17 +90,15 @@ namespace Empiria.Expressions {
 
     static private decimal DeudorasMenosAcreedoras(FixedList<IToken> parameters,
                                                    IDictionary<string, object> inputData) {
-      string concept = GetString(parameters[0], inputData);
+      string conceptCode = GetString(parameters[0], inputData);
 
-      if (concept.StartsWith("1") || concept.StartsWith("3") || concept.StartsWith("6") || concept.StartsWith("7")) {
-        return GetDecimal(parameters[1], inputData) - GetDecimal(parameters[2], inputData);
+      decimal deudoras = GetDecimal(parameters[1], inputData);
+      decimal acreedoras = GetDecimal(parameters[2], inputData);
 
-      } else if (concept.StartsWith("2") || concept.StartsWith("4") || concept.StartsWith("5")) {
-        return GetDecimal(parameters[2], inputData) - GetDecimal(parameters[1], inputData);
-
+      if (conceptCode.StartsWith("2") || conceptCode.StartsWith("4") || conceptCode.StartsWith("5")) {
+        return acreedoras - deudoras;
       } else {
-        throw Assertion.EnsureNoReachThisCode($"Unhandled DeudorasMenosAcreedoras() rule for concept with code '{concept}'.");
-
+        return deudoras - acreedoras;
       }
     }
 
