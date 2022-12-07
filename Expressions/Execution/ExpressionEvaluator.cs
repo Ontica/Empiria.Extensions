@@ -100,22 +100,28 @@ namespace Empiria.Expressions {
             parameters.Insert(0, operandsStack.Pop());
           }
 
-        } else {
+        } else if (token.Type == TokenType.Operator && operandsStack.Count >= 2) {
 
-          while (operandsStack.Count > 0) {
-            parameters.Insert(0, operandsStack.Pop());
-          }
+          parameters.Insert(0, operandsStack.Pop());
+          parameters.Insert(0, operandsStack.Pop());
+
+        } else if (token.Type == TokenType.Operator && operandsStack.Count == 1) {
+
+          parameters.Insert(0, operandsStack.Pop());
 
         }
 
-        returnValue += Calculator.Calculate(token,
-                                            parameters.ToFixedList(),
-                                            data);
+        returnValue = Calculator.Calculate(token,
+                                           parameters.ToFixedList(),
+                                           data);
+
+        operandsStack.Push((new Token(TokenType.Literal, returnValue.ToString())));
 
 
       } // foreach
 
       return returnValue;
+
     }
 
   }  // class ExpressionEvaluator
