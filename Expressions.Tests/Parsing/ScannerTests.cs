@@ -90,6 +90,7 @@ namespace Empiria.Tests.Expressions {
     [InlineData("AB(-SUM(0.98123,categoria_1,categoria_2)", 11)]
     [InlineData("ABS   (-SUM (-x, 456.12,-y) ", 13)]
     [InlineData(" (SUM(SUM( -456.12, (VALOR_1 + MONEDA_2))))", 16)]
+    [InlineData("ROUND(a + b, 4)", 8)]
     public void Should_Scan_Expressions_With_Parenthesis(string expression,
                                                          int lexemesExpectedCount) {
       var scanner = new Scanner();

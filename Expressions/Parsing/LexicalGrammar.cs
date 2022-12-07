@@ -8,7 +8,6 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Security.Cryptography;
 
 namespace Empiria.Expressions {
 
@@ -23,7 +22,7 @@ namespace Empiria.Expressions {
       this.RelationalOperators = @"== != <> <= >= < >";
       this.GroupingOperators = @"( [ { } ] ) , ;";
       this.ReservedWords = @"true false if then else";
-      this.FunctionIdentifiers = @"SI SUM ABS VALORIZAR DEUDORAS_MENOS_ACREEDORAS";
+      this.FunctionIdentifiers = @"SI SUM ABS ROUND VALORIZAR DEUDORAS_MENOS_ACREEDORAS";
       this.StroppableSymbols = @"== != <> <= >=";
       this.ConstantSeparators = @"' """;
     }
@@ -161,7 +160,9 @@ namespace Empiria.Expressions {
       if (token.Lexeme == "SI" || token.Lexeme == "DEUDORAS_MENOS_ACREEDORAS") {
         return 3;
       }
-
+      if (token.Lexeme == "ROUND") {
+        return 2;
+      }
       return -1;
     }
 

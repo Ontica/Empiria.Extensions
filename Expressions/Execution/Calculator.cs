@@ -34,6 +34,9 @@ namespace Empiria.Expressions {
         case "/":
           return Division(parameters, inputData);
 
+        case "ROUND":
+          return Round(parameters, inputData);
+
         case "VALORIZAR":
           return Valorize(parameters, inputData);
 
@@ -56,6 +59,13 @@ namespace Empiria.Expressions {
     static private decimal Multiplication(FixedList<IToken> parameters,
                                           IDictionary<string, object> inputData) {
       return GetDecimal(parameters[0], inputData) * GetDecimal(parameters[1], inputData);
+    }
+
+
+    static private decimal Round(FixedList<IToken> parameters,
+                                 IDictionary<string, object> inputData) {
+      return Math.Round(GetDecimal(parameters[0], inputData),
+                        Convert.ToInt32(GetDecimal(parameters[1], inputData)));
     }
 
 
@@ -97,9 +107,14 @@ namespace Empiria.Expressions {
 
       if (conceptCode.StartsWith("2") || conceptCode.StartsWith("4") || conceptCode.StartsWith("5")) {
         return acreedoras - deudoras;
+
+      //} else if (conceptCode.StartsWith("3")) {
+      //  return deudoras + acreedoras;
+
       } else {
         return deudoras - acreedoras;
       }
+
     }
 
 

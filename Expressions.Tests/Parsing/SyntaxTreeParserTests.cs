@@ -43,6 +43,8 @@ namespace Empiria.Tests.Expressions {
     [InlineData("(1 + 1)", "1 1 +")]
     [InlineData("(a + b) * (c - d)", "a b + c d - *")]
     [InlineData("-3 + SUM (a + b, 5, 7) - 8", "3 - a b + 5 7 SUM + 8 -")]
+    [InlineData("ROUND(a + b, 4)", "a b + 4 ROUND")]
+    [InlineData("ROUND((a + b) / c, 0)", "a b + c / 0 ROUND")]
     [InlineData("VALORIZAR(a + b)", "a b + VALORIZAR")]
     [InlineData("x - SUM(a, b, c)", "x a b c SUM -")]
     [InlineData("x + DEUDORAS_MENOS_ACREEDORAS(3000, a, b) - a", "x 3000 a b DEUDORAS_MENOS_ACREEDORAS + a -")]
