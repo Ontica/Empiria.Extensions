@@ -38,7 +38,7 @@ namespace Empiria.Tests.Expressions {
     [InlineData("(x + 3) - 5", 20)]
     [InlineData("30 + VALORIZAR(10 + 10)", 430)]
     [InlineData("VALORIZAR(a + b)", 260)]
-    [InlineData("250 - VALORIZAR(b + a - 3) + VALORIZAR(10 - a)", 280)]
+    [InlineData("250 - VALORIZAR(b + a - 3) + VALORIZAR(10 - a)", 130)]
     [InlineData("DEUDORAS_MENOS_ACREEDORAS(1000, a, b)", -1)]
     [InlineData("DEUDORAS_MENOS_ACREEDORAS(2000, a, b)", 1)]
     [InlineData("100 + DEUDORAS_MENOS_ACREEDORAS(1000, a, b) + DEUDORAS_MENOS_ACREEDORAS(2000, a, b) + 50", 150)]
@@ -51,6 +51,23 @@ namespace Empiria.Tests.Expressions {
       data.Add("a", 6);
       data.Add("b", 7);
       data.Add("x", 22);
+
+      decimal sut = expression.Evaluate<decimal>(data);
+
+      Assert.Equal(result, sut);
+    }
+
+    [Theory]
+    [InlineData("ROUND(a, 0)", 7)]
+    [InlineData("ROUND(a + b, 0)", 15)]
+    [InlineData("ROUND(a * b / 2, 0)", 27)]
+    public void Should_Round(string textExpression, decimal result) {
+      var expression = new Expression(textExpression);
+
+      var data = new Dictionary<string, object>();
+
+      data.Add("a", 6.9489);
+      data.Add("b", 7.7813);
 
       decimal sut = expression.Evaluate<decimal>(data);
 
