@@ -34,7 +34,9 @@ namespace Empiria.Presentation.Components {
     #region Public methods
 
     public FixedList<TabStripMasterChildMenu> GetSubMenus() {
-      return base.GetLinks<TabStripMasterChildMenu>("MasterMenu_SubMenus");
+      throw new NotImplementedException("GetSubMenus()");
+
+      // return base.GetLinks<TabStripMasterChildMenu>("MasterMenu_SubMenus");
     }
 
     #endregion Public methods

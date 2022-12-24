@@ -29,7 +29,7 @@ namespace Empiria.Geography {
       string sql = String.Format("SELECT * FROM GeoItems WHERE GeoItemParentId = {0} AND " +
                                  "GeoItemTypeId IN ({1}) AND GeoItemStatus = 'A' ORDER BY GeoItemFullName",
                                  region.Id, typesString);
-      return DataReader.GetList<T>(DataOperation.Parse(sql), (x) => BaseObject.ParseList<T>(x));
+      return DataReader.GetList<T>(DataOperation.Parse(sql));
     }
 
 
