@@ -30,7 +30,7 @@ namespace Empiria.WebApi {
 
 
     public WebApiController() {
-
+      // no-op
     }
 
     #region Public Methods
@@ -39,10 +39,6 @@ namespace Empiria.WebApi {
     protected HttpResponseException CreateHttpException(Exception exception) {
       if (exception is HttpResponseException ex1) {
         return ex1;
-      }
-
-      if (exception is IWebApiResponse ex2) {
-        return new HttpResponseException(ex2.Response);
       }
 
       ExceptionModel model = new ExceptionModel(base.Request, exception);

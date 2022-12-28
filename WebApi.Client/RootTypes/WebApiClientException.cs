@@ -15,13 +15,17 @@ using System.Reflection;
 namespace Empiria.WebApi {
 
   /// <summary>The exception that is thrown when a web api client call fails.</summary>
-  public sealed class WebApiClientException : EmpiriaException, IWebApiResponse {
+  public sealed class WebApiClientException : EmpiriaException {
 
     public enum Msg {
+
       HttpNoSuccessStatusCode,
+
       UndefinedServiceUIDOrEndpoint,
+
       UriParsingIssue,
     }
+
 
     static private string resourceBaseName = "Empiria.WebApi.Client.RootTypes.WebApiClientExceptionMsg";
 
