@@ -1,7 +1,7 @@
 ﻿Empiria MySql Data Handler License
 ==================================
 
-Copyright (c) 2007-2020. La Vía Óntica SC, Ontica LLC and contributors.
+Copyright (c) 2007-2023. La Vía Óntica SC, Ontica LLC and contributors.
 -----------------------------------------------------------------------
 
 These software components are free software: you can redistribute them

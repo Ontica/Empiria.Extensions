@@ -10,10 +10,10 @@ Manages http/json web api requests, and provides a core infrastructure to build 
 - Json formatters
 - Query model aligned with OData
 
-# License
+## License
 
 This system is distributed by the GNU AFFERO GENERAL PUBLIC LICENSE.
 
-# Copyright
+## Copyright
 
-Copyright © 2014-2020. La Vía Óntica SC, Ontica LLC and colaborators.
+Copyright © 2014-2023. La Vía Óntica SC, Ontica LLC and colaborators.

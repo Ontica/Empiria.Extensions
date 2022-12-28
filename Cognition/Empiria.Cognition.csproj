@@ -3,7 +3,7 @@
     <Company>Ontica</Company>
     <Product>Empiria Cognitive Services</Product>
     <Description>Provides cognitive services like text translation and text recognition.</Description>
-    <Copyright>(c) 2020-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Copyright>(c) 2020-2023. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
@@ -58,7 +58,7 @@
     <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />

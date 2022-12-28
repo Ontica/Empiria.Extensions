@@ -3,7 +3,7 @@
     <Company>Ontica</Company>
     <Product>Empiria Governance</Product>
     <Description>Web Api used to manage media, annotations, bookmarks, blogs, chats and posts of other kind.</Description>
-    <Copyright>(c) 2017-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Copyright>(c) 2017-2023. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
@@ -53,7 +53,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
     <PackageReference Include="Empiria.WebApi" Version="2.0.0" />

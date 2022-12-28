@@ -30,4 +30,4 @@ All software components are distributed by the GNU AFFERO GENERAL PUBLIC LICENSE
 
 ## Copyright
 
-Copyright © 2002-2022. La Vía Óntica SC, Ontica LLC and colaborators.
+Copyright © 2002-2023. La Vía Óntica SC, Ontica LLC and colaborators.

@@ -3,7 +3,7 @@
     <Company>Ontica</Company>
     <Product>Empiria Services Framework</Product>
     <Description>Provides types to build flexible and configurable services like use cases (a.k.a. application services or business cases), running on a secured and transactionable infrastructure.</Description>
-    <Copyright>(c) 2020-2020. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Copyright>(c) 2020-2023. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
@@ -51,14 +51,12 @@
     <NoWarn />
     <WarningsAsErrors />
   </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
+    <PackageReference Include="Empiria.Core" Version="7.0.0" />
+    <PackageReference Include="Empiria.Aspects" Version="1.0.0" />
+  </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
     <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
     <ProjectReference Include="..\Aspects\Empiria.Aspects.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Web" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.Core" Version="7.0.0" />
   </ItemGroup>
 </Project>
