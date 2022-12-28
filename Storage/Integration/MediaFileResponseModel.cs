@@ -44,7 +44,7 @@ namespace Empiria.Storage {
         postingTime = mediaFile.PostingTime,
         postedBy = new {
           uid = mediaFile.PostedBy.UID,
-          name = mediaFile.PostedBy.Alias
+          name = mediaFile.PostedBy.ShortName
         },
         status = mediaFile.Status,
 

@@ -30,7 +30,7 @@ namespace Empiria.Contacts {
       return new {
         uid = contact.UID,
         name = contact.Nickname.Length != 0 ? contact.Nickname :
-                                              (contact.Alias.Length != 0 ? contact.Alias : contact.FullName)
+                                              (contact.ShortName.Length != 0 ? contact.ShortName : contact.FullName)
       };
     }
 
