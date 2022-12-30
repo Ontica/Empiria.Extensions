@@ -61,7 +61,7 @@
     <PackageReference Include="itext7" Version="7.2.4" />
     <PackageReference Include="itext7.pdfhtml" Version="4.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="DocumentFormat.OpenXml" version="2.19.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" version="2.11.3" />
     <PackageReference Include="SpreadsheetLight" Version="3.5.0" />
     <PackageReference Include="System.IO.FileSystem.Primitives" version="4.3.0" />
     <PackageReference Include="System.IO.Packaging" version="7.0.0" />
