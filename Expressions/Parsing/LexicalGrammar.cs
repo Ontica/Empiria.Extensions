@@ -9,10 +9,15 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
-namespace Empiria.Expressions {
+using Empiria.Expressions.Libraries;
 
-  /// <summary>Contains the elements and rules of a lexical grammar.</summary>
-  public class LexicalGrammar {
+namespace Empiria.Expressions
+{
+
+    /// <summary>Contains the elements and rules of a lexical grammar.</summary>
+    public class LexicalGrammar {
+
+    private readonly LibrariesRegistry _librariesRegistry = new LibrariesRegistry();
 
     #region Constructors and parsers
 
@@ -22,12 +27,20 @@ namespace Empiria.Expressions {
       this.RelationalOperators = @"== != <> <= >= < >";
       this.GroupingOperators = @"( [ { } ] ) , ;";
       this.ReservedWords = @"true false if then else";
-      this.FunctionIdentifiers = @"SI SUM ABS ROUND VALORIZAR DEUDORAS_MENOS_ACREEDORAS";
       this.StroppableSymbols = @"== != <> <= >=";
       this.ConstantSeparators = @"' """;
     }
 
-    static internal readonly LexicalGrammar Default = new LexicalGrammar();
+    static internal LexicalGrammar Default {
+      get {
+        var defaultGrammar = new LexicalGrammar();
+
+        defaultGrammar.LoadLibrary(MathLibrary.Instance);
+        defaultGrammar.LoadLibrary(LogicalLibrary.Instance);
+
+        return defaultGrammar;
+      }
+    }
 
     #endregion Constructors and parsers
 
@@ -58,11 +71,6 @@ namespace Empiria.Expressions {
     }
 
 
-    public string FunctionIdentifiers {
-      get;
-    }
-
-
     public string StroppableSymbols {
       get;
     }
@@ -78,15 +86,7 @@ namespace Empiria.Expressions {
 
 
     public bool IsFunction(string candidate) {
-      string[] functions = GetFunctions();
-
-      foreach (var @function in functions) {
-        if (candidate == function) {
-          return true;
-        }
-      }
-
-      return false;
+      return _librariesRegistry.HasRegisteredFunction(candidate);
     }
 
 
@@ -146,6 +146,19 @@ namespace Empiria.Expressions {
       return char.IsLetter(candidate[0]);
     }
 
+
+    internal LibrariesRegistry Libraries() {
+      return _librariesRegistry;
+    }
+
+
+    public void LoadLibrary(BaseFunctionsLibrary library) {
+      Assertion.Require(library, nameof(library));
+
+      _librariesRegistry.Add(library);
+      // no-op
+    }
+
     #endregion Methods
 
     #region Temporal
@@ -154,16 +167,10 @@ namespace Empiria.Expressions {
       if (token.Type != TokenType.Function) {
         return -1;
       }
-      if (token.Lexeme == "ABS" || token.Lexeme == "VALORIZAR") {
-        return 1;
-      }
-      if (token.Lexeme == "SI" || token.Lexeme == "DEUDORAS_MENOS_ACREEDORAS") {
-        return 3;
-      }
-      if (token.Lexeme == "ROUND") {
-        return 2;
-      }
-      return -1;
+
+      var function = _librariesRegistry.GetFunction(token);
+
+      return function.Arity;
     }
 
     internal bool IsListItemDelimiter(IToken token) {
@@ -207,18 +214,19 @@ namespace Empiria.Expressions {
           return i;
         }
       }
-      return 9999;
+
+      return 99;
     }
 
     #endregion Temporal
 
     #region Helpers
 
-    private string[] GetFunctions() {
-      string allFunctions = $"{FunctionIdentifiers}";
+    //private string[] GetFunctions() {
+    //  string allFunctions = $"{FunctionIdentifiers}";
 
-      return CommonMethods.ConvertToArray(allFunctions);
-    }
+    //  return CommonMethods.ConvertToArray(allFunctions);
+    //}
 
 
     private string[] GetKeywords() {
