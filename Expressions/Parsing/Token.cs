@@ -12,7 +12,7 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>Classifies a lexeme.</summary>
-  internal enum TokenType {
+  public enum TokenType {
 
     Keyword,
 
@@ -28,7 +28,7 @@ namespace Empiria.Expressions {
 
 
 
-  internal interface IToken {
+  public interface IToken {
 
     TokenType Type { get; }
 
@@ -38,7 +38,7 @@ namespace Empiria.Expressions {
 
 
   /// <summary>Holds data about a token that classifies a lexeme.</summary>
-  internal class Token : IToken {
+  public class Token : IToken {
 
     public Token(TokenType type, string lexeme) {
       Assertion.Require(type, nameof(type));
