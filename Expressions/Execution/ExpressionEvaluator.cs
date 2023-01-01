@@ -9,10 +9,12 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
+using Empiria.Expressions.Libraries;
 
-namespace Empiria.Expressions {
+namespace Empiria.Expressions
+{
 
-  internal interface IExecutable {
+    internal interface IExecutable {
 
     object Execute();
 
@@ -29,11 +31,13 @@ namespace Empiria.Expressions {
   internal class ExpressionEvaluator : IExecutable {
 
     // private readonly SyntaxTree _syntaxTree;
-    private readonly SymbolTable _symbolTable;
 
+    private LexicalGrammar _grammar;
+    private readonly SymbolTable _symbolTable;
     private FixedList<IToken> _postfixTokens;
 
     public ExpressionEvaluator(FixedList<IToken> postfixTokens, SymbolTable symbolTable) {
+      _grammar = LexicalGrammar.Default;
       _postfixTokens = postfixTokens;
       _symbolTable = symbolTable;
     }
@@ -48,7 +52,7 @@ namespace Empiria.Expressions {
 
 
     public object Execute() {
-      return Evaluate(null);
+      return Evaluate(new Dictionary<string, object>());
     }
 
 
@@ -71,8 +75,6 @@ namespace Empiria.Expressions {
 
       var operandsStack = new Stack<IToken>();
 
-      var _grammar = LexicalGrammar.Default;
-
       decimal returnValue = 0;
 
       foreach (var token in _postfixTokens) {
@@ -86,43 +88,83 @@ namespace Empiria.Expressions {
           continue;
         }
 
-        var parameters = new List<IToken>();
+        if (token.Type == TokenType.Operator) {
 
+          returnValue = EvaluateOperator(token, operandsStack, data);
 
-        if (token.Type == TokenType.Function && operandsStack.Count == 0) {
+        } else if (token.Type == TokenType.Function) {
 
-          parameters.Add(new Token(TokenType.Literal, returnValue.ToString()));
-
-
-        } else if (token.Type == TokenType.Function && operandsStack.Count > 0) {
-
-          for (int i = 0; i < _grammar.ArityOf(token); i++) {
-            parameters.Insert(0, operandsStack.Pop());
-          }
-
-        } else if (token.Type == TokenType.Operator && operandsStack.Count >= 2) {
-
-          parameters.Insert(0, operandsStack.Pop());
-          parameters.Insert(0, operandsStack.Pop());
-
-        } else if (token.Type == TokenType.Operator && operandsStack.Count == 1) {
-
-          parameters.Insert(0, operandsStack.Pop());
+          returnValue = EvaluateFunction(token, operandsStack, data, returnValue);
 
         }
 
-        returnValue = Calculator.Calculate(token,
-                                           parameters.ToFixedList(),
-                                           data);
-
         operandsStack.Push((new Token(TokenType.Literal, returnValue.ToString())));
 
-
-      } // foreach
+       } // foreach
 
       return returnValue;
 
     }
+
+    #region Helpers
+
+    private decimal EvaluateFunction(IToken token,
+                                     Stack<IToken> operandsStack,
+                                     IDictionary<string, object> data,
+                                     decimal returnValue) {
+      Assertion.Require(token.Type == TokenType.Function, "token.Type is not a function.");
+
+      var parameters = new List<IToken>();
+
+      if (operandsStack.Count == 0) {
+
+        parameters.Add(new Token(TokenType.Literal, returnValue.ToString()));
+
+
+      } else if (operandsStack.Count > 0) {
+
+        for (int i = 0; i < _grammar.ArityOf(token); i++) {
+          parameters.Insert(0, operandsStack.Pop());
+        }
+
+      }
+
+      LibrariesRegistry libraries = _grammar.Libraries();
+
+      FunctionHandler functionHandler = libraries.GetFunctionHandler(token, parameters, data);
+
+      return functionHandler.Evaluate();
+    }
+
+
+    private decimal EvaluateOperator(IToken token,
+                                     Stack<IToken> operandsStack,
+                                     IDictionary<string, object> data) {
+      Assertion.Require(token.Type == TokenType.Operator, "token.Type is not an operator.");
+
+      if (operandsStack.Count >= 2) {
+
+        IToken parameter2 = operandsStack.Pop();
+        IToken parameter1 = operandsStack.Pop();
+
+        var handler = new OperatorHandler(token, data);
+
+        return handler.Evaluate(parameter1, parameter2);      // Binary operators
+
+      } else if (operandsStack.Count == 1) {
+
+        IToken parameter1 = operandsStack.Pop();
+
+        var op = new OperatorHandler(token, data);
+
+        return op.Evaluate(parameter1);                       // Unary operator
+
+      } else {
+        throw Assertion.EnsureNoReachThisCode("Operands stack must be not empty.");
+      }
+    }
+
+    #endregion Helpers
 
   }  // class ExpressionEvaluator
 
