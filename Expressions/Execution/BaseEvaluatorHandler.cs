@@ -29,6 +29,22 @@ namespace Empiria.Expressions.Execution {
     }
 
 
+    protected bool GetBoolean(IToken parameter) {
+
+      if (parameter.Type == TokenType.Literal) {
+        return Convert.ToBoolean(parameter.Lexeme);
+
+      } else if (Data.ContainsKey(parameter.Lexeme)) {
+
+        return Convert.ToBoolean(Data[parameter.Lexeme]);
+
+      } else {
+        return false;
+
+      }
+    }
+
+
     protected decimal GetDecimal(IToken parameter) {
 
       if (parameter.Type == TokenType.Literal) {
