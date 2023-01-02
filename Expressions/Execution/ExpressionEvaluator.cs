@@ -9,12 +9,13 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
+
 using Empiria.Expressions.Libraries;
 
-namespace Empiria.Expressions
-{
+namespace Empiria.Expressions {
 
-    internal interface IExecutable {
+
+  internal interface IExecutable {
 
     object Execute();
 
@@ -30,25 +31,17 @@ namespace Empiria.Expressions
   /// <summary>Converts a stream of tokens into an evaluatable Expression object.</summary>
   internal class ExpressionEvaluator : IExecutable {
 
-    // private readonly SyntaxTree _syntaxTree;
+    private readonly LexicalGrammar _grammar;
+    private readonly FixedList<IToken> _postfixTokens;
 
-    private LexicalGrammar _grammar;
-    private readonly SymbolTable _symbolTable;
-    private FixedList<IToken> _postfixTokens;
+    public ExpressionEvaluator(LexicalGrammar grammar,
+                               FixedList<IToken> postfixTokens) {
+      Assertion.Require(grammar, nameof(grammar));
+      Assertion.Require(postfixTokens, nameof(postfixTokens));
 
-    public ExpressionEvaluator(FixedList<IToken> postfixTokens, SymbolTable symbolTable) {
-      _grammar = LexicalGrammar.Default;
+      _grammar = grammar;
       _postfixTokens = postfixTokens;
-      _symbolTable = symbolTable;
     }
-
-    //internal ExpressionEvaluator(SyntaxTree syntaxTree, SymbolTable symbolTable) {
-    //  Assertion.Require(syntaxTree, nameof(syntaxTree));
-    //  Assertion.Require(symbolTable, nameof(symbolTable));
-
-    //  _syntaxTree = syntaxTree;
-    //  _symbolTable = symbolTable;
-    //}
 
 
     public object Execute() {

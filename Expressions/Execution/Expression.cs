@@ -9,23 +9,24 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 
 namespace Empiria.Expressions {
 
   /// <summary>Provides a service to evaluate an expression.</summary>
   public class Expression {
 
-    private readonly string _expression;
-
     private readonly IExecutable _executable;
 
-    public Expression(string expression) {
+    public Expression(string expression) : this(LexicalGrammar.Default, expression) {
+      // no-op
+    }
+
+
+    public Expression(LexicalGrammar grammar, string expression) {
+      Assertion.Require(grammar, nameof(grammar));
       Assertion.Require(expression, nameof(expression));
 
-      _expression = expression;
-
-      _executable = Compile();
+      _executable = Compile(grammar, expression);
     }
 
 
@@ -38,19 +39,18 @@ namespace Empiria.Expressions {
     }
 
 
-    private IExecutable Compile() {
-      var tokenizer = new Tokenizer();
+    private IExecutable Compile(LexicalGrammar grammar, string expression) {
+      var tokenizer = new Tokenizer(grammar);
 
-      FixedList<IToken> tokens = tokenizer.Tokenize(_expression);
+      FixedList<IToken> tokens = tokenizer.Tokenize(expression);
 
-      var parser = new SyntaxTreeParser(tokens);
+      var parser = new SyntaxTreeParser(grammar, tokens);
 
       FixedList<IToken> postfixTokens = parser.PostfixList();
 
-      SymbolTable symbolTable = new SymbolTable(postfixTokens);
-
-      return new ExpressionEvaluator(postfixTokens, symbolTable);
+      return new ExpressionEvaluator(grammar, postfixTokens);
     }
+
 
   }  // class Expression
 
