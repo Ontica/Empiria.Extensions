@@ -45,9 +45,9 @@ namespace Empiria.Tests.Expressions {
     [InlineData("-3 + SUM (a + b, 5, 7) - 8", "3 - a b + 5 7 SUM + 8 -")]
     [InlineData("ROUND(a + b, 4)", "a b + 4 ROUND")]
     [InlineData("ROUND((a + b) / c, 0)", "a b + c / 0 ROUND")]
-    [InlineData("VALORIZAR(a + b)", "a b + VALORIZAR")]
+    [InlineData("SUM(a + b)", "a b + SUM")]
     [InlineData("x - SUM(a, b, c)", "x a b c SUM -")]
-    [InlineData("x + DEUDORAS_MENOS_ACREEDORAS(3000, a, b) - a", "x 3000 a b DEUDORAS_MENOS_ACREEDORAS + a -")]
+    [InlineData("x + SUM(3000, a, b) - a", "x 3000 a b SUM + a -")]
     public void Should_Convert_To_Postfix_List(string expression, string expectedStream) {
       var tokenizer = new Tokenizer();
 
