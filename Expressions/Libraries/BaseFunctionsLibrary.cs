@@ -31,7 +31,7 @@ namespace Empiria.Expressions {
     }
 
 
-    internal void AddRange(IEnumerable<Function> functions) {
+    protected void AddRange(IEnumerable<Function> functions) {
       Assertion.Require(functions, nameof(functions));
 
       _functions.AddRange(functions);

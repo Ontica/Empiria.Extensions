@@ -42,6 +42,12 @@ namespace Empiria.Expressions
       }
     }
 
+
+    static public LexicalGrammar CreateFromDefault() {
+      return Default;
+    }
+
+
     #endregion Constructors and parsers
 
     #region Properties
@@ -83,7 +89,6 @@ namespace Empiria.Expressions
     #endregion Properties
 
     #region Methods
-
 
     public bool IsFunction(string candidate) {
       return _librariesRegistry.HasRegisteredFunction(candidate);
@@ -222,13 +227,6 @@ namespace Empiria.Expressions
 
     #region Helpers
 
-    //private string[] GetFunctions() {
-    //  string allFunctions = $"{FunctionIdentifiers}";
-
-    //  return CommonMethods.ConvertToArray(allFunctions);
-    //}
-
-
     private string[] GetKeywords() {
       string allKeywords = $"{ReservedWords}";
 
@@ -253,7 +251,6 @@ namespace Empiria.Expressions
 
       return CommonMethods.ConvertToArray(allStroppableSymbols);
     }
-
 
 
     #endregion Helpers

@@ -18,7 +18,8 @@ namespace Empiria.Expressions.Libraries {
       LoadFunctions();
     }
 
-    static public BaseFunctionsLibrary Instance {
+
+    static public MathLibrary Instance {
       get {
         return new MathLibrary();
       }
