@@ -31,10 +31,10 @@ namespace Empiria.Expressions.Execution {
     }
 
 
-    abstract protected internal decimal Evaluate(IToken parameter);
+    abstract protected internal object Evaluate(IToken parameter);
 
 
-    abstract protected internal decimal Evaluate(IToken parameter1, IToken parameter2);
+    abstract protected internal object Evaluate(IToken parameter1, IToken parameter2);
 
 
   }  // class OperatorHandler

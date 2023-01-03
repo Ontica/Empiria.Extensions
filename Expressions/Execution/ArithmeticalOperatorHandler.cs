@@ -21,7 +21,7 @@ namespace Empiria.Expressions.Execution {
     }
 
 
-    protected override internal decimal Evaluate(IToken parameter) {
+    protected override internal object Evaluate(IToken parameter) {
       if (base.Operator.Lexeme == "-") {
         return -1 * GetDecimal(parameter);
       }
@@ -31,7 +31,7 @@ namespace Empiria.Expressions.Execution {
     }
 
 
-    protected override internal decimal Evaluate(IToken parameter1, IToken parameter2) {
+    protected override internal object Evaluate(IToken parameter1, IToken parameter2) {
       decimal x = GetDecimal(parameter1);
       decimal y = GetDecimal(parameter2);
 

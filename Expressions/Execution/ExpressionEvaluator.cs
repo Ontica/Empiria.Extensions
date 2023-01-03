@@ -63,11 +63,11 @@ namespace Empiria.Expressions.Execution {
     }
 
 
-    public decimal Evaluate(IDictionary<string, object> data) {
+    public object Evaluate(IDictionary<string, object> data) {
 
       var operandsStack = new Stack<IToken>();
 
-      decimal returnValue = 0;
+      object returnValue = 0m;
 
       foreach (var token in _postfixTokens) {
         if (_grammar.IsOperand(token)) {
@@ -76,7 +76,7 @@ namespace Empiria.Expressions.Execution {
           continue;
         }
 
-        if (!_grammar.IsOperator(token)) {
+        if (!_grammar.IsOperatorOrFunction(token)) {
           continue;
         }
 
@@ -86,7 +86,7 @@ namespace Empiria.Expressions.Execution {
 
         } else if (token.Type == TokenType.Function) {
 
-          returnValue = EvaluateFunction(token, operandsStack, data, returnValue);
+          returnValue = EvaluateFunction(token, operandsStack, data, returnValue.ToString());
 
         }
 
@@ -103,14 +103,14 @@ namespace Empiria.Expressions.Execution {
     private decimal EvaluateFunction(IToken token,
                                      Stack<IToken> operandsStack,
                                      IDictionary<string, object> data,
-                                     decimal returnValue) {
+                                     string returnValueAsString) {
       Assertion.Require(token.Type == TokenType.Function, "token.Type is not a function.");
 
       var parameters = new List<IToken>();
 
       if (operandsStack.Count == 0) {
 
-        parameters.Add(new Token(TokenType.Literal, returnValue.ToString()));
+        parameters.Add(new Token(TokenType.Literal, returnValueAsString));
 
 
       } else if (operandsStack.Count > 0) {
@@ -129,9 +129,9 @@ namespace Empiria.Expressions.Execution {
     }
 
 
-    private decimal EvaluateOperator(IToken token,
-                                     Stack<IToken> operandsStack,
-                                     IDictionary<string, object> data) {
+    private object EvaluateOperator(IToken token,
+                                    Stack<IToken> operandsStack,
+                                    IDictionary<string, object> data) {
       Assertion.Require(token.Type == TokenType.Operator, "token.Type is not an operator.");
 
       OperatorHandler opHandler = GetOperatorHandler(token, data);
@@ -147,7 +147,7 @@ namespace Empiria.Expressions.Execution {
 
         IToken parameter1 = operandsStack.Pop();
 
-        return opHandler.Evaluate(parameter1);                       // Unary operator
+        return opHandler.Evaluate(parameter1);                  // Unary operator
 
       } else {
         throw Assertion.EnsureNoReachThisCode("Operands stack must be not empty.");
@@ -157,7 +157,11 @@ namespace Empiria.Expressions.Execution {
 
     private OperatorHandler GetOperatorHandler(IToken token,
                                                IDictionary<string, object> data) {
-      return new OperatorHandler(token, data);
+      if (_grammar.IsArithmeticalOperator(token)) {
+        return new ArithmeticalOperatorHandler(token, data);
+      }
+
+      throw Assertion.EnsureNoReachThisCode($"Unhandled operator type '{token.Type}'.");
     }
 
     #endregion Helpers

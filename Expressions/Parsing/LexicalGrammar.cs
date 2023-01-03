@@ -177,12 +177,9 @@ namespace Empiria.Expressions {
       return function.Arity;
     }
 
-    internal bool IsListItemDelimiter(IToken token) {
-      return token.Type == TokenType.Operator && (token.Lexeme == "," || token.Lexeme == ";");
-    }
 
-    internal bool IsRightParenthesis(IToken token) {
-      return token.Type == TokenType.Operator && token.Lexeme == ")";
+    internal bool IsArithmeticalOperator(IToken token) {
+      return IsTokenIn(token, ArithmeticalOperators);
     }
 
 
@@ -191,13 +188,33 @@ namespace Empiria.Expressions {
     }
 
 
+    internal bool IsListItemDelimiter(IToken token) {
+      return token.Type == TokenType.Operator && (token.Lexeme == "," || token.Lexeme == ";");
+    }
+
+
+    internal bool IsLogicalOperator(IToken token) {
+      return IsTokenIn(token, LogicalOperators);
+    }
+
+
     internal bool IsOperand(IToken token) {
       return token.Type == TokenType.Variable || token.Type == TokenType.Literal;
     }
 
 
-    internal bool IsOperator(IToken token) {
+    internal bool IsOperatorOrFunction(IToken token) {
       return (token.Type == TokenType.Operator || token.Type == TokenType.Function);
+    }
+
+
+    internal bool IsRelationalOperator(IToken token) {
+      return IsTokenIn(token, RelationalOperators);
+    }
+
+
+    internal bool IsRightParenthesis(IToken token) {
+      return token.Type == TokenType.Operator && token.Lexeme == ")";
     }
 
 
@@ -232,6 +249,7 @@ namespace Empiria.Expressions {
       return CommonMethods.ConvertToArray(allKeywords);
     }
 
+
     private string[] GetOperators() {
       string allOperators = $"{ArithmeticalOperators} {LogicalOperators} " +
                             $"{RelationalOperators} {GroupingOperators}";
@@ -251,6 +269,18 @@ namespace Empiria.Expressions {
       return CommonMethods.ConvertToArray(allStroppableSymbols);
     }
 
+
+    private bool IsTokenIn(IToken token, string lexemesString) {
+      string[] lexemesArray = CommonMethods.ConvertToArray(lexemesString);
+
+      foreach (var lexeme in lexemesArray) {
+        if (token.Lexeme == lexeme) {
+          return true;
+        }
+      }
+
+      return false;
+    }
 
     #endregion Helpers
 
