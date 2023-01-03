@@ -161,6 +161,10 @@ namespace Empiria.Expressions.Execution {
         return new ArithmeticalOperatorHandler(token, data);
       }
 
+      if (_grammar.IsRelationalOperator(token)) {
+        return new RelationalOperatorHandler(token, data);
+      }
+
       throw Assertion.EnsureNoReachThisCode($"Unhandled operator type '{token.Type}'.");
     }
 
