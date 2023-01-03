@@ -11,11 +11,10 @@ using System;
 
 using Empiria.Expressions.Libraries;
 
-namespace Empiria.Expressions
-{
+namespace Empiria.Expressions {
 
-    /// <summary>Contains the elements and rules of a lexical grammar.</summary>
-    public class LexicalGrammar {
+  /// <summary>Contains the elements and rules of a lexical grammar.</summary>
+  public class LexicalGrammar {
 
     private readonly LibrariesRegistry _librariesRegistry = new LibrariesRegistry();
 

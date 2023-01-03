@@ -10,9 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-using Empiria.Expressions.Execution;
-
-namespace Empiria.Expressions {
+namespace Empiria.Expressions.Execution {
 
   /// <summary>Abstract base class for Empiria Expressions functions that can be evaluated.</summary>
   abstract public class FunctionHandler : BaseEvaluatorHandler {
@@ -33,4 +31,4 @@ namespace Empiria.Expressions {
 
   }  // class FunctionHandler
 
-}  // namespace Empiria.Expressions
+}  // namespace Empiria.Expressions.Execution

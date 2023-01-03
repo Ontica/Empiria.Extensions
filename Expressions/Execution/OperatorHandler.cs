@@ -9,9 +9,8 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
-using Empiria.Expressions.Execution;
 
-namespace Empiria.Expressions {
+namespace Empiria.Expressions.Execution {
 
   /// <summary>Performs operations with unitary and binary operators.</summary>
   internal class OperatorHandler : BaseEvaluatorHandler {
@@ -34,7 +33,7 @@ namespace Empiria.Expressions {
       }
 
       throw new NotImplementedException(
-          $"Unitary operator handler for '{_operator.Lexeme}' is not implemented.");
+          $"Unitary operator '{_operator.Lexeme}' handler is not implemented.");
     }
 
 
@@ -58,10 +57,10 @@ namespace Empiria.Expressions {
 
         default:
           throw new NotImplementedException(
-              $"Binary operator handler for '{_operator.Lexeme}' is not implemented.");
+              $"Binary operator '{_operator.Lexeme}' handler is not implemented.");
       }
     }
 
   }  // class OperatorHandler
 
-}  // namespace Empiria.Expressions
+}  // namespace Empiria.Expressions.Execution

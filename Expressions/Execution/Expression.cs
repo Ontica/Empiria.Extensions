@@ -10,6 +10,8 @@
 using System;
 using System.Collections.Generic;
 
+using Empiria.Expressions.Execution;
+
 namespace Empiria.Expressions {
 
   /// <summary>Provides a service to evaluate an expression.</summary>

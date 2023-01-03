@@ -10,7 +10,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Empiria.Expressions.Libraries {
+using Empiria.Expressions.Execution;
+
+namespace Empiria.Expressions {
 
   /// <summary>Mantains a registry of loaded function libraries that can be parsed and invoked.</summary>
   internal class LibrariesRegistry {
@@ -20,6 +22,7 @@ namespace Empiria.Expressions.Libraries {
     internal LibrariesRegistry() {
       // no-op
     }
+
 
     internal void Add(BaseFunctionsLibrary library) {
       Assertion.Require(library, nameof(library));

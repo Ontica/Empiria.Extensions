@@ -9,6 +9,8 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
+using Empiria.Expressions.Execution;
+
 namespace Empiria.Expressions.Libraries {
 
   /// <summary>Default logical functions library.</summary>

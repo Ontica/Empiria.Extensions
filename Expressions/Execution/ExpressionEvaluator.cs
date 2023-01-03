@@ -10,9 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-using Empiria.Expressions.Libraries;
-
-namespace Empiria.Expressions {
+namespace Empiria.Expressions.Execution {
 
 
   internal interface IExecutable {
@@ -26,6 +24,7 @@ namespace Empiria.Expressions {
     T Execute<T>(IDictionary<string, object> data);
 
   }
+
 
 
   /// <summary>Converts a stream of tokens into an evaluatable Expression object.</summary>
@@ -93,7 +92,7 @@ namespace Empiria.Expressions {
 
         operandsStack.Push((new Token(TokenType.Literal, returnValue.ToString())));
 
-       } // foreach
+      } // foreach
 
       return returnValue;
 
@@ -135,30 +134,34 @@ namespace Empiria.Expressions {
                                      IDictionary<string, object> data) {
       Assertion.Require(token.Type == TokenType.Operator, "token.Type is not an operator.");
 
+      OperatorHandler opHandler = GetOperatorHandler(token, data);
+
       if (operandsStack.Count >= 2) {
 
         IToken parameter2 = operandsStack.Pop();
         IToken parameter1 = operandsStack.Pop();
 
-        var handler = new OperatorHandler(token, data);
-
-        return handler.Evaluate(parameter1, parameter2);      // Binary operators
+        return opHandler.Evaluate(parameter1, parameter2);      // Binary operators
 
       } else if (operandsStack.Count == 1) {
 
         IToken parameter1 = operandsStack.Pop();
 
-        var op = new OperatorHandler(token, data);
-
-        return op.Evaluate(parameter1);                       // Unary operator
+        return opHandler.Evaluate(parameter1);                       // Unary operator
 
       } else {
         throw Assertion.EnsureNoReachThisCode("Operands stack must be not empty.");
       }
     }
 
+
+    private OperatorHandler GetOperatorHandler(IToken token,
+                                               IDictionary<string, object> data) {
+      return new OperatorHandler(token, data);
+    }
+
     #endregion Helpers
 
   }  // class ExpressionEvaluator
 
-}  // namespace Empiria.Expressions
+}  // namespace Empiria.Expressions.Execution

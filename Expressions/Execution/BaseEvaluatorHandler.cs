@@ -79,4 +79,4 @@ namespace Empiria.Expressions.Execution {
 
   }  // class BaseEvaluatorHandler
 
-}  // namespace Empiria.Expressions
+}  // namespace Empiria.Expressions.Execution
