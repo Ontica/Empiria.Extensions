@@ -64,6 +64,10 @@ namespace Empiria.Expressions {
 
       Assertion.Require(candidate, nameof(candidate));
 
+      if (_lexicalGrammar.IsConstantKeyword(candidate)) {
+        return candidate;
+      }
+
       if (_lexicalGrammar.IsKeyword(candidate)) {
         return candidate;
       }

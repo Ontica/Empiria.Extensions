@@ -22,10 +22,11 @@ namespace Empiria.Expressions {
 
     private LexicalGrammar() {
       this.ArithmeticalOperators = @"+ - * / \ %";
-      this.LogicalOperators = @"&& || !";
+      this.LogicalOperators = @"&& AND || OR ! NOT";
       this.RelationalOperators = @"== != <> <= >= < >";
       this.GroupingOperators = @"( [ { } ] ) , ;";
-      this.ReservedWords = @"true false if then else";
+      this.ConstantKeywords = @"true false";
+      this.ReservedWords = @"if then else";
       this.StroppableSymbols = @"== != <> <= >=";
       this.ConstantSeparators = @"' """;
     }
@@ -56,6 +57,16 @@ namespace Empiria.Expressions {
     }
 
 
+    public string ConstantKeywords {
+      get;
+    }
+
+
+    public string ConstantSeparators {
+      get;
+    }
+
+
     public string LogicalOperators {
       get;
     }
@@ -80,14 +91,22 @@ namespace Empiria.Expressions {
       get;
     }
 
-
-    public string ConstantSeparators {
-      get;
-    }
-
     #endregion Properties
 
     #region Methods
+
+    internal bool IsConstantKeyword(string candidate) {
+      string[] constantKeywords = CommonMethods.ConvertToArray(ConstantKeywords);
+
+      foreach (var keyword in constantKeywords) {
+        if (candidate == keyword) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
 
     public bool IsFunction(string candidate) {
       return _librariesRegistry.HasRegisteredFunction(candidate);
@@ -113,6 +132,10 @@ namespace Empiria.Expressions {
       }
 
       if (IsStringOrDateConstant(candidate)) {
+        return true;
+      }
+
+      if (candidate == "true" || candidate == "false") {
         return true;
       }
 
@@ -221,8 +244,9 @@ namespace Empiria.Expressions {
     internal int Precedence(IToken token) {
       var precedenceTable = new string[] { " ( ",          // Evaluates later
                                            " , ; ",
-                                           " OR ",         // Evaluates last
-                                           " AND ",
+                                           " OR || ",       // Evaluates last
+                                           " AND && ",
+                                           " NOT ! ",
                                            " = <> != ",
                                            " > < ",
                                            " + - ",
@@ -259,7 +283,14 @@ namespace Empiria.Expressions {
 
 
     internal string[] GetReconstructableSymbols() {
-      return GetOperators();
+      string allOperators = $"{ArithmeticalOperators} {LogicalOperators} " +
+                            $"{RelationalOperators} {GroupingOperators}";
+
+      allOperators = allOperators.Replace("AND", string.Empty);
+      allOperators = allOperators.Replace("OR", string.Empty);
+      allOperators = allOperators.Replace("NOT", string.Empty);
+
+      return CommonMethods.ConvertToArray(allOperators);
     }
 
 

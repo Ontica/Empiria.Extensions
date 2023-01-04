@@ -67,6 +67,10 @@ namespace Empiria.Expressions {
 
       Assertion.Require(lexeme, nameof(lexeme));
 
+      if (_lexicalGrammar.IsConstantKeyword(lexeme)) {
+        return new Token(TokenType.Literal, lexeme);
+      }
+
       if (_lexicalGrammar.IsKeyword(lexeme)) {
         return new Token(TokenType.Keyword, lexeme);
       }
