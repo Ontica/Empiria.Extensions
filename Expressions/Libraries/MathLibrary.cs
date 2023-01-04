@@ -42,7 +42,7 @@ namespace Empiria.Expressions.Libraries {
     /// <summary>Returns the absolute value of a decimal number.</summary>
     sealed private class AbsoluteValueFunction : FunctionHandler {
 
-      protected internal override decimal Evaluate() {
+      protected internal override object Evaluate() {
 
         decimal quantity = GetDecimal(Parameters[0]);
 
@@ -56,7 +56,7 @@ namespace Empiria.Expressions.Libraries {
     /// <summary>Returns the sum of two decimal numbers.</summary>
     sealed private class SumFunction : FunctionHandler {
 
-      protected internal override decimal Evaluate() {
+      protected internal override object Evaluate() {
 
         decimal sum = 0;
 
@@ -73,7 +73,7 @@ namespace Empiria.Expressions.Libraries {
     /// <summary>Rounds a decimal number to a specified fractional digits.</summary>
     sealed private class RoundFunction : FunctionHandler {
 
-      protected internal override decimal Evaluate() {
+      protected internal override object Evaluate() {
 
         decimal quantity = GetDecimal(base.Parameters[0]);
 

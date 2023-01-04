@@ -20,7 +20,7 @@ namespace Empiria.Expressions.Execution {
       private set;
     }
 
-    protected internal abstract decimal Evaluate();
+    protected internal abstract object Evaluate();
 
 
     internal void SetParameters(IList<IToken> parameters) {

@@ -38,7 +38,7 @@ namespace Empiria.Expressions.Libraries {
 
     sealed private class IfFunction : FunctionHandler {
 
-      protected internal override decimal Evaluate() {
+      protected internal override object Evaluate() {
         bool condition = base.GetBoolean(Parameters[0]);
 
         if (condition) {

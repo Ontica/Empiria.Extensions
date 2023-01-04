@@ -101,10 +101,10 @@ namespace Empiria.Expressions.Execution {
 
     #region Helpers
 
-    private decimal EvaluateFunction(IToken token,
-                                     Stack<IToken> operandsStack,
-                                     IDictionary<string, object> data,
-                                     string returnValueAsString) {
+    private object EvaluateFunction(IToken token,
+                                    Stack<IToken> operandsStack,
+                                    IDictionary<string, object> data,
+                                    string returnValueAsString) {
       Assertion.Require(token.Type == TokenType.Function, "token.Type is not a function.");
 
       var parameters = new List<IToken>();
