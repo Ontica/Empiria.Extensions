@@ -70,6 +70,7 @@ namespace Empiria.Expressions.Execution {
       object returnValue = 0m;
 
       foreach (var token in _postfixTokens) {
+
         if (_grammar.IsOperand(token)) {
           operandsStack.Push(token);
 
@@ -111,7 +112,6 @@ namespace Empiria.Expressions.Execution {
       if (operandsStack.Count == 0) {
 
         parameters.Add(new Token(TokenType.Literal, returnValueAsString));
-
 
       } else if (operandsStack.Count > 0) {
 
@@ -164,6 +164,11 @@ namespace Empiria.Expressions.Execution {
       if (_grammar.IsRelationalOperator(token)) {
         return new RelationalOperatorHandler(token, data);
       }
+
+      if (_grammar.IsLogicalOperator(token)) {
+        return new LogicalOperatorHandler(token, data);
+      }
+
 
       throw Assertion.EnsureNoReachThisCode($"Unhandled operator type '{token.Type}'.");
     }
