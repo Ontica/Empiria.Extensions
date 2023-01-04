@@ -30,7 +30,8 @@ namespace Empiria.Expressions.Libraries {
 
     private void LoadFunctions() {
       var functions = new[] {
-        new Function("SI", 3, () => new IfFunction())
+        new Function("SI", 3, () => new IfFunction()),
+        new Function("ALEATORIO", 0, () => new RandFunction()),
       };
 
       base.AddRange(functions);
@@ -49,6 +50,17 @@ namespace Empiria.Expressions.Libraries {
       }
 
     }  // class IfFunction
+
+
+    sealed private class RandFunction : FunctionHandler {
+
+      protected internal override object Evaluate() {
+        int rand = EmpiriaMath.GetRandom(0, 1);
+
+        return (rand == 1);
+      }
+
+    }  // class RandFunction
 
   }  // class LogicalLibrary
 

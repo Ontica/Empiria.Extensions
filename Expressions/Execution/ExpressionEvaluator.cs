@@ -87,7 +87,7 @@ namespace Empiria.Expressions.Execution {
 
         } else if (token.Type == TokenType.Function) {
 
-          returnValue = EvaluateFunction(token, operandsStack, data, returnValue.ToString());
+          returnValue = EvaluateFunction(token, operandsStack, data);
 
         }
 
@@ -103,22 +103,19 @@ namespace Empiria.Expressions.Execution {
 
     private object EvaluateFunction(IToken token,
                                     Stack<IToken> operandsStack,
-                                    IDictionary<string, object> data,
-                                    string returnValueAsString) {
+                                    IDictionary<string, object> data) {
       Assertion.Require(token.Type == TokenType.Function, "token.Type is not a function.");
 
       var parameters = new List<IToken>();
 
-      if (operandsStack.Count == 0) {
+      int functionArity = _grammar.ArityOf(token);
 
-        parameters.Add(new Token(TokenType.Literal, returnValueAsString));
+      Assertion.Require(operandsStack.Count >= functionArity,
+                        $"Function '{token.Lexeme}' needs {functionArity} parameters, " +
+                        $"but operands stack has fewer: {operandsStack.Count}.");
 
-      } else if (operandsStack.Count > 0) {
-
-        for (int i = 0; i < _grammar.ArityOf(token); i++) {
-          parameters.Insert(0, operandsStack.Pop());
-        }
-
+      for (int i = 0; i < functionArity; i++) {
+        parameters.Insert(0, operandsStack.Pop());
       }
 
       LibrariesRegistry libraries = _grammar.Libraries();

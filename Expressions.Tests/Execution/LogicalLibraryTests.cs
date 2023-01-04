@@ -22,9 +22,20 @@ namespace Empiria.Tests.Expressions {
     #region Theories
 
     [Theory]
+    [InlineData("ALEATORIO()")]
+    public void Should_Generate_Random(string textExpression) {
+      var expression = new Expression(textExpression);
+
+      _ = expression.Evaluate<bool>();
+
+      Assert.True(true);
+    }
+
+
+    [Theory]
     [InlineData("SI(true, 10, 4)", 10)]
     [InlineData("SI(a < b, a, b)", 6.91)]
-    public void Should_Evaluate_SI(string textExpression, decimal result) {
+    public void Should_Evaluate_SI(string textExpression, decimal expected) {
       var expression = new Expression(textExpression);
 
       var data = new Dictionary<string, object> {
@@ -34,7 +45,7 @@ namespace Empiria.Tests.Expressions {
 
       decimal sut = expression.Evaluate<decimal>(data);
 
-      Assert.Equal(result, sut);
+      Assert.Equal(expected, sut);
     }
 
     #endregion Theories
