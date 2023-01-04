@@ -22,6 +22,7 @@ namespace Empiria.Tests.Expressions {
     #region Theories
 
     [Theory]
+    [InlineData("1", 1)]
     [InlineData("1 + 1", 3)]
     [InlineData("1+1", 3)]
     [InlineData("+1", 2)]
@@ -43,9 +44,16 @@ namespace Empiria.Tests.Expressions {
 
 
     [Theory]
+    [InlineData("true", 1)]
+    [InlineData("false", 1)]
     [InlineData("!P", 2)]
     [InlineData("!(P, Q)", 6)]
     [InlineData("P && !Q", 4)]
+    [InlineData("P AND Q", 3)]
+    [InlineData("P || !Q", 4)]
+    [InlineData("!!Q", 3)]
+    [InlineData("NOT P && NOT Q", 5)]
+    [InlineData("P OR Q", 3)]
     [InlineData("(!P && !Q) || (P && Q)", 13)]
     [InlineData("((P && !(!Q || !R)))", 14)]
     public void Should_Tokenize_Logical_Expressions(string expression,

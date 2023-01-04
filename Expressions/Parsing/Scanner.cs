@@ -38,9 +38,6 @@ namespace Empiria.Expressions {
 
       string[] lexemeCandidates = lineReconstructor.LexemeCandidates(expression);
 
-      Assertion.Require(lexemeCandidates.Length >= 2,
-                        $"Unrecognized expression: {expression}");
-
       var lexemes = new List<string>(lexemeCandidates.Length);
 
       foreach (var candidate in lexemeCandidates) {

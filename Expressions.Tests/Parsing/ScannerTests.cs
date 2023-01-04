@@ -21,6 +21,7 @@ namespace Empiria.Tests.Expressions {
     #region Theories
 
     [Theory]
+    [InlineData("1", 1)]
     [InlineData("1 + 1", 3)]
     [InlineData("1+1", 3)]
     [InlineData("+1", 2)]
@@ -43,6 +44,8 @@ namespace Empiria.Tests.Expressions {
 
 
     [Theory]
+    [InlineData("true", 1)]
+    [InlineData("false", 1)]
     [InlineData("!P", 2)]
     [InlineData("!(P, Q)", 6)]
     [InlineData("P && !Q", 4)]
