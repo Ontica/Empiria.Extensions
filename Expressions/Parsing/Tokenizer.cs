@@ -68,7 +68,7 @@ namespace Empiria.Expressions {
       Assertion.Require(lexeme, nameof(lexeme));
 
       if (_lexicalGrammar.IsConstantKeyword(lexeme)) {
-        return new Token(TokenType.Literal, lexeme);
+        return new Literal(_lexicalGrammar.LiteralValue(lexeme));
       }
 
       if (_lexicalGrammar.IsKeyword(lexeme)) {
@@ -80,7 +80,7 @@ namespace Empiria.Expressions {
       }
 
       if (_lexicalGrammar.IsLiteral(lexeme)) {
-        return new Token(TokenType.Literal, lexeme);
+        return new Literal(_lexicalGrammar.LiteralValue(lexeme));
       }
 
       if (_lexicalGrammar.IsFunction(lexeme)) {
@@ -88,7 +88,7 @@ namespace Empiria.Expressions {
       }
 
       if (_lexicalGrammar.IsVariable(lexeme)) {
-        return new Token(TokenType.Variable, lexeme);
+        return new Variable(lexeme);
       }
 
       return null;

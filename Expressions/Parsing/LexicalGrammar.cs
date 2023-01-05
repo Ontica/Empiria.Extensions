@@ -131,15 +131,39 @@ namespace Empiria.Expressions {
         return true;
       }
 
-      if (IsStringOrDateConstant(candidate)) {
-        return true;
-      }
-
       if (candidate == "true" || candidate == "false") {
         return true;
       }
 
+      if (IsStringOrDateConstant(candidate)) {
+        return true;
+      }
+
       return false;
+    }
+
+
+    public object LiteralValue(string candidate) {
+      if (EmpiriaString.IsQuantity(candidate)) {
+        return Convert.ToDecimal(candidate);
+      }
+
+      if (candidate == "true" || candidate == "false") {
+        return Convert.ToBoolean(candidate);
+      }
+
+      var temp = candidate.Substring(1);
+
+      temp = temp.Substring(0, temp.Length - 1);
+
+
+      if (EmpiriaString.IsDate(temp)) {
+        return Convert.ToDateTime(temp);
+
+      } else {
+        return temp;
+
+      }
     }
 
 
