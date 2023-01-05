@@ -54,7 +54,9 @@ namespace Empiria.Expressions.Execution {
 
 
     public object Execute(IDictionary<string, object> data) {
-      return this.Evaluate(data);
+      var o = this.Evaluate(data);
+
+      return o;
     }
 
 
@@ -65,44 +67,58 @@ namespace Empiria.Expressions.Execution {
 
     public object Evaluate(IDictionary<string, object> data) {
 
-      var operandsStack = new Stack<IToken>();
-
-      object returnValue = 0m;
+      var operandsStack = new Stack<IOperand>();
 
       foreach (var token in _postfixTokens) {
 
         if (_grammar.IsOperand(token)) {
-          operandsStack.Push(token);
+          operandsStack.Push((IOperand) token);
 
-          continue;
-        }
-
-        if (!_grammar.IsOperatorOrFunction(token)) {
           continue;
         }
 
         if (token.Type == TokenType.Operator) {
 
-          returnValue = EvaluateOperator(token, operandsStack, data);
+          object operatorResult = EvaluateOperator(token, operandsStack, data);
+
+          operandsStack.Push(new Literal(operatorResult));
 
         } else if (token.Type == TokenType.Function) {
 
-          returnValue = EvaluateFunction(token, operandsStack, data);
+          object functionResult = EvaluateFunction(token, operandsStack, data);
+
+          operandsStack.Push(new Literal(functionResult));
+
+        } else {
+
+          // no-op    Discard parenthesis and other puntuactions
 
         }
 
-        operandsStack.Push((new Token(TokenType.Literal, returnValue.ToString())));
-
       } // foreach
 
-      return returnValue;
+      Assertion.Ensure(operandsStack.Count == 1,
+          $"After processing, operands stack must have exactly one element, " +
+          $"but has {operandsStack.Count}.");
 
+      IOperand result = operandsStack.Pop();
+
+      if (result is Literal literal) {
+        return literal.Value;
+
+      } else if (result is Variable variable) {
+        return data[variable.Lexeme];
+
+      } else {
+        throw Assertion.EnsureNoReachThisCode($"Unhandled operand type ({result.Type}, {result.Lexeme}).");
+      }
     }
+
 
     #region Helpers
 
     private object EvaluateFunction(IToken token,
-                                    Stack<IToken> operandsStack,
+                                    Stack<IOperand> operandsStack,
                                     IDictionary<string, object> data) {
       Assertion.Require(token.Type == TokenType.Function, "token.Type is not a function.");
 
@@ -127,7 +143,7 @@ namespace Empiria.Expressions.Execution {
 
 
     private object EvaluateOperator(IToken token,
-                                    Stack<IToken> operandsStack,
+                                    Stack<IOperand> operandsStack,
                                     IDictionary<string, object> data) {
       Assertion.Require(token.Type == TokenType.Operator, "token.Type is not an operator.");
 
