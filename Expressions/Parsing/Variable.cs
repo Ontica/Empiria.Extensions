@@ -12,7 +12,11 @@ using System;
 namespace Empiria.Expressions {
 
   /// <summary>Represents a variable in an expression.</summary>
-  internal class Variable {
+  internal class Variable : Token, IOperand {
+
+    public Variable(string lexeme) : base(TokenType.Variable, lexeme) {
+      // no-op
+    }
 
   }  // class Variable
 

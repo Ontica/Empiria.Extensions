@@ -37,6 +37,13 @@ namespace Empiria.Expressions {
   }
 
 
+  /// <summary>Interface that represents an operand: could be a literal or variable.</summary>
+  public interface IOperand : IToken {
+
+  }  // IOperand
+
+
+
   /// <summary>Holds data about a token that classifies a lexeme.</summary>
   public class Token : IToken {
 
