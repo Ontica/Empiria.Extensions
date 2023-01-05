@@ -20,6 +20,18 @@ namespace Empiria.Tests.Expressions {
     #region Theories
 
     [Theory]
+    [InlineData("true", true)]
+    [InlineData("false", false)]
+    public void Should_Evaluate_Constants(string textExpression, bool expected) {
+      var expression = new Expression(textExpression);
+
+      object sut = expression.Evaluate<object>();
+
+      Assert.Equal(expected, sut);
+    }
+
+
+    [Theory]
     [InlineData("(1 < 3) AND (3 <= 5)", true)]
     [InlineData("(1 == 3) AND (3 <= 5)", false)]
     [InlineData("-1.2 < 3.2 AND 3.2 <= 5", true)]
@@ -34,8 +46,6 @@ namespace Empiria.Tests.Expressions {
 
 
     [Theory]
-    [InlineData("true", true)]
-    [InlineData("false", false)]
     [InlineData("true AND true", true)]
     [InlineData("false AND true", false)]
     [InlineData("false OR true", true)]
@@ -44,9 +54,11 @@ namespace Empiria.Tests.Expressions {
     [InlineData("false || true", true)]
     [InlineData("!false", true)]
     [InlineData("NOT false", true)]
+    [InlineData("!!false", false)]
     [InlineData("!true", false)]
     [InlineData("NOT true", false)]
-    public void Should_Evaluate_Logical_Constants(string textExpression, bool expected) {
+    [InlineData("!!true", true)]
+    public void Should_Evaluate_Constant_Expressions(string textExpression, bool expected) {
       var expression = new Expression(textExpression);
 
       bool sut = expression.Evaluate<bool>();
