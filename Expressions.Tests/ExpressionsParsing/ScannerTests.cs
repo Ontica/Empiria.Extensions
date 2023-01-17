@@ -11,9 +11,7 @@ using System;
 
 using Xunit;
 
-using Empiria.Expressions;
-
-namespace Empiria.Tests.Expressions {
+namespace Empiria.Expressions.Tests.ExpressionsParsing  {
 
   /// <summary>Test cases for the Scanner, first stage of the tokenizer that builds lexemes streams.</summary>
   public class ScannerTests {
@@ -117,4 +115,4 @@ namespace Empiria.Tests.Expressions {
 
   }  // class ScannerTests
 
-}  // namespace Empiria.Tests.Expressions
+}  // namespace Empiria.Expressions.Tests.ExpressionsParsing

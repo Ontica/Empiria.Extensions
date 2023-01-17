@@ -11,9 +11,7 @@ using System;
 
 using Xunit;
 
-using Empiria.Expressions;
-
-namespace Empiria.Tests.Expressions {
+namespace Empiria.Expressions.Tests.ExpressionsParsing {
 
   /// <summary>Test cases for the syntax tree parser.</summary>
   public class SyntaxTreeParserTests {
@@ -78,4 +76,4 @@ namespace Empiria.Tests.Expressions {
 
   }  // class SyntaxTreeParserTests
 
-}  // namespace Empiria.Tests.Expressions
+}  // namespace Empiria.Expressions.Tests.ExpressionsParsing

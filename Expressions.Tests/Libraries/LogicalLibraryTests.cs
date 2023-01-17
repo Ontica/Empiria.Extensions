@@ -1,6 +1,6 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Expressions                        Component : Expressions Parser                      *
+*  Module   : Empiria Expressions                        Component : Libraries                               *
 *  Assembly : Empiria.Expressions.Tests.dll              Pattern   : Unit tests                              *
 *  Type     : LogicalLibraryTests                        License   : Please read LICENSE.txt file            *
 *                                                                                                            *
@@ -12,9 +12,7 @@ using Xunit;
 
 using System.Collections.Generic;
 
-using Empiria.Expressions;
-
-namespace Empiria.Tests.Expressions {
+namespace Empiria.Expressions.Tests.Libraries {
 
   /// <summary>Test cases for logical library involved expressions.</summary>
   public class LogicalLibraryTests {
@@ -52,4 +50,4 @@ namespace Empiria.Tests.Expressions {
 
   }  // class LogicalLibraryTests
 
-}  // namespace Empiria.Tests.Expressions
+}  // namespace Empiria.Expressions.Tests.Libraries

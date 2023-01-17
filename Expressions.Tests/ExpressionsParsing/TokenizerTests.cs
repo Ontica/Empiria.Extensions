@@ -11,9 +11,7 @@ using System;
 
 using Xunit;
 
-using Empiria.Expressions;
-
-namespace Empiria.Tests.Expressions {
+namespace Empiria.Expressions.Tests.ExpressionsParsing {
 
   /// <summary>Test cases for the Tokenizer that converts expression
   /// into streams of tokenized lexemes.</summary>
@@ -110,4 +108,4 @@ namespace Empiria.Tests.Expressions {
 
   }  // class TokenizerTests
 
-}  // namespace Empiria.Tests.Expressions
+}  // namespace Empiria.Expressions.Tests.ExpressionsParsing

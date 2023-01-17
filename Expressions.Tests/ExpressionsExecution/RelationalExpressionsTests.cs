@@ -1,6 +1,6 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Expressions                        Component : Expressions Parser                      *
+*  Module   : Empiria Expressions                        Component : Expressions Execution                   *
 *  Assembly : Empiria.Expressions.Tests.dll              Pattern   : Unit tests                              *
 *  Type     : RelationalExpressionsTests                 License   : Please read LICENSE.txt file            *
 *                                                                                                            *
@@ -10,9 +10,7 @@
 using System;
 using Xunit;
 
-using Empiria.Expressions;
-
-namespace Empiria.Tests.Expressions {
+namespace Empiria.Expressions.Tests.ExpressionsExecution {
 
   /// <summary>Test cases for relational expressions evaluation.</summary>
   public class RelationalExpressionsTests {
@@ -84,4 +82,4 @@ namespace Empiria.Tests.Expressions {
 
   }  // class RelationalExpressionsTests
 
-}  // namespace Empiria.Tests.Expressions
+}  // namespace Empiria.Expressions.Tests.ExpressionsExecution
