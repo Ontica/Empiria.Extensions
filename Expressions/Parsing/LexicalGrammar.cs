@@ -22,14 +22,16 @@ namespace Empiria.Expressions {
 
     private LexicalGrammar() {
       this.ArithmeticalOperators = @"+ - * / \ %";
+      this.AssignmentOperators = @":=";
       this.LogicalOperators = @"&& AND || OR ! NOT";
       this.RelationalOperators = @"== != <> <= >= < >";
       this.GroupingOperators = @"( [ { } ] ) , ;";
       this.ConstantKeywords = @"true false";
-      this.ReservedWords = @"if then else";
-      this.StroppableSymbols = @"== != <> <= >=";
+      this.ReservedWords = @"if then else while";
+      this.StroppableSymbols = @"== != <> <= >= :=";
       this.ConstantSeparators = @"' """;
     }
+
 
     static internal LexicalGrammar Default {
       get {
@@ -53,6 +55,11 @@ namespace Empiria.Expressions {
     #region Properties
 
     public string ArithmeticalOperators {
+      get;
+    }
+
+
+    public string AssignmentOperators {
       get;
     }
 
@@ -230,13 +237,18 @@ namespace Empiria.Expressions {
     }
 
 
+    internal bool IsAssignmentOperator(IToken token) {
+      return IsTokenIn(token, AssignmentOperators);
+    }
+
+
     internal bool IsLeftParenthesis(IToken token) {
       return token.Type == TokenType.Operator && token.Lexeme == "(";
     }
 
 
     internal bool IsListItemDelimiter(IToken token) {
-      return token.Type == TokenType.Operator && (token.Lexeme == "," || token.Lexeme == ";");
+      return token.Type == TokenType.Operator && token.Lexeme == ",";
     }
 
 
@@ -266,7 +278,8 @@ namespace Empiria.Expressions {
 
 
     internal int Precedence(IToken token) {
-      var precedenceTable = new string[] { " ( ",          // Evaluates later
+      var precedenceTable = new string[] { " := ",
+                                           " ( ",          // Evaluates later
                                            " , ; ",
                                            " OR || ",       // Evaluates last
                                            " AND && ",
@@ -299,8 +312,9 @@ namespace Empiria.Expressions {
 
 
     private string[] GetOperators() {
-      string allOperators = $"{ArithmeticalOperators} {LogicalOperators} " +
-                            $"{RelationalOperators} {GroupingOperators}";
+      string allOperators = $"{ArithmeticalOperators} {AssignmentOperators} " +
+                            $"{LogicalOperators} {RelationalOperators} " +
+                            $"{GroupingOperators}";
 
       return CommonMethods.ConvertToArray(allOperators);
     }
