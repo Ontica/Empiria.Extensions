@@ -60,6 +60,18 @@ namespace Empiria.Expressions.Execution {
       }
     }
 
+    protected T GetObject<T>(IToken parameter) {
+
+      if (Data.ContainsKey(parameter.Lexeme)) {
+
+        return (T) Data[parameter.Lexeme];
+
+      } else {
+        return default(T);
+
+      }
+    }
+
 
     protected string GetString(IToken parameter) {
 
@@ -75,7 +87,6 @@ namespace Empiria.Expressions.Execution {
 
       }
     }
-
 
   }  // class BaseEvaluatorHandler
 
