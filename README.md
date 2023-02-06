@@ -22,7 +22,6 @@ Empiria Extensions contains the following software components:
   - Empiria Tests
   - Empiria Web Api
   - Empiria Web Api Client
-  - Empiria Web Services
 
 ## License
 
