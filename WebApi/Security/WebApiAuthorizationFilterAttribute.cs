@@ -69,7 +69,7 @@ namespace Empiria.WebApi {
           return;
 
         case WebApiClaimType.AuthenticatedUserIsInRole:
-          ClaimsService.EnsureClaim(EmpiriaUser.Current,
+          ClaimsService.EnsureClaim(ExecutionServer.CurrentUser,
                                     Security.Claims.ClaimType.UserRole,
                                     this.ClaimValue,
                                     $"This functionality can be executed only " +

@@ -12,8 +12,6 @@ using System;
 using System.Web;
 using System.Collections.Specialized;
 
-using Empiria.Security;
-
 namespace Empiria.Presentation.Web {
 
   /// <summary>Represents a command in the context of an http request.</summary>
@@ -58,12 +56,6 @@ namespace Empiria.Presentation.Web {
     public HttpRequest Request {
       get;
       private set;
-    }
-
-    public EmpiriaUser User {
-      get {
-        return Empiria.Security.EmpiriaUser.Current;
-      }
     }
 
     #endregion Public properties

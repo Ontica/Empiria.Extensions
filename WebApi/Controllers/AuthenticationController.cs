@@ -55,7 +55,7 @@ namespace Empiria.WebApi.Controllers {
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
         EmpiriaPrincipal principal = usecases.Authenticate(fields);
 
-        AuthenticationHttpModule.SetPrincipal(principal);
+        AuthenticationHttpModule.SetHttpContextPrincipal(principal);
 
         return new SingleObjectModel(base.Request, MapToOAuthResponse(principal),
                                      "Empiria.Security.OAuthObject");
@@ -108,9 +108,9 @@ namespace Empiria.WebApi.Controllers {
         expires_in = principal.Session.ExpiresIn,
         refresh_token = principal.Session.RefreshToken,
         user = new {
-          uid = principal.Identity.User.Id,
-          username = principal.Identity.User.UserName,
-          email = principal.Identity.User.EMail
+          uid = ExecutionServer.CurrentContact.Id,
+          username = principal.Identity.Name,
+          email = ExecutionServer.CurrentContact.EMail
         }
       };
     }

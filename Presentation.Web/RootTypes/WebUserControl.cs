@@ -11,25 +11,12 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Web.UI;
-using System.Collections.Specialized;
-
-using Empiria.Security;
 
 namespace Empiria.Presentation.Web {
 
   /// <summary>Abstract type that represents an ASP user control (ascx). All Empiria user controls
   ///must be derived from this type.</summary>
   public abstract class WebUserControl : UserControl {
-
-    #region Public properties
-
-    public EmpiriaUser User {
-      get {
-        return Empiria.Security.EmpiriaUser.Current;
-      }
-    }
-
-    #endregion Public properties
 
     #region Public methods
 

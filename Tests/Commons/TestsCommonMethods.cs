@@ -33,12 +33,14 @@ namespace Empiria.Tests {
     static public void Authenticate(string sessionToken) {
       Assertion.Require(sessionToken, nameof(sessionToken));
 
-      Thread.CurrentPrincipal = AuthenticationService.Authenticate(sessionToken);
+      EmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
+
+      Thread.CurrentPrincipal = principal;
     }
 
 
     static public Contact GetCurrentUser() {
-      return Contact.Parse(ExecutionServer.CurrentUserId);
+      return ExecutionServer.CurrentContact;
     }
 
 

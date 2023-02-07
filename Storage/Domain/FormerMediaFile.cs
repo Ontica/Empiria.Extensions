@@ -207,7 +207,7 @@ namespace Empiria.Storage {
 
     protected override void OnSave() {
       if (base.IsNew) {
-        this.PostedBy = EmpiriaUser.Current.AsContact();
+        this.PostedBy = ExecutionServer.CurrentContact;
         this.PostingTime = DateTime.Now;
       }
       MediaRepository.WriteFormerMediaFile(this);

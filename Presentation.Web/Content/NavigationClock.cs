@@ -65,7 +65,7 @@ namespace Empiria.Presentation.Web.Content {
     }
 
     private string BuildUserNameContent() {
-      return GetContent("UserNameLink").Replace("{USER_NAME}", EmpiriaUser.Current.UserName);
+      return GetContent("UserNameLink").Replace("{USER_NAME}", ExecutionServer.CurrentUser.UserName);
     }
 
     #endregion Private methods

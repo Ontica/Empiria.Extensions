@@ -200,8 +200,9 @@ namespace Empiria.Postings {
 
     protected override void OnSave() {
       if (this.IsNew) {
-        this.Owner = EmpiriaUser.Current.AsContact();
+        this.Owner = ExecutionServer.CurrentContact;
       }
+
       PostingsData.WritePosting(this);
     }
 

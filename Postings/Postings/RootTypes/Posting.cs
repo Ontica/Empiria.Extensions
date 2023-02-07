@@ -139,7 +139,7 @@ namespace Empiria.Postings {
 
     protected override void OnSave() {
       this.PostingTime = DateTime.Now;
-      this.PostedBy = EmpiriaUser.Current.AsContact();
+      this.PostedBy = ExecutionServer.CurrentContact;
 
       PostingsData.WritePosting(this);
     }

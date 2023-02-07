@@ -34,13 +34,6 @@ namespace Empiria.Presentation.Web {
       get { return (ExecutionServer.CurrentPrincipal != null || ExecutionServer.CurrentUserId == -5); }
     }
 
-    protected new Empiria.Security.EmpiriaUser User {
-      get {
-        VerifySession();
-        return Empiria.Security.EmpiriaUser.Current;
-      }
-    }
-
     #endregion Protected properties
 
     #region Protected methods

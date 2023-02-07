@@ -59,8 +59,8 @@ namespace Empiria.Presentation.Web.Controllers {
 
       EmpiriaIdentity identity = principal.Identity;
 
-      CreateAuthenticationTicket(identity.User.UserName, principal.Session.Token);
-      SetLastUserNameCookie(identity.User.UserName);
+      CreateAuthenticationTicket(identity.Name, principal.Session.Token);
+      SetLastUserNameCookie(identity.Name);
       System.Threading.Thread.CurrentPrincipal = principal;
       HttpContext.Current.User = principal;
       AttemptsCount = 0;
@@ -134,12 +134,8 @@ namespace Empiria.Presentation.Web.Controllers {
       WebContext.Response.Cookies.Add(cookie);
     }
 
-    private void CreateLastUserCookie() {
-
-    }
-
     private void SetLastUserNameCookie(string userName) {
-      System.Web.HttpCookie cookie = new System.Web.HttpCookie("empiriaLastUserName_" + ExecutionServer.LicenseName);
+      HttpCookie cookie = new HttpCookie("empiriaLastUserName_" + ExecutionServer.LicenseName);
 
       cookie.Value = userName;
       cookie.Expires = DateTime.Now.AddDays(3d);

@@ -50,9 +50,9 @@ namespace Empiria.WebApi.Controllers {
         expires_in = principal.Session.ExpiresIn,
         refresh_token = principal.Session.RefreshToken,
         user = new {
-          uid = principal.Identity.User.Id,
-          username = principal.Identity.User.UserName,
-          email = principal.Identity.User.EMail
+          uid = ExecutionServer.CurrentContact.Id,
+          username = ExecutionServer.CurrentIdentity.Name,
+          email = ExecutionServer.CurrentContact.EMail
         }
       };
     }

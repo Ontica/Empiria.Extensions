@@ -59,12 +59,6 @@ namespace Empiria.Presentation.Web {
       get { return Master.ThemePath; }
     }
 
-    public new Empiria.Security.EmpiriaUser User {
-      get {
-        return Empiria.Security.EmpiriaUser.Current;
-      }
-    }
-
     public WebViewModel ViewModel {
       get { return viewModel; }
     }

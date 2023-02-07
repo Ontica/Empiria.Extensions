@@ -56,7 +56,7 @@ namespace Empiria.Presentation {
     }
 
     public bool IsUserAuthenticated {
-      get { return (Security.EmpiriaIdentity.Current != null); }
+      get { return ExecutionServer.IsAuthenticated; }
     }
 
     public System.Guid LastRequestGuid {
@@ -69,10 +69,6 @@ namespace Empiria.Presentation {
 
     public string Theme {
       get { return "default"; }
-    }
-
-    public Empiria.Security.EmpiriaUser User {
-      get { return Empiria.Security.EmpiriaUser.Current; }
     }
 
     #endregion Public properties

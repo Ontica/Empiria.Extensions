@@ -73,12 +73,6 @@ namespace Empiria.Presentation.Web {
       }
     }
 
-    protected Empiria.Security.EmpiriaUser User {
-      get {
-        return Empiria.Security.EmpiriaUser.Current;
-      }
-    }
-
     #endregion Internal and protected properties
 
     #region Protected methods

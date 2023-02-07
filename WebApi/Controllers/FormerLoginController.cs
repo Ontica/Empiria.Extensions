@@ -78,9 +78,9 @@ namespace Empiria.WebApi.Controllers {
 
         string claimsToken = clientApp.ClaimsToken;
 
-        ClaimsService.EnsureClaim(principal.Identity.User,
+        ClaimsService.EnsureClaim(ExecutionServer.CurrentUser,
                                   ClaimType.UserClientApplication, claimsToken,
-                                  $"{principal.Identity.User.UserName} does not have access permissions " +
+                                  $"{ExecutionServer.CurrentUser.UserName} does not have access permissions " +
                                   $"to this application {claimsToken}.");
 
         return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
