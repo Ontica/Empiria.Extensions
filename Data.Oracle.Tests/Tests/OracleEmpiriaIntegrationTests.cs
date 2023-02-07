@@ -14,6 +14,7 @@ using Xunit;
 using Empiria.Security;
 using Empiria.Services.Authentication;
 
+using Empiria.Tests;
 
 namespace Empiria.Data.Handlers.Tests {
 
@@ -23,12 +24,10 @@ namespace Empiria.Data.Handlers.Tests {
     #region Initialization
 
     public OracleEmpiriaCoreIntegrationTests() {
-      CommonMethods.Authenticate();
+      TestsCommonMethods.Authenticate();
     }
 
-
     #endregion Initialization
-
 
     #region Facts
 

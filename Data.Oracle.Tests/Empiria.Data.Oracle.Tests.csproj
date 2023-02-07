@@ -74,16 +74,17 @@
     <PackageReference Include="Oracle.ManagedDataAccess" Version="21.8.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\core\Core.Services\Empiria.Core.Services.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
+    <PackageReference Include="Empiria.Tests" Version="1.0.0" />
     <PackageReference Include="Empiria.Data.Oracle" Version="7.0.0" />
+    <PackageReference Include="Empiria.Core.Services" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
+    <ProjectReference Include="..\Tests\Empiria.Tests.csproj" />
     <ProjectReference Include="..\..\extensions\Data.Oracle\Empiria.Data.Oracle.csproj" />
+    <ProjectReference Include="..\..\core\Core.Services\Empiria.Core.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="empiria.config.json">

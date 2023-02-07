@@ -9,6 +9,7 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Threading;
 using System.Web;
 using System.Web.Security;
 
@@ -99,8 +100,7 @@ namespace Empiria.Presentation.Web {
 
         EmpiriaPrincipal principal = AuthenticationService.Authenticate(authTicket.UserData);
 
-        System.Threading.Thread.CurrentPrincipal = principal;
-
+        Thread.CurrentPrincipal = principal;
         this.Context.User = principal;
       }
     }

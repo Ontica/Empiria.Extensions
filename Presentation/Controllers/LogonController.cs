@@ -39,37 +39,18 @@ namespace Empiria.Presentation.Controllers {
     protected bool Logon(string clientAppKey, string userName, string password,
                          string entropy, Json.JsonObject contextData = null) {
       OnValidate();
-      EmpiriaPrincipal principal = null;
-      try {
-        principal = AuthenticationService.Authenticate(clientAppKey, userName, password,
-                                                       entropy, contextData);
-      } catch {
-        // no-op
-      }
-      if (principal == null) {
+
+      EmpiriaPrincipal principal = AuthenticationService.Authenticate(clientAppKey, userName, password,
+                                                                      entropy, contextData);
+
+      if (principal == null || principal.Identity == null || !principal.Identity.IsAuthenticated) {
         SetException("El usuario no está registrado o la contraseña de acceso proporcionada es incorrecta.");
         OnAuthenticateFails();
         return false;
       }
+
       OnAuthenticate(principal);
       return true;
-    }
-
-    protected bool GuestLogon() {
-      OnValidate();
-
-      throw new NotImplementedException();
-
-      //EmpiriaIdentity identity = EmpiriaIdentity.AuthenticateGuest();
-
-      //if (identity == null) {
-      //  OnAuthenticateFails();
-      //  return false;
-      //}
-      //EmpiriaPrincipal principal = new EmpiriaPrincipal(identity);
-
-      //OnAuthenticate(principal);
-      //return true;
     }
 
     #endregion Protected methods

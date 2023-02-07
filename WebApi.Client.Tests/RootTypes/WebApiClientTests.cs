@@ -1,13 +1,22 @@
-﻿using System;
+﻿/* Empiria Extensions ****************************************************************************************
+*                                                                                                            *
+*  Module   : Web Api Client                             Component : Test cases                              *
+*  Assembly : Empiria.WebApi.Client.Tests.dll            Pattern   : Integration tests                       *
+*  Type     : WebApiClientTests                          License   : Please read LICENSE.txt file            *
+*                                                                                                            *
+*  Summary  : Empiria WebApiClient tests.                                                                    *
+*                                                                                                            *
+************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+using System;
 using System.Threading.Tasks;
 
 using Xunit;
 
-using Empiria.Security;
 using Empiria.WebApi.Client;
 
 namespace Empiria.Tests {
 
+  /// <summary>Empiria WebApiClient tests.</summary>
   public class WebApiClientTests {
 
     [Fact]
@@ -52,7 +61,8 @@ namespace Empiria.Tests {
 
     [Fact]
     public async Task Should_Get_NextId_Using_Response_Model_With_NamedEndpoint() {
-      Authenticate();
+      TestsCommonMethods.Authenticate();
+
       var webApiClient = new WebApiClient();
 
       var nextId = await webApiClient.GetAsync<ResponseModel<int>>("Empiria.IdGenerator.NextTableRowId", "LRSPayments");
@@ -63,25 +73,14 @@ namespace Empiria.Tests {
 
     [Fact]
     public async Task Should_Get_NextId_Using_NamedEndpoint() {
-      Authenticate();
+      TestsCommonMethods.Authenticate();
+
       var webApiClient = new WebApiClient();
 
       var nextId = await webApiClient.GetAsync<int>("Empiria.IdGenerator.NextTableRowId", "LRSPayments");
 
       Assert.True(nextId > 0);
     }
-
-
-    #region Auxiliary methods
-
-    private void Authenticate() {
-      string sessionToken = ConfigurationData.GetString("Testing.SessionToken");
-
-      System.Threading.Thread.CurrentPrincipal = AuthenticationService.Authenticate(sessionToken);
-    }
-
-
-    #endregion Auxiliary methods
 
   }  // WebApiClientTests
 

@@ -8,11 +8,8 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Threading;
 
 using Xunit;
-
-using Empiria.Security;
 
 using Empiria.Messaging.EMailDelivery;
 
@@ -44,18 +41,6 @@ namespace Empiria.Tests {
 
       Assert.False(result, $"Email address '{invalidAddress}' should be invalid.");
     }
-
-
-    #region Auxiliary methods
-
-    private void Authenticate() {
-      string sessionToken = ConfigurationData.GetString("Testing.SessionToken");
-
-      Thread.CurrentPrincipal = AuthenticationService.Authenticate(sessionToken);
-    }
-
-
-    #endregion Auxiliary methods
 
   }  // EMailServiceTests
 
