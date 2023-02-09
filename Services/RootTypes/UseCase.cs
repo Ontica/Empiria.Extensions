@@ -22,24 +22,6 @@ namespace Empiria.Services {
       // no-op
     }
 
-
-    protected void EnsureUserHasDataAccessTo<T>(T entity, string failMsg = "") where T: IIdentifiable {
-      if (ExecutionServer.CurrentPrincipal.HasDataAccessTo<T>(entity)) {
-        return;
-      }
-
-      var msg = String.IsNullOrWhiteSpace(failMsg) ?
-                        "Invalid user permissions for protected data object." : failMsg;
-
-      throw new InvalidOperationException(msg);
-    }
-
-
-    protected FixedList<T> RestrictUserDataAccessTo<T>(FixedList<T> entityList) where T : IIdentifiable {
-      return entityList.FindAll(entity => ExecutionServer.CurrentPrincipal
-                                                         .HasDataAccessTo<T>(entity));
-    }
-
     #endregion Constructors and parsers
 
   }   // class UseCase

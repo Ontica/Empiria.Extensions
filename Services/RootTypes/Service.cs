@@ -34,6 +34,26 @@ namespace Empiria.Services {
 
     #endregion Constructors and parsers
 
+    #region Methods
+
+    protected void EnsureUserHasDataAccessTo<T>(T entity, string failMsg = "") where T : IIdentifiable {
+      if (ExecutionServer.CurrentPrincipal.HasDataAccessTo(entity)) {
+        return;
+      }
+
+      var msg = String.IsNullOrWhiteSpace(failMsg) ?
+                        "Invalid user permissions for protected data object." : failMsg;
+
+      throw new InvalidOperationException(msg);
+    }
+
+
+    protected FixedList<T> RestrictUserDataAccessTo<T>(FixedList<T> entityList) where T : IIdentifiable {
+      return entityList.FindAll(entity => ExecutionServer.CurrentPrincipal
+                                                         .HasDataAccessTo(entity));
+    }
+
+    #endregion Methods
 
     #region IDisposable interface
 
