@@ -15,8 +15,6 @@ Empiria Extensions contains the following software components:
   - Empiria Messaging
   - Empiria Office
   - Empiria Postings
-  - Empiria Presentation
-  - Empiria Presentation Web
   - Empiria Services Framework
   - Empiria Storage
   - Empiria Tests
