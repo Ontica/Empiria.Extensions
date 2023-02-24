@@ -117,7 +117,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantCopyToNoneEmptyDirectory" xml:space="preserve">
-    <value>Can not copy a directory files into another directory ({0}) that already exists but it is not empty.</value>
+    <value>It is not possible to copy directory files into another directory ({0}) that already exists and is not empty.</value>
   </data>
   <data name="CantDeleteInUseFolder" xml:space="preserve">
     <value>No puedo eliminar el directorio '{0}' debido a que está en uso o ya fue cerrado.</value>

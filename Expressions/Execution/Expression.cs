@@ -36,6 +36,7 @@ namespace Empiria.Expressions {
       return _executable.Execute<T>();
     }
 
+
     public T Evaluate<T>(IDictionary<string, object> data) {
       return _executable.Execute<T>(data);
     }

@@ -4,7 +4,7 @@
 *  Assembly : Empiria.Extensions.dll                     Pattern   : Operator evaluator handler              *
 *  Type     : ArithmeticalOperatorHandler                License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Performs arithmetical operations with unitary and binary operators.                            *
+*  Summary  : Performs arithmetical operations with unary and binary operators.                              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Empiria.Expressions.Execution {
 
-  /// <summary>Performs arithmetical operations with unitary and binary operators.</summary>
+  /// <summary>Performs arithmetical operations with unary and binary operators.</summary>
   internal class ArithmeticalOperatorHandler : OperatorHandler {
 
     internal ArithmeticalOperatorHandler(IToken @operator,

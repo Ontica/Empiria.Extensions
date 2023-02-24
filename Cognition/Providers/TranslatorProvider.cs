@@ -38,7 +38,7 @@ namespace Empiria.Cognition.Providers {
         return result.Translations[0].Text;
 
       } catch (Exception ex) {
-        throw new Exception("I can not translate the text: " + text + ". ", ex);
+        throw new Exception("I cannot translate the text: " + text + ". ", ex);
       }
     }
 

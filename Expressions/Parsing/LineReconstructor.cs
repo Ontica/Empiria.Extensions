@@ -4,14 +4,14 @@
 *  Assembly : Empiria.Extensions.dll                     Pattern   : Service provider                        *
 *  Type     : LineReconstructor                          License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Reconstructs an expression into a candidate lexemes stream to be used by the scanner.          *
+*  Summary  : Reconstructs an expression into a stream of candidate lexemes to be used by the scanner.       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 
 namespace Empiria.Expressions {
 
-  /// <summary>Reconstructs an expression into a candidate lexemes stream to be used by the scanner.</summary>
+  /// <summary>Reconstructs an expression into a stream of candidate lexemes to be used by the scanner.</summary>
   internal class LineReconstructor {
 
     private readonly LexicalGrammar _lexicalGrammar;
@@ -25,6 +25,7 @@ namespace Empiria.Expressions {
 
       _lexicalGrammar = lexicalGrammar;
     }
+
 
     internal string[] LexemeCandidates(string expression) {
       var reconstructedExpression = EmpiriaString.TrimControl(expression);

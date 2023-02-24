@@ -23,7 +23,7 @@ namespace Empiria.Expressions.Execution {
 
     protected override internal object Evaluate(IToken parameter) {
       throw new NotImplementedException(
-          $"Unitary relational operator '{base.Operator.Lexeme}' handler is not implemented.");
+          $"Unary relational operator '{base.Operator.Lexeme}' handler is not implemented.");
     }
 
 

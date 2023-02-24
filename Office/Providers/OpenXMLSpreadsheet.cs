@@ -100,7 +100,7 @@ namespace Empiria.Office.Providers {
         SetCellValue<T>(cell, value);
 
       } catch (Exception ex) {
-        throw new Exception("I can not set cell value.", ex);
+        throw new Exception("I cannot set cell value.", ex);
       }
     }
 

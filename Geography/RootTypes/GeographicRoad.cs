@@ -8,12 +8,8 @@
 *  Summary   : Represents a geographic road that could be a roadway, highway or a rural road.                *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-
 using System;
-using System.Data;
 
-using Empiria.Contacts;
-using Empiria.DataTypes;
 using Empiria.Ontology;
 
 namespace Empiria.Geography {

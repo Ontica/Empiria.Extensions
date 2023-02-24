@@ -8,7 +8,6 @@
 *             should be implemented through derived types of this generic type.                              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-
 using System;
 using System.Collections;
 using System.Data;
