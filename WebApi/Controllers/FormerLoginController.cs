@@ -44,7 +44,7 @@ namespace Empiria.WebApi.Controllers {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
 
-        ClientApplication clientApp = base.GetClientApplication();
+        IClientApplication clientApp = base.GetClientApplication();
         login.api_key = clientApp.Key;
 
         login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
@@ -68,7 +68,7 @@ namespace Empiria.WebApi.Controllers {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
 
-        ClientApplication clientApp = base.GetClientApplication();
+        IClientApplication clientApp = base.GetClientApplication();
         login.api_key = clientApp.Key;
 
         login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
@@ -98,7 +98,7 @@ namespace Empiria.WebApi.Controllers {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
 
-        ClientApplication clientApp = base.GetClientApplication();
+        IClientApplication clientApp = base.GetClientApplication();
         login.api_key = clientApp.Key;
 
         EmpiriaPrincipal principal = this.GetPrincipal(login);

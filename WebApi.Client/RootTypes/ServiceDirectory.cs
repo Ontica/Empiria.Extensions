@@ -79,9 +79,7 @@ namespace Empiria.WebApi.Client {
     #region Private methods
 
     private void LoadServices() {
-      var clientApplication = ClientApplication.ParseActive(ExecutionServer.ApplicationKey);
-
-      var endpointsList = EndpointConfig.GetList(clientApplication);
+      var endpointsList = EndpointConfig.GetList(ExecutionServer.CurrentPrincipal.ClientApp);
 
       this.services.Clear();
 

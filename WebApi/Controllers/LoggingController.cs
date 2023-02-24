@@ -26,7 +26,7 @@ namespace Empiria.WebApi.Controllers {
     [Route("v1/logging")]
     public void PostLogEntryArray([FromBody] LogEntryModel[] logEntries) {
       try {
-        ClientApplication clientApplication = base.GetClientApplication();
+        IClientApplication clientApplication = base.GetClientApplication();
 
         var logTrail = new LogTrail(clientApplication);
 

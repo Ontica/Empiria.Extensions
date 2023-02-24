@@ -53,7 +53,7 @@ namespace Empiria.WebApi {
       switch (this.ClaimType) {
 
         case WebApiClaimType.ClientAppHasControllerAccess:
-          ClaimsService.EnsureClaim(ClientApplication.Current,
+          ClaimsService.EnsureClaim(ExecutionServer.CurrentPrincipal.ClientApp,
                                     Security.Claims.ClaimType.WebApiController,
                                     this.ClaimValue,
                                     "The client application does not have execution permissions " +
@@ -61,7 +61,7 @@ namespace Empiria.WebApi {
           return;
 
         case WebApiClaimType.ClientAppCanExecuteMethod:
-          ClaimsService.EnsureClaim(ClientApplication.Current,
+          ClaimsService.EnsureClaim(ExecutionServer.CurrentPrincipal.ClientApp,
                                     Security.Claims.ClaimType.WebApiMethod,
                                     this.ClaimValue,
                                     "The client application does not have execution permissions " +

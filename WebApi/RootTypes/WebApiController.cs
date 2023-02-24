@@ -49,7 +49,7 @@ namespace Empiria.WebApi {
     }
 
 
-    protected ClientApplication GetClientApplication() {
+    protected IClientApplication GetClientApplication() {
       if (ExecutionServer.IsAuthenticated) {
         return ExecutionServer.CurrentPrincipal.ClientApp;
       } else {
@@ -209,14 +209,14 @@ namespace Empiria.WebApi {
 
     #region Private methods
 
-    private ClientApplication GetClientApplicationFromRequestHeader() {
+    private IClientApplication GetClientApplicationFromRequestHeader() {
       const string HEADER_NAME = "ApplicationKey";
 
       this.RequireHeader(HEADER_NAME);
 
       string clientApplicationKey = this.GetRequestHeader<string>(HEADER_NAME);
 
-      return ClientApplication.ParseActive(clientApplicationKey);
+      return AuthenticationService.AuthenticateClientApp(clientApplicationKey);
     }
 
     #endregion Private methods

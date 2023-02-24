@@ -25,7 +25,7 @@ namespace Empiria.WebApi.Controllers {
     [Route("v1/system/service-directory")]
     public CollectionModel GetServiceDirectory() {
       try {
-        ClientApplication clientApplication = base.GetClientApplication();
+        IClientApplication clientApplication = base.GetClientApplication();
 
         var endpointsList = EndpointConfig.GetList(clientApplication);
 
