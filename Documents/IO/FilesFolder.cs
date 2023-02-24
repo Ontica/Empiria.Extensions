@@ -94,7 +94,7 @@ namespace Empiria.Documents.IO {
       FilesFolder filesFolder = BaseObject.Create<FilesFolder>(filesFolderTypeInfo);
 
       filesFolder.Owner = parentFilesFolder.Owner;
-      filesFolder.WebServer = WebServer.Current;
+      filesFolder.WebServerId =ExecutionServer.ServerId;
       filesFolder.PhysicalRootPath = parentFilesFolder.PhysicalRootPath;
       filesFolder.VirtualRootPath = parentFilesFolder.VirtualRootPath;
       filesFolder.ImpersonationToken = parentFilesFolder.ImpersonationToken;
@@ -242,8 +242,8 @@ namespace Empiria.Documents.IO {
       protected set;
     }
 
-    [DataField("WebServerId", Default = "Empiria.Security.WebServer.Current")]
-    public WebServer WebServer {
+    [DataField("WebServerId")]
+    public int WebServerId {
       get;
       private set;
     }
