@@ -42,7 +42,7 @@ namespace Empiria.WebApi.Controllers {
       Assertion.Require(password, "password");
     }
 
-    static public object ToOAuth(EmpiriaPrincipal principal) {
+    static public object ToOAuth(IEmpiriaPrincipal principal) {
 
       return new {
         access_token = principal.Session.Token,

@@ -25,15 +25,10 @@ namespace Empiria.WebApi {
 
     #region Public methods
 
-    static internal EmpiriaPrincipal AuthenticateFormer(string apiClientKey,
-                                                        string userName,
-                                                        string password) {
-      Assertion.Require(apiClientKey, "apiClientKey");
-      Assertion.Require(userName, "userName");
-      Assertion.Require(password, "password");
+    static internal IEmpiriaPrincipal AuthenticateFormer(UserCredentialsDto credentials) {
+      Assertion.Require(credentials, nameof(credentials));
 
-      EmpiriaPrincipal principal = AuthenticationService.Authenticate(apiClientKey, userName, password,
-                                                                      String.Empty, null);
+      IEmpiriaPrincipal principal = AuthenticationService.Authenticate(credentials);
 
       SetHttpContextPrincipal(principal);
 
@@ -41,7 +36,7 @@ namespace Empiria.WebApi {
     }
 
 
-    static public void SetHttpContextPrincipal(EmpiriaPrincipal principal) {
+    static public void SetHttpContextPrincipal(IEmpiriaPrincipal principal) {
       Assertion.Require(principal, nameof(principal));
 
       Thread.CurrentPrincipal = principal;
@@ -57,13 +52,14 @@ namespace Empiria.WebApi {
       context.AuthenticateRequest += OnApplicationAuthenticateRequest;
     }
 
+
     public void Dispose() {
       // no-op
     }
 
     #endregion Constructors and parsers
 
-    #region Private methods
+    #region Helpers
 
     static private string GetAuthenticationHeaderValue() {
       string authenticationHeader = WebApiUtilities.TryGetRequestHeader("Authorization");
@@ -115,7 +111,7 @@ namespace Empiria.WebApi {
 
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
 
-          EmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
+          IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
 
           SetHttpContextPrincipal(principal);
 
@@ -144,6 +140,6 @@ namespace Empiria.WebApi {
 
     #endregion Private methods
 
-  }  // class AuthenticationHttpModule
+  }  // class Helpers
 
 }  // namespace Empiria.WebApi

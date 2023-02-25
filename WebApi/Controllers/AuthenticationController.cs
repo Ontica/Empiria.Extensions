@@ -53,7 +53,7 @@ namespace Empiria.WebApi.Controllers {
       fields = PrepareAuthenticationFields(fields);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        EmpiriaPrincipal principal = usecases.Authenticate(fields);
+        IEmpiriaPrincipal principal = usecases.Authenticate(fields);
 
         AuthenticationHttpModule.SetHttpContextPrincipal(principal);
 
@@ -101,7 +101,7 @@ namespace Empiria.WebApi.Controllers {
       }
     }
 
-    static public object MapToOAuthResponse(EmpiriaPrincipal principal) {
+    static public object MapToOAuthResponse(IEmpiriaPrincipal principal) {
       return new {
         access_token = principal.Session.Token,
         token_type = principal.Session.TokenType,

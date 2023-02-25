@@ -33,7 +33,7 @@ namespace Empiria.Tests {
     static public void Authenticate(string sessionToken) {
       Assertion.Require(sessionToken, nameof(sessionToken));
 
-      EmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
+      IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
 
       Thread.CurrentPrincipal = principal;
     }

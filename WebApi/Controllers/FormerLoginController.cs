@@ -27,7 +27,7 @@ namespace Empiria.WebApi.Controllers {
         base.RequireBody(login);
         base.RequireHeader("User-Agent");
 
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
+        IEmpiriaPrincipal principal = this.GetPrincipal(login);
 
         return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
@@ -50,7 +50,7 @@ namespace Empiria.WebApi.Controllers {
         login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
         login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
 
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
+        IEmpiriaPrincipal principal = this.GetPrincipal(login);
 
         return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
@@ -74,7 +74,7 @@ namespace Empiria.WebApi.Controllers {
         login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
         login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
 
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
+        IEmpiriaPrincipal principal = this.GetPrincipal(login);
 
         string claimsToken = clientApp.ClaimsToken;
 
@@ -101,7 +101,7 @@ namespace Empiria.WebApi.Controllers {
         IClientApplication clientApp = base.GetClientApplication();
         login.api_key = clientApp.Key;
 
-        EmpiriaPrincipal principal = this.GetPrincipal(login);
+        IEmpiriaPrincipal principal = this.GetPrincipal(login);
 
         return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
                                      "Empiria.Security.OAuthObject");
@@ -114,12 +114,17 @@ namespace Empiria.WebApi.Controllers {
 
     #region Private methods
 
-    private EmpiriaPrincipal GetPrincipal(FormerLoginModel login) {
+    private IEmpiriaPrincipal GetPrincipal(FormerLoginModel login) {
       login.AssertValid();
 
-      EmpiriaPrincipal principal = AuthenticationHttpModule.AuthenticateFormer(login.api_key,
-                                                                               login.user_name,
-                                                                               login.password);
+      var credentials = new UserCredentialsDto {
+        ClientAppKey = login.api_key,
+        Username = login.user_name,
+        Password = login.password,
+      };
+
+      IEmpiriaPrincipal principal = AuthenticationHttpModule.AuthenticateFormer(credentials);
+
       Assertion.Ensure(principal, nameof(principal));
 
       return principal;
