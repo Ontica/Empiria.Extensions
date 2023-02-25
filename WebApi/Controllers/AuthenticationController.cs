@@ -127,7 +127,7 @@ namespace Empiria.WebApi.Controllers {
       base.RequireBody(credentials);
 
       credentials.AppKey = GetApplicationKeyFromHeader();
-      credentials.IpAddress = GetClientIpAddress();
+      credentials.UserHostAddress = GetClientIpAddress();
 
       return credentials;
     }

@@ -26,14 +26,18 @@ namespace Empiria.Tests {
       string sessionToken = ConfigurationData.Get<string>(typeof(TestsCommonMethods),
                                                           "SessionToken");
 
-      Authenticate(sessionToken);
+      string userHostAddress = ConfigurationData.Get<string>(typeof(TestsCommonMethods),
+                                                             "UserHostAddress");
+
+      Authenticate(sessionToken, userHostAddress);
     }
 
 
-    static public void Authenticate(string sessionToken) {
+    static public void Authenticate(string sessionToken, string userHostAddress) {
       Assertion.Require(sessionToken, nameof(sessionToken));
+      Assertion.Require(userHostAddress, nameof(userHostAddress));
 
-      IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
+      IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken, userHostAddress);
 
       Thread.CurrentPrincipal = principal;
     }

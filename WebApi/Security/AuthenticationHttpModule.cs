@@ -11,7 +11,6 @@ using System;
 
 using System.Net;
 using System.Net.Http.Headers;
-
 using System.Threading;
 using System.Web;
 
@@ -111,7 +110,8 @@ namespace Empiria.WebApi {
 
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
 
-          IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken);
+          IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken,
+                                                                           HttpContext.Current.Request.UserHostAddress);
 
           SetHttpContextPrincipal(principal);
 
