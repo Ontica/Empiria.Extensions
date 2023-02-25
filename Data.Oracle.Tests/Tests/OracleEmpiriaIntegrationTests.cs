@@ -33,24 +33,19 @@ namespace Empiria.Data.Handlers.Tests {
 
     [Fact]
     public void Should_Create_A_User_Session() {
-      var fields = new AuthenticationFields {
-        AppKey = "dev_SICOFIN_Backend_JEcz5AaKxuST8KG8zYQgQFJEtQehjCssHZBJ4Jws",
-        IpAddress = "192.168.1.1",
-        UserID = "José Manuel Cota",
-        Password = "d1Jkstra@0308"
-      };
+      UserCredentialsDto credentials = TestingConstants.UserCredentials;
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        var token = usecases.GenerateAuthenticationToken(fields);
+        var token = usecases.GenerateAuthenticationToken(credentials);
 
         Assert.NotNull(token);
 
-        var protectedPassword = Cryptographer.GetSHA256(fields.Password);
+        var protectedPassword = Cryptographer.GetSHA256(credentials.Password);
         protectedPassword = Cryptographer.GetSHA256(protectedPassword + token);
 
-        fields.Password = protectedPassword;
+        credentials.Password = protectedPassword;
 
-        var principal = usecases.Authenticate(fields);
+        var principal = usecases.Authenticate(credentials);
 
         Assert.NotNull(principal);
       }

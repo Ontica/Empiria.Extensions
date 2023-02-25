@@ -25,11 +25,12 @@ namespace Empiria.WebApi.Controllers {
 
     [HttpPost, AllowAnonymous]
     [Route("v3/security/login-token")]
-    public SingleObjectModel GetLoginToken([FromBody] AuthenticationFields fields) {
-      fields = PrepareAuthenticationFields(fields);
+    public SingleObjectModel GetLoginToken([FromBody] UserCredentialsDto credentials) {
+
+      credentials = PrepareAuthenticationFields(credentials);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        string token = usecases.GenerateAuthenticationToken(fields);
+        string token = usecases.GenerateAuthenticationToken(credentials);
 
         return new SingleObjectModel(base.Request, token);
       }
@@ -39,7 +40,9 @@ namespace Empiria.WebApi.Controllers {
     [HttpGet]
     [Route("v3/security/principal")]
     public SingleObjectModel GetPrincipalData() {
+
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
+
         PrincipalDto principal = usecases.PrincipalData();
 
         return new SingleObjectModel(base.Request, principal);
@@ -49,11 +52,12 @@ namespace Empiria.WebApi.Controllers {
 
     [HttpPost, AllowAnonymous]
     [Route("v3/security/login")]
-    public SingleObjectModel Login([FromBody] AuthenticationFields fields) {
-      fields = PrepareAuthenticationFields(fields);
+    public SingleObjectModel Login([FromBody] UserCredentialsDto credentials) {
+
+      credentials = PrepareAuthenticationFields(credentials);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        IEmpiriaPrincipal principal = usecases.Authenticate(fields);
+        IEmpiriaPrincipal principal = usecases.Authenticate(credentials);
 
         AuthenticationHttpModule.SetHttpContextPrincipal(principal);
 
@@ -66,7 +70,9 @@ namespace Empiria.WebApi.Controllers {
     [HttpPost]
     [Route("v3/security/logout")]
     public NoDataModel Logout() {
+
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
+
         usecases.Logout();
 
         return new NoDataModel(base.Request);
@@ -81,6 +87,7 @@ namespace Empiria.WebApi.Controllers {
     private string GetApplicationKeyFromHeader() {
       return this.GetRequestHeader<string>("ApplicationKey");
     }
+
 
     private string GetClientIpAddress() {
       var request = this.Request;
@@ -115,14 +122,14 @@ namespace Empiria.WebApi.Controllers {
       };
     }
 
-    private AuthenticationFields PrepareAuthenticationFields(AuthenticationFields fields) {
+    private UserCredentialsDto PrepareAuthenticationFields(UserCredentialsDto credentials) {
       base.RequireHeader("User-Agent");
-      base.RequireBody(fields);
+      base.RequireBody(credentials);
 
-      fields.AppKey = GetApplicationKeyFromHeader();
-      fields.IpAddress = GetClientIpAddress();
+      credentials.AppKey = GetApplicationKeyFromHeader();
+      credentials.IpAddress = GetClientIpAddress();
 
-      return fields;
+      return credentials;
     }
 
     #endregion Helper methods

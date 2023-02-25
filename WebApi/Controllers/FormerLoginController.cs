@@ -118,8 +118,8 @@ namespace Empiria.WebApi.Controllers {
       login.AssertValid();
 
       var credentials = new UserCredentialsDto {
-        ClientAppKey = login.api_key,
-        Username = login.user_name,
+        AppKey = login.api_key,
+        UserID = login.user_name,
         Password = login.password,
       };
 

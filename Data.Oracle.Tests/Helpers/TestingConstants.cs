@@ -8,6 +8,8 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
+using Empiria.Security;
+
 namespace Empiria.Data.Handlers.Tests {
 
   /// <summary>Provides testing constants.</summary>
@@ -15,20 +17,29 @@ namespace Empiria.Data.Handlers.Tests {
 
     static readonly internal string DATA_READER_SQL = ConfigurationData.GetString("DATA_READER_SQL");
 
+
     static readonly internal string GET_INT_SCALAR_SQL = ConfigurationData.GetString("GET_INT_SCALAR_SQL");
+
 
     static readonly internal string GET_INT_SCALAR_FIELD_NAME =
                                           ConfigurationData.GetString("GET_INT_SCALAR_FIELD_NAME");
 
+
     static readonly internal long SCALAR_VALUE = ConfigurationData.GetInteger("SCALAR_VALUE");
+
 
     static readonly internal int DATA_SET_MINIMAL_ROWS_COUNT =
                                           ConfigurationData.GetInteger("DATA_SET_MINIMAL_ROWS_COUNT");
 
+
     static readonly internal string DATA_READER_TABLE_NAME =
                                           ConfigurationData.GetString("DATA_READER_TABLE_NAME");
 
-    static readonly internal string SESSION_TOKEN = ConfigurationData.GetString("SESSION_TOKEN");
+
+    static internal string SESSION_TOKEN = ConfigurationData.GetString("SESSION_TOKEN");
+
+
+    static internal UserCredentialsDto UserCredentials = ConfigurationData.Get<UserCredentialsDto>("USER_CREDENTIALS");
 
   }  // class TestingConstants
 
