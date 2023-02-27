@@ -40,7 +40,7 @@ namespace Empiria.Postings.WebApi {
         sendTo = posting.SendTo.ToObject(),
         date = posting.Date,
         accessMode = posting.AccessMode,
-        owner = posting.Owner.Nickname,
+        owner = posting.Owner.Initials,
         status = posting.Status
       };
     }
