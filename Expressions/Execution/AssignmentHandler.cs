@@ -15,7 +15,7 @@ using Empiria.Expressions.Execution;
 namespace Empiria.Expressions {
 
   /// <summary>Assignment statement handler that assigns an expression result to a variable.</summary>
-  internal class AssignmentHandler {
+  internal class AssignmentHandler : IStatement {
 
     private readonly IToken _leftToken;
     private readonly ExpressionEvaluator _rightExpression;
