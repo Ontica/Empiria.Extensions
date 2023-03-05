@@ -8,9 +8,8 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using Xunit;
 
-using System.Collections.Generic;
+using Xunit;
 
 namespace Empiria.Expressions.Tests.ScriptsParsing {
 
@@ -21,6 +20,8 @@ namespace Empiria.Expressions.Tests.ScriptsParsing {
 
     [Theory]
     [InlineData("a := 5;", 4)]
+    [InlineData("a := 7.5 + 2.5;", 6)]
+    [InlineData("a := a + b - 8;", 8)]
     public void Should_Scan_Assignment_Statements(string statement,
                                                   int lexemesExpectedCount) {
       var scanner = new Scanner();
@@ -28,6 +29,7 @@ namespace Empiria.Expressions.Tests.ScriptsParsing {
       FixedList<string> sut = scanner.Scan(statement);
 
       Assert.Equal(lexemesExpectedCount, sut.Count);
+
       Assert.All(sut, x => Assert.NotNull(x));
       Assert.All(sut, x => Assert.Contains(x, statement));
     }
