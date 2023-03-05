@@ -16,11 +16,18 @@ namespace Empiria.Expressions {
   /// <summary>Converts a text script in a list of statements.</summary>
   internal class StatementBuilder {
 
+    private readonly LexicalGrammar _grammar;
     private readonly string _script;
 
-    internal StatementBuilder(string script) {
+    internal StatementBuilder(string script) : this(LexicalGrammar.Default, script) {
+      // no-op
+    }
+
+    internal StatementBuilder(LexicalGrammar grammar, string script) {
+      Assertion.Require(grammar, nameof(grammar));
       Assertion.Require(script, nameof(script));
 
+      _grammar = grammar;
       _script = script;
     }
 
@@ -32,7 +39,7 @@ namespace Empiria.Expressions {
 
       foreach (var textStatement in textStatements) {
 
-        var statement = new Statement(textStatement);
+        var statement = new Statement(_grammar, textStatement);
 
         statements.Add(statement);
       }
