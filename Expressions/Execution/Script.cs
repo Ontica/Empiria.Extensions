@@ -10,14 +10,13 @@
 using System;
 using System.Collections.Generic;
 
-using Empiria.Expressions.Execution;
-
 namespace Empiria.Expressions {
 
-  /// <summary>Provides a service for scripts execution.</summary>
-  public class Script {
 
-    private readonly IExecutable _executable;
+  /// <summary>Provides a service for scripts execution.</summary>
+  public class Script : IStatement {
+
+    private readonly FixedList<IStatement> _executables;
 
     public Script(string script) : this(LexicalGrammar.Default, script) {
       // no-op
@@ -28,30 +27,32 @@ namespace Empiria.Expressions {
       Assertion.Require(grammar, nameof(grammar));
       Assertion.Require(script, nameof(script));
 
-      _executable = Compile(grammar, script);
-    }
-
-
-    public void Execute() {
-      _executable.Execute();
+      _executables = Compile(grammar, script);
     }
 
 
     public void Execute(IDictionary<string, object> data) {
-      _executable.Execute(data);
+      foreach (var executable in _executables) {
+        executable.Execute(data);
+      }
     }
 
 
-    private IExecutable Compile(LexicalGrammar grammar, string script) {
-      var tokenizer = new Tokenizer(grammar);
+    private FixedList<IStatement> Compile(LexicalGrammar grammar, string script) {
+      var builder = new StatementBuilder(grammar, script);
 
-      FixedList<IToken> tokens = tokenizer.Tokenize(script);
+      FixedList<Statement> statements = builder.Build();
 
-      var parser = new SyntaxTreeParser(grammar, tokens);
+      var executables = new List<IStatement>(statements.Count);
 
-      FixedList<IToken> postfixTokens = parser.PostfixList();
+      foreach (var statement in statements) {
 
-      return new ExpressionEvaluator(grammar, postfixTokens);
+        IStatement executable = statement.Compile();
+
+        executables.Add(executable);
+      }
+
+      return executables.ToFixedList();
     }
 
   }  // class Script
