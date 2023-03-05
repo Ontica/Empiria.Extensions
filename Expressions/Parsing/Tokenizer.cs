@@ -75,6 +75,10 @@ namespace Empiria.Expressions {
         return new Token(TokenType.Keyword, lexeme);
       }
 
+      if (_lexicalGrammar.IsPunctuator(lexeme)) {
+        return new Token(TokenType.Punctuator, lexeme);
+      }
+
       if (_lexicalGrammar.IsOperator(lexeme)) {
         return new Token(TokenType.Operator, lexeme);
       }

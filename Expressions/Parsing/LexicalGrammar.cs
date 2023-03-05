@@ -25,7 +25,8 @@ namespace Empiria.Expressions {
       this.AssignmentOperators = @":=";
       this.LogicalOperators = @"&& AND || OR ! NOT";
       this.RelationalOperators = @"== != <> <= >= < >";
-      this.GroupingOperators = @"( [ { } ] ) , ;";
+      this.GroupingOperators = @"( [ ] ) ,";
+      this.Punctuators = @"{ } ;";
       this.ConstantKeywords = @"true false";
       this.ReservedWords = @"if then else while";
       this.StroppableSymbols = @"== != <> <= >= :=";
@@ -88,6 +89,10 @@ namespace Empiria.Expressions {
       get;
     }
 
+
+    public string Punctuators {
+      get;
+    }
 
     public string ReservedWords {
       get;
@@ -187,6 +192,19 @@ namespace Empiria.Expressions {
     }
 
 
+    public bool IsPunctuator(string candidate) {
+      string[] punctuators = CommonMethods.ConvertToArray(Punctuators);
+
+      foreach (var punctuator in punctuators) {
+        if (candidate == punctuator) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+
     private bool IsStringOrDateConstant(string candidate) {
       string[] separators = CommonMethods.ConvertToArray(ConstantSeparators);
 
@@ -267,6 +285,11 @@ namespace Empiria.Expressions {
     }
 
 
+    internal bool IsPunctuator(IToken token) {
+      return IsTokenIn(token, Punctuators);
+    }
+
+
     internal bool IsRelationalOperator(IToken token) {
       return IsTokenIn(token, RelationalOperators);
     }
@@ -280,7 +303,7 @@ namespace Empiria.Expressions {
     internal int Precedence(IToken token) {
       var precedenceTable = new string[] { " := ",
                                            " ( ",          // Evaluates later
-                                           " , ; ",
+                                           " , ",
                                            " OR || ",       // Evaluates last
                                            " AND && ",
                                            " NOT ! ",
@@ -322,7 +345,8 @@ namespace Empiria.Expressions {
 
     internal string[] GetReconstructableSymbols() {
       string allOperators = $"{ArithmeticalOperators} {LogicalOperators} " +
-                            $"{RelationalOperators} {GroupingOperators}";
+                            $"{RelationalOperators} {GroupingOperators} " +
+                            $"{Punctuators}";
 
       allOperators = allOperators.Replace("AND", string.Empty);
       allOperators = allOperators.Replace("OR", string.Empty);

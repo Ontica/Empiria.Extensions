@@ -69,6 +69,10 @@ namespace Empiria.Expressions {
         return candidate;
       }
 
+      if (_lexicalGrammar.IsPunctuator(candidate)) {
+        return candidate;
+      }
+
       if (_lexicalGrammar.IsOperator(candidate)) {
         return candidate;
       }

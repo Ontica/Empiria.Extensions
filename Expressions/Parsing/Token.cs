@@ -24,6 +24,8 @@ namespace Empiria.Expressions {
 
     Variable,
 
+    Punctuator,
+
   }  // enum TokenType
 
 
