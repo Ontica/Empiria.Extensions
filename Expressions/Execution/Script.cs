@@ -12,7 +12,6 @@ using System.Collections.Generic;
 
 namespace Empiria.Expressions {
 
-
   /// <summary>Provides a service for scripts execution.</summary>
   public class Script : IStatement {
 
@@ -27,7 +26,9 @@ namespace Empiria.Expressions {
       Assertion.Require(grammar, nameof(grammar));
       Assertion.Require(script, nameof(script));
 
-      _executables = Compile(grammar, script);
+      FixedList<Statement> statements = GetStatements(grammar, script);
+
+      _executables = Compile(statements);
     }
 
 
@@ -38,11 +39,9 @@ namespace Empiria.Expressions {
     }
 
 
-    private FixedList<IStatement> Compile(LexicalGrammar grammar, string script) {
-      var builder = new StatementBuilder(grammar, script);
+    #region Helpers
 
-      FixedList<Statement> statements = builder.Build();
-
+    private FixedList<IStatement> Compile(FixedList<Statement> statements) {
       var executables = new List<IStatement>(statements.Count);
 
       foreach (var statement in statements) {
@@ -54,6 +53,15 @@ namespace Empiria.Expressions {
 
       return executables.ToFixedList();
     }
+
+
+    private FixedList<Statement> GetStatements(LexicalGrammar grammar, string script) {
+      var builder = new StatementBuilder(grammar, script);
+
+      return builder.Build();
+    }
+
+    #endregion Helpers
 
   }  // class Script
 
