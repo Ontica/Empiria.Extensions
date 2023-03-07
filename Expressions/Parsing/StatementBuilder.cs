@@ -23,6 +23,7 @@ namespace Empiria.Expressions {
       // no-op
     }
 
+
     internal StatementBuilder(LexicalGrammar grammar, string script) {
       Assertion.Require(grammar, nameof(grammar));
       Assertion.Require(script, nameof(script));
@@ -33,7 +34,7 @@ namespace Empiria.Expressions {
 
 
     internal FixedList<Statement> Build() {
-      FixedList<string> textStatements = SeparateStatements(_script);
+      FixedList<string> textStatements = SeparateStatements();
 
       var statements = new List<Statement>(textStatements.Count);
 
@@ -47,10 +48,9 @@ namespace Empiria.Expressions {
       return statements.ToFixedList();
     }
 
-    #region Helpers
 
-    private FixedList<string> SeparateStatements(string script) {
-      var statements = script.Split(';');
+    internal FixedList<string> SeparateStatements() {
+      var statements = _script.Split(';');
 
       return statements.Select(statement => EmpiriaString.Clean(statement))
                        .ToFixedList()
@@ -58,8 +58,6 @@ namespace Empiria.Expressions {
                        .Select(x => x + ';')
                        .ToFixedList();
     }
-
-    #endregion Helpers
 
   }  // class StatementBuilder
 

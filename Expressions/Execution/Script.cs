@@ -26,9 +26,9 @@ namespace Empiria.Expressions {
       Assertion.Require(grammar, nameof(grammar));
       Assertion.Require(script, nameof(script));
 
-      FixedList<Statement> statements = GetStatements(grammar, script);
+      script = Preprocess(grammar, script);
 
-      _executables = Compile(statements);
+      _executables = Compile(grammar, script);
     }
 
 
@@ -41,7 +41,12 @@ namespace Empiria.Expressions {
 
     #region Helpers
 
-    private FixedList<IStatement> Compile(FixedList<Statement> statements) {
+    private FixedList<IStatement> Compile(LexicalGrammar grammar, string script) {
+
+      var builder = new StatementBuilder(grammar, script);
+
+      FixedList<Statement> statements = builder.Build();
+
       var executables = new List<IStatement>(statements.Count);
 
       foreach (var statement in statements) {
@@ -55,10 +60,11 @@ namespace Empiria.Expressions {
     }
 
 
-    private FixedList<Statement> GetStatements(LexicalGrammar grammar, string script) {
-      var builder = new StatementBuilder(grammar, script);
+    private string Preprocess(LexicalGrammar grammar, string script) {
 
-      return builder.Build();
+      var preprocessor = new Preprocessor(grammar);
+
+      return preprocessor.Preprocess(script);
     }
 
     #endregion Helpers
