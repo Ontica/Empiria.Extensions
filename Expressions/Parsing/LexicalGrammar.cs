@@ -8,6 +8,7 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
+using System.Collections.Generic;
 
 using Empiria.Expressions.Libraries;
 
@@ -17,6 +18,7 @@ namespace Empiria.Expressions {
   public class LexicalGrammar {
 
     private readonly LibrariesRegistry _librariesRegistry = new LibrariesRegistry();
+    private readonly MacrosRegistry _macrosRegistry = new MacrosRegistry();
 
     #region Constructors and parsers
 
@@ -228,12 +230,24 @@ namespace Empiria.Expressions {
     }
 
 
+    internal MacrosRegistry Macros() {
+      return _macrosRegistry;
+    }
+
+
     public void LoadLibrary(BaseFunctionsLibrary library) {
       Assertion.Require(library, nameof(library));
 
       _librariesRegistry.Add(library);
-      // no-op
     }
+
+
+    public void LoadMacros(IEnumerable<IMacro> macros) {
+      Assertion.Require(macros, nameof(macros));
+
+      _macrosRegistry.Add(macros);
+    }
+
 
     #endregion Methods
 

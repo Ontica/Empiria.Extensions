@@ -16,11 +16,22 @@ using Empiria.Expressions.Execution;
 namespace Empiria.Expressions {
 
 
+  public interface IMacro {
+
+    string Name { get; }
+
+    string Code { get; }
+
+  }  // interface IMacro
+
+
+
   internal interface IStatement {
 
     void Execute(IDictionary<string, object> data);
 
-  }
+  }  // interface IStatement
+
 
 
   /// <summary>Represents an executable statement. Statements can be compound or simple.</summary>
