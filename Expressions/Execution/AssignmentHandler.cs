@@ -30,6 +30,10 @@ namespace Empiria.Expressions {
 
 
     public void Execute(IDictionary<string, object> data) {
+      if (!data.ContainsKey(_leftToken.Lexeme)) {
+        data.Add(_leftToken.Lexeme, new object());
+      }
+
       data[_leftToken.Lexeme] = _rightExpression.Evaluate(data);
     }
 
