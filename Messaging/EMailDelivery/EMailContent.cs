@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Messaging Services                           Component : EMail Services                        *
 *  Assembly : Empiria.Messaging.dll                        Pattern   : Information Holder                    *
-*  Type     : EMailContent                                 License   : Please read LICENSE.txt file          *
+*  Type     : EmailContent                                 License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : Holds the contents of an email message.                                                        *
 *                                                                                                            *
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace Empiria.Messaging.EMailDelivery {
 
   /// <summary>Holds the contents of an email message.</summary>
-  public class EMailContent {
+  public class EmailContent {
 
     #region Fields
 
@@ -26,9 +26,10 @@ namespace Empiria.Messaging.EMailDelivery {
     #region Constructors and parsers
 
 
-    public EMailContent(string subject, string body, bool isBodyHtml = false) {
-      Assertion.Require(subject, "subject");
-      Assertion.Require(body, "body");
+    public EmailContent(string subject, string body,
+                        bool isBodyHtml = false) {
+      Assertion.Require(subject, nameof(subject));
+      Assertion.Require(body, nameof(body));
 
       this.Subject = subject;
       this.Body = body;
@@ -81,6 +82,6 @@ namespace Empiria.Messaging.EMailDelivery {
 
     #endregion Methods
 
-  }  // class EMailContent
+  }  // class EmailContent
 
 }  // namespace Empiria.Messaging.EMailDelivery

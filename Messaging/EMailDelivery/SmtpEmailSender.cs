@@ -23,14 +23,14 @@ namespace Empiria.Messaging.EMailDelivery {
     #region Methods
 
     public void Send(SendTo sendTo, EmailContent content) {
-      Assertion.Require(sendTo, "sendTo");
-      Assertion.Require(content, "content");
+      Assertion.Require(sendTo, nameof(sendTo));
+      Assertion.Require(content, nameof(content));
 
-      MailMessage message = SmtpEmailSender.GetMailMessage(sendTo, content);
+      MailMessage message = GetMailMessage(sendTo, content);
 
       try {
 
-        using (SmtpClient smtp = SmtpEmailSender.GetSmptClient()) {
+        using (SmtpClient smtp = GetSmptClient()) {
           smtp.Send(message);
         }
 
@@ -41,14 +41,14 @@ namespace Empiria.Messaging.EMailDelivery {
 
 
     public async Task SendAsync(SendTo sendTo, EmailContent content) {
-      Assertion.Require(sendTo, "sendTo");
-      Assertion.Require(content, "content");
+      Assertion.Require(sendTo, nameof(sendTo));
+      Assertion.Require(content, nameof(content));
 
-      MailMessage message = SmtpEmailSender.GetMailMessage(sendTo, content);
+      MailMessage message = GetMailMessage(sendTo, content);
 
       Action<Task> disposeMessage = (task) => Task.Run(() => DisposeMessage(message));
 
-      using (SmtpClient smtp = SmtpEmailSender.GetSmptClient()) {
+      using (SmtpClient smtp = GetSmptClient()) {
         await smtp.SendMailAsync(message)
                   .ContinueWith(disposeMessage);
       }
@@ -104,17 +104,17 @@ namespace Empiria.Messaging.EMailDelivery {
 
 
     static private SmtpClient GetSmptClient() {
-      EmailConfig eMailConfig = SmtpEmailSender.GetDefaultEmailConfig();
+      EmailConfig emailConfig = SmtpEmailSender.GetDefaultEmailConfig();
 
-      var smtp = new SmtpClient(eMailConfig.Host, eMailConfig.Port);
+      var smtp = new SmtpClient(emailConfig.Host, emailConfig.Port);
 
-      smtp.EnableSsl = eMailConfig.EnableSsl;
-      smtp.UseDefaultCredentials = eMailConfig.UseDefaultCredentials;
+      smtp.EnableSsl = emailConfig.EnableSsl;
+      smtp.UseDefaultCredentials = emailConfig.UseDefaultCredentials;
       smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
 
       if (!smtp.UseDefaultCredentials) {
-        smtp.Credentials = new NetworkCredential(eMailConfig.NetworkUserName,
-                                                 eMailConfig.NetworkUserPasssword);
+        smtp.Credentials = new NetworkCredential(emailConfig.NetworkUserName,
+                                                 emailConfig.NetworkUserPasssword);
       }
 
       return smtp;

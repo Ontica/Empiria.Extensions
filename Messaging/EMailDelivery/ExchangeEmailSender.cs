@@ -2,13 +2,12 @@
 *                                                                                                            *
 *  Module   : Messaging Services                           Component : EMail Services                        *
 *  Assembly : Empiria.Messaging.dll                        Pattern   : Service Provider                      *
-*  Type     : EMail                                        License   : Please read LICENSE.txt file          *
+*  Type     : ExchangeEmailSender                          License   : Please read LICENSE.txt file          *
 *                                                                                                            *
-*  Summary  : Provides email delivery services.                                                              *
+*  Summary  : Provides email delivery services using Microsoft Exchange Servers.                             *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 
@@ -18,25 +17,25 @@ using Microsoft.Exchange.WebServices.Data;
 
 namespace Empiria.Messaging.EMailDelivery {
 
-  /// <summary>Provides email delivery services.</summary>
+  /// <summary>Provides email delivery services using Microsoft Exchange Servers.</summary>
   internal class ExchangeEmailSender : IEmailSender {
 
     #region Public methods
 
-    public void Send(SendTo sendTo, EMailContent content) {
-      Assertion.Require(sendTo, "sendTo");
-      Assertion.Require(content, "content");
+    public void Send(SendTo sendTo, EmailContent content) {
+      Assertion.Require(sendTo, nameof(sendTo));
+      Assertion.Require(content, nameof(content));
 
       MailMessage message = GetMailMessage(sendTo, content);
 
-      EMailConfig eMailConfig = GetDefaultEMailConfig();
+      EmailConfig emailConfig = GetDefaultEmailConfig();
 
       ExchangeService service = new ExchangeService();
 
-      service.Credentials = new NetworkCredential(eMailConfig.NetworkUserName,
-                                                  eMailConfig.NetworkUserPasssword);
+      service.Credentials = new NetworkCredential(emailConfig.NetworkUserName,
+                                                  emailConfig.NetworkUserPasssword);
 
-      service.AutodiscoverUrl(eMailConfig.SenderEMailAddress);
+      service.AutodiscoverUrl(emailConfig.SenderEMailAddress);
 
       EmailMessage emailMessage = new EmailMessage(service);
       emailMessage.Subject = message.Subject;
@@ -47,7 +46,10 @@ namespace Empiria.Messaging.EMailDelivery {
     }
 
 
-    public async System.Threading.Tasks.Task SendAsync(SendTo sendTo, EMailContent content) {
+    public async System.Threading.Tasks.Task SendAsync(SendTo sendTo, EmailContent content) {
+      Assertion.Require(sendTo, nameof(sendTo));
+      Assertion.Require(content, nameof(content));
+
       await System.Threading.Tasks.Task.FromException(new NotImplementedException());
     }
 
@@ -56,37 +58,33 @@ namespace Empiria.Messaging.EMailDelivery {
     #region Private methods
 
 
-    static private EMailConfig _eMailConfig = null;
-    static private EMailConfig GetDefaultEMailConfig() {
+    static private EmailConfig _eMailConfig = null;
+    static private EmailConfig GetDefaultEmailConfig() {
       if (_eMailConfig == null) {
-        _eMailConfig = EMailConfig.Default;
+        _eMailConfig = EmailConfig.Default;
       }
       return _eMailConfig;
     }
 
 
-    static private MailMessage GetMailMessage(SendTo sendTo, EMailContent content) {
-      EMailConfig eMailConfig = GetDefaultEMailConfig();
+    static private MailMessage GetMailMessage(SendTo sendTo, EmailContent content) {
+      EmailConfig emailConfig = GetDefaultEmailConfig();
 
       var message = new MailMessage();
 
-      message.From = new MailAddress(eMailConfig.SenderEMailAddress, eMailConfig.SenderName);
+      message.From = new MailAddress(emailConfig.SenderEMailAddress, emailConfig.SenderName);
 
       SetMessageReceiverAddresses(message, sendTo.Address);
       SetMessagePriority(message, sendTo.Priority);
 
-      if (eMailConfig.BccMirrorEMailAddress.Length != 0) {
-        message.Bcc.Add(new MailAddress(eMailConfig.BccMirrorEMailAddress));
+      if (emailConfig.BccMirrorEMailAddress.Length != 0) {
+        message.Bcc.Add(new MailAddress(emailConfig.BccMirrorEMailAddress));
       }
 
       message.Subject = content.Subject;
       message.Body = content.Body;
       message.IsBodyHtml = content.IsBodyHtml;
       message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-
-      //foreach (var file in content.Attachments) {
-      //  message.Attachments.Add(new Attachment(file.FullName));
-      //}
 
       return message;
     }
