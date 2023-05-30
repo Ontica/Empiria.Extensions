@@ -11,7 +11,6 @@ using System;
 using System.Web.Http;
 
 using Empiria.Security;
-using Empiria.Security.Claims;
 
 namespace Empiria.WebApi.Controllers {
 
@@ -59,37 +58,6 @@ namespace Empiria.WebApi.Controllers {
         throw base.CreateHttpException(e);
       }
     }
-
-
-    [HttpPost, AllowAnonymous]
-    [Route("v1.6/security/login")]
-    public SingleObjectModel LoginVersion1_6([FromBody] FormerLoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        IClientApplication clientApp = base.GetClientApplication();
-        login.api_key = clientApp.Key;
-
-        login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
-        login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
-
-        IEmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        string claimsToken = clientApp.ClaimsToken;
-
-        ClaimsService.EnsureClaim(ExecutionServer.CurrentUser,
-                                  ClaimType.UserClientApplication, claimsToken,
-                                  $"{ExecutionServer.CurrentUser.UserName} does not have access permissions " +
-                                  $"to this application {claimsToken}.");
-
-        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
 
     [HttpPost, AllowAnonymous]
     [Route("v2/security/login")]
