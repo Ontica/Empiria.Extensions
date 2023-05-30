@@ -11,9 +11,6 @@ using System;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-using Empiria.Security;
-using Empiria.Security.Claims;
-
 namespace Empiria.WebApi {
 
   /// <summary>ASP .NET Web Api filter to handle authorization using Empiria security claims.</summary>
@@ -50,35 +47,35 @@ namespace Empiria.WebApi {
     public override void OnAuthorization(HttpActionContext actionContext) {
       base.OnAuthorization(actionContext);
 
-      switch (this.ClaimType) {
+      //switch (this.ClaimType) {
 
-        case WebApiClaimType.ClientAppHasControllerAccess:
-          ClaimsService.EnsureClaim(ExecutionServer.CurrentPrincipal.ClientApp,
-                                    Security.Claims.ClaimType.WebApiController,
-                                    this.ClaimValue,
-                                    "The client application does not have execution permissions " +
-                                    "over this web api controller.");
-          return;
+      //  case WebApiClaimType.ClientAppHasControllerAccess:
+      //    ClaimsService.EnsureClaim(ExecutionServer.CurrentPrincipal.ClientApp,
+      //                              Security.Claims.ClaimType.WebApiController,
+      //                              this.ClaimValue,
+      //                              "The client application does not have execution permissions " +
+      //                              "over this web api controller.");
+      //    return;
 
-        case WebApiClaimType.ClientAppCanExecuteMethod:
-          ClaimsService.EnsureClaim(ExecutionServer.CurrentPrincipal.ClientApp,
-                                    Security.Claims.ClaimType.WebApiMethod,
-                                    this.ClaimValue,
-                                    "The client application does not have execution permissions " +
-                                    "over this web api method.");
-          return;
+      //  case WebApiClaimType.ClientAppCanExecuteMethod:
+      //    ClaimsService.EnsureClaim(ExecutionServer.CurrentPrincipal.ClientApp,
+      //                              Security.Claims.ClaimType.WebApiMethod,
+      //                              this.ClaimValue,
+      //                              "The client application does not have execution permissions " +
+      //                              "over this web api method.");
+      //    return;
 
-        case WebApiClaimType.AuthenticatedUserIsInRole:
-          ClaimsService.EnsureClaim(ExecutionServer.CurrentUser,
-                                    Security.Claims.ClaimType.UserRole,
-                                    this.ClaimValue,
-                                    $"This functionality can be executed only " +
-                                    $"by users playing the role {this.ClaimValue}'.");
-          return;
+      //  case WebApiClaimType.AuthenticatedUserIsInRole:
+      //    ClaimsService.EnsureClaim(ExecutionServer.CurrentUser,
+      //                              Security.Claims.ClaimType.UserRole,
+      //                              this.ClaimValue,
+      //                              $"This functionality can be executed only " +
+      //                              $"by users playing the role {this.ClaimValue}'.");
+      //    return;
 
-        default:
-          throw Assertion.EnsureNoReachThisCode();
-      }
+      //  default:
+      //    throw Assertion.EnsureNoReachThisCode();
+      //}
 
     }
 
