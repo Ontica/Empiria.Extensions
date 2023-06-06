@@ -20,46 +20,6 @@ namespace Empiria.WebApi.Controllers {
     #region Former Login Controllers
 
     [HttpPost, AllowAnonymous]
-    [Route("v1/security/login")]
-    public SingleObjectModel LoginVersion1([FromBody] FormerLoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        IEmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-
-    [HttpPost, AllowAnonymous]
-    [Route("v1.5/security/login")]
-    public SingleObjectModel LoginVersion1_5([FromBody] FormerLoginModel login) {
-      try {
-        base.RequireBody(login);
-        base.RequireHeader("User-Agent");
-
-        IClientApplication clientApp = base.GetClientApplication();
-        login.api_key = clientApp.Key;
-
-        login.password = FormerCryptographer.Encrypt(EncryptionMode.EntropyHashCode, login.password, login.user_name);
-        login.password = FormerCryptographer.Decrypt(login.password, login.user_name);
-
-        IEmpiriaPrincipal principal = this.GetPrincipal(login);
-
-        return new SingleObjectModel(base.Request, FormerLoginModel.ToOAuth(principal),
-                                     "Empiria.Security.OAuthObject");
-
-      } catch (Exception e) {
-        throw base.CreateHttpException(e);
-      }
-    }
-
-    [HttpPost, AllowAnonymous]
     [Route("v2/security/login")]
     public SingleObjectModel LoginVersion2([FromBody] FormerLoginModel login) {
       try {
