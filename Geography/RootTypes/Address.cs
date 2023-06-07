@@ -13,7 +13,7 @@ using System;
 namespace Empiria.Geography {
 
   /// <summary>Contains extensible data about geographical addresses.</summary>
-  public class Address : IExtensibleData {
+  public class Address {
 
     #region Constructors and parsers
 
