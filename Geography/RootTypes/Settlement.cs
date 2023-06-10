@@ -43,8 +43,7 @@ namespace Empiria.Geography {
       this.Location = Location.Empty;
     }
 
-    protected override void OnInitialize() {
-      base.OnInitialize();
+    protected override void OnLoad() {
       roadwaysList = new Lazy<List<Roadway>>(() => GeographicData.GetChildGeoItems<Roadway>(this));
     }
 

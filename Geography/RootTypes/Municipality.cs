@@ -35,8 +35,7 @@ namespace Empiria.Geography {
       this.State = state;
     }
 
-    protected override void OnInitialize() {
-      base.OnInitialize();
+    protected override void OnLoad() {
       locationsList = new Lazy<List<Location>>(() => GeographicData.GetChildGeoItems<Location>(this));
       settlementsList = new Lazy<List<Settlement>>(() => GeographicData.GetChildGeoItems<Settlement>(this));
       highwaysList = new Lazy<List<Highway>>(() => GeographicData.GetChildGeoItems<Highway>(this));

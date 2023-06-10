@@ -33,8 +33,7 @@ namespace Empiria.Geography {
       this.Municipality = municipality;
     }
 
-    protected override void OnInitialize() {
-      base.OnInitialize();
+    protected override void OnLoad() {
       settlementsList = new Lazy<List<Settlement>>(() => GeographicData.GetChildGeoItems<Settlement>(this));
       roadwaysList = new Lazy<List<Roadway>>(() => GeographicData.GetChildGeoItems<Roadway>(this));
     }
