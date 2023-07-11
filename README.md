@@ -9,7 +9,6 @@ Empiria Extensions contains the following software components:
   - Empiria Data Modeler
   - Empiria Data Objects
   - Empiria Documents (to be discontinued, see Empiria Storage)
-  - Empiria Entities
   - Empiria Expressions
   - Empiria Geography
   - Empiria Messaging
