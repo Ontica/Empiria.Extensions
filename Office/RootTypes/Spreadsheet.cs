@@ -15,7 +15,9 @@ namespace Empiria.Office {
 
   public enum Style {
     Bold,
-    LineThrough
+    LineThrough,
+    FontColor,
+    BackgroundColor
   }
 
   /// <summary>Provides services to interact with Office spreadsheets through SpreadsheetLight.</summary>
@@ -209,6 +211,30 @@ namespace Empiria.Office {
       _spreadsheet.SetRowStyle(row, style);
     }
 
+    public void SetFontColor(Style styleType, string cell, System.Drawing.Color color) {
+      SLStyle style = GetSLColorStyle(styleType, color);
+
+      _spreadsheet.SetCellStyle(cell, style);
+    }
+
+    public void SetRowFontColor(Style styleType, int index, System.Drawing.Color color) {
+      SLStyle style = GetSLColorStyle(styleType, color);
+
+      _spreadsheet.SetRowStyle(index, style);
+    }
+
+    public void SetCellBackgroundStyle(Style styleType, string cell, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+      SLStyle style = GetSLBackgroundStyle(styleType, color);
+
+      _spreadsheet.SetCellStyle(cell, style);
+    }
+
+    public void SetRowBackgroundStyle(Style styleType, int row, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+      SLStyle style = GetSLBackgroundStyle(styleType, color);
+
+      _spreadsheet.SetRowStyle(row, style);
+    }
+
     public string[] Worksheets() {
       return _spreadsheet.GetWorksheetNames()
                          .ToArray();
@@ -225,6 +251,29 @@ namespace Empiria.Office {
         style.Font.Bold = true;
       } else if (styleType == Style.LineThrough) {
         style.Font.Strike = true;
+      }
+      return style;
+    }
+
+    private SLStyle GetSLColorStyle(Style styleType, System.Drawing.Color color) {
+      SLStyle style = new SLStyle();
+
+      if (styleType == Style.FontColor) {
+        style.Font.FontColor = color;
+      } else {
+        style.Font.FontColor = System.Drawing.Color.Black;
+      }
+      return style;
+    }
+
+    private SLStyle GetSLBackgroundStyle(Style styleType, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+      SLStyle style = new SLStyle();
+
+      if (styleType == Style.BackgroundColor) {
+        //style.Fill.SetPatternBackgroundColor(System.Drawing.Color.LightGray);
+        style.Fill.SetPatternType(color);
+      } else {
+        style.Fill.SetPatternType(DocumentFormat.OpenXml.Spreadsheet.PatternValues.None);
       }
       return style;
     }
