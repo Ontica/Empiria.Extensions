@@ -81,23 +81,26 @@ namespace Empiria.WebApi {
 
     static private void LogAndThrowExceptionAsResponse(HttpStatusCode httpStatusCode,
                                                        Exception exception, WebApiAuditTrail auditLog) {
-      // 1) Publish the exception in the eventlog
-      //    Messaging.Publisher.Publish(exception);
 
-      // 2) Clear the current response and set their status code
+      // 1) Clear the current response and set their status code
+
       var response = HttpContext.Current.Response;
+
+      response.TrySkipIisCustomErrors = true;
+
       response.ClearContent();
+
       response.StatusCode = (int) httpStatusCode;
 
-      // 3) Put the exception in a standard json response
+      // 2) Put the exception in a standard json response
       var exceptionAsJson = WebApiUtilities.GetExceptionAsJsonObject(exception, HttpContext.Current.Request);
       response.Write(exceptionAsJson.ToString(true));
 
-      // 4) Try to write an audit log in the system database
+      // 3) Try to write an audit log in the system database
       auditLog.Write(HttpContext.Current.Request, "Authentication",
                      HttpContext.Current.Response, exception);
 
-      // 5) Send the response to the Http client.
+      // 4) Send the response to the Http client.
       response.End();
     }
 
