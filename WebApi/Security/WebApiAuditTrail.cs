@@ -53,6 +53,7 @@ namespace Empiria.WebApi {
 
       this.SetRequest(request, operationName);
       this.SetResponse(response, exception);
+      base.UserHostAddress = request.UserHostAddress;
       base.Write();
     }
 
