@@ -51,11 +51,11 @@ namespace Empiria.WebApi {
 
     static private void RegisterGlobalHandlers(HttpConfiguration config) {
 
+      config.MessageHandlers.Add(new WebApiResponseHandler());
+
       config.MessageHandlers.Add(new AuditTrailHandler());
 
       config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
-
-      config.MessageHandlers.Add(new WebApiResponseHandler());
 
       // config.MessageHandlers.Add(new StorageContextHandler());
     }
