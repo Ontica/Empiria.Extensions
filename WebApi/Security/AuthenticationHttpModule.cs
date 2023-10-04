@@ -111,6 +111,8 @@ namespace Empiria.WebApi {
 
         string sessionToken = GetAuthenticationHeaderValue();
 
+        ExecutionServer.UserHostAddress = HttpContext.Current.Request.UserHostAddress;
+
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
 
           IEmpiriaPrincipal principal = AuthenticationService.Authenticate(sessionToken,
