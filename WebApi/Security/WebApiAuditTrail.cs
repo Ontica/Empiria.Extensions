@@ -36,25 +36,33 @@ namespace Empiria.WebApi {
     #region Public methods
 
     public void Write(HttpRequestMessage request, HttpResponseMessage response) {
-      Assertion.Require(request, "request");
-      Assertion.Require(response, "response");
+      Assertion.Require(request, nameof(request));
+      Assertion.Require(response, nameof(response));
 
       this.SetRequest(request);
       this.SetResponse(response);
       base.Write();
+
+      if (response.IsSuccessStatusCode) {
+        EmpiriaLog.Operation(this.Operation);
+      } else {
+        EmpiriaLog.Operation(LogOperationType.Error, this.Operation);
+      }
     }
 
     internal void Write(HttpRequest request, string operationName,
                         HttpResponse response, Exception exception) {
-      Assertion.Require(request, "request");
-      Assertion.Require(operationName, "operationName");
-      Assertion.Require(response, "response");
-      Assertion.Require(exception, "exception");
+      Assertion.Require(request, nameof(request));
+      Assertion.Require(operationName, nameof(operationName));
+      Assertion.Require(response, nameof(response));
+      Assertion.Require(exception, nameof(exception));
 
       this.SetRequest(request, operationName);
       this.SetResponse(response, exception);
-      base.UserHostAddress = request.UserHostAddress;
+
       base.Write();
+
+      EmpiriaLog.Operation(this.Operation, exception);
     }
 
     #endregion Public methods
@@ -117,6 +125,7 @@ namespace Empiria.WebApi {
       } else {
         reason = response.ReasonPhrase;
       }
+
       var json = new JsonObject();
 
       json.Add("statusCode", (int) response.StatusCode);
@@ -127,26 +136,32 @@ namespace Empiria.WebApi {
       base.SetResponse((int) response.StatusCode, 0, json);
     }
 
+
     private void SetOkResponse(HttpResponseMessage response) {
       int returnedItems = this.GetReturnedItemsCount(response);
 
       base.SetResponse((int) response.StatusCode, returnedItems, JsonObject.Empty);
     }
 
+
     private void SetRequest(HttpRequestMessage request) {
       string eventTag = request.Method.Method;
       string operationName = this.GetOperationName(request);
       JsonObject operationData = this.GetOperationData(request.RequestUri);
 
-      base.SetOperationInfo(eventTag, operationName, operationData);
+      string content = request.Content.ReadAsStringAsync().Result;
+
+      base.SetOperationInfo(eventTag, operationName, operationData, content);
     }
+
 
     private void SetRequest(HttpRequest request, string operationName) {
       string eventTag = request.HttpMethod;
       JsonObject operationData = this.GetOperationData(request.Url);
 
-      base.SetOperationInfo(eventTag, operationName, operationData);
+      base.SetOperationInfo(eventTag, operationName, operationData, string.Empty);
     }
+
 
     private void SetResponse(HttpResponseMessage response) {
       if (response.IsSuccessStatusCode) {
