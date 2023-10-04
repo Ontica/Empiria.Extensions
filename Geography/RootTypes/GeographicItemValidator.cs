@@ -9,7 +9,6 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.Collections.Generic;
 
 namespace Empiria.Geography {
 
@@ -34,7 +33,7 @@ namespace Empiria.Geography {
     static public FixedList<Settlement> SearchSettlements(Municipality municipality,
                                                           string settlementName, decimal precision) {
       Predicate<Settlement> predicate =
-                  ((x) => EmpiriaString.JaroWinklerProximityFactor(x.Name, settlementName) >= precision);
+                  ((x) => EmpiriaStringDistance.JaroWinklerProximityFactor(x.Name, settlementName) >= precision);
 
       return municipality.Settlements.FindAll(predicate);
     }
