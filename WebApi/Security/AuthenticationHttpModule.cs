@@ -109,9 +109,9 @@ namespace Empiria.WebApi {
 
       try {
 
-        string sessionToken = GetAuthenticationHeaderValue();
-
         ExecutionServer.UserHostAddress = HttpContext.Current.Request.UserHostAddress;
+
+        string sessionToken = GetAuthenticationHeaderValue();
 
         if (!String.IsNullOrWhiteSpace(sessionToken)) {
 
