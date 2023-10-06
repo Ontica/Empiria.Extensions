@@ -201,6 +201,10 @@ namespace Empiria.WebApi {
     }
 
 
+    protected void SetOperation(string operation) {
+      base.Request.Properties.Add("operation", operation);
+    }
+
     public WebApiException UnauthorizedResource(string resourceName, object value) {
       return new WebApiException(WebApiException.Msg.UnauthorizedResource, resourceName, value);
     }

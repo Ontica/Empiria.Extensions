@@ -44,11 +44,18 @@ namespace Empiria.WebApi {
       base.Write();
 
       if (response.IsSuccessStatusCode) {
-        EmpiriaLog.Operation(this.Operation);
+        object value;
+        if (request.Properties.TryGetValue("operation", out value)) {
+          EmpiriaLog.Operation(this.Operation, (string) value);
+        } else {
+          EmpiriaLog.Operation(this.Operation, string.Empty);
+        }
+
       } else {
-        EmpiriaLog.Operation(LogOperationType.Error, this.Operation);
+        EmpiriaLog.Operation(this.Operation, new Exception(GetErrorResponseMessage(response)));
       }
     }
+
 
     internal void Write(HttpRequest request, string operationName,
                         HttpResponse response, Exception exception) {
@@ -107,6 +114,22 @@ namespace Empiria.WebApi {
       }
     }
 
+
+    private string GetErrorResponseMessage(HttpResponseMessage response) {
+      var content = response.Content as ObjectContent;
+
+      if (content != null && content.ObjectType == typeof(ExceptionModel)) {
+        return ((ExceptionModel) content.Value).Exception.Message;
+      }
+
+      if (content != null && content.ObjectType == typeof(System.Web.Http.HttpError)) {
+        return ((System.Web.Http.HttpError) content.Value).ExceptionMessage;
+
+      } else {
+        return "Ocurrió un problema que no pudo ser determinado.";
+      }
+    }
+
     private void SetErrorResponse(HttpResponseMessage response) {
       var content = response.Content as ObjectContent;
 
@@ -128,10 +151,10 @@ namespace Empiria.WebApi {
 
       var json = new JsonObject();
 
-      json.Add("statusCode", (int) response.StatusCode);
-      json.Add("statusName", response.StatusCode.ToString());
-      json.Add("reason", reason);
-      json.Add("source", source);
+      json.AddIfValue("statusCode", (int) response.StatusCode);
+      json.AddIfValue("statusName", response.StatusCode.ToString());
+      json.AddIfValue("reason", reason);
+      json.AddIfValue("source", source);
 
       base.SetResponse((int) response.StatusCode, 0, json);
     }
