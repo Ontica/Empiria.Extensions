@@ -61,6 +61,9 @@ namespace Empiria.WebApi.Controllers {
 
         AuthenticationHttpModule.SetHttpContextPrincipal(principal);
 
+        EmpiriaLog.Operation(principal.Session, "AuthenticationController.Login",
+                             $"El usuario ingresó al sistema.");
+
         return new SingleObjectModel(base.Request, MapToOAuthResponse(principal),
                                      "Empiria.Security.OAuthObject");
       }
