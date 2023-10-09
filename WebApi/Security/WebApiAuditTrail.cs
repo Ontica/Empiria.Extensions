@@ -172,9 +172,7 @@ namespace Empiria.WebApi {
       string operationName = this.GetOperationName(request);
       JsonObject operationData = this.GetOperationData(request.RequestUri);
 
-      string content = request.Content.ReadAsStringAsync().Result;
-
-      base.SetOperationInfo(eventTag, operationName, operationData, content);
+      base.SetOperationInfo(eventTag, operationName, operationData);
     }
 
 
@@ -182,7 +180,7 @@ namespace Empiria.WebApi {
       string eventTag = request.HttpMethod;
       JsonObject operationData = this.GetOperationData(request.Url);
 
-      base.SetOperationInfo(eventTag, operationName, operationData, string.Empty);
+      base.SetOperationInfo(eventTag, operationName, operationData);
     }
 
 
