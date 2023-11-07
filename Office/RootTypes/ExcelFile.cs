@@ -124,15 +124,21 @@ namespace Empiria.Office {
       }
     }
 
-    public void SetCellBackgroundStyle(string cell, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+    public void SetCellBackgroundStyle(string cell, System.Drawing.Color color) {
       if (_excel != null) {
         _excel.SetCellBackgroundStyle(Style.BackgroundColor, cell, color);
       }
     }
 
-    public void SetRowBackgroundStyle(int rowIndex, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+    public void SetRowBackgroundStyle(int rowIndex, System.Drawing.Color color) {
       if (_excel != null) {
         _excel.SetRowBackgroundStyle(Style.BackgroundColor, rowIndex, color);
+      }
+    }
+
+    public void SetCellWrapText(string cell) {
+      if (_excel != null) {
+        _excel.SetCellWrapText(cell);
       }
     }
 

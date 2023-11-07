@@ -205,6 +205,13 @@ namespace Empiria.Office {
       _spreadsheet.SetCellStyle(cellName, style);
     }
 
+    internal void SetCellWrapText(string cell) {
+      SLStyle style = new SLStyle();
+
+      style.SetWrapText(true);
+      _spreadsheet.SetCellStyle(cell, style);
+    }
+
     public void SetRowStyle(Style styleType, int row) {
       SLStyle style = GetSLStyle(styleType);
 
@@ -223,13 +230,25 @@ namespace Empiria.Office {
       _spreadsheet.SetRowStyle(index, style);
     }
 
-    public void SetCellBackgroundStyle(Style styleType, string cell, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+    public void SetCellBackgroundStyle(Style styleType, string cell, System.Drawing.Color color) {
       SLStyle style = GetSLBackgroundStyle(styleType, color);
 
       _spreadsheet.SetCellStyle(cell, style);
     }
 
-    public void SetRowBackgroundStyle(Style styleType, int row, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+    public void SetRowBackgroundStyle(Style styleType, int row, System.Drawing.Color color) {
+      SLStyle style = GetSLBackgroundStyle(styleType, color);
+
+      _spreadsheet.SetRowStyle(row, style);
+    }
+
+    public void SetCellBackgroundRGBStyle(Style styleType, string cell, System.Drawing.Color color) {
+      SLStyle style = GetSLBackgroundStyle(styleType, color);
+
+      _spreadsheet.SetCellStyle(cell, style);
+    }
+
+    public void SetRowBackgroundRGBStyle(Style styleType, int row, System.Drawing.Color color) {
       SLStyle style = GetSLBackgroundStyle(styleType, color);
 
       _spreadsheet.SetRowStyle(row, style);
@@ -266,17 +285,19 @@ namespace Empiria.Office {
       return style;
     }
 
-    private SLStyle GetSLBackgroundStyle(Style styleType, DocumentFormat.OpenXml.Spreadsheet.PatternValues color) {
+    private SLStyle GetSLBackgroundStyle(Style styleType, System.Drawing.Color color) {
       SLStyle style = new SLStyle();
 
       if (styleType == Style.BackgroundColor) {
-        //style.Fill.SetPatternBackgroundColor(System.Drawing.Color.LightGray);
-        style.Fill.SetPatternType(color);
+        style.Fill.SetPattern(DocumentFormat.OpenXml.Spreadsheet.PatternValues.Solid,
+                              color, color);
       } else {
-        style.Fill.SetPatternType(DocumentFormat.OpenXml.Spreadsheet.PatternValues.None);
+        style.Fill.SetPattern(DocumentFormat.OpenXml.Spreadsheet.PatternValues.None,
+                              System.Drawing.Color.White, System.Drawing.Color.White);
       }
       return style;
     }
+
 
     #endregion Private Methods
 
