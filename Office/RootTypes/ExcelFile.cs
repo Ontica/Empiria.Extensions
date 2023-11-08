@@ -142,6 +142,24 @@ namespace Empiria.Office {
       }
     }
 
+    public void SetTextAlignment(string cell, DocumentFormat.OpenXml.Spreadsheet.VerticalAlignmentValues alignment) {
+      if (_excel != null) {
+        _excel.SetTextAlignment(cell, alignment);
+      }
+    }
+
+    public void SetCellFontFamily(string cell, string fontFamily) {
+      if (_excel != null) {
+        _excel.SetCellFontFamily(cell, fontFamily);
+      }
+    }
+
+    public void SetRowFontFamily(int row, string fontFamily) {
+      if (_excel != null) {
+        _excel.SetRowFontFamily(row, fontFamily);
+      }
+    }
+
     public FileReportDto ToFileReportDto() {
       return new FileReportDto(FileType.Excel, this.Url);
     }

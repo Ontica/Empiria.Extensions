@@ -212,6 +212,27 @@ namespace Empiria.Office {
       _spreadsheet.SetCellStyle(cell, style);
     }
 
+    internal void SetTextAlignment(string cell, DocumentFormat.OpenXml.Spreadsheet.VerticalAlignmentValues alignment) {
+      SLStyle style = new SLStyle();
+
+      style.SetVerticalAlignment(alignment);
+      _spreadsheet.SetCellStyle(cell, style);
+    }
+
+    internal void SetCellFontFamily(string cell, string fontFamily) {
+      SLStyle style = new SLStyle();
+
+      style.Font.FontName = fontFamily;
+      _spreadsheet.SetCellStyle(cell, style);
+    }
+
+    internal void SetRowFontFamily(int row, string fontFamily) {
+      SLStyle style = new SLStyle();
+
+      style.Font.FontName = fontFamily;
+      _spreadsheet.SetRowStyle(row, style);
+    }
+
     public void SetRowStyle(Style styleType, int row) {
       SLStyle style = GetSLStyle(styleType);
 
