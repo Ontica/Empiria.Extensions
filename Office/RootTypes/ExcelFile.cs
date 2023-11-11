@@ -77,6 +77,10 @@ namespace Empiria.Office {
     }
 
     public void SetCell(string cell, string value) {
+      if (value == null) {
+        value = string.Empty;
+      }
+
       if (_excel != null) {
         _excel.SetCell(cell, value);
       }
