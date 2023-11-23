@@ -172,6 +172,12 @@ namespace Empiria.Office {
       this.SelectedWorksheet = worksheetName;
     }
 
+
+    public void InsertRow(int startRowIndex) {
+      _spreadsheet.InsertRow(startRowIndex, 1);
+    }
+
+
     public bool IsWorksheetHidden(string worksheetName) {
       return _spreadsheet.IsWorksheetHidden(worksheetName);
     }

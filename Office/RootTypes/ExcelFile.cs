@@ -72,6 +72,10 @@ namespace Empiria.Office {
       }
     }
 
+    public void InsertRow(int startRowIndex) {
+      _excel.InsertRow(startRowIndex);
+    }
+
     public void RemoveColumn(string column) {
       _excel.RemoveColumn(column);
     }
@@ -83,6 +87,15 @@ namespace Empiria.Office {
 
       if (_excel != null) {
         _excel.SetCell(cell, value);
+      }
+    }
+
+    public void SetCell(string cell, decimal? value) {
+      if (!value.HasValue) {
+        return;
+      }
+      if (_excel != null) {
+        _excel.SetCell(cell, value.Value);
       }
     }
 
