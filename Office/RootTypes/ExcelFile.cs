@@ -80,6 +80,16 @@ namespace Empiria.Office {
       _excel.RemoveColumn(column);
     }
 
+    public int SearchColumnValue(string column, string value, int startIndex, int endIndex) {
+      for (int i = startIndex; i < endIndex; i++) {
+        var currentValue = _excel.ReadCellValue<string>($"{column}{i}");
+        if (currentValue == value) {
+          return i;
+        }
+      }
+      return 0;
+    }
+
     public void SetCell(string cell, string value) {
       if (value == null) {
         value = string.Empty;
@@ -177,9 +187,18 @@ namespace Empiria.Office {
       }
     }
 
+    public void SetRowFontFamily(int row, string fontFamily, int fontSize) {
+      if (_excel != null) {
+        _excel.SetRowFontFamily(row, fontFamily, fontSize);
+      }
+    }
+
+
     public FileReportDto ToFileReportDto() {
       return new FileReportDto(FileType.Excel, this.Url);
     }
+
+
 
     #endregion Methods
 
