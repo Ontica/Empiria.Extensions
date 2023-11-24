@@ -239,6 +239,15 @@ namespace Empiria.Office {
       _spreadsheet.SetRowStyle(row, style);
     }
 
+    internal void SetRowFontFamily(int row, string fontFamily, int fontSize) {
+      SLStyle style = new SLStyle();
+
+      style.Font.FontName = fontFamily;
+      style.Font.FontSize = fontSize;
+
+      _spreadsheet.SetRowStyle(row, style);
+    }
+
     public void SetRowStyle(Style styleType, int row) {
       SLStyle style = GetSLStyle(styleType);
 
@@ -347,7 +356,6 @@ namespace Empiria.Office {
     public void Dispose() {
       Dispose(true);
     }
-
 
     #endregion IDisposable Support
 
