@@ -3,7 +3,7 @@
     <Company>Ontica</Company>
     <Product>Empiria MySql Data Handler</Product>
     <Description>Add-on used to connect Empiria solutions to MySQL databases.</Description>
-    <Copyright>(c) 2007-2023. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
+    <Copyright>(c) 2007-2024. La Vía Óntica SC, Ontica LLC and contributors.</Copyright>
     <Version>7.0.0</Version>
     <AssemblyVersion>7.0.0</AssemblyVersion>
     <FileVersion>7.0.0.0</FileVersion>

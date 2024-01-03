@@ -1,7 +1,7 @@
 ﻿Empiria Data Objects
 ====================
 
-Copyright (c) 2020-2023. La Vía Óntica SC, Ontica LLC and contributors.
+Copyright (c) 2020-2024. La Vía Óntica SC, Ontica LLC and contributors.
 -----------------------------------------------------------------------
 
 These software components are free software: you can redistribute them
