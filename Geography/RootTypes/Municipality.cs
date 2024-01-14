@@ -18,10 +18,10 @@ namespace Empiria.Geography {
 
     #region Fields
 
-    private Lazy<List<Location>> locationsList = null;
-    private Lazy<List<Settlement>> settlementsList = null;
-    private Lazy<List<Highway>> highwaysList = null;
-    private Lazy<List<Roadway>> roadwaysList = null;
+    private Lazy<List<Location>> locationsList = new Lazy<List<Location>>();
+    private Lazy<List<Settlement>> settlementsList = new Lazy<List<Settlement>>();
+    private Lazy<List<Highway>> highwaysList = new Lazy<List<Highway>>();
+    private Lazy<List<Roadway>> roadwaysList = new Lazy<List<Roadway>>();
 
     #endregion Fields
 
