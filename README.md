@@ -4,17 +4,15 @@ Empiria Extensions contains the following software components:
 
   - Empiria Aspects
   - Empiria Cognition
-  - Empiria Data Converter
+  - Empiria Data Convertion
   - Empiria Data Handlers (for MySql, PostgreSql and Oracle)
-  - Empiria Data Modeler
-  - Empiria Data Objects
-  - Empiria Documents (to be discontinued, see Empiria Storage)
+  - Empiria DevOps
   - Empiria Expressions
   - Empiria Geography
   - Empiria Messaging
   - Empiria Office
   - Empiria Postings
-  - Empiria Services Framework
+  - Empiria Services
   - Empiria Storage
   - Empiria Tests
   - Empiria Web Api
