@@ -44,11 +44,20 @@ namespace Empiria.Cognition {
 
     #region Methods
 
-    public override bool Equals(object obj) {
-      if (obj == null || this.GetType() != obj.GetType()) {
+    public override bool Equals(object obj) => Equals(obj as Language);
+
+    public bool Equals(Language language) {
+      if (language == null) {
         return false;
       }
-      return base.Equals(obj) && (this.Code == ((Language) obj).Code);
+      if (Object.ReferenceEquals(this, language)) {
+        return true;
+      }
+      if (this.GetType() != language.GetType()) {
+        return false;
+      }
+
+      return this.Code == language.Code;
     }
 
 
