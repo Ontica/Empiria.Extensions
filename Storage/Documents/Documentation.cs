@@ -40,7 +40,7 @@ namespace Empiria.Storage.Documents {
       var list = new List<DocumentFulfillment>(_rules.Count);
 
       foreach (var rule in _rules) {
-        var document = _documents.Find(x => x.DocumentType == rule.DocumentType);
+        var document = _documents.Find(x => x.DocumentType.Equals(rule.DocumentType));
         DocumentFulfillment fulfillment;
 
         if (document != null) {
