@@ -78,7 +78,7 @@ namespace Empiria.WebApi {
     #region Methods
 
     internal void SetPrincipal(IEmpiriaPrincipal principal) {
-      Assertion.Require(principal, "principal");
+      Assertion.Require(principal, nameof(principal));
 
       this.Principal = principal;
     }

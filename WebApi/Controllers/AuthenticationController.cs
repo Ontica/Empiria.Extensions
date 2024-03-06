@@ -8,8 +8,6 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-using System.ServiceModel.Channels;
-using System.Web;
 using System.Web.Http;
 
 using Empiria.Security;
@@ -61,9 +59,6 @@ namespace Empiria.WebApi.Controllers {
 
         AuthenticationHttpModule.SetHttpContextPrincipal(principal);
 
-        EmpiriaLog.Operation(principal.Session, "AuthenticationController.Login",
-                             $"El usuario ingresó al sistema.");
-
         return new SingleObjectModel(base.Request, MapToOAuthResponse(principal),
                                      "Empiria.Security.OAuthObject");
       }
@@ -87,30 +82,6 @@ namespace Empiria.WebApi.Controllers {
 
     #region Helper methods
 
-    private string GetApplicationKeyFromHeader() {
-      return this.GetRequestHeader<string>("ApplicationKey");
-    }
-
-
-    private string GetClientIpAddress() {
-      var request = this.Request;
-
-      if (request.Properties.ContainsKey("MS_HttpContext")) {
-        return ((HttpContextWrapper) request.Properties["MS_HttpContext"]).Request.UserHostAddress;
-
-      } else if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name)) {
-        var prop = (RemoteEndpointMessageProperty) request.Properties[RemoteEndpointMessageProperty.Name];
-
-        return prop.Address;
-
-      } else if (HttpContext.Current != null) {
-        return HttpContext.Current.Request.UserHostAddress;
-
-      } else {
-        return String.Empty;
-      }
-    }
-
     static public object MapToOAuthResponse(IEmpiriaPrincipal principal) {
       return new {
         access_token = principal.Session.Token,
@@ -129,8 +100,8 @@ namespace Empiria.WebApi.Controllers {
       base.RequireHeader("User-Agent");
       base.RequireBody(credentials);
 
-      credentials.AppKey = GetApplicationKeyFromHeader();
-      credentials.UserHostAddress = GetClientIpAddress();
+      credentials.AppKey = base.GetApplicationKeyFromHeader();
+      credentials.UserHostAddress = base.GetClientIpAddress();
 
       return credentials;
     }

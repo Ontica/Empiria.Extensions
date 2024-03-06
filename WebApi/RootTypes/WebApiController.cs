@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.Http;
 
@@ -36,6 +37,11 @@ namespace Empiria.WebApi {
     #region Public Methods
 
 
+    protected string GetApplicationKeyFromHeader() {
+      return this.GetRequestHeader<string>("ApplicationKey");
+    }
+
+
     protected HttpResponseException CreateHttpException(Exception exception) {
       if (exception is HttpResponseException ex1) {
         return ex1;
@@ -54,6 +60,26 @@ namespace Empiria.WebApi {
         return ExecutionServer.CurrentPrincipal.ClientApp;
       } else {
         return this.GetClientApplicationFromRequestHeader();
+      }
+    }
+
+
+    protected string GetClientIpAddress() {
+      var request = this.Request;
+
+      if (request.Properties.ContainsKey("MS_HttpContext")) {
+        return ((HttpContextWrapper) request.Properties["MS_HttpContext"]).Request.UserHostAddress;
+
+      } else if (request.Properties.ContainsKey(RemoteEndpointMessageProperty.Name)) {
+        var prop = (RemoteEndpointMessageProperty) request.Properties[RemoteEndpointMessageProperty.Name];
+
+        return prop.Address;
+
+      } else if (HttpContext.Current != null) {
+        return HttpContext.Current.Request.UserHostAddress;
+
+      } else {
+        return String.Empty;
       }
     }
 
