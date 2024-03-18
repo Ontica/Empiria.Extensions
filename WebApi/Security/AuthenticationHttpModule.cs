@@ -24,17 +24,6 @@ namespace Empiria.WebApi {
 
     #region Public methods
 
-    static internal IEmpiriaPrincipal AuthenticateFormer(UserCredentialsDto credentials) {
-      Assertion.Require(credentials, nameof(credentials));
-
-      IEmpiriaPrincipal principal = AuthenticationService.Authenticate(credentials);
-
-      SetHttpContextPrincipal(principal);
-
-      return principal;
-    }
-
-
     static public void SetHttpContextPrincipal(IEmpiriaPrincipal principal) {
       Assertion.Require(principal, nameof(principal));
 

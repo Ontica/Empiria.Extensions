@@ -25,7 +25,7 @@ namespace Empiria.WebApi.Controllers {
     [Route("v3/security/login-token")]
     public SingleObjectModel GetLoginToken([FromBody] UserCredentialsDto credentials) {
 
-      credentials = PrepareAuthenticationFields(credentials);
+      PrepareAuthenticationFields(credentials);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
         string token = usecases.GenerateAuthenticationToken(credentials);
@@ -52,7 +52,7 @@ namespace Empiria.WebApi.Controllers {
     [Route("v3/security/login")]
     public SingleObjectModel Login([FromBody] UserCredentialsDto credentials) {
 
-      credentials = PrepareAuthenticationFields(credentials);
+      PrepareAuthenticationFields(credentials);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
         IEmpiriaPrincipal principal = usecases.Authenticate(credentials);
@@ -96,14 +96,12 @@ namespace Empiria.WebApi.Controllers {
       };
     }
 
-    private UserCredentialsDto PrepareAuthenticationFields(UserCredentialsDto credentials) {
+    private void PrepareAuthenticationFields(UserCredentialsDto credentials) {
       base.RequireHeader("User-Agent");
       base.RequireBody(credentials);
 
       credentials.AppKey = base.GetApplicationKeyFromHeader();
       credentials.UserHostAddress = base.GetClientIpAddress();
-
-      return credentials;
     }
 
     #endregion Helper methods
