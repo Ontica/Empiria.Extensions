@@ -52,7 +52,7 @@ namespace Empiria.WebApi {
         }
 
       } else {
-        EmpiriaLog.Operation(this.Operation, new Exception(GetErrorResponseMessage(response)));
+        EmpiriaLog.FailedOperationLog(this.Operation, new Exception(GetErrorResponseMessage(response)));
       }
     }
 
@@ -68,8 +68,6 @@ namespace Empiria.WebApi {
       this.SetResponse(response, exception);
 
       base.Write();
-
-      EmpiriaLog.Operation(this.Operation, exception);
     }
 
     #endregion Public methods
