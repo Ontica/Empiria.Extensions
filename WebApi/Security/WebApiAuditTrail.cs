@@ -16,6 +16,7 @@ using System.Web.Http.Controllers;
 using Empiria.Json;
 using Empiria.Security;
 
+
 namespace Empiria.WebApi {
 
   /// <summary>Holds web request and response information and write them to an audit trail log.</summary>
@@ -52,7 +53,9 @@ namespace Empiria.WebApi {
         }
 
       } else {
-        EmpiriaLog.FailedOperationLog(this.Operation, new Exception(GetErrorResponseMessage(response)));
+        if (!this.Operation.StartsWith("AuthenticationController")) {
+          EmpiriaLog.FailedOperationLog(this.Operation, new Exception(GetErrorResponseMessage(response)));
+        }
       }
     }
 
