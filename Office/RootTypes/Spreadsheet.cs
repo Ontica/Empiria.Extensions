@@ -8,7 +8,6 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
-
 using SpreadsheetLight;
 
 namespace Empiria.Office {
@@ -129,7 +128,7 @@ namespace Empiria.Office {
           $"Hubo un problema al intentar leer la fórmula de la celda {cellName} en [{SelectedWorksheet}]");
       }
 
-      if (typeof(T) == typeof(Decimal)) {
+      if (typeof(T) == typeof(decimal)) {
         return (T) (object) _spreadsheet.GetCellValueAsDecimal(cellName);
       } else if (typeof(T) == typeof(string)) {
         return (T) (object) _spreadsheet.GetCellValueAsString(cellName);
@@ -139,7 +138,7 @@ namespace Empiria.Office {
         return (T) (object) _spreadsheet.GetCellValueAsInt32(cellName);
       } else if (typeof(T) == typeof(Int64)) {
         return (T) (object) _spreadsheet.GetCellValueAsInt64(cellName);
-      } else if (typeof(T) == typeof(Boolean)) {
+      } else if (typeof(T) == typeof(bool)) {
         return (T) (object) _spreadsheet.GetCellValueAsBoolean(cellName);
       } else {
         return (T) (object) _spreadsheet.GetCellValueAsString(cellName);
@@ -205,90 +204,86 @@ namespace Empiria.Office {
       _spreadsheet.SetCellValue(cellName, value);
     }
 
-    public void SetCellStyle(Style styleType, string cellName) {
+    public void SetCellStyle(string cellName, Style styleType) {
       SLStyle style = GetSLStyle(styleType);
 
       _spreadsheet.SetCellStyle(cellName, style);
     }
 
-    internal void SetCellWrapText(string cell) {
+    internal void SetCellWrapText(string cellName) {
       SLStyle style = new SLStyle();
 
       style.SetWrapText(true);
-      _spreadsheet.SetCellStyle(cell, style);
+      _spreadsheet.SetCellStyle(cellName, style);
     }
 
-    internal void SetTextAlignment(string cell, DocumentFormat.OpenXml.Spreadsheet.VerticalAlignmentValues alignment) {
+    internal void SetTextAlignment(string cellName, DocumentFormat.OpenXml.Spreadsheet.VerticalAlignmentValues alignment) {
       SLStyle style = new SLStyle();
 
       style.SetVerticalAlignment(alignment);
-      _spreadsheet.SetCellStyle(cell, style);
+      _spreadsheet.SetCellStyle(cellName, style);
     }
 
-    internal void SetCellFontFamily(string cell, string fontFamily) {
+    internal void SetCellFontName(string cellName, string fontName) {
       SLStyle style = new SLStyle();
 
-      style.Font.FontName = fontFamily;
-      _spreadsheet.SetCellStyle(cell, style);
+      style.Font.FontName = fontName;
+      _spreadsheet.SetCellStyle(cellName, style);
     }
 
-    internal void SetRowFontFamily(int row, string fontFamily) {
-      SLStyle style = new SLStyle();
+    public void SetFontColor(string cellName, Style styleType, System.Drawing.Color color) {
+      SLStyle style = GetSLColorStyle(styleType, color);
 
-      style.Font.FontName = fontFamily;
-      _spreadsheet.SetRowStyle(row, style);
+      _spreadsheet.SetCellStyle(cellName, style);
     }
 
-    internal void SetRowFontFamily(int row, string fontFamily, int fontSize) {
+
+    public void SetCellBackgroundStyle(string cellName, Style styleType, System.Drawing.Color color) {
+      SLStyle style = GetSLBackgroundStyle(styleType, color);
+
+      _spreadsheet.SetCellStyle(cellName, style);
+    }
+
+
+    public void SetRowBackgroundStyle(int rowIndex, int lastColumnIndex, Style styleType, System.Drawing.Color color) {
+      SLStyle style = GetSLBackgroundStyle(styleType, color);
+
+      ApplyRowStyle(style, rowIndex, lastColumnIndex);
+    }
+
+
+    public void SetRowFontColor(int rowIndex, int lastColumnIndex, Style styleType, System.Drawing.Color color) {
+      SLStyle style = GetSLColorStyle(styleType, color);
+
+      ApplyRowStyle(style, rowIndex, lastColumnIndex);
+    }
+
+
+    internal void SetRowFontName(int rowIndex, int lastColumnIndex, string fontName) {
       SLStyle style = new SLStyle();
 
-      style.Font.FontName = fontFamily;
+      style.Font.FontName = fontName;
+
+      ApplyRowStyle(style, rowIndex, lastColumnIndex);
+    }
+
+
+    internal void SetRowFontName(int rowIndex, int lastColumnIndex, string fontName, int fontSize) {
+      SLStyle style = new SLStyle();
+
+      style.Font.FontName = fontName;
       style.Font.FontSize = fontSize;
 
-      _spreadsheet.SetRowStyle(row, style);
+      ApplyRowStyle(style, rowIndex, lastColumnIndex);
     }
 
-    public void SetRowStyle(Style styleType, int row) {
+
+    public void SetRowStyle(int rowIndex, int lastColumnIndex, Style styleType) {
       SLStyle style = GetSLStyle(styleType);
 
-      _spreadsheet.SetRowStyle(row, style);
+      ApplyRowStyle(style, rowIndex, lastColumnIndex);
     }
 
-    public void SetFontColor(Style styleType, string cell, System.Drawing.Color color) {
-      SLStyle style = GetSLColorStyle(styleType, color);
-
-      _spreadsheet.SetCellStyle(cell, style);
-    }
-
-    public void SetRowFontColor(Style styleType, int index, System.Drawing.Color color) {
-      SLStyle style = GetSLColorStyle(styleType, color);
-
-      _spreadsheet.SetRowStyle(index, style);
-    }
-
-    public void SetCellBackgroundStyle(Style styleType, string cell, System.Drawing.Color color) {
-      SLStyle style = GetSLBackgroundStyle(styleType, color);
-
-      _spreadsheet.SetCellStyle(cell, style);
-    }
-
-    public void SetRowBackgroundStyle(Style styleType, int row, System.Drawing.Color color) {
-      SLStyle style = GetSLBackgroundStyle(styleType, color);
-
-      _spreadsheet.SetRowStyle(row, style);
-    }
-
-    public void SetCellBackgroundRGBStyle(Style styleType, string cell, System.Drawing.Color color) {
-      SLStyle style = GetSLBackgroundStyle(styleType, color);
-
-      _spreadsheet.SetCellStyle(cell, style);
-    }
-
-    public void SetRowBackgroundRGBStyle(Style styleType, int row, System.Drawing.Color color) {
-      SLStyle style = GetSLBackgroundStyle(styleType, color);
-
-      _spreadsheet.SetRowStyle(row, style);
-    }
 
     public string[] Worksheets() {
       return _spreadsheet.GetWorksheetNames()
@@ -297,7 +292,13 @@ namespace Empiria.Office {
 
     #endregion Public Methods
 
-    #region Private Methods
+    #region Helpers
+
+    private void ApplyRowStyle(SLStyle style, int rowIndex, int lastColumnIndex) {
+      for (int i = 1; i <= lastColumnIndex; i++) {
+        _spreadsheet.SetCellStyle(rowIndex, i, style);
+      }
+    }
 
     private SLStyle GetSLStyle(Style styleType) {
       SLStyle style = new SLStyle();
@@ -335,21 +336,12 @@ namespace Empiria.Office {
     }
 
 
-    #endregion Private Methods
+    #endregion Helpers
 
     #region IDisposable Support
 
-    private bool disposedValue = false;
-
     protected virtual void Dispose(bool disposing) {
-      if (!disposedValue) {
-        if (disposing) {
-          // TODO
-        }
-        _spreadsheet.Dispose();
-
-        disposedValue = true;
-      }
+      _spreadsheet.Dispose();
     }
 
 
@@ -359,7 +351,6 @@ namespace Empiria.Office {
 
     #endregion IDisposable Support
 
-  }  // class OpenXMLSpreadsheet
+  }  // class Spreadsheet
 
 }  // namespace Empiria.Office.Providers
-

@@ -9,13 +9,12 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.IO;
-
 using Empiria.Storage;
 
 namespace Empiria.Office {
 
   /// <summary>Provides edition services for Microsoft Excel files.</summary>
-  public class ExcelFile {
+  public class ExcelFile : IDisposable {
 
     #region Fields
 
@@ -65,6 +64,7 @@ namespace Empiria.Office {
         this.FileInfo = new FileInfo(path);
       }
     }
+
 
     public void IndentCell(string cell, int indent) {
       if (_excel != null) {
@@ -129,73 +129,81 @@ namespace Empiria.Office {
 
     public void SetCellStyleLineThrough(string cell) {
       if (_excel != null) {
-        _excel.SetCellStyle(Style.LineThrough, cell);
-      }
-    }
-
-    public void SetRowStyleBold(int rowIndex) {
-      if (_excel != null) {
-        _excel.SetRowStyle(Style.Bold, rowIndex);
+        _excel.SetCellStyle(cell, Style.LineThrough);
       }
     }
 
     public void SetCellFontColorStyle(string cell, System.Drawing.Color color) {
       if (_excel != null) {
-        _excel.SetFontColor(Style.FontColor, cell, color);
+        _excel.SetFontColor(cell, Style.FontColor, color);
       }
     }
 
-    public void SetRowFontColorStyle(int rowIndex, System.Drawing.Color color) {
-      if (_excel != null) {
-        _excel.SetRowFontColor(Style.FontColor, rowIndex, color);
-      }
-    }
 
     public void SetCellBackgroundStyle(string cell, System.Drawing.Color color) {
       if (_excel != null) {
-        _excel.SetCellBackgroundStyle(Style.BackgroundColor, cell, color);
+        _excel.SetCellBackgroundStyle(cell, Style.BackgroundColor, color);
       }
     }
 
-    public void SetRowBackgroundStyle(int rowIndex, System.Drawing.Color color) {
-      if (_excel != null) {
-        _excel.SetRowBackgroundStyle(Style.BackgroundColor, rowIndex, color);
-      }
-    }
-
-    public void SetCellWrapText(string cell) {
+     public void SetCellWrapText(string cell) {
       if (_excel != null) {
         _excel.SetCellWrapText(cell);
       }
     }
 
-    public void SetTextAlignment(string cell, DocumentFormat.OpenXml.Spreadsheet.VerticalAlignmentValues alignment) {
+
+    public void SetCellFontName(string cell, string fontName) {
       if (_excel != null) {
-        _excel.SetTextAlignment(cell, alignment);
+        _excel.SetCellFontName(cell, fontName);
       }
     }
 
-    public void SetCellFontFamily(string cell, string fontFamily) {
+    public void SetRowBackgroundStyle(int rowIndex, int lastColumnIndex, System.Drawing.Color color) {
       if (_excel != null) {
-        _excel.SetCellFontFamily(cell, fontFamily);
+        _excel.SetRowBackgroundStyle(rowIndex, lastColumnIndex, Style.BackgroundColor, color);
       }
     }
 
-    public void SetRowFontFamily(int row, string fontFamily) {
+
+    public void SetRowBold(int rowIndex, int lastColumnIndex) {
       if (_excel != null) {
-        _excel.SetRowFontFamily(row, fontFamily);
+        _excel.SetRowStyle(rowIndex, lastColumnIndex, Style.Bold);
       }
     }
 
-    public void SetRowFontFamily(int row, string fontFamily, int fontSize) {
+    public void SetRowFontColorStyle(int rowIndex, int lastColumnIndex, System.Drawing.Color color) {
       if (_excel != null) {
-        _excel.SetRowFontFamily(row, fontFamily, fontSize);
+        _excel.SetRowFontColor(rowIndex, lastColumnIndex, Style.FontColor, color);
       }
     }
 
+    public void SetRowFontName(int rowIndex, int lastColumnIndex, string fontName) {
+      if (_excel != null) {
+        _excel.SetRowFontName(rowIndex, lastColumnIndex, fontName);
+      }
+    }
+
+    public void SetRowFontName(int rowIndex, int lastColumnIndex, string fontName, int fontSize) {
+      if (_excel != null) {
+        _excel.SetRowFontName(rowIndex, lastColumnIndex, fontName, fontSize);
+      }
+    }
+
+    public void SetTextAlignmentTop(string cell) {
+      if (_excel != null) {
+        _excel.SetTextAlignment(cell, DocumentFormat.OpenXml.Spreadsheet.VerticalAlignmentValues.Top);
+      }
+    }
 
     public FileReportDto ToFileReportDto() {
       return new FileReportDto(FileType.Excel, this.Url);
+    }
+
+    public void Dispose() {
+      if (_excel != null) {
+        _excel.Dispose();
+      }
     }
 
 
