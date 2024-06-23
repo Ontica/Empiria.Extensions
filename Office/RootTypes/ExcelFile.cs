@@ -196,8 +196,8 @@ namespace Empiria.Office {
       }
     }
 
-    public FileReportDto ToFileReportDto() {
-      return new FileReportDto(FileType.Excel, this.Url);
+    public FileDto ToFileDto() {
+      return new FileDto(FileType.Excel, this.Url);
     }
 
     public void Dispose() {
@@ -205,8 +205,6 @@ namespace Empiria.Office {
         _excel.Dispose();
       }
     }
-
-
 
     #endregion Methods
 
