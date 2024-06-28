@@ -26,10 +26,7 @@ namespace Empiria.Tests {
       string sessionToken = ConfigurationData.Get<string>(typeof(TestsCommonMethods),
                                                           "SessionToken");
 
-      string userHostAddress = ConfigurationData.Get<string>(typeof(TestsCommonMethods),
-                                                             "UserHostAddress");
-
-      Authenticate(sessionToken, userHostAddress);
+      Authenticate(sessionToken, "127.0.0.1");
     }
 
 
