@@ -1,6 +1,6 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Services Framework                         Component : Infrastructure provider                 *
+*  Module   : Services Framework                         Component : Aspects                                 *
 *  Assembly : Empiria.Services.dll                       Pattern   : Aspect Attribute type                   *
 *  Type     : WorkflowCommandAttribute                   License   : Please read LICENSE.txt file            *
 *                                                                                                            *
@@ -10,9 +10,7 @@
 
 using System;
 
-using Empiria.Aspects;
-
-namespace Empiria.Services {
+namespace Empiria.Services.Aspects {
 
   /// <summary>Marks a command method that can be handled by a workflow engine.</summary>
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
@@ -24,4 +22,4 @@ namespace Empiria.Services {
 
   }  // class WorkflowCommandAttribute
 
-}  // namespace Empiria.Services
+}  // namespace Empiria.Services.Aspects

@@ -1,6 +1,6 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Service Framework                          Component : Infrastructure provider                 *
+*  Module   : Services Framework                         Component : Infrastructure provider                 *
 *  Assembly : Empiria.Services.dll                       Pattern   : Abstract type                           *
 *  Type     : UseCase                                    License   : Please read LICENSE.txt file            *
 *                                                                                                            *
@@ -8,7 +8,6 @@
 *             running on a secured and transactionable infrastructure.                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 namespace Empiria.Services {
 

@@ -1,6 +1,6 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Services Framework                         Component : Infrastructure provider                 *
+*  Module   : Services Framework                         Component : Aspects                                 *
 *  Assembly : Empiria.Services.dll                       Pattern   : Aspect type                             *
 *  Type     : WorkflowAspect                             License   : Please read LICENSE.txt file            *
 *                                                                                                            *
@@ -10,12 +10,9 @@
 
 using System;
 
-using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 
-using Empiria.Aspects;
-
-namespace Empiria.Services {
+namespace Empiria.Services.Aspects {
 
   /// <summary>This aspect controls workflow-enabled methods and types.</summary>
   public class WorkflowAspect : BaseAspect {
@@ -64,4 +61,4 @@ namespace Empiria.Services {
 
   }  // WorkflowAspect
 
-}  // namespace Empiria.Services
+}  // namespace Empiria.Services.Aspects
