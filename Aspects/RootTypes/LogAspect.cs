@@ -35,35 +35,19 @@ namespace Empiria.Aspects {
     #region Methods
 
     protected override IMessage DecorateImplementation(IMethodCallMessage methodCall) {
-      try {
+      EmpiriaLog.Info($"LogAspect BEFORE execution {methodCall.MethodBase.Name} " +
+                      $"invoked with {methodCall.ArgCount} args.");
 
-        EmpiriaLog.Info($"LogAspect BEFORE execution {methodCall.MethodBase.Name} " +
-                        $"invoked with {methodCall.ArgCount} args.");
+      var result = base.Execute(methodCall);
 
-        var result = methodCall.MethodBase.Invoke(base.CurrentInstance, methodCall.InArgs);
-
-        if (result != null) {
-          EmpiriaLog.Info($"LogAspect Aspect AFTER code executed {methodCall.MethodName}. Returns {result.GetType().Name}");
-        } else {
-          EmpiriaLog.Info($"LogAspect Aspect AFTER code executed {methodCall.MethodName}. Void returned");
-        }
-
-        // Return message supposes that methodCall hasn't out arguments
-        return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);
-
-      } catch (TargetInvocationException invocationException) {
-        var e = invocationException.InnerException;
-
-        EmpiriaLog.Error(e);
-
-        return new ReturnMessage(e, methodCall);
-
-      } catch (Exception e) {
-
-        EmpiriaLog.Error(e);
-
-        return new ReturnMessage(e, methodCall);
+      if (result != null) {
+        EmpiriaLog.Info($"LogAspect Aspect AFTER code executed {methodCall.MethodName}. Returns {result.GetType().Name}");
+      } else {
+        EmpiriaLog.Info($"LogAspect Aspect AFTER code executed {methodCall.MethodName}. Void returned");
       }
+
+      // Return message supposes that methodCall hasn't out arguments
+      return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);
     }
 
     #endregion Methods

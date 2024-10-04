@@ -41,6 +41,21 @@ namespace Empiria.Aspects {
     protected abstract IMessage DecorateImplementation(IMethodCallMessage methodCall);
 
 
+    protected object Execute(IMethodCallMessage methodCall) {
+      return methodCall.MethodBase.Invoke(this.CurrentInstance, methodCall.InArgs);
+    }
+
+
+    protected T GetAspectAttribute<T>(IMethodCallMessage methodCall) where T : AspectAttribute {
+      return methodCall.MethodBase.GetCustomAttribute<T>();
+    }
+
+
+    protected bool HasAspectAttribute<T>(IMethodCallMessage methodCall) where T : AspectAttribute {
+      return methodCall.MethodBase.GetCustomAttribute<T>() != null;
+    }
+
+
     public override IMessage Invoke(IMessage msg) {
       var methodCall = msg as IMethodCallMessage;
 
@@ -48,21 +63,16 @@ namespace Empiria.Aspects {
         return null;
       }
 
-      if (methodCall.MethodBase.IsDefined(typeof(AspectAttribute), false)) {
-        return DecorateImplementation(methodCall);
-      }
-
-      return NoDecoratedMethodCall(methodCall);
-    }
-
-
-    protected IMessage NoDecoratedMethodCall(IMethodCallMessage methodCall) {
       try {
-        var result = methodCall.MethodBase.Invoke(CurrentInstance, methodCall.InArgs);
 
-        return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);
+        if (methodCall.MethodBase.IsDefined(typeof(AspectAttribute), false)) {
+          return DecorateImplementation(methodCall);
+        }
+
+        return NoDecoratedMethodCall(methodCall);
 
       } catch (TargetInvocationException invocationException) {
+
         var e = invocationException.InnerException;
 
         EmpiriaLog.Error(e);
@@ -75,6 +85,13 @@ namespace Empiria.Aspects {
 
         return new ReturnMessage(e, methodCall);
       }
+    }
+
+
+    protected IMessage NoDecoratedMethodCall(IMethodCallMessage methodCall) {
+      var result = methodCall.MethodBase.Invoke(CurrentInstance, methodCall.InArgs);
+
+      return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);
     }
 
     #endregion Methods
