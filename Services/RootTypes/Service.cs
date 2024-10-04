@@ -26,10 +26,10 @@ namespace Empiria.Services {
     }
 
     /// <summary>Returns a service instance decorated with its configurated aspects.</summary>
-    static protected T CreateInstance<T>() where T: Service {
+    static public T CreateInstance<T>() where T: Service {
       var service = ObjectFactory.CreateObject<T>();
 
-      return Aspect.Decorate(service);
+      return LogAspect.Decorate(service);
     }
 
     #endregion Constructors and parsers
