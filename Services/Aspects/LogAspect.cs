@@ -1,19 +1,18 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Aspects                            Component : Infrastructure provider                 *
-*  Assembly : Empiria.Aspects.dll                        Pattern   : Aspect type                             *
+*  Module   : Services Framework                         Component : Aspects                                 *
+*  Assembly : Empiria.Services.dll                       Pattern   : Aspect type                             *
 *  Type     : LogAspect                                  License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : This aspect serves to log method calls using EmpiriaLog.                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
-using System.Reflection;
+using System;
 
 using System.Runtime.Remoting.Messaging;
 
-namespace Empiria.Aspects {
+namespace Empiria.Services.Aspects {
 
   /// <summary>This aspect serves to log method calls using EmpiriaLog.</summary>
   public class LogAspect : BaseAspect {
@@ -54,4 +53,4 @@ namespace Empiria.Aspects {
 
   }  // LogAspect
 
-}  // namespace Empiria.Aspects
+}  // namespace Empiria.Services.Aspects

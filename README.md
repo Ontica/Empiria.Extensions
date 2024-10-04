@@ -2,7 +2,6 @@
 
 Empiria Extensions contains the following software components:
 
-  - Empiria Aspects
   - Empiria Cognition
   - Empiria Data Convertion
   - Empiria Data Handlers (for MySql, PostgreSql and Oracle)

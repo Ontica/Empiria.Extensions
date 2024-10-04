@@ -1,7 +1,7 @@
 ﻿/* Empiria Core **********************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Aspects                            Component : Infrastructure provider                 *
-*  Assembly : Empiria.Aspects.dll                        Pattern   : Attribute class                         *
+*  Module   : Services Framework                         Component : Aspects                                 *
+*  Assembly : Empiria.Services.dll                       Pattern   : Aspect Attribute type                   *
 *  Type     : AspectAttribute                            License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Abstract attribute used to mark a method to be be handled by a decoration aspect.              *
@@ -10,7 +10,7 @@
 
 using System;
 
-namespace Empiria.Aspects {
+namespace Empiria.Services.Aspects {
 
   /// <summary>Abstract attribute used to mark a method to be be handled by a decoration aspect.</summary>
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
@@ -22,4 +22,4 @@ namespace Empiria.Aspects {
 
   }  // class AspectAttribute
 
-}  // namespace Empiria.Aspects
+}  // namespace Empiria.Services.Aspects

@@ -1,7 +1,7 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Aspects                            Component : Infrastructure provider                 *
-*  Assembly : Empiria.Aspects.dll                        Pattern   : Aspect type                             *
+*  Module   : Services Framework                         Component : Aspects                                 *
+*  Assembly : Empiria.Services.dll                       Pattern   : Aspect type                             *
 *  Type     : BaseAspect                                 License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Abstract aspect that serves as a base class for all Empiria aspect types.                      *
@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Runtime.Remoting.Proxies;
 using System.Runtime.Remoting.Messaging;
 
-namespace Empiria.Aspects {
+namespace Empiria.Services.Aspects {
 
   /// <summary>Abstract aspect that serves as a base class for all Empiria aspect types.</summary>
   abstract public class BaseAspect : RealProxy {
@@ -98,4 +98,4 @@ namespace Empiria.Aspects {
 
   }  // BaseAspect
 
-}  // namespace Empiria.Aspects
+}  // namespace Empiria.Services.Aspects
