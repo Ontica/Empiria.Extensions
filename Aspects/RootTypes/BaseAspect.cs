@@ -48,7 +48,33 @@ namespace Empiria.Aspects {
         return null;
       }
 
-      return DecorateImplementation(methodCall);
+      if (methodCall.MethodBase.IsDefined(typeof(AspectAttribute), false)) {
+        return DecorateImplementation(methodCall);
+      }
+
+      return NoDecoratedMethodCall(methodCall);
+    }
+
+
+    protected IMessage NoDecoratedMethodCall(IMethodCallMessage methodCall) {
+      try {
+        var result = methodCall.MethodBase.Invoke(CurrentInstance, methodCall.InArgs);
+
+        return new ReturnMessage(result, null, 0, methodCall.LogicalCallContext, methodCall);
+
+      } catch (TargetInvocationException invocationException) {
+        var e = invocationException.InnerException;
+
+        EmpiriaLog.Error(e);
+
+        return new ReturnMessage(e, methodCall);
+
+      } catch (Exception e) {
+
+        EmpiriaLog.Error(e);
+
+        return new ReturnMessage(e, methodCall);
+      }
     }
 
     #endregion Methods
