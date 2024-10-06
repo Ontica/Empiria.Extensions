@@ -1,0 +1,27 @@
+﻿{
+  "appName": "Empiria OnePoint Artifacts Tests suite",
+  "version": "0.1",
+  "date": "2023-05-06",
+  "settings": [
+    {
+      "type": "",
+      "key": "ApplicationKey",
+      "value": "{{APPLICATION-KEY}}"
+    },
+    {
+      "type": "",
+      "key": "GlobalConfigurationFile",
+      "value": "{{GLOBAL-CONFIGURATION-FILE}}"
+    },
+    {
+      "type": "Tests",
+      "key": "SessionToken",
+      "value": "{{TESTING-SESSION-TOKEN}}"
+    },
+    {
+      "type": "Tests",
+      "key": "SOFTWARE_PRODUCT_UID",
+      "value": "{{SOFTWARE_PRODUCT_UID}}"
+    }
+  ]
+}

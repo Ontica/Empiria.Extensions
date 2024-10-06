@@ -1,0 +1,17 @@
+﻿{
+  "appName": "Empiria Artifacts Web Api",
+  "version": "1.0",
+  "date": "2024-10-06",
+  "settings": [
+    {
+      "type": "",
+      "key": "ApplicationKey",
+      "value": "{{APPLICATION-KEY}}"
+    },
+    {
+      "type": "",
+      "key": "GlobalConfigurationFile",
+      "value": "{{GLOBAL-CONFIGURATION-FILE}}"
+    }
+  ]
+}
