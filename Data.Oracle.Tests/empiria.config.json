@@ -20,6 +20,11 @@
       "value": true
     },
     {
+      "type": "",
+      "key": "ApplicationKey",
+      "value": "{{APPLICATION-KEY}}"
+    },
+    {
       "type": "Data.Handlers.Tests",
       "key": "SESSION_TOKEN",
       "value": "{{TESTS_SESSION_TOKEN}}"
