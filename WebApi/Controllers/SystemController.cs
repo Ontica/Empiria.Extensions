@@ -28,6 +28,7 @@ namespace Empiria.WebApi.Controllers {
       }
     }
 
+
     [HttpGet, HttpPost, HttpPut, HttpDelete, HttpPatch, HttpHead, HttpOptions]
     [AllowAnonymous]
     public void Http404ErrorHandler() {

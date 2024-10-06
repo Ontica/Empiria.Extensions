@@ -1,7 +1,7 @@
-﻿/* Empiria OnePoint ******************************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Security Management                          Component : Providers                             *
-*  Assembly : Empiria.OnePoint.Security.dll                Pattern   : Service provider                      *
+*  Module   : Messaging Services                           Component : Providers                             *
+*  Assembly : Empiria.Messaging.dll                        Pattern   : Service provider                      *
 *  Types    : EmailSender                                  License   : Please read LICENSE.txt file          *
 *                                                                                                            *
 *  Summary  : Sends email messages.                                                                         *

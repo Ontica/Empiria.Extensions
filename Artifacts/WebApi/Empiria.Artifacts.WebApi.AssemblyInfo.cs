@@ -4,7 +4,7 @@
 *  Assembly : Empiria.Artifacts.WebApi.dll                   Pattern   : Assembly Attributes File            *
 *  Type     : None                                           License   : Please read LICENSE.txt file        *
 *                                                                                                            *
-*  Summary  : Web Api for Empiria Onepoint Software Configuration Management Services.                       *
+*  Summary  : Web Api for Empiria Software Configuration Management Services.                                *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 

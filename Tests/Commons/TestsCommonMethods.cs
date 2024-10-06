@@ -2,7 +2,7 @@
 *                                                                                                            *
 *  Module   : Empiria Tests                              Component : Infrastructure provider                 *
 *  Assembly : Empiria.Tests.dll                          Pattern   : Static methods library                  *
-*  Type     : CommonMethods                              License   : Please read LICENSE.txt file            *
+*  Type     : TestsCommonMethods                         License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Provides common use methods used in testing projects.                                          *
 *                                                                                                            *

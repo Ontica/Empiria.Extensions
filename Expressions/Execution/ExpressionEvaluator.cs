@@ -183,7 +183,7 @@ namespace Empiria.Expressions.Execution {
       }
 
 
-      throw Assertion.EnsureNoReachThisCode($"Unhandled operator type '{token.Type}'.");
+      throw Assertion.EnsureNoReachThisCode($"Unhandled operator type {token.Type}: '{token.Lexeme}'.");
     }
 
     #endregion Helpers

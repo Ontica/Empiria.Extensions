@@ -1,7 +1,7 @@
-﻿/* Empiria OnePoint ******************************************************************************************
+﻿/* Empiria Storage *******************************************************************************************
 *                                                                                                            *
-*  Module   : Electronic Filing Services                 Component : Domain Layer                            *
-*  Assembly : Empiria.OnePoint.EFiling.dll               Pattern   : Service provider                        *
+*  Module   : Media Management                           Component : Domain Layer                            *
+*  Assembly : Empiria.Storage.dll                        Pattern   : Service provider                        *
 *  Type     : MediaRetrievalServices                     License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Collaborates with EFilingRequest entities controlling their documentation elements.            *

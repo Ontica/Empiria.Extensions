@@ -1,4 +1,4 @@
-﻿/* Empiria OnePoint Artifacts ********************************************************************************
+﻿/* Empiria Artifacts *****************************************************************************************
 *                                                                                                            *
 *  Module   : Software Configuration Management          Component : Use cases Layer                         *
 *  Assembly : Empiria.Artifacts.dll                      Pattern   : Use case interactor class               *

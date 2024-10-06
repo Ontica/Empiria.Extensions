@@ -1,4 +1,4 @@
-﻿/* Empiria OnePoint Artifacts ********************************************************************************
+﻿/* Empiria Artifacts *****************************************************************************************
 *                                                                                                            *
 *  Module   : Software Configuration Management          Component : Adpters Layer                           *
 *  Assembly : Empiria.Artifacts.dll                      Pattern   : Command DTO                             *
