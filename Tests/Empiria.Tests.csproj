@@ -53,7 +53,7 @@
     <WarningsAsErrors />
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.Core" Version="7.0.0" />
+    <PackageReference Include="Empiria.Core" Version="8.0.0" />
     <PackageReference Include="Empiria.Security" Version="5.0.0" />
     <PackageReference Include="Empiria.Data.Oracle" Version="7.0.0" />
   </ItemGroup>

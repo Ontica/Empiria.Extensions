@@ -7,50 +7,15 @@
 *  Summary  : Integration tests between Oracle and Empiria Core Framework.                                   *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 using Xunit;
-
-using Empiria.Security;
-using Empiria.Services.Authentication;
-
-using Empiria.Tests;
 
 namespace Empiria.Data.Handlers.Tests {
 
   /// <summary>Integration tests between Oracle and Empiria Core Framework.</summary>
   public class OracleEmpiriaCoreIntegrationTests {
 
-    #region Initialization
-
-    public OracleEmpiriaCoreIntegrationTests() {
-      TestsCommonMethods.Authenticate();
-    }
-
-    #endregion Initialization
-
     #region Facts
-
-    [Fact]
-    public void Should_Create_A_User_Session() {
-      UserCredentialsDto credentials = TestingConstants.UserCredentials;
-
-      using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        var token = usecases.GenerateAuthenticationToken(credentials);
-
-        Assert.NotNull(token);
-
-        var protectedPassword = Cryptographer.GetSHA256(credentials.Password);
-        protectedPassword = Cryptographer.GetSHA256(protectedPassword + token);
-
-        credentials.Password = protectedPassword;
-
-        var principal = usecases.Authenticate(credentials);
-
-        Assert.NotNull(principal);
-      }
-    }
-
 
     [Fact]
     public void Should_Create_And_Remove_One_Record() {
@@ -90,7 +55,6 @@ namespace Empiria.Data.Handlers.Tests {
 
       Assert.Equal(entriesCount + 1, DataReader.GetScalar<decimal>(dataOperation));
     }
-
 
     #endregion Facts
 

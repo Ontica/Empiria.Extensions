@@ -7,12 +7,11 @@
 *  Summary  : Web api methods for user authentication.                                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
+
 using System.Web.Http;
 
 using Empiria.Security;
-
-using Empiria.Services.Authentication;
+using Empiria.Security.UseCases;
 
 namespace Empiria.WebApi.Controllers {
 
@@ -55,9 +54,9 @@ namespace Empiria.WebApi.Controllers {
       PrepareAuthenticationFields(credentials);
 
       using (var usecases = AuthenticationUseCases.UseCaseInteractor()) {
-        IEmpiriaPrincipal principal = usecases.Authenticate(credentials);
+                IEmpiriaPrincipal principal = usecases.Authenticate(credentials);
 
-        AuthenticationHttpModule.SetHttpContextPrincipal(principal);
+                AuthenticationHttpModule.SetHttpContextPrincipal(principal);
 
         return new SingleObjectModel(base.Request, MapToOAuthResponse(principal),
                                      "Empiria.Security.OAuthObject");
@@ -76,7 +75,6 @@ namespace Empiria.WebApi.Controllers {
         return new NoDataModel(base.Request);
       }
     }
-
 
     #endregion Web Apis
 

@@ -66,11 +66,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.Core" Version="7.0.0" />
-    <PackageReference Include="Empiria.Core.Services" Version="7.0.0" />
+    <PackageReference Include="Empiria.Core" Version="8.0.0" />
+    <PackageReference Include="Empiria.Security" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
     <ProjectReference Include="..\..\core\Core\Empiria.Core.csproj" />
-    <ProjectReference Include="..\..\core\Core.Services\Empiria.Core.Services.csproj" />
+    <ProjectReference Include="..\..\security\Security\Empiria.Security.csproj" />
   </ItemGroup>
 </Project>
