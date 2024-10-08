@@ -33,24 +33,22 @@ namespace Empiria.Services.Aspects {
     #region Methods
 
     protected override IMessage DecorateImplementation(IMethodCallMessage methodCall) {
-      if (!base.HasAspectAttribute<WorkflowCommandAttribute>(methodCall)) {
+      if (!base.HasAspectAttribute<WorkflowEventAttribute>(methodCall)) {
         return base.NoDecoratedMethodCall(methodCall);
       }
 
-      var workflowCommand = GetAspectAttribute<WorkflowCommandAttribute>(methodCall);
+      var workflowEvent = GetAspectAttribute<WorkflowEventAttribute>(methodCall);
 
-      if (workflowCommand != null) {
-        EmpiriaLog.Info($"Workflow BEFORE execution {methodCall.MethodBase.Name} " +
-                        $"invoked with {methodCall.ArgCount} args.");
-      }
+      EmpiriaLog.Info($"Workflow event BEFORE execution {methodCall.MethodBase.Name} " +
+                      $"invoked with {methodCall.ArgCount} args.");
 
       object result = base.Execute(methodCall);
 
       if (result != null) {
-        EmpiriaLog.Info($"Workflow AFTER code executed {methodCall.MethodName}. " +
+        EmpiriaLog.Info($"Workflow event AFTER code executed {methodCall.MethodName}. " +
                         $"Returns {result.GetType().Name}");
       } else {
-        EmpiriaLog.Info($"Workflow AFTER code executed {methodCall.MethodName}. Void returned");
+        EmpiriaLog.Info($"Workflow event AFTER code executed {methodCall.MethodName}. Void returned");
       }
 
       // Return message supposes that methodCall hasn't out arguments
