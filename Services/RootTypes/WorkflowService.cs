@@ -12,6 +12,7 @@
 using Empiria.Reflection;
 
 using Empiria.Services.Aspects;
+using Empiria.Services.Providers;
 
 namespace Empiria.Services {
 
@@ -32,30 +33,25 @@ namespace Empiria.Services {
       service = WorkflowAspect.Decorate(service);
       service = LogAspect.Decorate(service);
 
-      service.WorkItem = null; // ToDo: Improper null assignment
-
-      return service;
-    }
-
-    /// <summary>Returns a workflow-enabled service instance with a base workflow item.</summary>
-    public static T CreateInstance<T>(IIdentifiable workItem) where T : WorkflowService {
-      var service = CreateInstance<T>();
-
-      service.WorkItem = workItem;
-
       return service;
     }
 
     #endregion Constructors and parsers
 
-    #region Properties
+    #region Methods
 
-    public IIdentifiable WorkItem {
-      get;
-      private set;
+    protected void SendWorkflowEvent(string eventName, WorkItemDto workItem) {
+      Assertion.Require(eventName, nameof(eventName));
+      Assertion.Require(workItem, nameof(workItem));
+
+      IWorkItemProvider provider = WorkflowProviders.WorkItemProvider();
+
+      IWorkItemEvent workItemEvent = new WorkItemEvent(eventName, workItem);
+
+      provider.SendEvent(workItemEvent);
     }
 
-    #endregion Properties
+    #endregion Methods
 
   }   // class WorkflowService
 
