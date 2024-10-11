@@ -163,7 +163,7 @@ namespace Empiria.Postings {
     } = -1;
 
 
-    [DataField("PostingTime", Default = "DateTime.Now")]
+    [DataField("PostingTime")]
     public DateTime Date {
       get;
       private set;

@@ -80,7 +80,7 @@ namespace Empiria.Geography {
       private set;
     }
 
-    [DataField("StartDate", Default = "DateTime.Today")]
+    [DataField("StartDate")]
     internal protected DateTime StartDate {
       get;
       private set;
