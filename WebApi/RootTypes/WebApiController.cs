@@ -126,9 +126,11 @@ namespace Empiria.WebApi {
     }
 
 
-    protected InputFile GetInputFileFromHttpRequest(string applicationContentType) {
-      Assertion.Require(applicationContentType, nameof(applicationContentType));
+    protected InputFile GetInputFileFromHttpRequest() {
+      return GetInputFileFromHttpRequest(string.Empty);
+    }
 
+    protected InputFile GetInputFileFromHttpRequest(string applicationContentType) {
       var httpRequest = HttpContext.Current.Request;
 
       Assertion.Require(httpRequest, "httpRequest");
@@ -139,9 +141,9 @@ namespace Empiria.WebApi {
 
       return new InputFile(
         file.InputStream,
-        applicationContentType,
         file.ContentType,
-        file.FileName
+        file.FileName,
+        applicationContentType
       );
     }
 
