@@ -3,7 +3,7 @@
     <Company>Ontica</Company>
     <Product>Empiria Dynamic Data</Product>
     <Description>HTTP/JSON web api used to interact with the Empiria Dynamic Data module.</Description>
-    <Copyright>(c) 2021-2024. La Vía Óntica SC, Ontica LLC y de los autores. Todos los derechos reservados.</Copyright>
+    <Copyright>(c) 2021-2025. La Vía Óntica SC, Ontica LLC y de los autores. Todos los derechos reservados.</Copyright>
     <Version>2.0</Version>
     <AssemblyVersion>2.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>

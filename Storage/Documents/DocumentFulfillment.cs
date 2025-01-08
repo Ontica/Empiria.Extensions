@@ -4,11 +4,11 @@
 *  Assembly : Empiria.Storage.dll                        Pattern   : Information holder                      *
 *  Type     : Documentation                              License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Provides infomation about the fulfillemnt of a document based on a fulfillment rule.           *
+*  Summary  : Provides information about the fulfillemnt of a document based on a fulfillment rule.          *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
-/// <summary>Provides infomation about the fulfillemnt of a document based on a fulfillment rule.</summary>
+/// <summary>Provides information about the fulfillemnt of a document based on a fulfillment rule.</summary>
 namespace Empiria.Storage.Documents {
 
   public class DocumentFulfillment {
