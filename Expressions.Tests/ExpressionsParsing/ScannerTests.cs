@@ -111,6 +111,23 @@ namespace Empiria.Expressions.Tests.ExpressionsParsing  {
       Assert.Equal(lexemesExpectedCount, sut.Count);
     }
 
+
+    [Theory]
+    [InlineData("FUNCION('Hola mundo')", 4)]
+    [InlineData("FUNCION('ESF902')", 4)]
+    [InlineData("FUNCION('12345-06')", 4)]
+    [InlineData("FUNCION('1.2.3.4.5.6')", 4)]
+    public void Should_Scan_Expressions_With_Strings(string expression,
+                                                     int lexemesExpectedCount) {
+      var scanner = new Scanner();
+
+      FixedList<string> sut = scanner.Scan(expression);
+
+      Assert.All(sut, x => Assert.NotNull(x));
+      Assert.All(sut, x => Assert.Contains(x, expression));
+      Assert.Equal(lexemesExpectedCount, sut.Count);
+    }
+
     #endregion Theories
 
   }  // class ScannerTests
