@@ -1,13 +1,12 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
 *  Module   : Empiria Dynamic Data                       Component : Common Types                            *
-*  Assembly : Empiria.DynamicData.dll                    Pattern   : Testing constants                       *
+*  Assembly : Empiria.DynamicData.dll                    Pattern   : Information holder                      *
 *  Type     : DataTableColumn                            License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Describes a data table column.                                                                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 using Empiria.Json;
 

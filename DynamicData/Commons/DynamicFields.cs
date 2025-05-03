@@ -1,13 +1,13 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
 *  Module   : Empiria Dynamic Data                       Component : Common Types                            *
-*  Assembly : Empiria.DynamicData.dll                    Pattern   : Testing constants                       *
+*  Assembly : Empiria.DynamicData.dll                    Pattern   : Dynamic information holder              *
 *  Type     : DynamicFields                              License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Information holder type with dynamic fields.                                                   *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
+
 using System.Collections.Generic;
 using System.Dynamic;
 
