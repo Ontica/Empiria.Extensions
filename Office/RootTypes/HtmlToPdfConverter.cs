@@ -7,10 +7,11 @@
 *  Summary  : Provides services to create a PDF file from Html documents.                                    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 using iText.Html2pdf;
+using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Layout;
 
 namespace Empiria.Office {
 
@@ -20,7 +21,14 @@ namespace Empiria.Office {
       get; set;
     } = string.Empty;
 
-  }
+
+    public bool Landscape {
+      get; set;
+    }
+
+  }  // class PdfConverterOptions
+
+
 
   /// <summary>Provides services to create a PDF file from Html documents.</summary>
   public class HtmlToPdfConverter {
@@ -28,13 +36,46 @@ namespace Empiria.Office {
     #region Public Methods
 
     public void Convert(string html, string fullPdfPath, PdfConverterOptions options) {
+      if (options.Landscape) {
+        ConvertLandscape(html, fullPdfPath, options);
+        return;
+      }
+
       using (var pdfWriter = new PdfWriter(fullPdfPath)) {
+
         var properties = new ConverterProperties();
 
         properties.SetBaseUri(options.BaseUri);
 
         HtmlConverter.ConvertToPdf(html, pdfWriter, properties);
-      }
+
+      }  // pdfWriter
+
+    }
+
+    private void ConvertLandscape(string html, string fullPdfPath, PdfConverterOptions options) {
+
+      using (var pdfWriter = new PdfWriter(fullPdfPath)) {
+
+        using (var pdfDocument = new PdfDocument(pdfWriter)) {
+
+          pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+
+          using (var document = new Document(pdfDocument, PageSize.A4.Rotate())) {
+
+            document.SetMargins(20, 20, 20, 20);
+
+            var properties = new ConverterProperties();
+
+            properties.SetBaseUri(options.BaseUri);
+
+            HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
+
+          }  // document
+
+        }  // pdfDocument
+
+      }  // pdfWriter
     }
 
     #endregion Public Methods
