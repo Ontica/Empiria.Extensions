@@ -9,6 +9,7 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
 using System;
+using System.Collections.Generic;
 
 namespace Empiria.Tests {
 
@@ -40,6 +41,19 @@ namespace Empiria.Tests {
       int randomIndex = EmpiriaMath.GetRandom(0, objects.Count - 1);
 
       return objects[randomIndex];
+    }
+
+
+    static public T TryGetObject<T>(IEnumerable<T> objects) {
+      var list = objects.ToFixedList();
+
+      if (list.Count == 0) {
+        return default(T);
+      }
+
+      int randomIndex = EmpiriaMath.GetRandom(0, list.Count - 1);
+
+      return list[randomIndex];
     }
 
   }  // class TestsObjects
