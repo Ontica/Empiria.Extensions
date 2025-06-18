@@ -156,11 +156,11 @@ namespace Empiria.DynamicData.ExternalData {
 
 
     private void Load(ExternalVariableFields fields) {
-      this.Code       = base.PatchField(fields.Code,      this.Code);
-      this.Name       = base.PatchField(fields.Name,      this.Name);
-      this.Notes      = base.PatchField(fields.Notes,     this.Notes);
-      this.StartDate  = base.PatchField(fields.StartDate, this.StartDate);
-      this.EndDate    = base.PatchField(fields.EndDate,   this.EndDate);
+      this.Code       = Patcher.PatchClean(fields.Code,  this.Code);
+      this.Name       = Patcher.PatchClean(fields.Name,  this.Name);
+      this.Notes      = Patcher.PatchClean(fields.Notes, this.Notes);
+      this.StartDate  = Patcher.Patch(fields.StartDate, this.StartDate);
+      this.EndDate    = Patcher.Patch(fields.EndDate,   this.EndDate);
       this.UpdatedBy  = ExecutionServer.CurrentContact;
     }
 
