@@ -2,32 +2,17 @@
   "appName": "Empiria Oracle Data Handler Unit Tests",
   "description": "Tests environment settings for Empiria Oracle Data Handler.",
   "version": "2.0",
-  "date": "2021-03-28",
+  "date": "2025-06-25",
   "settings": [
-    {
-      "type": "",
-      "key": "ApplicationKey",
-      "value": "{{APPLICATION-KEY}}"
-    },
     {
       "type": "",
       "key": "GlobalConfigurationFile",
       "value": "{{GLOBAL-CONFIGURATION-FILE}}"
     },
     {
-      "type": "Data",
-      "key": "IsObjectIdGeneratorServer",
-      "value": true
-    },
-    {
       "type": "",
-      "key": "ApplicationKey",
-      "value": "{{APPLICATION-KEY}}"
-    },
-    {
-      "type": "Data.Handlers.Tests",
-      "key": "SESSION_TOKEN",
-      "value": "{{TESTS_SESSION_TOKEN}}"
+      "key": "IsTestingModule",
+      "value": true
     },
     {
       "type": "Data.Handlers.Tests",

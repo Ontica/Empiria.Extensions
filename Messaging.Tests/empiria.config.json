@@ -1,32 +1,17 @@
 ﻿{
   "appName": "Empiria Foundation Unit Tests",
   "version": "1.0",
-  "date": "2018-03-22",
+  "date": "2025-06-25",
   "settings": [
-    {
-      "type": "",
-      "key": "ApplicationKey",
-      "value": "{{APPLICATION-KEY}}"
-    },
     {
       "type": "",
       "key": "GlobalConfigurationFile",
       "value": "{{GLOBAL-CONFIGURATION-FILE}}"
     },
     {
-      "type": "Data",
-      "key": "IsObjectIdGeneratorServer",
+      "type": "",
+      "key": "IsTestingModule",
       "value": true
-    },
-    {
-      "type": "Tests",
-      "key": "Testing.SessionToken",
-      "value": "{{TESTING-SESSION-TOKEN}}"
-    },
-    {
-      "type": "Tests",
-      "key": "Testing.WebApi.BaseAddress",
-      "value": "{{TESTING-WEBAPI-BASE_ADDRESS}}"
     }
   ]
 }

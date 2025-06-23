@@ -2,8 +2,12 @@
   "appName": "Empiria Expressions Unit Tests",
   "description": "Tests environment settings for Empiria Expressions.",
   "version": "2.0",
-  "date": "2022-11-04",
+  "date": "2025-06-25",
   "settings": [
-
+    {
+      "type": "",
+      "key": "IsTestingModule",
+      "value": true
+    }
   ]
 }

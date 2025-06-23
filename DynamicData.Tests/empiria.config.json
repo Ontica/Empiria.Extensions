@@ -2,8 +2,17 @@
   "appName": "Empiria Dynamic Data - Tests",
   "description": "Tests environment settings for Empiria Expressions.",
   "version": "2.0",
-  "date": "2024-03-28",
+  "date": "2025-06-25",
   "settings": [
-
+    {
+      "type": "",
+      "key": "GlobalConfigurationFile",
+      "value": "{{GLOBAL-CONFIGURATION-FILE}}"
+    },
+    {
+      "type": "",
+      "key": "IsTestingModule",
+      "value": true
+    }
   ]
 }
