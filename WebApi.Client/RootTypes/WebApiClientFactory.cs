@@ -1,8 +1,8 @@
-﻿/* Empiria Core  *********************************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Empiria Core                                 Component : Web Api Services                      *
-*  Assembly : Empiria.Core.dll                             Pattern   : Factory                               *
-*  Type     : WebApiClientFactory                          License   : Please read LICENSE.txt file          *
+*  Module   : Web Api Client                             Component : Services Layer                          *
+*  Assembly : Empiria.WebApi.Client.dll                  Pattern   : Factory                                 *
+*  Type     : WebApiClientFactory                        License   : Please read LICENSE.txt file            *
 *                                                                                                            *
 *  Summary  : Methods to create WebApiClient instances which are included in a separated component.          *
 *                                                                                                            *

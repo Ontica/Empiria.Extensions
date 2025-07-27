@@ -206,6 +206,7 @@ namespace Empiria.WebApi {
       }
     }
 
+
     protected void RequireHeader(string headerName) {
       Assertion.Require(headerName, "headerName");
 

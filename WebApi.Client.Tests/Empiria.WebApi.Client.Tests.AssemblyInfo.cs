@@ -1,10 +1,10 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution : Empiria Extensions Framework                 System  : Core Web Api                            *
+*  System   : Empiria Extensions                           Module  : Web Api Client Tests                    *
 *  Assembly : Empiria.WebApi.Client.Tests.dll              Pattern : Assembly Attributes File                *
-*                                                          License : Please read license.txt file            *
+*                                                          License : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Test suite for the Empiria.Web.Client component.                                               *
+*  Summary  : Tests suite for the Empiria.Web.Client component.                                              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;

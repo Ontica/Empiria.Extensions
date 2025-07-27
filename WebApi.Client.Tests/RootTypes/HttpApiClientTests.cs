@@ -1,22 +1,22 @@
 ﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Module   : Http Api Client                            Component : Test cases                              *
-*  Assembly : Empiria.WebApi.Client.Tests.dll            Pattern   : Integration tests                       *
+*  Module   : Web Api Client                             Component : Test cases                              *
+*  Assembly : Empiria.WebApi.Client.Tests.dll            Pattern   : Unit tests                              *
 *  Type     : HttpApiClientTests                         License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary  : Empiria HttpApiClient tests.                                                                   *
+*  Summary  : Unit tests for HttpApiClient type services.                                                    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
-using System.Threading.Tasks;
 
 using Xunit;
+
+using System.Threading.Tasks;
 
 using Empiria.WebApi.Client;
 
 namespace Empiria.Tests {
 
-  /// <summary>Empiria HttpApiClient tests.</summary>
+  /// <summary>EUnit tests for HttpApiClient type services.</summary>
   public class HttpApiClientTests {
 
     private readonly string BASE_ADDRESS = ConfigurationData.Get<string>("Testing.WebApi.BaseAddress");
@@ -52,26 +52,24 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async Task Should_Get_NextId_Using_ResponseModel() {
+    public async Task Should_Get_Secure_Data() {
+
       var apiClient = new HttpApiClient(BASE_ADDRESS);
 
-      TestsCommonMethods.Authenticate();
+      var response = await apiClient.GetAsync<string>("v1/tests/secure-data::data");
 
-      var nextId = await apiClient.GetAsync<ResponseModel<int>>("v1/id-generator/table-rows/LRSPayments");
-
-      Assert.True(nextId.Data > 0);
+      Assert.NotEmpty(response);
     }
 
 
     [Fact]
-    public async Task Should_Get_NextId_Using_ScopeParameter() {
+    public async Task Should_Get_Secure_Data_Response_Model() {
       var apiClient = new HttpApiClient(BASE_ADDRESS);
 
-      TestsCommonMethods.Authenticate();
+      var response = await apiClient.GetAsync<ResponseModel<string>>("v1/tests/secure-data");
 
-      var nextId = await apiClient.GetAsync<int>("v1/id-generator/table-rows/LRSPayments::data");
-
-      Assert.True(nextId > 0);
+      Assert.NotEmpty(response.Data);
+      Assert.Equal(1, response.DataItems);
     }
 
   }  // HttpApiClientTests

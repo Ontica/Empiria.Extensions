@@ -1,13 +1,13 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
-*  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
-*  Type      : HttpApiClient                                  Pattern  : Service provider                    *
-*  Version   : 1.2                                            License  : Please read license.txt file        *
+*  Module   : Web Api Client                             Component : Services Layer                          *
+*  Assembly : Empiria.WebApi.Client.dll                  Pattern   : Service provider                        *
+*  Type     : HttpApiClient                              License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary   : Provides methods to inkove web services using Empiria Web API infrastructure.                 *
+*  Summary  : Provides general purpose web api client methods using Http.                                    *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
@@ -17,6 +17,7 @@ using Empiria.Json;
 
 namespace Empiria.WebApi.Client {
 
+  /// <summary>Provides general purpose web api client methods using Http.</summary>
   public class HttpApiClient {
 
     #region Fields
@@ -62,11 +63,15 @@ namespace Empiria.WebApi.Client {
 
     #region Public methods
 
-    public bool IncludeAuthorizationHeader {
-      get;
-      set;
-    } = true;
+    //public void Authenticate(Credentials credentials) {
+    //  Assertion.Require(credentials, nameof(credentials));
 
+    //  _credentials = credentials;
+    //}
+
+    public bool IncludeAuthorizationHeader {
+      get; set;
+    } = true;
 
 
     public void SetTimeout(TimeSpan timeSpan) {
@@ -215,17 +220,12 @@ namespace Empiria.WebApi.Client {
 
 
     private void RemoveAuthorizationHeader() {
-      if (httpClient.DefaultRequestHeaders.Contains("Authorization")) {
-        httpClient.DefaultRequestHeaders.Remove("Authorization");
-      }
-
-      if (httpClient.DefaultRequestHeaders.Contains("ApplicationKey")) {
-        httpClient.DefaultRequestHeaders.Remove("ApplicationKey");
-      }
+      httpClient.DefaultRequestHeaders.Remove("Authorization");
+      httpClient.DefaultRequestHeaders.Remove("ApplicationKey");
     }
 
 
-    private Task<HttpResponseMessage> SendRequestAsync(HttpMethod method,  object body,
+    private Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, object body,
                                                        string path, object[] pars) {
       Assertion.Require(path, "path");
 
@@ -233,6 +233,7 @@ namespace Empiria.WebApi.Client {
       fullPath = UtilityMethods.RemoveDataScopeFromPath(fullPath);
 
       this.SetRequestHeaders();
+
       Task<HttpResponseMessage> response = this.InvokeMethodAsync(method, fullPath, body);
 
       this.CleanRequestHeaders();

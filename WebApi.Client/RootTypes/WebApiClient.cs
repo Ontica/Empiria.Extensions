@@ -1,20 +1,19 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
-*  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
-*  Type      : WebApiClient                                   Pattern  : Service provider                    *
-*  Version   : 1.2                                            License  : Please read license.txt file        *
+*  Module   : Web Api Client                             Component : Services Layer                          *
+*  Assembly : Empiria.WebApi.Client.dll                  Pattern   : Service provider                        *
+*  Type     : WebApiClient                               License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary   : Provides methods to inkove web services using Empiria Web API infrastructure.                 *
+*  Summary  : Provides methods to inkove web services using the Empiria Web API infrastructure.              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
+
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Empiria.WebApi.Client {
 
-  /// <summary>Provides methods to inkove web services using Empiria Web API infrastructure.</summary>
+  /// <summary>Provides methods to inkove web services using the Empiria Web API infrastructure.</summary>
   public class WebApiClient : IWebApiClient {
 
     #region Fields

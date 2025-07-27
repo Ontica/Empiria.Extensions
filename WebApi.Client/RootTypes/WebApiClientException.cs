@@ -1,13 +1,13 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
-*  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
-*  Type      : WebApiClientException                          Pattern  : Exception Class                     *
-*  Version   : 1.2                                            License  : Please read license.txt file        *
+*  Module   : Web Api Client                             Component : Services Layer                          *
+*  Assembly : Empiria.WebApi.Client.dll                  Pattern   : Empiria Exception                       *
+*  Type     : WebApiClientException                      License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary   : The exception that is thrown when a web api client call fails.                                *
+*  Summary  : The exception that is thrown when a web api client call fails.                                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Net.Http;
 using System.Reflection;

@@ -1,19 +1,19 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
-*  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
-*  Type      : UtilityMethods                                 Pattern  : Information holder                  *
-*  Version   : 1.2                                            License  : Please read license.txt file        *
+*  Module   : Web Api Client                             Component : Services Layer                          *
+*  Assembly : Empiria.WebApi.Client.dll                  Pattern   : Static services provider                *
+*  Type     : UtilityMethods                             License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary   : General utility methods for use inside the WebApi.Client component.                           *
+*  Summary  : Internal general utility static methods.                                                       *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Net.Http;
 
 namespace Empiria.WebApi.Client {
 
-  /// <summary>General utility methods for use inside the WebApi.Client component.</summary>
+  /// <summary>Internal general utility static methods.</summary>
   static internal class UtilityMethods {
 
     #region Methods

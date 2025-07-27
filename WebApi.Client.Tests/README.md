@@ -1,6 +1,6 @@
-﻿# Empiria Web Api Client
+﻿# Empiria Web Api Client Tests Module
 
-.Net client used to call general purpose and Empiria-based http json-based web services.
+Tests suite for Empiria Web Api Client types and services.
 
 ## Licencia
 

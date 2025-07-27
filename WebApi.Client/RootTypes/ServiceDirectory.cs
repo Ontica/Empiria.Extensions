@@ -1,18 +1,16 @@
-﻿/* Empiria Extensions Framework ******************************************************************************
+﻿/* Empiria Extensions ****************************************************************************************
 *                                                                                                            *
-*  Solution  : Empiria Extensions Framework                   System   : Empiria Web API Services            *
-*  Namespace : Empiria.WebApi.Client                          Assembly : Empiria.WebApi.Client.dll           *
-*  Type      : ServiceDirectory                               Pattern  : Singleton type                      *
-*  Version   : 1.2                                            License  : Please read license.txt file        *
+*  Module   : Web Api Client                             Component : Services Layer                          *
+*  Assembly : Empiria.WebApi.Client.dll                  Pattern   : Information holder                      *
+*  Type     : ServiceDirectory                           License   : Please read LICENSE.txt file            *
 *                                                                                                            *
-*  Summary   : Singleton that holds a list of web services that can be searched by path or by its unique ID. *
+*  Summary  : Singleton that holds a list of web services that can be searched by path or by its unique ID.  *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-
-using Empiria.Security;
 
 namespace Empiria.WebApi.Client {
 
@@ -53,7 +51,7 @@ namespace Empiria.WebApi.Client {
     #region Public methods
 
     public ServiceHandler GetService(HttpMethod method, string serviceUID) {
-      Assertion.Require(serviceUID, "serviceUID");
+      Assertion.Require(serviceUID, nameof(serviceUID));
 
       string searchKey = String.Empty;
 
