@@ -25,7 +25,7 @@ namespace Empiria.WebApi.Client {
     #region Constructors and parsers
 
     internal ServiceHandler(EndpointConfig endpoint) {
-      Assertion.Require(endpoint, "endpoint");
+      Assertion.Require(endpoint, nameof(endpoint));
 
       this.Endpoint = endpoint;
     }
@@ -59,10 +59,10 @@ namespace Empiria.WebApi.Client {
 
 
     internal HttpApiClient PrepareHandler(HttpApiClient handler) {
-      Assertion.Require(handler, "handler");
+      Assertion.Require(handler, nameof(handler));
 
       if (this.Endpoint.IsProtected) {
-        handler.AddHeader("Authorization", "bearer " + ExecutionServer.CurrentPrincipal.Session.Token);
+        handler.Authenticate();
       }
 
       return handler;

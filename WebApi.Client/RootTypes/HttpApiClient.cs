@@ -61,7 +61,7 @@ namespace Empiria.WebApi.Client {
 
     #endregion Constructors and parsers
 
-    #region Public methods
+    #region Methods
 
     public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Delete,
@@ -128,6 +128,13 @@ namespace Empiria.WebApi.Client {
     }
 
 
+    public void Authenticate() {
+      Assertion.Require(ExecutionServer.IsAuthenticated, "User is not authenticated.");
+
+      AddHeader("Authorization", $"bearer {ExecutionServer.CurrentPrincipal.Session.Token}");
+    }
+
+
     internal bool ContainsHeader(string headerName) {
       Assertion.Require(headerName, nameof(headerName));
 
@@ -148,9 +155,9 @@ namespace Empiria.WebApi.Client {
       httpClient.Timeout = timeSpan;
     }
 
-    #endregion Public methods
+    #endregion Methods
 
-    #region Private methods
+    #region Helpers
 
     private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
       string scope = UtilityMethods.GetDataScopeFromPath(path);
@@ -237,7 +244,7 @@ namespace Empiria.WebApi.Client {
       return response;
     }
 
-    #endregion Private methods
+    #endregion Helpers
 
   }  // class WebApiClient
 
