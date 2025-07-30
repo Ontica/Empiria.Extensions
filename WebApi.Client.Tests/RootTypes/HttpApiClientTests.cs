@@ -16,7 +16,7 @@ using Empiria.WebApi.Client;
 
 namespace Empiria.Tests {
 
-  /// <summary>EUnit tests for HttpApiClient type services.</summary>
+  /// <summary>Unit tests for HttpApiClient type services.</summary>
   public class HttpApiClientTests {
 
     private readonly string BASE_ADDRESS = ConfigurationData.Get<string>("Testing.WebApi.BaseAddress");
@@ -56,6 +56,10 @@ namespace Empiria.Tests {
 
       var apiClient = new HttpApiClient(BASE_ADDRESS);
 
+      TestsCommonMethods.Authenticate();
+
+      apiClient.Authenticate();
+
       var response = await apiClient.GetAsync<string>("v1/tests/secure-data::data");
 
       Assert.NotEmpty(response);
@@ -65,6 +69,10 @@ namespace Empiria.Tests {
     [Fact]
     public async Task Should_Get_Secure_Data_Response_Model() {
       var apiClient = new HttpApiClient(BASE_ADDRESS);
+
+      TestsCommonMethods.Authenticate();
+
+      apiClient.Authenticate();
 
       var response = await apiClient.GetAsync<ResponseModel<string>>("v1/tests/secure-data");
 

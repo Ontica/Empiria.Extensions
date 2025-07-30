@@ -124,6 +124,9 @@ namespace Empiria.WebApi.Client {
       Assertion.Require(headerName, nameof(headerName));
       Assertion.Require(value, nameof(value));
 
+      if (ContainsHeader(headerName)) {
+        RemoveHeader(headerName);
+      }
       httpClient.DefaultRequestHeaders.Add(headerName, value);
     }
 
