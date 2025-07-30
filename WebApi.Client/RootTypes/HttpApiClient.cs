@@ -9,9 +9,9 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
 using System;
-using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 using Empiria.Json;
 
@@ -23,7 +23,7 @@ namespace Empiria.WebApi.Client {
     #region Fields
 
     private static readonly int DEFAULT_HTTP_CALL_TIMEOUT_SECONDS =
-                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 5);
+                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 400);
 
     private readonly HttpClient httpClient = new HttpClient();
 
@@ -62,24 +62,6 @@ namespace Empiria.WebApi.Client {
     #endregion Constructors and parsers
 
     #region Public methods
-
-    //public void Authenticate(Credentials credentials) {
-    //  Assertion.Require(credentials, nameof(credentials));
-
-    //  _credentials = credentials;
-    //}
-
-    public bool IncludeAuthorizationHeader {
-      get; set;
-    } = true;
-
-
-    public void SetTimeout(TimeSpan timeSpan) {
-      Assertion.Require(timeSpan, nameof(timeSpan));
-
-      httpClient.Timeout = timeSpan;
-    }
-
 
     public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Delete,
@@ -137,14 +119,38 @@ namespace Empiria.WebApi.Client {
                        .ConfigureAwait(false);
     }
 
+
+    public void AddHeader(string headerName, string value) {
+      Assertion.Require(headerName, nameof(headerName));
+      Assertion.Require(value, nameof(value));
+
+      httpClient.DefaultRequestHeaders.Add(headerName, value);
+    }
+
+
+    internal bool ContainsHeader(string headerName) {
+      Assertion.Require(headerName, nameof(headerName));
+
+      return httpClient.DefaultRequestHeaders.Contains(headerName);
+    }
+
+
+    public void RemoveHeader(string headerName) {
+      Assertion.Require(headerName, nameof(headerName));
+
+      httpClient.DefaultRequestHeaders.Remove(headerName);
+    }
+
+
+    public void SetTimeout(TimeSpan timeSpan) {
+      Assertion.Require(timeSpan.TotalSeconds >= 5, "timeSpan too low");
+
+      httpClient.Timeout = timeSpan;
+    }
+
     #endregion Public methods
 
     #region Private methods
-
-    private void CleanRequestHeaders() {
-      this.RemoveAuthorizationHeader();
-    }
-
 
     private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
       string scope = UtilityMethods.GetDataScopeFromPath(path);
@@ -189,7 +195,6 @@ namespace Empiria.WebApi.Client {
       } else {
         return await response.Content.ReadAsAsync<T>()
                              .ConfigureAwait(false);
-
       }
     }
 
@@ -214,14 +219,9 @@ namespace Empiria.WebApi.Client {
 
 
     private void LoadDefaultHeaders() {
+      httpClient.DefaultRequestHeaders.Clear();
       httpClient.DefaultRequestHeaders.Accept.Clear();
       httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    }
-
-
-    private void RemoveAuthorizationHeader() {
-      httpClient.DefaultRequestHeaders.Remove("Authorization");
-      httpClient.DefaultRequestHeaders.Remove("ApplicationKey");
     }
 
 
@@ -232,34 +232,9 @@ namespace Empiria.WebApi.Client {
       string fullPath = EmpiriaString.Format(path, pars);
       fullPath = UtilityMethods.RemoveDataScopeFromPath(fullPath);
 
-      this.SetRequestHeaders();
-
       Task<HttpResponseMessage> response = this.InvokeMethodAsync(method, fullPath, body);
 
-      this.CleanRequestHeaders();
-
       return response;
-    }
-
-
-    private void SetAuthorizationHeader() {
-      this.RemoveAuthorizationHeader();
-
-      if (ExecutionServer.IsAuthenticated) {
-        httpClient.DefaultRequestHeaders.Add("Authorization",
-                                             "bearer " + ExecutionServer.CurrentPrincipal.Session.Token);
-      } else {
-        httpClient.DefaultRequestHeaders.Add("ApplicationKey", ExecutionServer.ApplicationKey);
-      }
-    }
-
-
-    private void SetRequestHeaders() {
-      if (this.IncludeAuthorizationHeader) {
-        this.SetAuthorizationHeader();
-      } else {
-        this.RemoveAuthorizationHeader();
-      }
     }
 
     #endregion Private methods

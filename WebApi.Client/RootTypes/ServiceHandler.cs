@@ -61,7 +61,9 @@ namespace Empiria.WebApi.Client {
     internal HttpApiClient PrepareHandler(HttpApiClient handler) {
       Assertion.Require(handler, "handler");
 
-      handler.IncludeAuthorizationHeader = this.Endpoint.IsProtected;
+      if (this.Endpoint.IsProtected) {
+        handler.AddHeader("Authorization", "bearer " + ExecutionServer.CurrentPrincipal.Session.Token);
+      }
 
       return handler;
     }
