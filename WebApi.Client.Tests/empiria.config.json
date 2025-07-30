@@ -17,6 +17,11 @@
       "type": "Tests",
       "key": "Testing.WebApi.BaseAddress",
       "value": "{{TESTING-WEBAPI-BASE_ADDRESS}}"
+    },
+    {
+      "type": "Tests",
+      "key": "Testing.WebApiServerName",
+      "value": "{{TESTING-WEBAPI-SERVER-NAME}}"
     }
   ]
 }

@@ -8,8 +8,11 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
-using System.Net.Http;
+using System;
 using System.Threading.Tasks;
+
+using Empiria.Collections;
+using Empiria.Security;
 
 namespace Empiria.WebApi.Client {
 
@@ -18,100 +21,141 @@ namespace Empiria.WebApi.Client {
 
     #region Fields
 
-    private readonly HttpApiClient fixedApiClientHandler = null;
+    private static EmpiriaDictionary<string, WebApiClient> _instances =
+                                                          new EmpiriaDictionary<string, WebApiClient>(8);
+
+    private static object _locker = new object();
+
+    private readonly WebApiServer _webApiServer;
+    private readonly HttpApiClient _handler;
 
     #endregion Fields
 
     #region Constructors and parsers
 
-    public WebApiClient() {
-      // no-op
+    private WebApiClient(string webApiServerName) {
+      _webApiServer = WebApiServer.Parse(webApiServerName);
+      _handler = new HttpApiClient(_webApiServer.BaseAddress);
+      _handler.AddHeader("User-Agent", ExecutionServer.SystemName);
     }
 
-    /// <summary>Create a web api client that sends all the requests to a specific server regardless
-    /// of the servers defined in the service directory rules.</summary>
-    /// <param name="baseAddress">The server's base address.</param>
-    public WebApiClient(string baseAddress) {
-      this.fixedApiClientHandler = new HttpApiClient(baseAddress);
+
+    static public WebApiClient GetInstance(string webApiServerName) {
+      Assertion.Require(webApiServerName, nameof(webApiServerName));
+
+      if (_instances.ContainsKey(webApiServerName)) {
+        return _instances[webApiServerName];
+      }
+
+      lock (_locker) {
+        if (_instances.ContainsKey(webApiServerName)) {
+          return _instances[webApiServerName];
+        }
+        var webApiClient = new WebApiClient(webApiServerName);
+
+        _instances.Insert(webApiServerName, webApiClient);
+
+        return webApiClient;
+      }  // lock
     }
 
     #endregion Constructors and parsers
 
-    #region Public methods
+    #region Methods
 
     public Task DeleteAsync(string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Delete, path);
 
-      HttpApiClient handler = this.GetApiClientHandler(service);
+      EnsureAuthenticated();
 
-      return handler.DeleteAsync(service.Endpoint.Path, pars);
+      return _handler.DeleteAsync(path, pars);
     }
 
 
     public Task<T> DeleteAsync<T>(string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Delete, path);
 
-      HttpApiClient handler = this.GetApiClientHandler(service);
+      EnsureAuthenticated();
 
-      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
-
-      return handler.DeleteAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
+      return _handler.DeleteAsync<T>(path, pars);
     }
 
 
     public Task<T> GetAsync<T>(string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Get, path);
 
-      HttpApiClient handler = this.GetApiClientHandler(service);
+      EnsureAuthenticated();
 
-      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
-
-      return handler.GetAsync<T>(service.Endpoint.Path + dataScopeParameter, pars);
+      return _handler.GetAsync<T>(path, pars);
     }
 
 
     public Task<T> PostAsync<T>(string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
-      HttpApiClient handler = this.GetApiClientHandler(service);
+      EnsureAuthenticated();
 
-      return handler.PostAsync<T>(service.Endpoint.Path, pars);
+      return _handler.PostAsync<T>(path, pars);
     }
 
 
     public Task<T> PostAsync<T>(object body, string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Post, path);
 
-      HttpApiClient handler = this.GetApiClientHandler(service);
+      EnsureAuthenticated();
 
-      return handler.PostAsync<T>(body, service.Endpoint.Path, pars);
+      return _handler.PostAsync<T>(body, path, pars);
     }
 
 
     public Task<T> PutAsync<T>(object body, string path, params object[] pars) {
-      ServiceHandler service = ServiceDirectory.Instance.GetService(HttpMethod.Put, path);
 
-      HttpApiClient handler = this.GetApiClientHandler(service);
+      EnsureAuthenticated();
 
-      string dataScopeParameter = UtilityMethods.BuildDataScopeParameter(typeof(T), service, path);
-
-      return handler.PutAsync<T>(body, service.Endpoint.Path + dataScopeParameter, pars);
+      return _handler.PutAsync<T>(body, path, pars);
     }
 
 
-    #endregion Public methods
+    public void SetTimeout(TimeSpan timeSpan) {
+      _handler.SetTimeout(timeSpan);
+    }
 
-    #region Private methods
+    #endregion Methods
 
-    private HttpApiClient GetApiClientHandler(ServiceHandler service) {
-      if (fixedApiClientHandler == null) {
-        return service.GetHandler();
-      } else {
-        return service.PrepareHandler(fixedApiClientHandler);
+    #region Helpers
+
+    private void Authenticate() {
+      _handler.AddHeader("ApplicationKey", _webApiServer.Credentials.AppKey);
+
+      var credentials = new {
+        userID = _webApiServer.Credentials.UserID,
+      };
+
+      string loginToken = _handler.PostAsync<string>(credentials, "v3/security/login-token::data").Result;
+
+      var credentials2 = new {
+        userID = _webApiServer.Credentials.UserID,
+        password = EncryptUserPassword(_webApiServer.Credentials.Password, loginToken)
+      };
+
+      string accessToken = _handler.PostAsync<string>(credentials2, "v3/security/login::data/access_token").Result;
+
+      _handler.AddHeader("Authorization", $"bearer {accessToken}");
+      _handler.RemoveHeader("ApplicationKey");
+    }
+
+
+    private string EncryptUserPassword(string password, string loginToken) {
+      string encryptedPassword = Cryptographer.GetSHA256(password);
+
+      return Cryptographer.GetSHA256($"{encryptedPassword}{loginToken}");
+    }
+
+
+    private void EnsureAuthenticated() {
+      if (_handler.ContainsHeader("Authorization")) {
+        return;
       }
+
+      Authenticate();
     }
 
-    #endregion Private methods
+    #endregion Helpers
 
   }  // class WebApiClient
 

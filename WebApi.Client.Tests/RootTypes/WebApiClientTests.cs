@@ -19,63 +19,45 @@ namespace Empiria.Tests {
   /// <summary>Unit tests for WebApiClient type services.</summary>
   public class WebApiClientTests {
 
-    [Fact]
-    public async Task Should_Get_DataItems_Using_NamedEndpoint() {
-      var webApiClient = new WebApiClient();
-
-      var dataItems = await webApiClient.GetAsync<int>("System.GetLicense::dataItems");
-
-      Assert.Equal(1, dataItems);
-    }
-
-
-    [Fact]
-    public async Task Should_Get_License_Using_NamedEndpoint() {
-      var webApiClient = new WebApiClient();
-
-      var license = await webApiClient.GetAsync<string>("System.GetLicense");
-
-      Assert.Equal(ExecutionServer.LicenseName, license);
-    }
-
-
-    [Fact]
-    public async Task Should_Get_License_Using_Uri_And_ResponseModel() {
-      var webApiClient = new WebApiClient();
-
-      var license = await webApiClient.GetAsync<ResponseModel<string>>("v1/system/license");
-
-      Assert.Equal(ExecutionServer.LicenseName, license.Data);
-    }
-
-
-    [Fact]
-    public async Task Should_Get_License_Using_Uri_And_ScopeParameter() {
-      var webApiClient = new WebApiClient();
-
-      var license = await webApiClient.GetAsync<string>("v1/system/license::data");
-
-      Assert.Equal(ExecutionServer.LicenseName, license);
-    }
-
-
-    [Fact]
-    public async Task Should_Get_NextId_Using_Response_Model_With_NamedEndpoint() {
+    public WebApiClientTests() {
       TestsCommonMethods.Authenticate();
+    }
 
-      var webApiClient = new WebApiClient();
+    #region Tests
 
-      var nextId = await webApiClient.GetAsync<ResponseModel<int>>("Empiria.IdGenerator.NextTableRowId", "LRSPayments");
+    [Fact]
+    public async Task Should_Get_DataItems() {
+      WebApiClient webApiClient = GetWebApiClient();
 
-      Assert.True(nextId.Data > 0);
+      var sut = await webApiClient.GetAsync<int>("v1/system/license::dataItems");
+
+      Assert.Equal(1, sut);
+    }
+
+
+    [Fact]
+    public async Task Should_Get_License() {
+      WebApiClient webApiClient = GetWebApiClient();
+
+      var sut = await webApiClient.GetAsync<string>("v1/system/license::data");
+
+      Assert.Equal(ExecutionServer.LicenseName, sut);
+    }
+
+
+    [Fact]
+    public async Task Should_Get_License_Using_ResponseModel() {
+      WebApiClient webApiClient = GetWebApiClient();
+
+      var sut = await webApiClient.GetAsync<ResponseModel<string>>("v1/system/license");
+
+      Assert.Equal(ExecutionServer.LicenseName, sut.Data);
     }
 
 
     [Fact]
     public async Task Should_Get_Secure_Data() {
-      TestsCommonMethods.Authenticate();
-
-      var webApiClient = new WebApiClient();
+      WebApiClient webApiClient = GetWebApiClient();
 
       string sut = await webApiClient.GetAsync<string>("v1/tests/secure-data::data");
 
@@ -84,10 +66,8 @@ namespace Empiria.Tests {
 
 
     [Fact]
-    public async Task Should_Get_Secure_Data_Response_Model() {
-      TestsCommonMethods.Authenticate();
-
-      var webApiClient = new WebApiClient();
+    public async Task Should_Get_Secure_Data_Using_ResponseModel() {
+      WebApiClient webApiClient = GetWebApiClient();
 
       ResponseModel<string> sut = await webApiClient.GetAsync<ResponseModel<string>>("v1/tests/secure-data");
 
@@ -95,6 +75,16 @@ namespace Empiria.Tests {
       Assert.NotEmpty(sut.Data);
       Assert.Equal(1, sut.DataItems);
     }
+
+    #endregion Tests
+
+    #region Helpers
+
+    private WebApiClient GetWebApiClient() {
+      return WebApiClient.GetInstance(TestingConstants.WEB_API_SERVER_NAME);
+    }
+
+    #endregion Helpers
 
   }  // WebApiClientTests
 
