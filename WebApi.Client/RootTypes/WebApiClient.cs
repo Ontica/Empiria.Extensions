@@ -24,12 +24,13 @@ namespace Empiria.WebApi.Client {
     private static EmpiriaDictionary<string, WebApiClient> _instances =
                                                           new EmpiriaDictionary<string, WebApiClient>(8);
 
-    private static object _locker = new object();
+    private static readonly object _locker = new object();
 
     private readonly WebApiServer _webApiServer;
     private readonly HttpApiClient _handler;
 
     #endregion Fields
+
 
     #region Constructors and parsers
 
@@ -80,26 +81,53 @@ namespace Empiria.WebApi.Client {
 
 
     public Task<T> GetAsync<T>(string path, params object[] pars) {
+      try {
+        EnsureAuthenticated();
 
-      EnsureAuthenticated();
+        return _handler.GetAsync<T>(path, pars);
 
-      return _handler.GetAsync<T>(path, pars);
+       } catch (WebApiClientException e) {
+        EmpiriaLog.Debug($"WebApliClientException catched in get {e.Response.StatusCode.ToString()}");
+
+        if (e.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+            EmpiriaLog.Debug("Reauthenticate in get");
+            Authenticate();
+          }
+          return _handler.GetAsync<T>(path, pars);
+      }
     }
 
 
     public Task<T> PostAsync<T>(string path, params object[] pars) {
+      try {
+        EnsureAuthenticated();
 
-      EnsureAuthenticated();
+        return _handler.PostAsync<T>(path, pars);
 
-      return _handler.PostAsync<T>(path, pars);
+      } catch (WebApiClientException e) {
+        if (e.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+          EmpiriaLog.Debug("Reauthenticate in post no body");
+          Authenticate();
+        }
+        return _handler.PostAsync<T>(path, pars);
+      }
     }
 
 
     public Task<T> PostAsync<T>(object body, string path, params object[] pars) {
+      try {
+        EnsureAuthenticated();
 
-      EnsureAuthenticated();
+        return _handler.PostAsync<T>(body, path, pars);
 
-      return _handler.PostAsync<T>(body, path, pars);
+      } catch (WebApiClientException e) {
+        EmpiriaLog.Debug($"WebApliClientException catched in post {e.Response.StatusCode.ToString()}");
+        if (e.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+          EmpiriaLog.Debug("Reauthenticate in post with body");
+          Authenticate();
+        }
+        return _handler.PostAsync<T>(body, path, pars);
+      }
     }
 
 
@@ -120,6 +148,7 @@ namespace Empiria.WebApi.Client {
     #region Helpers
 
     private void Authenticate() {
+      _handler.RemoveHeader("Authorization");
       _handler.AddHeader("ApplicationKey", _webApiServer.Credentials.AppKey);
 
       var credentials = new {

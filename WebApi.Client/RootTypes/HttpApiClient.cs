@@ -13,6 +13,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 using Empiria.Json;
 
 namespace Empiria.WebApi.Client {
@@ -30,6 +32,10 @@ namespace Empiria.WebApi.Client {
     #endregion Fields
 
     #region Constructors and parsers
+
+    static HttpApiClient() {
+      JsonConvert.DefaultSettings = () => Json.JsonConverter.JsonSerializerDefaultSettings();
+    }
 
     /// <summary>Initializes a Web API connector to a fixed server.</summary>
     /// <param name="baseAddress">The server's base address.</param>
@@ -166,6 +172,7 @@ namespace Empiria.WebApi.Client {
       string scope = UtilityMethods.GetDataScopeFromPath(path);
 
       if (typeof(T) != typeof(HttpResponseMessage)) {
+
         if (!response.IsSuccessStatusCode) {
           var content = await response.Content.ReadAsStringAsync()
                                               .ConfigureAwait(false);
