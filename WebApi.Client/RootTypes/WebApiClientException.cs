@@ -64,16 +64,26 @@ namespace Empiria.WebApi {
 
     #region Methods
 
+    public bool IsUnauthorized {
+      get {
+        if (Response == null) {
+          return false;
+        }
+        return Response.StatusCode == System.Net.HttpStatusCode.Unauthorized;
+      }
+    }
+
+
     public HttpResponseMessage Response {
       get;
     }
+
 
     static private string GetMessage(Msg message, params object[] args) {
       return GetResourceMessage(message.ToString(), resourceBaseName, Assembly.GetExecutingAssembly(), args);
     }
 
     #endregion Methods
-
 
   } // class WebApiClientException
 

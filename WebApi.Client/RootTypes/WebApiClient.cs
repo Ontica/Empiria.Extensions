@@ -37,7 +37,10 @@ namespace Empiria.WebApi.Client {
     private WebApiClient(string webApiServerName) {
       _webApiServer = WebApiServer.Parse(webApiServerName);
       _handler = new HttpApiClient(_webApiServer.BaseAddress);
+
       _handler.AddHeader("User-Agent", ExecutionServer.SystemName);
+
+      Authenticate();
     }
 
 
@@ -64,78 +67,97 @@ namespace Empiria.WebApi.Client {
 
     #region Methods
 
-    public Task DeleteAsync(string path, params object[] pars) {
-
-      EnsureAuthenticated();
-
-      return _handler.DeleteAsync(path, pars);
-    }
-
-
-    public Task<T> DeleteAsync<T>(string path, params object[] pars) {
-
-      EnsureAuthenticated();
-
-      return _handler.DeleteAsync<T>(path, pars);
-    }
-
-
-    public Task<T> GetAsync<T>(string path, params object[] pars) {
+    public async Task DeleteAsync(string path, params object[] pars) {
       try {
-        EnsureAuthenticated();
 
-        return _handler.GetAsync<T>(path, pars);
-
-       } catch (WebApiClientException e) {
-        EmpiriaLog.Debug($"WebApliClientException catched in get {e.Response.StatusCode.ToString()}");
-
-        if (e.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-            EmpiriaLog.Debug("Reauthenticate in get");
-            Authenticate();
-          }
-          return _handler.GetAsync<T>(path, pars);
-      }
-    }
-
-
-    public Task<T> PostAsync<T>(string path, params object[] pars) {
-      try {
-        EnsureAuthenticated();
-
-        return _handler.PostAsync<T>(path, pars);
+        await _handler.DeleteAsync(path, pars);
 
       } catch (WebApiClientException e) {
-        if (e.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-          EmpiriaLog.Debug("Reauthenticate in post no body");
-          Authenticate();
+        if (e.IsUnauthorized) {
+          Reauthenticate();
         }
-        return _handler.PostAsync<T>(path, pars);
+        await _handler.DeleteAsync(path, pars);
       }
     }
 
 
-    public Task<T> PostAsync<T>(object body, string path, params object[] pars) {
+    public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
       try {
-        EnsureAuthenticated();
 
-        return _handler.PostAsync<T>(body, path, pars);
+        return await _handler.DeleteAsync<T>(path, pars);
 
       } catch (WebApiClientException e) {
-        EmpiriaLog.Debug($"WebApliClientException catched in post {e.Response.StatusCode.ToString()}");
-        if (e.Response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-          EmpiriaLog.Debug("Reauthenticate in post with body");
-          Authenticate();
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
         }
-        return _handler.PostAsync<T>(body, path, pars);
+
+        return await _handler.DeleteAsync<T>(path, pars);
       }
     }
 
 
-    public Task<T> PutAsync<T>(object body, string path, params object[] pars) {
+    public async Task<T> GetAsync<T>(string path, params object[] pars) {
+      try {
 
-      EnsureAuthenticated();
+        return await _handler.GetAsync<T>(path, pars);
 
-      return _handler.PutAsync<T>(body, path, pars);
+      } catch (WebApiClientException e) {
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
+        }
+
+        return await _handler.GetAsync<T>(path, pars);
+      }
+    }
+
+
+    public async Task<T> PostAsync<T>(string path, params object[] pars) {
+      try {
+
+        return await _handler.PostAsync<T>(path, pars);
+
+      } catch (WebApiClientException e) {
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
+        }
+
+        return await _handler.PostAsync<T>(path, pars);
+      }
+    }
+
+
+    public async Task<T> PostAsync<T>(object body, string path, params object[] pars) {
+      try {
+
+        return await _handler.PostAsync<T>(body, path, pars);
+
+      } catch (WebApiClientException e) {
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
+        }
+
+        return await _handler.PostAsync<T>(body, path, pars);
+      }
+    }
+
+
+    public async Task<T> PutAsync<T>(object body, string path, params object[] pars) {
+      try {
+
+        return await _handler.PutAsync<T>(body, path, pars);
+
+      } catch (WebApiClientException e) {
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
+        }
+
+        return await _handler.PutAsync<T>(body, path, pars);
+      }
     }
 
 
@@ -176,12 +198,15 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    private void EnsureAuthenticated() {
-      if (_handler.ContainsHeader("Authorization")) {
-        return;
-      }
+    private void Reauthenticate() {
+      _handler.RemoveHeader("Authorization");
 
-      Authenticate();
+      lock (_locker) {
+        if (_handler.ContainsHeader("Authorization")) {
+          return;
+        }
+        Authenticate();
+      }
     }
 
     #endregion Helpers
