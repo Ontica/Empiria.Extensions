@@ -25,7 +25,7 @@ namespace Empiria.WebApi.Client {
     #region Fields
 
     private static readonly int DEFAULT_HTTP_CALL_TIMEOUT_SECONDS =
-                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 400);
+                                            ConfigurationData.Get<int>("HttpDefaultTimeout", 3600);
 
     private readonly HttpClient httpClient = new HttpClient();
 
@@ -39,7 +39,7 @@ namespace Empiria.WebApi.Client {
 
     /// <summary>Initializes a Web API connector to a fixed server.</summary>
     /// <param name="baseAddress">The server's base address.</param>
-    public HttpApiClient(string baseAddress): this(baseAddress,
+    public HttpApiClient(string baseAddress) : this(baseAddress,
                                               TimeSpan.FromSeconds(DEFAULT_HTTP_CALL_TIMEOUT_SECONDS)) {
       // no-op
     }
@@ -71,22 +71,24 @@ namespace Empiria.WebApi.Client {
 
     public async Task<T> DeleteAsync<T>(string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Delete,
-                                                 String.Empty, path, pars)
-                                .ConfigureAwait(false);
+                                                 string.Empty, path, pars)
+                               .ConfigureAwait(false);
 
       return await this.ConvertHttpContentAsync<T>(response, path)
                        .ConfigureAwait(false);
     }
 
 
-    public Task DeleteAsync(string path, params object[] pars) {
-      return this.SendRequestAsync(HttpMethod.Delete, String.Empty,
-                                   path, pars);
+    public async Task DeleteAsync(string path, params object[] pars) {
+      var response = await this.SendRequestAsync(HttpMethod.Delete, string.Empty,
+                                                 path, pars);
+
+      await EnsureSuccessStatus(response, path);
     }
 
 
     public async Task<T> GetAsync<T>(string path, params object[] pars) {
-      var response = await this.SendRequestAsync(HttpMethod.Get, String.Empty, path, pars)
+      var response = await this.SendRequestAsync(HttpMethod.Get, string.Empty, path, pars)
                                .ConfigureAwait(false);
 
       return await this.ConvertHttpContentAsync<T>(response, path)
@@ -96,7 +98,7 @@ namespace Empiria.WebApi.Client {
 
     /// <summary>Sends a json POST request as an asynchronous operation without body.</summary>
     public async Task<T> PostAsync<T>(string path, params object[] pars) {
-      var response = await this.SendRequestAsync(HttpMethod.Post, String.Empty, path, pars)
+      var response = await this.SendRequestAsync(HttpMethod.Post, string.Empty, path, pars)
                                 .ConfigureAwait(false);
 
       return await this.ConvertHttpContentAsync<T>(response, path)
@@ -171,18 +173,7 @@ namespace Empiria.WebApi.Client {
     private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
       string scope = UtilityMethods.GetDataScopeFromPath(path);
 
-      if (typeof(T) != typeof(HttpResponseMessage)) {
-
-        if (!response.IsSuccessStatusCode) {
-          var content = await response.Content.ReadAsStringAsync()
-                                              .ConfigureAwait(false);
-
-          throw new WebApiClientException(response, WebApiClientException.Msg.HttpNoSuccessStatusCode,
-                                          response.StatusCode,
-                                          $"{this.httpClient.BaseAddress}/{path}",
-                                          content);
-        }
-      }
+      await EnsureSuccessStatus(response, path);
 
       if (scope.Length != 0) {
         var content = await response.Content.ReadAsStringAsync()
@@ -213,6 +204,21 @@ namespace Empiria.WebApi.Client {
         return await response.Content.ReadAsAsync<T>()
                              .ConfigureAwait(false);
       }
+    }
+
+
+    private async Task EnsureSuccessStatus(HttpResponseMessage response, string path) {
+      if (response.IsSuccessStatusCode) {
+        return;
+      }
+
+      var content = await response.Content.ReadAsStringAsync()
+                                          .ConfigureAwait(false);
+
+      throw new WebApiClientException(response, WebApiClientException.Msg.HttpNoSuccessStatusCode,
+                                      response.StatusCode,
+                                      $"{this.httpClient.BaseAddress}/{path}",
+                                      content);
     }
 
 
