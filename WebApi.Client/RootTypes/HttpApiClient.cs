@@ -95,6 +95,26 @@ namespace Empiria.WebApi.Client {
     }
 
 
+    /// <summary>Sends a json POST request as an asynchronous operation without body
+    /// and not returned data.</summary>
+    public async Task PostAsync(string path, params object[] pars) {
+      var response = await this.SendRequestAsync(HttpMethod.Post, string.Empty, path, pars)
+                                .ConfigureAwait(false);
+
+      await EnsureSuccessStatus(response, path);
+    }
+
+
+    /// <summary>Sends a json POST request as an asynchronous operation with body
+    /// and not returned data.</summary>
+    public async Task PostAsync(object body, string path, params object[] pars) {
+      var response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars)
+                               .ConfigureAwait(false);
+
+      await EnsureSuccessStatus(response, path);
+    }
+
+
     /// <summary>Sends a json POST request as an asynchronous operation without body.</summary>
     public async Task<T> PostAsync<T>(string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Post, string.Empty, path, pars)
@@ -105,7 +125,7 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    /// <summary>Sends a json POST request as an asynchronous operation
+    /// <summary>Sends a json POST request as an asynchronous operation with body and
     /// returning a response of type T.</summary>
     public async Task<T> PostAsync<T>(object body, string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Post, body, path, pars)
@@ -116,7 +136,7 @@ namespace Empiria.WebApi.Client {
     }
 
 
-    /// <summary>Sends a json PUT request as an asynchronous operation
+    /// <summary>Sends a json PUT request as an asynchronous operation with body and
     /// returning a response of type T.</summary>
     public async Task<T> PutAsync<T>(object body, string path, params object[] pars) {
       var response = await this.SendRequestAsync(HttpMethod.Put, body, path, pars)

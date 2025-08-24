@@ -113,6 +113,38 @@ namespace Empiria.WebApi.Client {
     }
 
 
+    public async Task PostAsync(string path, params object[] pars) {
+      try {
+
+        await _handler.PostAsync(path, pars);
+
+      } catch (WebApiClientException e) {
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
+        }
+
+        await _handler.PostAsync(path, pars);
+      }
+    }
+
+
+    public async Task PostAsync(object body, string path, params object[] pars) {
+      try {
+
+        await _handler.PostAsync(body, path, pars);
+
+      } catch (WebApiClientException e) {
+
+        if (e.IsUnauthorized) {
+          Reauthenticate();
+        }
+
+        await _handler.PostAsync(body, path, pars);
+      }
+    }
+
+
     public async Task<T> PostAsync<T>(string path, params object[] pars) {
       try {
 
