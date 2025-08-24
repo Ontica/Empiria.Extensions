@@ -13,9 +13,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
-
 using Empiria.Json;
+using Empiria.Reflection;
 
 namespace Empiria.WebApi.Client {
 
@@ -34,7 +33,7 @@ namespace Empiria.WebApi.Client {
     #region Constructors and parsers
 
     static HttpApiClient() {
-      JsonConvert.DefaultSettings = () => Json.JsonConverter.JsonSerializerDefaultSettings();
+      Newtonsoft.Json.JsonConvert.DefaultSettings = () => Json.JsonConverter.JsonSerializerDefaultSettings();
     }
 
     /// <summary>Initializes a Web API connector to a fixed server.</summary>
@@ -171,38 +170,49 @@ namespace Empiria.WebApi.Client {
     #region Helpers
 
     private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
-      string scope = UtilityMethods.GetDataScopeFromPath(path);
 
       await EnsureSuccessStatus(response, path);
 
-      if (scope.Length != 0) {
-        var content = await response.Content.ReadAsStringAsync()
-                                            .ConfigureAwait(false);
+      if (typeof(T) == typeof(HttpResponseMessage) || typeof(T) == typeof(object)) {
 
-        return JsonObject.Parse(content).Get<T>(scope);
-
-      } else if (typeof(T) == typeof(HttpResponseMessage)) {
         return (T) (object) response;
 
-      } else if (typeof(T) == typeof(string)) {
-        var content = await response.Content.ReadAsStringAsync()
-                                            .ConfigureAwait(false);
+      }
 
-        return (T) (object) content;
+      var content = await response.Content.ReadAsStringAsync()
+                                          .ConfigureAwait(false);
 
-      } else if (typeof(T) == typeof(JsonObject)) {
-        var content = await response.Content.ReadAsStringAsync()
-                                            .ConfigureAwait(false);
+      var json = JsonObject.Parse(content);
 
-        if (scope.Length != 0) {
-          return (T) (object) JsonObject.Parse(content).Slice(scope);
-        } else {
-          return (T) (object) JsonObject.Parse(content);
-        }
+      string scope = UtilityMethods.GetDataScopeFromPath(path);
+
+      if (scope.Length == 0 && json.HasValue("data")) {
+        scope = "data";
+      }
+
+      if (scope.Length == 0 && typeof(T) == typeof(JsonObject)) {
+
+        return (T) (object) json;
+
+      } else if (scope.Length == 0 && typeof(T) != typeof(JsonObject)) {
+
+        return JsonConverter.ToObject<T>(json.ToString());
+
+      }
+
+
+      if (typeof(T) == typeof(JsonObject)) {
+
+        return (T) (object) json.Slice(scope);
+
+      } else if (ObjectFactory.IsFixedList(typeof(T))) {
+
+        return (T) json.GetFixedList(typeof(T), scope);
 
       } else {
-        return await response.Content.ReadAsAsync<T>()
-                             .ConfigureAwait(false);
+
+        return json.Get<T>(scope);
+
       }
     }
 
