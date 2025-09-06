@@ -209,14 +209,18 @@ namespace Empiria.WebApi.Client {
         userID = _webApiServer.Credentials.UserID,
       };
 
-      string loginToken = _handler.PostAsync<string>(credentials, "v3/security/login-token::data").Result;
+      string loginToken = _handler.PostAsync<string>(credentials, "v3/security/login-token::data")
+                                  .GetAwaiter()
+                                  .GetResult();
 
       var credentials2 = new {
         userID = _webApiServer.Credentials.UserID,
         password = EncryptUserPassword(_webApiServer.Credentials.Password, loginToken)
       };
 
-      string accessToken = _handler.PostAsync<string>(credentials2, "v3/security/login::data/access_token").Result;
+      string accessToken = _handler.PostAsync<string>(credentials2, "v3/security/login::data/access_token")
+                                   .GetAwaiter()
+                                   .GetResult();
 
       _handler.AddHeader("Authorization", $"bearer {accessToken}");
       _handler.RemoveHeader("ApplicationKey");

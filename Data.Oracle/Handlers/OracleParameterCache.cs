@@ -79,7 +79,6 @@ namespace Empiria.Data.Handlers {
 
     static private OracleParameter[] CloneParameters(OracleParameter[] sourceParameters,
                                                      object[] parameterValues) {
-
       OracleParameter[] clonedParameters = new OracleParameter[sourceParameters.Length];
 
       for (int i = 0, j = sourceParameters.Length; i < j; i++) {
