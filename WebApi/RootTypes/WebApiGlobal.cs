@@ -9,7 +9,11 @@
 *              the Empiria web api platform.                                                                 *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
+using System.Collections.Specialized;
+using System.Linq;
+
 using System.Web;
 using System.Web.Caching;
 
@@ -69,31 +73,66 @@ namespace Empiria.WebApi {
 
     #region Protected methods
 
-    protected virtual void Application_AuthenticateRequest(Object sender, EventArgs e) {
+    protected virtual void Application_AuthenticateRequest(object sender, EventArgs e) {
       // no-op
     }
 
-    protected virtual void Application_End(Object sender, EventArgs e) {
+    protected virtual void Application_End(object sender, EventArgs e) {
       // no-op
     }
 
-    protected virtual void Application_Error(Object sender, EventArgs e) {
+    protected virtual void Application_Error(object sender, EventArgs e) {
       // no-op
     }
 
-    protected virtual void Application_PreSendRequestHeaders(Object sender, EventArgs e) {
-      // Remove headers that expose server information
-      Response.Headers.Remove("Server");
-      Response.Headers.Remove("X-AspNet-Version");
-      Response.Headers.Remove("X-AspNetMvc-Version");
-      Response.Headers.Remove("X-Powered-By");
+    protected virtual void Application_PreSendRequestHeaders(object sender, EventArgs e) {
+
+      RemoveServerInformationHeaders();
+
+      AddSecurityHeaders();
     }
 
-    protected virtual void Application_Start(Object sender, EventArgs e) {
-      // no-op
+
+    protected virtual void Application_Start(object sender, EventArgs e) {
+
     }
 
     #endregion Protected methods
+
+    #region Helpers
+
+    private void AddSecurityHeaders() {
+      NameValueCollection headers = Response.Headers;
+
+      string[] headersNames = headers.AllKeys;
+
+      if (!headersNames.Contains("X-Content-Type-Options")) {
+        headers.Add("X-Content-Type-Options", "nosniff");
+      }
+
+      if (!headersNames.Contains("X-Frame-Options")) {
+        headers.Add("X-Frame-Options", "DENY");
+      }
+
+      if (!headersNames.Contains("X-XSS-Protection")) {
+        headers.Add("X-XSS-Protection", "1; mode=block");
+      }
+
+      if (!headersNames.Contains("Referrer-Policy")) {
+        headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+      }
+    }
+
+    private void RemoveServerInformationHeaders() {
+      var headers = Response.Headers;
+
+      headers.Remove("Server");
+      headers.Remove("X-AspNet-Version");
+      headers.Remove("X-AspNetMvc-Version");
+      headers.Remove("X-Powered-By");
+    }
+
+    #endregion Helpers
 
   } // class WebApiGlobal
 
