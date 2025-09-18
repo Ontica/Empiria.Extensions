@@ -69,24 +69,28 @@ namespace Empiria.WebApi {
 
     #region Protected methods
 
-    protected virtual void Application_PreSendRequestHeaders(Object sender, EventArgs e) {
-
-    }
-
-    protected virtual void Application_Start(Object sender, EventArgs e) {
-
-    }
-
     protected virtual void Application_AuthenticateRequest(Object sender, EventArgs e) {
-
+      // no-op
     }
 
     protected virtual void Application_End(Object sender, EventArgs e) {
-
+      // no-op
     }
 
     protected virtual void Application_Error(Object sender, EventArgs e) {
+      // no-op
+    }
 
+    protected virtual void Application_PreSendRequestHeaders(Object sender, EventArgs e) {
+      // Remove headers that expose server information
+      Response.Headers.Remove("Server");
+      Response.Headers.Remove("X-AspNet-Version");
+      Response.Headers.Remove("X-AspNetMvc-Version");
+      Response.Headers.Remove("X-Powered-By");
+    }
+
+    protected virtual void Application_Start(Object sender, EventArgs e) {
+      // no-op
     }
 
     #endregion Protected methods

@@ -28,7 +28,6 @@ namespace Empiria.WebApi {
       RegisterFormatters(GlobalConfiguration.Configuration);
 
       RegisterGlobalFilters(GlobalConfiguration.Configuration);
-
     }
 
 
@@ -88,7 +87,7 @@ namespace Empiria.WebApi {
 
 
       // To configure convention-based routing
-      WebApiConfig.RegisterWebApiRoutes(config);
+      RegisterWebApiRoutes(config);
 
     }
 

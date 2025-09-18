@@ -22,7 +22,17 @@ namespace Empiria.WebApi {
   [Serializable]
   public sealed class AuthenticationHttpModule : IHttpModule {
 
-    #region Public methods
+    #region Methods
+
+    public void Dispose() {
+      // no-op
+    }
+
+
+    public void Init(HttpApplication context) {
+      context.AuthenticateRequest += OnApplicationAuthenticateRequest;
+    }
+
 
     static public void SetHttpContextPrincipal(IEmpiriaPrincipal principal) {
       Assertion.Require(principal, nameof(principal));
@@ -35,17 +45,7 @@ namespace Empiria.WebApi {
       }
     }
 
-
-    public void Init(HttpApplication context) {
-      context.AuthenticateRequest += OnApplicationAuthenticateRequest;
-    }
-
-
-    public void Dispose() {
-      // no-op
-    }
-
-    #endregion Constructors and parsers
+    #endregion Methods
 
     #region Helpers
 
@@ -132,8 +132,8 @@ namespace Empiria.WebApi {
       }
     }
 
-    #endregion Private methods
+    #endregion Helpers
 
-  }  // class Helpers
+  }  // class AuthenticationHttpModule
 
 }  // namespace Empiria.WebApi
