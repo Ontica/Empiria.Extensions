@@ -7,8 +7,9 @@
 *  Summary  : Empiria HttpApplication object for Http WebApi services                                        *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
+using System;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.ExceptionHandling;
@@ -20,6 +21,25 @@ namespace Empiria.WebApi {
   /// <summary>Empiria HttpApplication object for Http WebApi services.</summary>
   public class WebApiApplication : WebApiGlobal {
 
+    #region Fields
+
+    static private readonly bool HSTS_ENABLED = ConfigurationData.Get("Hsts.Enabled", true);
+
+    #endregion Fields
+
+    #region Methods
+
+    protected override void Application_Start(object sender, EventArgs e) {
+      base.Application_Start(sender, e);
+
+      ConfigureSecuritySettings();
+
+      ExecutionServer.Preload();
+
+      Register();
+    }
+
+
     static public void Register() {
       RegisterGlobalHandlers(GlobalConfiguration.Configuration);
 
@@ -30,13 +50,14 @@ namespace Empiria.WebApi {
       RegisterGlobalFilters(GlobalConfiguration.Configuration);
     }
 
+    #endregion Methods
 
-    protected override void Application_Start(object sender, EventArgs e) {
-      base.Application_Start(sender, e);
+    #region Helpers
 
-      ExecutionServer.Preload();
-
-      Register();
+    static private void ConfigureSecuritySettings() {
+      if (HSTS_ENABLED) {
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+      }
     }
 
 
@@ -44,7 +65,7 @@ namespace Empiria.WebApi {
       Newtonsoft.Json.JsonSerializerSettings settings = JsonConverter.JsonSerializerDefaultSettings();
 
       config.Formatters.JsonFormatter.SerializerSettings = settings;
-      config.Formatters.Remove(config.Formatters.XmlFormatter);         // Remove Xml formatter
+      // config.Formatters.Remove(config.Formatters.XmlFormatter);
     }
 
 
@@ -61,18 +82,26 @@ namespace Empiria.WebApi {
 
 
     static private void RegisterGlobalFilters(HttpConfiguration config) {
+
       // Denies anonymous access to every controller without the AllowAnonymous attribute
       if (!ExecutionServer.IsPassThroughServer) {
         config.Filters.Add(new AuthorizeAttribute());
       }
+
+      if (HSTS_ENABLED) {
+        config.Filters.Add(new HstsAttribute());
+      }
     }
+
+    #endregion Helpers
 
   }  // class WebApiApplication
 
 
+
   static internal class WebApiConfig {
 
-    #region Public methods
+    #region Methods
 
     static internal void RegisterCallback(HttpConfiguration config) {
 
@@ -91,9 +120,9 @@ namespace Empiria.WebApi {
 
     }
 
-    #endregion Public methods
+    #endregion Methods
 
-    #region Private methods
+    #region Helpers
 
     static private void RegisterHttp404ErrorHandlerRoute(HttpRouteCollection routes) {
       routes.MapHttpRoute(
@@ -110,7 +139,7 @@ namespace Empiria.WebApi {
       RegisterHttp404ErrorHandlerRoute(config.Routes);
     }
 
-    #endregion Private methods
+    #endregion Helpers
 
   }  // class WebApiConfig
 
