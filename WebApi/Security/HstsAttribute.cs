@@ -42,24 +42,22 @@ namespace Empiria.WebApi {
     #region Methods
 
     public override void OnActionExecuted(HttpActionExecutedContext context) {
+
       if (context.Response == null) {
         base.OnActionExecuted(context);
         return;
       }
 
-      if (HttpContext.Current.Request.IsSecureConnection) {
-
-        if (!context.Response.Headers.Contains("Strict-Transport-Security")) {
-          context.Response.Headers.Add("Strict-Transport-Security", BuildHstsValue());
-        }
-
-      } else {
-
+      if (!HttpContext.Current.Request.IsSecureConnection) {
         var exception = new SecurityException(SecurityException.Msg.HSTSRequired);
 
         var model = new ExceptionModel(context.Request, exception);
 
         context.Response = model.CreateResponse();
+      }
+
+      if (!context.Response.Headers.Contains("Strict-Transport-Security")) {
+        context.Response.Headers.Add("Strict-Transport-Security", BuildHstsValue());
       }
 
       base.OnActionExecuted(context);
