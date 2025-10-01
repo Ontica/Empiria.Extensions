@@ -21,14 +21,14 @@ namespace Empiria.WebApi.Internals {
     #region Constructor
 
     internal ExceptionData(Exception exception) {
-      Assertion.Require(exception, "exception");
+      Assertion.Require(exception, nameof(exception));
 
-      this.HttpStatusCode = (HttpStatusCode) GetHttpStatusCode(exception);
-      this.ErrorCode = GetErrorCode(exception);
-      this.Source = GetErrorSource(exception);
-      this.Message = GetErrorMessage(exception);
-      this.Hint = GetHint(exception);
-      this.Issues = GetIssues(exception);
+      HttpStatusCode = (HttpStatusCode) GetHttpStatusCode(exception);
+      ErrorCode = GetErrorCode(exception);
+      Source = GetErrorSource(exception);
+      Message = exception.Message;
+      Hint = GetHint(exception);
+      Issues = GetIssues(exception);
     }
 
     #endregion Constructor
@@ -80,8 +80,8 @@ namespace Empiria.WebApi.Internals {
 
     public bool IsInternalServerError {
       get {
-        return (this.HttpStatusCode == HttpStatusCode.InternalServerError ||
-                this.HttpStatusCode == HttpStatusCode.ServiceUnavailable);
+        return (HttpStatusCode == HttpStatusCode.InternalServerError ||
+                HttpStatusCode == HttpStatusCode.ServiceUnavailable);
       }
     }
 
@@ -91,21 +91,12 @@ namespace Empiria.WebApi.Internals {
 
     private string GetErrorCode(Exception e) {
       string temp = e.GetType().Name;
-      if (e is EmpiriaException) {
-        temp += "." + ((EmpiriaException) e).ExceptionTag;
+
+      if (e is EmpiriaException empiriaEx) {
+        temp = $".{empiriaEx.ExceptionTag}";
       }
+
       return temp;
-    }
-
-
-    private string GetErrorMessage(Exception exception) {
-      if (!this.IsInternalServerError) {
-        return exception.Message;
-      } else if (ExecutionServer.IsDevelopmentServer) {
-        return exception.Message;
-      } else {
-        return "We are sorry. Something was wrong processing the request.";
-      }
     }
 
 
@@ -119,8 +110,8 @@ namespace Empiria.WebApi.Internals {
 
 
     private string GetHint(Exception e) {
-      if (e is WebApiException) {
-        return ((WebApiException) e).Hint;
+      if (e is WebApiException webApiEx) {
+        return webApiEx.Hint;
 
       } else if (e is ServiceException) {
         return "Please contact the system administrator to check that all connections " +
@@ -159,8 +150,8 @@ namespace Empiria.WebApi.Internals {
 
 
     static internal HttpErrorCode GetHttpStatusCode(Exception e) {
-      if (e is WebApiException) {
-        return ((WebApiException) e).ErrorCode;
+      if (e is WebApiException webApiEx) {
+        return webApiEx.ErrorCode;
 
       } else if (e is Security.SecurityException securityEx) {
 
@@ -173,7 +164,7 @@ namespace Empiria.WebApi.Internals {
       } else if (e is ValidationException) {
         return HttpErrorCode.BadRequest;
 
-      } else if (e is Json.JsonDataException) {
+      } else if (e is JsonDataException) {
         return HttpErrorCode.BadRequest;
 
       } else if (e is AssertionFailsException) {
@@ -201,8 +192,8 @@ namespace Empiria.WebApi.Internals {
 
 
     static private string[] GetIssues(Exception exception) {
-      if (exception is WebApiException) {
-        return ((WebApiException) exception).RequestIssues;
+      if (exception is WebApiException webApiEx) {
+        return webApiEx.RequestIssues;
       } else {
         return new string[0];
       }

@@ -7,7 +7,6 @@
 *  Summary  : Message handler used to control Web API authentication.                                        *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 using System.Collections;
 using System.Data;
 
@@ -119,7 +118,8 @@ namespace Empiria.WebApi {
         return response;
       }
 
-      switch(response.StatusCode) {
+      switch (response.StatusCode) {
+
         case HttpStatusCode.BadRequest:
           return this.BadRequest400Handler(request);
 

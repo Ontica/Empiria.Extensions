@@ -8,7 +8,6 @@
 *  Summary   : Message handler used to log every web api request and some info about their response.         *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;

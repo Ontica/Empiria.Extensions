@@ -27,7 +27,7 @@ namespace Empiria.WebApi {
       //no-op
     }
 
-    private WebApiAuditTrail(WebApiRequest request): base(request, AuditTrailType.WebApiCall) {
+    private WebApiAuditTrail(WebApiRequest request) : base(request, AuditTrailType.WebApiCall) {
 
     }
 
@@ -41,6 +41,7 @@ namespace Empiria.WebApi {
 
       this.SetRequest(request);
       this.SetResponse(response);
+
       base.Write();
 
       if (response.IsSuccessStatusCode) {
@@ -77,12 +78,11 @@ namespace Empiria.WebApi {
     #region Private methods
 
     private JsonObject GetOperationData(Uri requestUri) {
-      var json = new JsonObject();
-
-      json.Add("endpoint", requestUri.PathAndQuery);
-
-      return json;
+      return new JsonObject {
+        { "endpoint", requestUri.PathAndQuery }
+      };
     }
+
 
     private string GetOperationName(HttpActionDescriptor actionDescriptor) {
       return actionDescriptor.ControllerDescriptor.ControllerType.Name + "." +
@@ -105,11 +105,17 @@ namespace Empiria.WebApi {
       if (content == null) {
         return 0;
       }
+
       if (typeof(IBaseResponseModel).IsAssignableFrom(content.ObjectType)) {
+
         return ((IBaseResponseModel) content.Value).DataItemsCount;
+
       } else if (typeof(System.Data.DataTable).IsAssignableFrom(content.ObjectType)) {
+
         return ((System.Data.DataTable) content.Value).Rows.Count;
+
       } else {
+
         return 1;
       }
     }
@@ -130,31 +136,38 @@ namespace Empiria.WebApi {
       }
     }
 
+
     private void SetErrorResponse(HttpResponseMessage response) {
       var content = response.Content as ObjectContent;
 
       if (content != null && content.ObjectType == typeof(ExceptionModel)) {
+
         JsonObject jsonObject = ((ExceptionModel) content.Value).GetAuditTrailData();
+
         base.SetResponse((int) response.StatusCode, 0, jsonObject);
+
         return;
       }
 
       string reason = "N/A";
       string source = "N/A";
+
       if (content != null && content.ObjectType == typeof(System.Web.Http.HttpError)) {
         var s = (System.Web.Http.HttpError) content.Value;
+
         reason = s.ExceptionMessage;
         source = s.ExceptionType;
+
       } else {
         reason = response.ReasonPhrase;
       }
 
-      var json = new JsonObject();
-
-      json.AddIfValue("statusCode", (int) response.StatusCode);
-      json.AddIfValue("statusName", response.StatusCode.ToString());
-      json.AddIfValue("reason", reason);
-      json.AddIfValue("source", source);
+      var json = new JsonObject {
+        { "statusCode", (int) response.StatusCode },
+        { "statusName", response.StatusCode.ToString() },
+        { "reason", reason },
+        { "source", source }
+      };
 
       base.SetResponse((int) response.StatusCode, 0, json);
     }
@@ -193,12 +206,12 @@ namespace Empiria.WebApi {
     }
 
     private void SetResponse(HttpResponse response, Exception exception) {
-      var json = new JsonObject();
-
-      json.Add("statusCode", response.StatusCode);
-      json.Add("statusName", response.Status.ToString());
-      json.Add("reason", exception.Message);
-      json.Add("source", exception.Source);
+      var json = new JsonObject {
+        { "statusCode", response.StatusCode },
+        { "statusName", response.Status.ToString() },
+        { "reason", exception.Message },
+        { "source", exception.Source }
+      };
 
       base.SetResponse(response.StatusCode, 0, json);
     }
