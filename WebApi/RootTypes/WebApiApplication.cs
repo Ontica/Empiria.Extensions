@@ -65,21 +65,20 @@ namespace Empiria.WebApi {
       Newtonsoft.Json.JsonSerializerSettings settings = JsonConverter.JsonSerializerDefaultSettings();
 
       config.Formatters.JsonFormatter.SerializerSettings = settings;
-      // config.Formatters.Remove(config.Formatters.XmlFormatter);
     }
 
 
     static private void RegisterGlobalHandlers(HttpConfiguration config) {
 
-      config.MessageHandlers.Add(new WebApiRequestValidationHandler());
+      config.MessageHandlers.Add(new AuditTrailHandler());
 
       config.MessageHandlers.Add(new WebApiResponseHandler());
 
-      config.MessageHandlers.Add(new AuditTrailHandler());
-
-      config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
+      config.MessageHandlers.Add(new WebApiSafeRequestBodyHandler());
 
       // config.MessageHandlers.Add(new StorageContextHandler());
+
+      config.Services.Replace(typeof(IExceptionHandler), new WebApiExceptionHandler());
     }
 
 
