@@ -141,8 +141,13 @@ namespace Empiria.WebApi.Internals {
       if (e is WebApiException) {
         return ((WebApiException) e).ErrorCode;
 
-      } else if (e is Security.SecurityException) {
-        return HttpErrorCode.Unauthorized;
+      } else if (e is Security.SecurityException securityEx) {
+
+        if (securityEx.DenyService) {
+          return HttpErrorCode.Unauthorized;
+        }
+
+        return HttpErrorCode.UnprocessableContent;
 
       } else if (e is ValidationException) {
         return HttpErrorCode.BadRequest;

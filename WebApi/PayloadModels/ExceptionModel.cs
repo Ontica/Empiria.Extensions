@@ -7,12 +7,13 @@
 *  Summary  : The data model returned on exception responses.                                                *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Net.Http;
 using System.Runtime.Serialization;
 
 using Empiria.Json;
-
+using Empiria.Security;
 using Empiria.WebApi.Internals;
 
 namespace Empiria.WebApi {
@@ -56,25 +57,31 @@ namespace Empiria.WebApi {
 
 
     internal JsonObject GetAuditTrailData() {
-      var json = new JsonObject();
+      var json = new JsonObject {
+        { "statusCode", (int) Data.HttpStatusCode },
+        { "errorCode", Data.ErrorCode },
+        { "errorSource", this.Data.Source },
+        { "errorMessage", this.Data.Message },
+        { "errorHint", this.Data.Hint }
+      };
 
-      json.Add("statusCode", (int) this.Data.HttpStatusCode);
-      json.Add("errorCode", this.Data.ErrorCode);
-      json.Add("errorSource", this.Data.Source);
-      json.Add("errorMessage", this.Data.Message);
-      json.Add("errorHint", this.Data.Hint);
-      if (this.Data.Issues.Length != 0) {
+      if (Data.Issues.Length != 0) {
         json.Add("issues", this.Data.Issues);
       }
-      if (this.Data.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError) {
-        json.Add("exception", this.Exception);
-        if (this.Exception.InnerException != null) {
-          json.Add("innerException", this.Exception.InnerException);
+
+      if (Data.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError) {
+
+        json.Add("exception", Exception);
+
+        if (Exception.InnerException != null) {
+          json.Add("innerException", Exception.InnerException);
         }
-        if (this.Exception.StackTrace != null) {
-          json.Add("stackTrace", this.Exception.StackTrace);
+
+        if (Exception.StackTrace != null) {
+          json.Add("stackTrace", Exception.StackTrace);
         }
       }
+
       return json;
     }
 
@@ -136,8 +143,13 @@ namespace Empiria.WebApi {
       } else if (exception is ServiceException) {
         return ResponseStatus.Unavailable;
 
-      } else if (exception is Security.SecurityException) {
-        return ResponseStatus.Denied;
+      } else if (exception is SecurityException securityException) {
+
+        if (securityException.DenyService) {
+          return ResponseStatus.Denied;
+        }
+
+        return ResponseStatus.Invalid_Request;
 
       } else if (exception is NotImplementedException) {
         return ResponseStatus.Unavailable;

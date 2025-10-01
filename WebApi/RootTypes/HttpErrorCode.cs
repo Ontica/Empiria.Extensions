@@ -8,7 +8,6 @@
 *  Summary   : Restricts the Http error status codes to a minimal set for use as Empiria web api responses.  *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 using System.Net;
 
 namespace Empiria.WebApi {
@@ -55,6 +54,13 @@ namespace Empiria.WebApi {
     /// that the request could not be carried out because of a conflict on the server.
     /// </summary>
     Conflict = HttpStatusCode.Conflict,
+
+
+    /// <summary>Equivalent to HTTP status 422. Empiria.WebApi.HttpErrorCode.UnprocessableContent
+    /// indicates that the request is well-formed and syntactically correct, but could not
+    /// be processed, e.g. due to dangerous inputs or semantical errors.
+    /// </summary>
+    UnprocessableContent = 422,
 
     /// <summary>
     /// Equivalent to HTTP status 500. Empiria.WebApi.HttpErrorCode.InternalServerError indicates

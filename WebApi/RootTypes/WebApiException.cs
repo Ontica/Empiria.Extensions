@@ -29,6 +29,7 @@ namespace Empiria.WebApi {
       ResourceMissed,
       ResourceNotFound,
       UnauthorizedResource,
+      UnprocessableContent,
     }
 
     static private string resourceBaseName = "Empiria.WebApi.RootTypes.WebApiExceptionMsg";
@@ -127,29 +128,29 @@ namespace Empiria.WebApi {
 
           case Msg.AuthenticationHeaderMissed:
           case Msg.UnauthorizedResource:
+
             return HttpErrorCode.Unauthorized;
 
           case Msg.BadAuthenticationHeaderFormat:
-            return HttpErrorCode.BadRequest;
-
           case Msg.BadBody:
-          case Msg.BadRequest:
-
+          case Msg.ResourceMissed:
           case Msg.BodyMissed:
+          case Msg.BadRequest:
+          case Msg.RequestHeaderMissed:
+
             return HttpErrorCode.BadRequest;
+
+          case Msg.UnprocessableContent:
+
+            return HttpErrorCode.UnprocessableContent;
 
           case Msg.EndpointNotFound:
           case Msg.ResourceNotFound:
+
             return HttpErrorCode.NotFound;
 
           case Msg.InvalidHttpMethod:
             return HttpErrorCode.MethodNotAllowed;
-
-          case Msg.RequestHeaderMissed:
-
-          case Msg.ResourceMissed:
-            return HttpErrorCode.BadRequest;
-
 
           default:
             throw Assertion.EnsureNoReachThisCode($"Unhandled message '{message}'.");
