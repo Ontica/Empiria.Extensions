@@ -52,7 +52,7 @@ namespace Empiria.WebApi {
     #region Public methods
 
     internal HttpResponseMessage CreateResponse() {
-      return base.Request.CreateResponse<ExceptionModel>(this.Data.HttpStatusCode, this);
+      return base.Request.CreateResponse(this.Data.HttpStatusCode, this);
     }
 
 
@@ -69,12 +69,17 @@ namespace Empiria.WebApi {
         json.Add("issues", this.Data.Issues);
       }
 
-      if (Data.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError) {
+      if (ExecutionServer.IsDevelopmentServer &&
+          Data.HttpStatusCode == System.Net.HttpStatusCode.InternalServerError) {
 
         json.Add("exception", Exception);
 
+        // json.Remove("exception/WatsonBuckets");
+
         if (Exception.InnerException != null) {
           json.Add("innerException", Exception.InnerException);
+
+          //json.Remove("innerException/WatsonBuckets");
         }
 
         if (Exception.StackTrace != null) {
@@ -90,7 +95,7 @@ namespace Empiria.WebApi {
     #region Helpers
 
     static private string GetErrorSource(HttpRequestMessage request) {
-      Assertion.Require(request, "request");
+      Assertion.Require(request, nameof(request));
 
       var actionDescriptor = request.GetActionDescriptor();
 
@@ -104,26 +109,27 @@ namespace Empiria.WebApi {
 
 
     static private ExceptionData GetExceptionData(Exception exception, HttpRequestMessage request) {
-      Assertion.Require(exception, "exception");
-      Assertion.Require(request, "request");
+      Assertion.Require(exception, nameof(exception));
+      Assertion.Require(request, nameof(request));
 
       ExceptionData exceptionData;
 
       if (ExecutionServer.IsDevelopmentServer &&
           ExceptionData.GetHttpStatusCode(exception) == HttpErrorCode.InternalServerError) {
+
         exceptionData = new ExceptionExtendedData(exception);
       } else {
         exceptionData = new ExceptionData(exception);
       }
 
-      exceptionData.Source = ExceptionModel.GetErrorSource(request);
+      exceptionData.Source = GetErrorSource(request);
 
       return exceptionData;
     }
 
 
     static private ResponseStatus GetResponseModelStatus(Exception exception) {
-      Assertion.Require(exception, "exception");
+      Assertion.Require(exception, nameof(exception));
 
       if (exception is WebApiException) {
         return ResponseStatus.Invalid_Request;
