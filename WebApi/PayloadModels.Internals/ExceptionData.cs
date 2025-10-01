@@ -10,6 +10,7 @@
 using System;
 using System.Net;
 using System.Runtime.Serialization;
+using Empiria.Json;
 
 namespace Empiria.WebApi.Internals {
 
@@ -121,18 +122,38 @@ namespace Empiria.WebApi.Internals {
       if (e is WebApiException) {
         return ((WebApiException) e).Hint;
 
+      } else if (e is ServiceException) {
+        return "Please contact the system administrator to check that all connections " +
+               "and services are running.";
+
       } else if (e is ResourceNotFoundException) {
         return "Please check each of the url parameters to point to valid resources.";
 
-      } else if (e is ServiceException) {
-        return "Please contact the system administrator to check all connections and services.";
+      } else if (e is ValidationException) {
+        return "Please check the request's body because it has wrong data.";
+
+      } else if (e is JsonDataException) {
+        return "Please check the request's body because the JSON payload is invalid.";
+
+      } else if (e is Ontology.OntologyException) {
+        return "Please contact the system administrator because there are " +
+               "system configuration or database referential integrity issues.";
+
+      } else if (e is Security.SecurityException securityEx) {
+
+        if (securityEx.DenyService) {
+          return "The access was denied because lack of compliance with security polices.";
+        }
+
+        return "Please check the request's body because the server detected " +
+               "content that could represent a security concern.";
 
       } else if (this.IsInternalServerError) {
         return "Please contact technical support with the requestId Guid on " +
                "hand in order to help them track the issue.";
 
       } else {
-        return "There is not hint defined for this kind of error.";
+        return "There is no hint defined for this kind of error.";
       }
     }
 
