@@ -71,6 +71,8 @@ namespace Empiria.WebApi {
 
     static private void RegisterGlobalHandlers(HttpConfiguration config) {
 
+      config.MessageHandlers.Add(new WebApiRequestValidationHandler());
+
       config.MessageHandlers.Add(new WebApiResponseHandler());
 
       config.MessageHandlers.Add(new AuditTrailHandler());
