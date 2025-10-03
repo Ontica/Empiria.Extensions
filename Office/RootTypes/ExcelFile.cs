@@ -80,6 +80,11 @@ namespace Empiria.Office {
     }
 
 
+    public void RemoveFormat(string startCellName, string endCellName) {
+      _excel.RemoveFormat(startCellName, endCellName);
+    }
+
+
     public void RemoveColumn(string column) {
       _excel.RemoveColumn(column);
     }

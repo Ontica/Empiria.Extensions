@@ -185,6 +185,13 @@ namespace Empiria.Office {
       _spreadsheet.DeleteColumn(column, 1);
     }
 
+
+    public void RemoveFormat(string startCellName, string endCellName) {
+      _spreadsheet.RemoveCellStyle(startCellName, endCellName);
+      _spreadsheet.ApplyNamedCellStyle(startCellName, endCellName, SLNamedCellStyleValues.Normal);
+    }
+
+
     public void SetCell(string cellName, string value) {
       if (value.StartsWith("=")) {
         value = "'" + value;
