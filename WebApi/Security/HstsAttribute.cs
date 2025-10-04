@@ -9,10 +9,12 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
-using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 using System.Web;
 using System.Web.Http.Filters;
+
 using Empiria.Security;
 
 namespace Empiria.WebApi {
@@ -20,24 +22,6 @@ namespace Empiria.WebApi {
   ///<summary>Action filter attribute to implement HTTP Strict Transport Security (HSTS)
   /// and enforce HTTPS connections.</summary>
   public class HstsAttribute : ActionFilterAttribute {
-
-    #region Properties
-
-    internal int MaxAge {
-      get;
-    } = (int) TimeSpan.FromDays(365).TotalSeconds;
-
-
-    internal bool IncludeSubDomains {
-      get;
-    } = true;
-
-
-    internal bool Preload {
-      get;
-    } = false;
-
-    #endregion Properties
 
     #region Methods
 
@@ -49,16 +33,10 @@ namespace Empiria.WebApi {
       }
 
       if (!HttpContext.Current.Request.IsSecureConnection) {
-        var exception = new SecurityException(SecurityException.Msg.HSTSRequired);
-
-        var model = new ExceptionModel(context.Request, exception);
-
-        context.Response = model.CreateResponse();
+        context.Response = BuildHstsRequiredResponse(context);
       }
 
-      if (!context.Response.Headers.Contains("Strict-Transport-Security")) {
-        context.Response.Headers.Add("Strict-Transport-Security", BuildHstsValue());
-      }
+      SetSTSHeader(context.Response.Headers);
 
       base.OnActionExecuted(context);
     }
@@ -67,18 +45,19 @@ namespace Empiria.WebApi {
 
     #region Helpers
 
-    private string BuildHstsValue() {
-      string value = $"max-age={MaxAge}";
+    private HttpResponseMessage BuildHstsRequiredResponse(HttpActionExecutedContext context) {
+      var exception = new SecurityException(SecurityException.Msg.HSTSRequired);
 
-      if (IncludeSubDomains) {
-        value += "; includeSubDomains";
-      }
+      var model = new ExceptionModel(context.Request, exception);
 
-      if (Preload) {
-        value += "; preload";
-      }
+      return model.CreateResponse();
+    }
 
-      return value;
+
+    private void SetSTSHeader(HttpResponseHeaders headers) {
+
+      headers.Remove("Strict-Transport-Security");
+      headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
     }
 
     #endregion Helpers

@@ -12,7 +12,6 @@
 
 using System;
 using System.Collections.Specialized;
-using System.Linq;
 
 using System.Web;
 using System.Web.Caching;
@@ -106,32 +105,33 @@ namespace Empiria.WebApi {
 
       string[] headersNames = headers.AllKeys;
 
-      if (!headersNames.Contains("X-Content-Type-Options")) {
-        headers.Add("X-Content-Type-Options", "nosniff");
-      }
 
-      if (!headersNames.Contains("X-Frame-Options")) {
-        headers.Add("X-Frame-Options", "DENY");
-      }
+      headers.Remove("X-Content-Type-Options");
+      headers.Add("X-Content-Type-Options", "nosniff");
 
-      if (!headersNames.Contains("X-XSS-Protection")) {
-        headers.Add("X-XSS-Protection", "1; mode=block");
-      }
 
-      if (!headersNames.Contains("Referrer-Policy")) {
-        headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
-      }
+      headers.Remove("X-Frame-Options");
+      headers.Add("X-Frame-Options", "DENY");
 
-      if (!headersNames.Contains("Content-Security-Policy")) {
-        var values = new[] { "default-src 'self'",
-                             "script-src 'none'",
-                             "style-src 'none'",
-                             "connect-src 'self'",
-                             "frame-ancestors 'none'" };
 
-        headers.Add("Content-Security-Policy", string.Join("; ", values));
-      }
+      headers.Remove("X-XSS-Protection");
+      headers.Add("X-XSS-Protection", "1; mode=block");
+
+
+      headers.Remove("Referrer-Policy");
+      headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
+
+      headers.Remove("Content-Security-Policy");
+
+      var values = new[] { "default-src 'self'",
+                           "script-src 'none'",
+                           "style-src 'none'",
+                           "connect-src 'self'",
+                           "frame-ancestors 'none'" };
+
+      headers.Add("Content-Security-Policy", string.Join("; ", values));
     }
+
 
     private void RemoveServerInformationHeaders() {
       var headers = Response.Headers;
