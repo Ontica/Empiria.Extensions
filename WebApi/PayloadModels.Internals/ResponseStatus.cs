@@ -7,7 +7,7 @@
 *  Summary  : Propietary response status returned in all Empiria Web Api payloads.                           *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
+
 
 namespace Empiria.WebApi.Internals {
 

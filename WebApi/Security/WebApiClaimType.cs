@@ -7,7 +7,6 @@
 *  Summary  : Defines Web API security claims for client applications and users.                             *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
 
 namespace Empiria.WebApi {
 

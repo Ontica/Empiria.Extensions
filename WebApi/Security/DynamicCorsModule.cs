@@ -65,7 +65,10 @@ namespace Empiria.WebApi {
 
 
     static private void OnContextBeginRequest(object sender, EventArgs e) {
+
       var context = HttpContext.Current;
+
+      SetDefaultHeaders(context.Response);
 
       string origin = context.Request.Headers["Origin"];
 
@@ -74,14 +77,24 @@ namespace Empiria.WebApi {
       }
 
       context.Response.AddHeader("Access-Control-Allow-Origin", origin);
+    }
 
-      context.Response.AddHeader("Access-Control-Allow-Credentials", "true");
 
-      context.Response.AddHeader("Access-Control-Allow-Methods",
-                                 "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    static private void SetDefaultHeaders(HttpResponse response) {
 
-      context.Response.AddHeader("Access-Control-Allow-Headers",
-                                 "Content-Type, Accept, Authorization, X-Requested-With");
+      response.Headers.Remove("Access-Control-Allow-Credentials");
+      response.AddHeader("Access-Control-Allow-Credentials", "true");
+
+      response.Headers.Remove("Access-Control-Allow-Methods");
+      response.AddHeader("Access-Control-Allow-Methods",
+                         "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+
+      response.Headers.Remove("Access-Control-Allow-Headers");
+      response.AddHeader("Access-Control-Allow-Headers",
+                         "Content-Type, Accept, Authorization, X-Requested-With");
+
+      response.Headers.Remove("Access-Control-Max-Age");
+      response.Headers.Add("Access-Control-Max-Age", "3600");
     }
 
     #endregion Helpers

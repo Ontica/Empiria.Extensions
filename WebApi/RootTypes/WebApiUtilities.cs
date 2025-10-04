@@ -7,6 +7,7 @@
 *  Summary  : Internal static class with general purpose methods used by web api core services.              *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
+
 using System;
 using System.Net.Http;
 using System.Web;

@@ -23,6 +23,7 @@ namespace Empiria.WebApi {
     #region Fields
 
     static private readonly string KeyName = "EMPIRIA_WEB_API_REQUEST_OBJECT";
+
     static private readonly object _syncRoot = new object();
 
     #endregion Fields
@@ -30,9 +31,9 @@ namespace Empiria.WebApi {
     #region Constructors and parsers
 
     private WebApiRequest() {
-      this.StartTime = DateTime.Now;
-      this.Guid = Guid.NewGuid();
-      this.AppliedToId = -1;
+      StartTime = DateTime.Now;
+      Guid = Guid.NewGuid();
+      AppliedToId = -1;
     }
 
     static public WebApiRequest Current {
@@ -54,23 +55,19 @@ namespace Empiria.WebApi {
     #region Properties
 
     public Guid Guid {
-      get;
-      private set;
+      get; private set;
     }
 
     public IEmpiriaPrincipal Principal {
-      get;
-      private set;
+      get; private set;
     }
 
     public DateTime StartTime {
-      get;
-      private set;
+      get; private set;
     }
 
     public int AppliedToId {
-      get;
-      private set;
+      get; private set;
     }
 
     #endregion Properties
@@ -80,7 +77,7 @@ namespace Empiria.WebApi {
     internal void SetPrincipal(IEmpiriaPrincipal principal) {
       Assertion.Require(principal, nameof(principal));
 
-      this.Principal = principal;
+      Principal = principal;
     }
 
     #endregion Methods
