@@ -93,7 +93,7 @@ namespace Empiria.WebApi.Internals {
       string temp = e.GetType().Name;
 
       if (e is EmpiriaException empiriaEx) {
-        temp = $".{empiriaEx.ExceptionTag}";
+        temp = $"{temp}.{empiriaEx.ExceptionTag}";
       }
 
       return temp;
