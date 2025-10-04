@@ -11,7 +11,6 @@
 using System;
 using System.Net;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.ExceptionHandling;
 
 using Empiria.Json;
@@ -23,7 +22,7 @@ namespace Empiria.WebApi {
 
     #region Fields
 
-    static private readonly bool HSTS_ENABLED = ConfigurationData.Get("Hsts.Enabled", true);
+    static internal readonly bool HSTS_ENABLED = ConfigurationData.Get("Hsts.Enabled", true);
 
     #endregion Fields
 
@@ -105,12 +104,6 @@ namespace Empiria.WebApi {
     #region Methods
 
     static internal void RegisterCallback(HttpConfiguration config) {
-
-      // To enable CORS
-      var cors = new EnableCorsAttribute("*", "*", "*");
-      config.EnableCors(cors);
-
-      // config.SuppressHostPrincipal();
 
       // To enable attribute routing
       config.MapHttpAttributeRoutes();
