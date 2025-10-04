@@ -121,6 +121,16 @@ namespace Empiria.WebApi {
       if (!headersNames.Contains("Referrer-Policy")) {
         headers.Add("Referrer-Policy", "strict-origin-when-cross-origin");
       }
+
+      if (!headersNames.Contains("Content-Security-Policy")) {
+        var values = new[] { "default-src 'self'",
+                             "script-src 'none'",
+                             "style-src 'none'",
+                             "connect-src 'self'",
+                             "frame-ancestors 'none'" };
+
+        headers.Add("Content-Security-Policy", string.Join("; ", values));
+      }
     }
 
     private void RemoveServerInformationHeaders() {
