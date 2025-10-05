@@ -45,7 +45,7 @@ namespace Empiria.WebApi {
 
     #region Helpers
 
-    private static bool IsAllowed(string origin) {
+    static private bool IsAllowed(string origin) {
       var uri = new Uri(origin);
 
       if (WebApiApplication.HSTS_ENABLED && uri.Scheme.ToLower() != "https") {
@@ -68,14 +68,17 @@ namespace Empiria.WebApi {
 
       var context = HttpContext.Current;
 
-      SetDefaultHeaders(context.Response);
-
       string origin = context.Request.Headers["Origin"];
 
-      if (string.IsNullOrEmpty(origin) || !IsAllowed(origin)) {
+      if (string.IsNullOrWhiteSpace(origin)) {
+        origin = TryDetermineRequestOrigin(context.Request);
+      }
+
+      if (string.IsNullOrWhiteSpace(origin) || !IsAllowed(origin)) {
         return;
       }
 
+      SetDefaultHeaders(context.Response);
       context.Response.AddHeader("Access-Control-Allow-Origin", origin);
     }
 
@@ -95,6 +98,34 @@ namespace Empiria.WebApi {
 
       response.Headers.Remove("Access-Control-Max-Age");
       response.Headers.Add("Access-Control-Max-Age", "3600");
+    }
+
+
+
+    static private string TryDetermineRequestOrigin(HttpRequest request) {
+      string origin = request.Headers["Referer"];
+
+      if (string.IsNullOrEmpty(origin)) {
+        return null;
+      }
+
+      var uri = new Uri(origin);
+
+      string scheme = uri.Scheme.ToLower();
+
+      if (WebApiApplication.HSTS_ENABLED && scheme != "https") {
+        return null;
+      }
+
+      if (_allowedHosts.Length == 0) {
+        return $"{scheme}://{uri.Host}";
+      }
+
+      if (_allowedHosts.Contains(uri.Host, StringComparer.OrdinalIgnoreCase)) {
+        return $"{scheme}://{uri.Host}";
+      }
+
+      return null;
     }
 
     #endregion Helpers

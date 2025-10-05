@@ -36,7 +36,7 @@ namespace Empiria.WebApi {
         context.Response = BuildHstsRequiredResponse(context);
       }
 
-      SetSTSHeader(context.Response.Headers);
+      SetHstsHeader(context.Response.Headers);
 
       base.OnActionExecuted(context);
     }
@@ -54,7 +54,7 @@ namespace Empiria.WebApi {
     }
 
 
-    private void SetSTSHeader(HttpResponseHeaders headers) {
+    private void SetHstsHeader(HttpResponseHeaders headers) {
 
       headers.Remove("Strict-Transport-Security");
       headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
