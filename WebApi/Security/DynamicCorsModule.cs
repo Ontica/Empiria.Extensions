@@ -68,18 +68,19 @@ namespace Empiria.WebApi {
 
       var context = HttpContext.Current;
 
-      string origin = context.Request.Headers["Origin"];
+      //string origin = context.Request.Headers["Origin"];
 
-      if (string.IsNullOrWhiteSpace(origin)) {
-        origin = TryDetermineRequestOrigin(context.Request);
-      }
+      //if (string.IsNullOrWhiteSpace(origin)) {
+      //  origin = TryDetermineRequestOrigin(context.Request);
+      //}
 
-      if (string.IsNullOrWhiteSpace(origin) || !IsAllowed(origin)) {
-        return;
-      }
+      //if (string.IsNullOrWhiteSpace(origin) || !IsAllowed(origin)) {
+      //  return;
+      //}
 
-      SetDefaultHeaders(context.Response);
-      context.Response.AddHeader("Access-Control-Allow-Origin", origin);
+      //SetDefaultHeaders(context.Response);
+      //context.Response.AddHeader("Access-Control-Allow-Origin", "*");
+      //context.Response.AddHeader("Access-Control-Allow-Origin", origin);
     }
 
 
@@ -90,11 +91,11 @@ namespace Empiria.WebApi {
 
       response.Headers.Remove("Access-Control-Allow-Methods");
       response.AddHeader("Access-Control-Allow-Methods",
-                         "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+                         "*");
 
       response.Headers.Remove("Access-Control-Allow-Headers");
       response.AddHeader("Access-Control-Allow-Headers",
-                         "Content-Type, Accept, Authorization, X-Requested-With");
+                         "*");
 
       response.Headers.Remove("Access-Control-Max-Age");
       response.Headers.Add("Access-Control-Max-Age", "3600");

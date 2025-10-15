@@ -11,6 +11,7 @@
 using System;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ExceptionHandling;
 
 using Empiria.Json;
@@ -104,6 +105,10 @@ namespace Empiria.WebApi {
     #region Methods
 
     static internal void RegisterCallback(HttpConfiguration config) {
+
+      // To enable CORS
+      var cors = new EnableCorsAttribute("*", "*", "*");
+      config.EnableCors(cors);
 
       // To enable attribute routing
       config.MapHttpAttributeRoutes();
