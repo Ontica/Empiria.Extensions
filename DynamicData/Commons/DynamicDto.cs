@@ -13,14 +13,20 @@ namespace Empiria.DynamicData {
   /// <summary>Holds a dynamic result after a query execution.</summary>
   public class DynamicDto<T> {
 
-    public DynamicDto(IQuery query, FixedList<DataTableColumn> columns, FixedList<T> entries) {
-      Assertion.Require(query, nameof(query));
+    public DynamicDto(FixedList<DataTableColumn> columns, FixedList<T> entries) {
       Assertion.Require(columns, nameof(columns));
       Assertion.Require(entries, nameof(entries));
 
-      Query = query;
       Columns = columns;
       Entries = entries;
+    }
+
+    public DynamicDto(IQuery query,
+                      FixedList<DataTableColumn> columns,
+                      FixedList<T> entries) : this(columns, entries) {
+      Assertion.Require(query, nameof(query));
+
+      Query = query;
     }
 
 
