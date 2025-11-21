@@ -131,6 +131,7 @@ namespace Empiria.WebApi {
       return GetInputFileFromHttpRequest(string.Empty);
     }
 
+
     protected InputFile GetInputFileFromHttpRequest(string applicationContentType) {
       var httpRequest = HttpContext.Current.Request;
 
@@ -146,6 +147,34 @@ namespace Empiria.WebApi {
         file.FileName,
         applicationContentType
       );
+    }
+
+
+    protected InputFileCollection GetInputFilesFromHttpRequest(string applicationContentType) {
+      Assertion.Require(applicationContentType, nameof(applicationContentType));
+
+      var httpRequest = HttpContext.Current.Request;
+
+      Assertion.Require(httpRequest, nameof(httpRequest));
+
+      Assertion.Require(httpRequest.Files.Count > 0,
+                        "The request does not have any file to be imported.");
+
+      var files = new InputFileCollection();
+
+      foreach (string key in httpRequest.Files.Keys) {
+        HttpPostedFile file = httpRequest.Files[key];
+
+        var inputFile = new InputFile(
+            file.InputStream,
+            file.ContentType,
+            file.FileName,
+            applicationContentType);
+
+        files.Insert(key, inputFile);
+      }
+
+      return files;
     }
 
 
