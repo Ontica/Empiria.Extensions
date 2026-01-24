@@ -8,6 +8,8 @@
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 
+using System.IO;
+
 using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -36,6 +38,12 @@ namespace Empiria.Office {
     #region Public Methods
 
     public void Convert(string html, string fullPdfPath, PdfConverterOptions options) {
+      Assertion.Require(html, nameof(html));
+      Assertion.Require(fullPdfPath, nameof(fullPdfPath));
+      Assertion.Require(options, nameof(options));
+
+      EnsureDirectoryExists(fullPdfPath);
+
       if (options.Landscape) {
         ConvertLandscape(html, fullPdfPath, options);
         return;
@@ -52,6 +60,10 @@ namespace Empiria.Office {
       }  // pdfWriter
 
     }
+
+    #endregion Public Methods
+
+    #region Helpers
 
     private void ConvertLandscape(string html, string fullPdfPath, PdfConverterOptions options) {
 
@@ -78,7 +90,15 @@ namespace Empiria.Office {
       }  // pdfWriter
     }
 
-    #endregion Public Methods
+
+    private void EnsureDirectoryExists(string fullPdfPath) {
+
+      if (!Directory.Exists(fullPdfPath)) {
+        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(fullPdfPath));
+      }
+    }
+
+    #endregion Helpers
 
   }  // class HtmlToPdfConverter
 
