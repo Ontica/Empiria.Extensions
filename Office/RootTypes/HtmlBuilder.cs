@@ -91,6 +91,16 @@ namespace Empiria.Office {
     }
 
 
+    protected void Set(string oldValue, decimal newValue) {
+      _builder.Replace(oldValue, newValue.ToString("C2"));
+    }
+
+
+    protected void Set(string oldValue, DateTime dateTime) {
+      _builder.Replace(oldValue, dateTime.ToString("dd/MMM/yyyy"));
+    }
+
+
     protected void SetIf(string oldValue, bool condition, string newValue) {
       if (condition) {
         _builder.Replace(oldValue, newValue);
@@ -100,13 +110,12 @@ namespace Empiria.Office {
     }
 
 
-    protected void Set(string oldValue, decimal newValue) {
-      _builder.Replace(oldValue, newValue.ToString("C2"));
-    }
-
-
-    protected void Set(string oldValue, DateTime dateTime) {
-      _builder.Replace(oldValue, dateTime.ToString("dd/MMM/yyyy"));
+    protected void SetIf(string oldValue, bool condition, string trueValue, string falseValue) {
+      if (condition) {
+        _builder.Replace(oldValue, trueValue);
+      } else {
+        _builder.Replace(oldValue, falseValue);
+      }
     }
 
 
@@ -155,6 +164,11 @@ namespace Empiria.Office {
 
     protected string Space(int count) {
       return EmpiriaString.Duplicate(" &nbsp; ", count);
+    }
+
+
+    protected string Strong(string value) {
+      return $"<strong>{value}</strong>";
     }
 
 
