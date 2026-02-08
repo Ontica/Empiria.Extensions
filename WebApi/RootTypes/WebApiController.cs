@@ -24,6 +24,27 @@ using Empiria.Storage;
 
 namespace Empiria.WebApi {
 
+
+  public class BulkOperationCommand {
+
+    public string[] Items {
+      get; set;
+    }
+
+  }  // class BulkOperationCommand
+
+
+
+  public class MessageFields {
+
+    public string Message {
+      get; set;
+    } = "No se indicó el motivo.";
+
+  }  // class MessageFields
+
+
+
   /// <summary>Defines the methods, properties, and events common to all Web API controller
   ///types used by Empiria ASP.NET Web API platform.</summary>
   public class WebApiController : ApiController {
