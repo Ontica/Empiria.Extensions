@@ -46,7 +46,10 @@ namespace Empiria.DynamicData {
         LinkField = json.Get("linkField", string.Empty),
         Formula = json.Get("formula", string.Empty),
         Tags = json.Get("tags", string.Empty),
-        Hidden = json.Get("hidden", false)
+        Hidden = json.Get("hidden", false),
+        Size = json.Get<string>("size", null),
+        Truncate = json.Get("truncate", false),
+        TooltipField = json.Get<string>("tooltipField", null),
       };
     }
 
@@ -99,15 +102,31 @@ namespace Empiria.DynamicData {
       }
     }
 
-
     public bool Show {
       get {
         return !Hidden;
       }
     }
 
-
     private bool Hidden {
+      get; set;
+    }
+
+    public string Size {
+      get; set;
+    }
+
+    public bool Truncate {
+      get; set;
+    }
+
+    public bool ShowTooltip {
+      get {
+        return !string.IsNullOrEmpty(TooltipField);
+      }
+    }
+
+    public string TooltipField {
       get; set;
     }
 
