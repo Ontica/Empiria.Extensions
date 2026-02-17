@@ -22,7 +22,7 @@ namespace Empiria.DynamicData {
     }
 
 
-    public DataTableColumn(string field, string title, string type, int digits = 2, string linkField = "") {
+    public DataTableColumn(string field, string title, string type, int digits = 2, string linkField = "", string action = "") {
       Field = field;
       Title = title;
       Type = type;
@@ -30,7 +30,9 @@ namespace Empiria.DynamicData {
       if (type == "decimal") {
         Digits = digits;
       }
+
       LinkField = linkField;
+      Action = action;
     }
 
 
@@ -44,6 +46,7 @@ namespace Empiria.DynamicData {
         Digits = json.Get("digits", 2),
         Column = json.Get("column", string.Empty),
         LinkField = json.Get("linkField", string.Empty),
+        Action = json.Get("action", string.Empty),
         Formula = json.Get("formula", string.Empty),
         Tags = json.Get("tags", string.Empty),
         Hidden = json.Get("hidden", false),
@@ -62,21 +65,21 @@ namespace Empiria.DynamicData {
       get; private set;
     }
 
-
     public string LinkField {
       get; private set;
     }
 
+    public string Action {
+      get; private set;
+    }
 
     public string Title {
       get; private set;
     }
 
-
     public string Type {
       get; private set;
     }
-
 
     public string Column {
       get; private set;
