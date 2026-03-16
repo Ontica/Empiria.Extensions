@@ -113,6 +113,31 @@ namespace Empiria.Office {
     }
 
 
+    public bool HasValue<T>(string cellName) {
+      if (IsEmpty(cellName, true)) {
+        return false;
+      }
+
+      string stringValue = ReadCellValue<string>(cellName);
+
+      if (typeof(T) == typeof(decimal)) {
+        return EmpiriaString.IsCurrency(stringValue);
+      } else if (typeof(T) == typeof(string)) {
+        return true;
+      } else if (typeof(T) == typeof(DateTime)) {
+        return EmpiriaString.IsDate(stringValue);
+      } else if (typeof(T) == typeof(Int32)) {
+        return EmpiriaString.IsInteger(stringValue);
+      } else if (typeof(T) == typeof(Int64)) {
+        return Int64.TryParse(stringValue, out _);
+      } else if (typeof(T) == typeof(bool)) {
+        return EmpiriaString.IsBoolean(stringValue);
+      } else {
+        return false;
+      }
+    }
+
+
     public void IndentCell(string cellName, int value) {
       SLStyle style = new SLStyle();
 
