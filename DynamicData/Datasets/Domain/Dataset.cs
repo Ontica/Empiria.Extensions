@@ -131,7 +131,7 @@ namespace Empiria.DynamicData.Datasets {
 
     internal string FileUrl {
       get {
-        return "http://server/sicofin/files/archivo.xlsx";
+        return "http://server/files/archivo.xlsx";
       }
     }
 
@@ -159,19 +159,19 @@ namespace Empiria.DynamicData.Datasets {
 
 
     private void LoadData(DatasetInputDto baseData) {
-      this.DatasetFamily  = DatasetFamily.Parse(baseData.DatasetFamilyUID);
-      _datasetKind        = baseData.DatasetKind;
-      this.OperationDate  = baseData.Date;
-      this.UpdatedTime    = DateTime.Now;
-      this.UploadedBy     = ExecutionServer.CurrentContact;
+      this.DatasetFamily = DatasetFamily.Parse(baseData.DatasetFamilyUID);
+      _datasetKind = baseData.DatasetKind;
+      this.OperationDate = baseData.Date;
+      this.UpdatedTime = DateTime.Now;
+      this.UploadedBy = ExecutionServer.CurrentContact;
     }
 
 
     private void LoadFileData(InputFile fileData, FileInfo fileInfo) {
       this.OriginalFileName = fileData.OriginalFileName;
-      this.MediaType        = fileData.MediaType;
-      this.FileName         = fileInfo.Name;
-      this.MediaLength      = (int) fileInfo.Length;
+      this.MediaType = fileData.MediaType;
+      this.FileName = fileInfo.Name;
+      this.MediaLength = (int) fileInfo.Length;
     }
 
 

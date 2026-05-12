@@ -9,5 +9,5 @@ GENERAL PUBLIC LICENSE.
 
 ## Copyright
 
-Copyright © 2016-2025. La Vía Óntica SC, Ontica LLC y autores.
+Copyright © 2016-2026. La Vía Óntica SC, Ontica LLC y autores.
 Todos los derechos reservados.
