@@ -7,8 +7,6 @@
 *  Summary  : Use cases used to update and retrieve external values.                                         *
 *                                                                                                            *
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
-using System;
-
 using Empiria.Services;
 using Empiria.Storage;
 
@@ -70,6 +68,14 @@ namespace Empiria.DynamicData.ExternalData.UseCases {
       }
 
       return GetDatasetsLoadStatus(dto);
+    }
+
+
+    public ExternalValue GetExternalValue(ExternalVariable variable, int year) {
+      Assertion.Require(variable, nameof(variable));
+
+      return ExternalValuesData.GetValues(variable)
+                               .Find(x => x.ApplicationDate.Year == year);
     }
 
 
