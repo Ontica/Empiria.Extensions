@@ -86,6 +86,11 @@ namespace Empiria.DynamicData {
     } = string.Empty;
 
 
+    public string Align {
+      get; set;
+    } = string.Empty;
+
+
     public int Digits {
       get; private set;
     }
@@ -132,7 +137,6 @@ namespace Empiria.DynamicData {
     public string TooltipField {
       get; set;
     }
-
 
     #endregion Properties
 

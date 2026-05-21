@@ -15,6 +15,8 @@ namespace Empiria.DynamicData {
 
     Entry,
 
+    Group,
+
     Group1,
 
     Group2,
@@ -28,6 +30,8 @@ namespace Empiria.DynamicData {
     Group6,
 
     Subtotal,
+
+    Summary,
 
     Total
 
