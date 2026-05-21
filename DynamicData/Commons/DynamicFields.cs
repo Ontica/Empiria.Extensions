@@ -40,6 +40,15 @@ namespace Empiria.DynamicData {
     }
 
 
+    public T GetField<T>(string fieldName, T defaultValue = default) {
+      if (_fields.ContainsKey(fieldName)) {
+        return (T) _fields[fieldName];
+      } else {
+        return defaultValue;
+      }
+    }
+
+
     public decimal GetTotalField(string fieldName) {
       if (_fields.ContainsKey(fieldName)) {
         return (decimal) _fields[fieldName];
@@ -48,6 +57,14 @@ namespace Empiria.DynamicData {
       }
     }
 
+
+    public void SetField(string fieldName, string value) {
+      if (_fields.ContainsKey(fieldName)) {
+        _fields[fieldName] = value;
+      } else {
+        _fields.Add(fieldName, value);
+      }
+    }
 
     public void SetTotalField(string fieldName, decimal value) {
       if (_fields.ContainsKey(fieldName)) {
