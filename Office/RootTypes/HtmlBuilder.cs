@@ -62,6 +62,16 @@ namespace Empiria.Office {
     }
 
 
+    public string GetSection(string sectionName, string html) {
+      int startIndex = html.IndexOf("{{" + sectionName + ".START}}");
+      int endIndex = html.IndexOf("{{" + sectionName + ".END}}");
+
+      html = html.Substring(startIndex, endIndex - startIndex);
+
+      return html.Replace("{{" + sectionName + ".START}}", string.Empty);
+    }
+
+
     protected void Hide(string value) {
       _builder.Replace(value, "hide");
     }
@@ -73,6 +83,11 @@ namespace Empiria.Office {
       } else {
         Remove(value);
       }
+    }
+
+
+    protected string NewLine(int count) {
+      return EmpiriaString.Duplicate("<br/>", count);
     }
 
 
@@ -120,12 +135,17 @@ namespace Empiria.Office {
 
 
     protected void SetSection(string sectionName, string html) {
-      int startIndex = _builder.ToString().IndexOf("{{" + sectionName + ".START}}");
-      int endIndex = _builder.ToString().IndexOf("{{" + sectionName + ".END}}");
+      SetSection(_builder, sectionName, html);
+    }
 
-      _builder.Remove(startIndex, endIndex - startIndex);
 
-      _builder.Replace("{{" + sectionName + ".END}}", html);
+    protected void SetSection(StringBuilder builder, string sectionName, string html) {
+      int startIndex = builder.ToString().IndexOf("{{" + sectionName + ".START}}");
+      int endIndex = builder.ToString().IndexOf("{{" + sectionName + ".END}}");
+
+      builder.Remove(startIndex, endIndex - startIndex);
+
+      builder.Replace("{{" + sectionName + ".END}}", html);
     }
 
 
