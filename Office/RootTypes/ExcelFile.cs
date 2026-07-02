@@ -143,6 +143,14 @@ namespace Empiria.Office {
     }
 
 
+    public void SetCellIfValue(string cell, DateTime value) {
+      if (ExecutionServer.IsMinOrMaxDate(value)) {
+        return;
+      }
+      SetCell(cell, value);
+    }
+
+
     public void SetCellIfValue(string cell, decimal value) {
       if (_excel != null && value != 0) {
         _excel.SetCell(cell, value);
