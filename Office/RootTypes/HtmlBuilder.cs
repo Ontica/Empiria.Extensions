@@ -40,6 +40,13 @@ namespace Empiria.Office {
 
     abstract protected void Build();
 
+    public FileDto CreatePdf(string relativePath) {
+      Assertion.Require(relativePath, nameof(relativePath));
+
+      return CreatePdf(relativePath, string.Empty);
+    }
+
+
     public FileDto CreatePdf(string relativePath, string fileNamePrefix) {
 
       Build();
