@@ -107,24 +107,34 @@ namespace Empiria.Data.Handlers {
 
 
     public int Execute(IDbTransaction transaction, DataOperation operation) {
-      var command = new OracleCommand(operation.SourceName,
-                                      (OracleConnection) transaction.Connection);
+      var oracleTransaction = (OracleTransaction) transaction;
+
+      var command = new OracleCommand(
+          operation.SourceName,
+          (OracleConnection) oracleTransaction.Connection);
+
+      command.Transaction = oracleTransaction;
 
       try {
-        operation.PrepareCommand(command);
 
-        TryOpenConnection((OracleConnection) transaction.Connection);
+        operation.PrepareCommand(command);
 
         return command.ExecuteNonQuery();
 
       } catch (ServiceException) {
+
         throw;
 
       } catch (Exception exception) {
-        throw new EmpiriaDataException(EmpiriaDataException.Msg.CannotExecuteActionQuery,
-                                       exception, operation.SourceName, operation.ParametersToString());
+
+        throw new EmpiriaDataException(
+          EmpiriaDataException.Msg.CannotExecuteActionQuery,
+          exception,
+          operation.SourceName,
+          operation.ParametersToString());
 
       } finally {
+
         command.Parameters.Clear();
       }
     }
