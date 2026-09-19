@@ -11,7 +11,10 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 using Empiria.Json;
 using Empiria.Reflection;
@@ -189,6 +192,13 @@ namespace Empiria.WebApi.Client {
 
     #region Helpers
 
+    private HttpContent BuildJsonContent<T>(T body) {
+      string json = JsonConvert.SerializeObject(body, Json.JsonConverter.JsonSerializerDefaultSettings());
+
+      return new StringContent(json, Encoding.UTF8, "application/json");
+    }
+
+
     private async Task<T> ConvertHttpContentAsync<T>(HttpResponseMessage response, string path) {
 
       await EnsureSuccessStatus(response, path);
@@ -216,7 +226,7 @@ namespace Empiria.WebApi.Client {
 
       } else if (scope.Length == 0 && typeof(T) != typeof(JsonObject)) {
 
-        return JsonConverter.ToObject<T>(json.ToString());
+        return Json.JsonConverter.ToObject<T>(json.ToString());
 
       }
 
@@ -245,10 +255,10 @@ namespace Empiria.WebApi.Client {
       var content = await response.Content.ReadAsStringAsync()
                                           .ConfigureAwait(false);
 
-      throw new WebApiClientException(response, WebApiClientException.Msg.HttpNoSuccessStatusCode,
+      throw new WebApiClientException(response, content,
+                                      WebApiClientException.Msg.HttpNoSuccessStatusCode,
                                       response.StatusCode,
-                                      $"{this.httpClient.BaseAddress}/{path}",
-                                      content);
+                                      $"{this.httpClient.BaseAddress}/{path}");
     }
 
 
@@ -257,10 +267,10 @@ namespace Empiria.WebApi.Client {
         return httpClient.GetAsync(fullPath);
 
       } else if (method == HttpMethod.Post) {
-        return httpClient.PostAsJsonAsync(fullPath, body);
+        return httpClient.PostAsync(fullPath, BuildJsonContent(body));
 
       } else if (method == HttpMethod.Put) {
-        return httpClient.PutAsJsonAsync(fullPath, body);
+        return httpClient.PutAsync(fullPath, BuildJsonContent(body));
 
       } else if (method == HttpMethod.Delete) {
         return httpClient.DeleteAsync(fullPath);
