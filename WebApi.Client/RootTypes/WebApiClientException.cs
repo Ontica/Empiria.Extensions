@@ -12,6 +12,8 @@ using System;
 using System.Net.Http;
 using System.Reflection;
 
+using Empiria.Json;
+
 namespace Empiria.WebApi {
 
   /// <summary>The exception that is thrown when a web api client call fails.</summary>
@@ -20,6 +22,8 @@ namespace Empiria.WebApi {
     public enum Msg {
 
       HttpNoSuccessStatusCode,
+
+      RemoteServerException,
 
       UndefinedServiceUIDOrEndpoint,
 
@@ -36,10 +40,13 @@ namespace Empiria.WebApi {
     /// message.</summary>
     /// <param name="message">Used to indicate the description of the exception.</param>
     /// <param name="args">An optional array of objects to format into the exception message.</param>
-    public WebApiClientException(HttpResponseMessage response, Msg message, params object[] args)
-                           : base(message.ToString(), GetMessage(message, args)) {
+    public WebApiClientException(HttpResponseMessage response, string responseContent,
+                                 Msg message, params object[] args)
+                           : base(message.ToString(), GetReponseContentMessage(responseContent, message, args)) {
       this.Response = response;
+      this.ResponseContent = responseContent;
     }
+
 
     /// <summary>Initializes a new instance of WebApiClientException class with a specified error
     /// message.</summary>
@@ -58,6 +65,12 @@ namespace Empiria.WebApi {
     public WebApiClientException(Msg message, Exception innerException, params object[] args)
                           : base(message.ToString(), GetMessage(message, args), innerException) {
 
+    }
+
+    public WebApiClientException(Msg message, WebApiClientException innerException)
+                          : base(message.ToString(), GetMessage(message, innerException), innerException) {
+      this.Response = innerException.Response;
+      this.ResponseContent = innerException.ResponseContent;
     }
 
     #endregion Constructors and parsers
@@ -79,11 +92,60 @@ namespace Empiria.WebApi {
     }
 
 
-    static private string GetMessage(Msg message, params object[] args) {
-      return GetResourceMessage(message.ToString(), resourceBaseName, Assembly.GetExecutingAssembly(), args);
+    public string ResponseContent {
+      get;
+    }
+
+
+    public JsonObject TryGetResponseContentAsJson() {
+      return TryGetResponseContentAsJson(ResponseContent);
     }
 
     #endregion Methods
+
+    #region Helpers
+
+    static private string GetMessage(Msg message, params object[] args) {
+
+      return GetResourceMessage(message.ToString(), resourceBaseName, Assembly.GetExecutingAssembly(), args);
+    }
+
+
+    static private string GetMessage(Msg message, WebApiClientException innerException) {
+
+      return GetReponseContentMessage(innerException.ResponseContent, message);
+    }
+
+
+    static private string GetReponseContentMessage(string responseContent,
+                                                   Msg message, params object[] args) {
+      string msg = GetMessage(message, args);
+
+      JsonObject json = TryGetResponseContentAsJson(responseContent);
+
+      if (json == null) {
+        return msg;
+      }
+      if (json.Contains("data/errorMessage")) {
+        return $"{msg}: {json.Get<string>("data/errorMessage")}";
+      } else {
+        return msg;
+      }
+    }
+
+
+    static private JsonObject TryGetResponseContentAsJson(string content) {
+      if (content == null) {
+        return null;
+      }
+      try {
+        return JsonConverter.ToJsonObject(content);
+      } catch {
+        return null;
+      }
+    }
+
+    #endregion Helpers
 
   } // class WebApiClientException
 

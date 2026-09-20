@@ -73,9 +73,12 @@ namespace Empiria.WebApi.Client {
         await _handler.DeleteAsync(path, pars);
 
       } catch (WebApiClientException e) {
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
+
         await _handler.DeleteAsync(path, pars);
       }
     }
@@ -88,9 +91,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         return await _handler.DeleteAsync<T>(path, pars);
       }
@@ -104,9 +109,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         return await _handler.GetAsync<T>(path, pars);
       }
@@ -120,9 +127,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         await _handler.PostAsync(path, pars);
       }
@@ -136,9 +145,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         await _handler.PostAsync(body, path, pars);
       }
@@ -152,9 +163,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         return await _handler.PostAsync<T>(path, pars);
       }
@@ -168,9 +181,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         return await _handler.PostAsync<T>(body, path, pars);
       }
@@ -184,9 +199,11 @@ namespace Empiria.WebApi.Client {
 
       } catch (WebApiClientException e) {
 
-        if (e.IsUnauthorized) {
-          Reauthenticate();
+        if (!e.IsUnauthorized) {
+          throw new WebApiClientException(WebApiClientException.Msg.RemoteServerException, e);
         }
+
+        Reauthenticate();
 
         return await _handler.PutAsync<T>(body, path, pars);
       }
