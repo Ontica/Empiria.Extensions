@@ -170,6 +170,28 @@ namespace Empiria.WebApi {
       );
     }
 
+    protected InputFileCollection GetAllInputFilesFromHttpRequest() {
+
+      var httpRequest = HttpContext.Current.Request;
+
+      Assertion.Require(httpRequest, nameof(httpRequest));
+
+      var files = new InputFileCollection();
+
+      foreach (string key in httpRequest.Files.Keys) {
+        HttpPostedFile file = httpRequest.Files[key];
+
+        var inputFile = new InputFile(
+            file.InputStream,
+            file.ContentType,
+            file.FileName);
+
+        files.Insert(key, inputFile);
+      }
+
+      return files;
+    }
+
 
     protected InputFileCollection GetInputFilesFromHttpRequest(string applicationContentType) {
       Assertion.Require(applicationContentType, nameof(applicationContentType));
