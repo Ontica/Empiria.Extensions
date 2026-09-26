@@ -74,6 +74,8 @@ namespace Empiria.WebApi {
 
       config.MessageHandlers.Add(new WebApiResponseHandler());
 
+      config.MessageHandlers.Add(new WebApiSafeRequestUrlHandler());
+
       config.MessageHandlers.Add(new WebApiSafeRequestBodyHandler());
 
       // config.MessageHandlers.Add(new StorageContextHandler());
